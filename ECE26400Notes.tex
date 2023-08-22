@@ -6,6 +6,15 @@
 \usepackage{clrscode3e}
 \usepackage{hyperref}
 \usepackage[activate={true,nocompatibility},final,tracking=true,kerning=true,spacing=true,factor=1100,stretch=10,shrink=10]{microtype}
+\usepackage{color}
+\usepackage{xcolor}
+\usepackage{listings}
+
+\usepackage{caption}
+\DeclareCaptionFont{white}{\color{white}}
+\DeclareCaptionFormat{listing}{\colorbox{gray}{\parbox{\textwidth}{#1#2#3}}}
+\captionsetup[lstlisting]{format=listing,labelfont=white,textfont=white}
+
 \usepackage{tikz}
 \usepackage{amsmath,amsthm}
 \usetikzlibrary{shapes}
@@ -56,8 +65,23 @@ These are lecture notes for fall 2023 ECE 26400 at Purdue. Modify, use, and dist
 \section{Course Introduction}
 This class will be taught by Joy Xiaoqian Wang. There will be four online exams, 
 weekly online quizzes, and 20 homework assignments. For more information, 
-consult the syllabus by visiting \href{https://github.com/ezekielulrich/Notes/blob/d83855d25b40c224ce70b0b46ae6a86adc5a783f/ECE%20264%20Fall%202023%20Syllabus.pdf}{https://github.com/ezekielulrich/Notes/blob/d83855d25b40c224ce70b0b46ae6a86adc5a783f/ECE%20264%20Fall%202023%20Syllabus.pdf}.
+consult the syllabus by clicking \href{https://github.com/ezekielulrich/Notes/blob/d83855d25b40c224ce70b0b46ae6a86adc5a783f/ECE%20264%20Fall%202023%20Syllabus.pdf}{here}.
 
 \section{Tools}
+
+This is sample text to outline how notes will be structured. 
+Notes will be a combination of text, code snippets, and math (when appropriate). 
+Marginalia will contain details and explanations that 
+would otherwise interrupt the notes. 
+
+\begin{lstlisting}[label=some-code,caption=Example Code]
+#include <stdio.h>
+int main() {
+   printf("Hello, World!");
+   return 0;
+}
+\end{lstlisting}
+
+\marginnote{Listing 1 is an example code snippet}
 
 \end{document}
