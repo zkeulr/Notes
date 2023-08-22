@@ -1,0 +1,63 @@
+\documentclass{tufte-handout}
+
+%\\geometry{showframe}% for debugging purposes -- displays the margins
+
+\newcommand{\bra}[1]{\left(#1\right)}
+\usepackage{clrscode3e}
+\usepackage{hyperref}
+\usepackage[activate={true,nocompatibility},final,tracking=true,kerning=true,spacing=true,factor=1100,stretch=10,shrink=10]{microtype}
+\usepackage{tikz}
+\usepackage{amsmath,amsthm}
+\usetikzlibrary{shapes}
+\usetikzlibrary{positioning}
+% Set up the images/graphics package
+\usepackage{graphicx}
+\setkeys{Gin}{width=\linewidth,totalheight=\textheight,keepaspectratio}
+\graphicspath{{.}}
+
+\title{Notes for ECE 26400 - Advanced C Programming}
+\author[Ezekiel Ulrich]{Ezekiel Ulrich}
+\date{\today}  % if the \date{} command is left out, the current date will be used
+
+% The following package makes prettier tables.  We're all about the bling!
+\usepackage{booktabs}
+
+% The units package provides nice, non-stacked fractions and better spacing
+% for units.
+\usepackage{units}
+
+% The fancyvrb package lets us customize the formatting of verbatim
+% environments.  We use a slightly smaller font.
+\usepackage{fancyvrb}
+\fvset{fontsize=\normalsize}
+
+% Small sections of multiple columns
+\usepackage{multicol}
+
+% These commands are used to pretty-print LaTeX commands
+\newcommand{\doccmd}[1]{\texttt{\textbackslash#1}}% command name -- adds backslash automatically
+\newcommand{\docopt}[1]{\ensuremath{\langle}\textrm{\textit{#1}}\ensuremath{\rangle}}% optional command argument
+\newcommand{\docarg}[1]{\textrm{\textit{#1}}}% (required) command argument
+\newenvironment{docspec}{\begin{quote}\noindent}{\end{quote}}% command specification environment
+\newcommand{\docenv}[1]{\textsf{#1}}% environment name
+\newcommand{\docpkg}[1]{\texttt{#1}}% package name
+\newcommand{\doccls}[1]{\texttt{#1}}% document class name
+\newcommand{\docclsopt}[1]{\texttt{#1}}% document class option name
+
+\begin{document}
+
+\maketitle
+\begin{abstract}
+These are lecture notes for fall 2023 ECE 26400 at Purdue. Modify, use, and distribute as you please.
+\end{abstract}
+
+\tableofcontents
+
+\section{Course Introduction}
+This class will be taught by Joy Xiaoqian Wang. There will be four online exams, 
+weekly online quizzes, and 20 homework assignments. For more information, 
+consult the syllabus by clicking \href{https://github.com/ezekielulrich/Notes/blob/d83855d25b40c224ce70b0b46ae6a86adc5a783f/ECE%20264%20Fall%202023%20Syllabus.pdf}{here}.
+
+\section{Tools}
+
+\end{document}
