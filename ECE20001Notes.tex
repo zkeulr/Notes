@@ -1,0 +1,99 @@
+\documentclass[nobib]{tufte-handout}
+
+%\\geometry{showframe}% for debugging purposes -- displays the margins
+
+\newcommand{\bra}[1]{\left(#1\right)}
+\usepackage{clrscode3e}
+\usepackage{hyperref}
+\usepackage[activate={true,nocompatibility},final,tracking=true,kerning=true,spacing=true,factor=1100,stretch=10,shrink=10]{microtype}
+\usepackage{color}
+
+\usepackage{tikz}
+\usepackage{amsmath,amsthm}
+\usetikzlibrary{shapes}
+\usetikzlibrary{positioning}
+
+% Set up the images/graphics package
+\usepackage{graphicx}
+\setkeys{Gin}{width=\linewidth,totalheight=\textheight,keepaspectratio}
+\graphicspath{{.}}
+
+\title{Notes for ECE 20001 - Electric Engineering Fundementals I}
+\author[Ezekiel Ulrich]{Ezekiel Ulrich}
+\date{\today}  % if the \date{} command is left out, the current date will be used
+
+% The following package makes prettier tables.  We're all about the bling!
+\usepackage{booktabs}
+
+% The units package provides nice, non-stacked fractions and better spacing
+% for units.
+\usepackage{units}
+
+% The fancyvrb package lets us customize the formatting of verbatim
+% environments.  We use a slightly smaller font.
+\usepackage{fancyvrb}
+\fvset{fontsize=\normalsize}
+
+% Small sections of multiple columns
+\usepackage{multicol}
+
+% These commands are used to pretty-print LaTeX commands
+\newcommand{\doccmd}[1]{\texttt{\textbackslash#1}}% command name -- adds backslash automatically
+\newcommand{\docopt}[1]{\ensuremath{\langle}\textrm{\textit{#1}}\ensuremath{\rangle}}% optional command argument
+\newcommand{\docarg}[1]{\textrm{\textit{#1}}}% (required) command argument
+\newenvironment{docspec}{\begin{quote}\noindent}{\end{quote}}% command specification environment
+\newcommand{\docenv}[1]{\textsf{#1}}% environment name
+\newcommand{\docpkg}[1]{\texttt{#1}}% package name
+\newcommand{\doccls}[1]{\texttt{#1}}% document class name
+\newcommand{\docclsopt}[1]{\texttt{#1}}% document class option name
+
+% Define a custom command for definitions
+\newcommand{\defn}[2]{\textbf{#1}:\ #2}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+These are lecture notes for fall 2023 ECE 20001 at Purdue. Modify, use, and distribute as you please.
+\end{abstract}
+
+\tableofcontents
+
+\section{Course Introduction}
+
+This course covers fundamental concepts and applications 
+for electrical and computer engineers as well as for engineers
+ who need to gain a broad understanding of these disciplines. 
+ The course starts by the basic concepts of charge, current, 
+ and voltage as well as their expressions with regards to 
+ resistors and resistive circuits. Essential concepts, 
+ devices, theorems, and applications of direct-current (DC), 
+ 1st order, and alternating-current (AC) circuits are 
+ subsequently discussed. Besides electrical devices and 
+ circuits, basic electronic components including diodes and 
+ transistors as well as their primary applications are also 
+ discussed. For more information, see the syllabus. 
+
+\section{Equations}
+
+\begin{enumerate}
+    \item Coulomb's Law: $\vec{F} = \frac{1}{4\pi \epsilon_0}\frac{q_1 q_2}{r^2}\hat{r}$
+
+\end{enumerate}
+
+\section{Charge, current, voltage, and power}
+
+\defn{Charge}{A fundemental property of matter.}
+
+\noindent\defn{Current}{The rate of flow of charge.}
+
+\noindent\defn{Voltage}{Related to the potential energy of charges.}
+
+\noindent\defn{Power}{The rate of doing work, or changing energy}
+
+
+
+
+
+\end{document}
