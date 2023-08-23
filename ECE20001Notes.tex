@@ -48,7 +48,7 @@
 \newcommand{\docclsopt}[1]{\texttt{#1}}% document class option name
 
 % Define a custom command for definitions
-\newcommand{\defn}[2]{\textbf{#1}:\ #2}
+\newcommand{\defn}[2]{\noindent\textbf{#1}:\ #2}
 
 \begin{document}
 
@@ -78,7 +78,10 @@ for electrical and computer engineers as well as for engineers
 \section{Equations}
 
 \begin{enumerate}
+    \item P = $\frac{dW}{dt}$
     \item Coulomb's Law: $\vec{F} = \frac{1}{4\pi \epsilon_0}\frac{q_1 q_2}{r^2}\hat{r}$
+    \item Kirchhoff's Voltage Law: 
+    \item Ohm's Law: $V=IR$
 
 \end{enumerate}
 
@@ -86,13 +89,45 @@ for electrical and computer engineers as well as for engineers
 
 \defn{Charge}{A fundemental property of matter.}
 
-\noindent\defn{Current}{The rate of flow of charge.}
+\defn{Current}{The rate of flow of charge.}
 
-\noindent\defn{Voltage}{Related to the potential energy of charges.}
+\defn{Voltage}{Related to the potential energy of charges.}
 
-\noindent\defn{Power}{The rate of doing work, or changing energy}
+\defn{Power}{The rate of doing work, or changing energy}
 
+Passive sign convention is a sign convention or arbitrary 
+standard rule adopted universally by the electrical 
+engineering community for defining the sign of electric 
+power in an electric circuit. The convention defines 
+electric power flowing out of the circuit into an electrical 
+component as positive, and power flowing into the circuit out 
+of a component as negative. So a passive component which 
+consumes power, such as an appliance or light bulb, will 
+have positive power dissipation, while an active component, 
+a source of power such as an electric generator or battery, 
+will have negative power dissipation.
 
+\section{(In)dependent sources, connections, resistance and Ohm's Law}
+
+\defn{Series Combination}{In a series combination, the elements 
+are connected with end to end in contact, such that 
+current flow is equal in all the elements in the 
+combination}
+
+\includegraphics[width=\textwidth/2]{images/Series_circuit.svg.png}
+
+\defn{Parallel Combination}{When two or more resistances are 
+connected between the same two points, they are said to be 
+connected in parallel combination. In this case voltage is equal
+across all elements}
+
+\includegraphics[width=\textwidth/2]{images/220px-Resistors_in_parallel.svg.png}
+
+Turning off a voltage source is equivalent to replacing it with a 
+short circuit (line). 
+
+Turning off a current source is equivalent to replacing it with an
+open circuit (broken line). 
 
 
 
