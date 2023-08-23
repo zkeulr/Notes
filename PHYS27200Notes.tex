@@ -72,24 +72,58 @@ solving by computer are employed throughout. For more information, consult the s
 
 \begin{enumerate}
     \item Coulomb's Law: $\vec{F} = \frac{1}{4\pi \epsilon_0}\frac{q_1 q_2}{r^2}\hat{r}$
-    \item $\vec{E_1} = \frac{1}{4\pi \epsilon_0}\frac{q_1}{r^2}\hat{r}$
-    \item $\vec{F_2} = E_1 q_2$
+    \item Electric field: $\vec{E_1} = \frac{1}{4\pi \epsilon_0}\frac{q_1}{r^2}\hat{r}$
+    \item Force due to electric field: $\vec{F_2} = E_1 q_2$
     \item Dipole moment between charges $-q$ and $q$ separated by $\vec{s}$: $\vec{p} = q\vec{s}$
+    \item Electric field on dipole axis: $\vec{E} = \frac{1}{4\pi \epsilon_0}\frac{2sq}{r^3}\hat{p}$
+    \item Electric field on dipole bisecting plane: $\vec{E} = \frac{-1}{4 \pi \epsilon_0}\frac{sq}{r^3}\hat{p}$
 
 \end{enumerate}
 
 \section{Electric charge}
 
+\marginnote{It was mentioned in class that mass is likewise intrinsic. 
+However, when discussing the Higgs field's role in giving particles mass, 
+the distinction between mass as an intrinsic or emergent property becomes 
+more nuanced. The mass of elementary particles like electrons and quarks is 
+emergent in the sense that it arises from their interaction with the Higgs 
+field, which itself is a fundamental aspect of the universe.}
+
 \defn{Electric Charge}{Electric charge is an intrinsic characteristic of the
 fundamental particles that make up objects.}
 
-Objects can hae negative, zero, or postive charge. 
+\defn{Conservation of charge}{The net charge of a \emph{closed system} never changes}
+
+Objects can have negative, zero, or postive charge. 
+Charges are always multiples of the \emph{elementary charge} $e = 1.60217662(63) \times 10^{-19} C$
+
+\defn{Coulomb (C)}{One coulomb is the amount of charge that is
+transferred through the cross section of a wire in 1 second
+when there is a current of 1 ampere in the wire.}
+
+The charges of elementary particles are listed below.
+\begin{table}[ht]
+    \centering
+    \begin{tabular}{@{}ll@{}}
+    \toprule
+    Particle & Charge (elementary charge, $e$) \\
+    \midrule
+    Electron ($e^-$) & $-1$ \\
+    Positron ($e^+$) & $+1$ \\
+    Proton ($p^+$) & $+1$ \\
+    Anti-proton ($p^-$) & $-1$ \\
+    Neutron& $0$ \\
+    Anti-neutron & $0$ \\
+    Photon& $0$ \\
+    \bottomrule
+    \end{tabular}
+    \end{table}
 
 \section{Electric field}
 
 \begin{marginfigure}
     \includegraphics{images/electricfieldlines.jpg}
-    \caption{An eletric field coming from point charges. 
+    \caption{An eletric field coming from point charge. 
     Notice how the densities of the lines vary with distance from the source.}
     \label{fig:electric-field-lines-point-charge}
 \end{marginfigure}
@@ -156,8 +190,5 @@ formed by the two particles), the electric field is
 On the bisecting plane (i.e., the plane exactly halfway from each 
 point) the field is given by
 \[\vec{E} = \frac{-1}{4 \pi \epsilon_0}\frac{sq}{r^3}\hat{p}\]
-
-\marginnote{}
-
 
 \end{document}
