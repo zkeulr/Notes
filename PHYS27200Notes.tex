@@ -1,0 +1,156 @@
+\documentclass[nobib]{tufte-handout}
+
+%\\geometry{showframe}% for debugging purposes -- displays the margins
+
+\newcommand{\bra}[1]{\left(#1\right)}
+\usepackage{clrscode3e}
+\usepackage{hyperref}
+\usepackage[activate={true,nocompatibility},final,tracking=true,kerning=true,spacing=true,factor=1100,stretch=10,shrink=10]{microtype}
+\usepackage{color}
+
+\usepackage{tikz}
+\usepackage{amsmath,amsthm}
+\usetikzlibrary{shapes}
+\usetikzlibrary{positioning}
+
+% Set up the images/graphics package
+\usepackage{graphicx}
+\setkeys{Gin}{width=\linewidth,totalheight=\textheight,keepaspectratio}
+\graphicspath{{.}}
+
+\title{Notes for PHYS 27200 - Electric And Magnetic Interactions}
+\author[Ezekiel Ulrich]{Ezekiel Ulrich}
+\date{\today}  % if the \date{} command is left out, the current date will be used
+
+% The following package makes prettier tables.  We're all about the bling!
+\usepackage{booktabs}
+
+% The units package provides nice, non-stacked fractions and better spacing
+% for units.
+\usepackage{units}
+
+% The fancyvrb package lets us customize the formatting of verbatim
+% environments.  We use a slightly smaller font.
+\usepackage{fancyvrb}
+\fvset{fontsize=\normalsize}
+
+% Small sections of multiple columns
+\usepackage{multicol}
+
+% These commands are used to pretty-print LaTeX commands
+\newcommand{\doccmd}[1]{\texttt{\textbackslash#1}}% command name -- adds backslash automatically
+\newcommand{\docopt}[1]{\ensuremath{\langle}\textrm{\textit{#1}}\ensuremath{\rangle}}% optional command argument
+\newcommand{\docarg}[1]{\textrm{\textit{#1}}}% (required) command argument
+\newenvironment{docspec}{\begin{quote}\noindent}{\end{quote}}% command specification environment
+\newcommand{\docenv}[1]{\textsf{#1}}% environment name
+\newcommand{\docpkg}[1]{\texttt{#1}}% package name
+\newcommand{\doccls}[1]{\texttt{#1}}% document class name
+\newcommand{\docclsopt}[1]{\texttt{#1}}% document class option name
+
+% Define a custom command for definitions
+\newcommand{\defn}[2]{\textbf{#1}:\ #2}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+These are lecture notes for fall 2023 PHYS 27200 at Purdue. Modify, use, and distribute as you please.
+\end{abstract}
+
+\tableofcontents
+
+\section{Course Introduction}
+
+This is a calculus-based physics course using concepts of electric and magnetic fields and an atomic description of
+matter to describe polarization, fields produced by charge distributions, potential, electrical circuits,
+magnetic forces, induction, and related topics, leading to Maxwell's equations and electromagnetic
+radiation and an introduction to waves and interference. 3-D graphical simulations and numerical problem
+solving by computer are employed throughout. For more information, consult the syllabus.
+
+\section{Equations}
+
+\begin{enumerate}
+    \item Coulomb's Law: $\vec{F} = \frac{1}{4\pi \epsilon_0}\frac{q_1 q_2}{r^2}\hat{r}$
+    \item $\vec{E_1} = \frac{1}{4\pi \epsilon_0}\frac{q_1}{r^2}\hat{r}$
+    \item $\vec{F_2} = E_1 q_2$
+    \item Dipole moment between charges $-q$ and $q$ separated by $\vec{s}$: $\vec{p} = q\vec{s}$
+
+\end{enumerate}
+
+\section{Eletric field}
+
+We can represent eletric fields as lines emenating from a point charge. The greater the density of the lines, the greater 
+the strength of the electric field. Note that at the origin, the force is
+undefined (infinite), since $|r| = 0$. 
+
+\begin{marginfigure}
+    \includegraphics{electricfieldlines.jpg}
+    \caption{An eletric field coming from point charges. 
+    Notice how the densities of the lines vary with distance from the source.}
+    \label{fig:electric-field-lines-point-charge}
+\end{marginfigure}
+
+Consider the relative strengths of the electric and 
+gravitational fields. The gravitational force is given by
+$F_g = G\frac{m_1m_2}{r^2}\hat{r}$, with $m_{electron} = 9 \times 10^{-31} kg$
+and $m_{proton} = 1.7 \times 10^{-27} kg$. If we consider a hydrogen atom,  
+then $r = 5.3 \times 10^{-11} m$. With $G = 6.7 \times 10^{-11}$, we have 
+\[F_g = \frac{(1.7 \times 10^{-27})(9 \times 10^{-31})(6.7 \times 10^{-11})}{(5.3 \times 10^{-11})^2} \approx O(10^{-46})N\]
+Now, the eletric force is given by $\vec{F} = \frac{1}{4\pi \epsilon_0}\frac{q_1 q_2}{r^2}\hat{r}$. 
+The charge of a proton and eletric are $q_1 \approx q_2 \approx 1.6 \times 10^{-19} C$.
+Ergo, since $\frac{1}{4\pi \epsilon_0} \approx 8.99 \times 10^9 \frac{Nm^2}{C^2}$, 
+\[F_e = \frac{(8.99 \times 10^9 \frac{Nm^2}{C^2})(1.60\times10^{-19}C)^2}{(5.3\times10^{-11}m)^2} \approx O(10^-17)N\]
+This means that $\frac{F_e}{F_g}\approx 2.27 \times 10^{39}$, meaning the eletric force is
+much stronger for these masses and charges than gravity. On scales as large as humans and planets,
+gravity is the dominant force because gravity is strictly additive.
+
+For sufficient distances, the eletric field
+of a uniformly charged spherical shell resembles
+the eletric field of a point charge. 
+
+\begin{marginfigure}
+    \begin{center}
+    \begin{tikzpicture}
+        % Dot
+        \fill (0,0) circle (1pt);
+        % Arrow
+        \draw[->] (0,0) -- (0,3);
+    \end{tikzpicture}
+    \end{center}
+
+    \caption{Notice how a circle resembles a point from a great distance.}
+    \label{fig:long-distance-point-sphere}
+\end{marginfigure}
+
+That means for $r>>R$, $\vec{E_{sphere}} = \frac{1}{4\pi \epsilon_0}\frac{q_1}{r^2}\hat{r}$
+This holds only for outside the sphere. Inside, it can be shown that the electric field is zero. 
+
+\defn{Superposition Principle}{The net electric field at a location in space is a
+vector sum of the individual electric fields contributed by all
+charged particles located elsewhere.}
+
+To introduce systems with multiple sources of electric field lines, consider
+the particle pair known as a dipole. Dipoles consist of one negatively charged
+and one positively charged particle, like so:
+\begin{figure}
+    \centering
+    \textbf{Dipole}\par\medskip
+    \includegraphics[width=\textwidth / 2]{VFPt_dipole_electric.svg.png}
+    \caption{Two oppositely charged particles distanced from one another}
+\end{figure}
+
+\defn{Dipole Moment}{The dipole moment is a way of expressing asymmetrical charge distribution.
+It is a vector quantity, i.e. it has magnitude as well as definite directions.}
+
+On the axis of the dipole (i.e. the lines
+formed by the two particles), the electric field is 
+\[\vec{E} = \frac{1}{4\pi \epsilon_0}\frac{2sq}{r^3}\hat{p}\]
+On the bisecting plane (i.e., the plane exactly halfway from each 
+point) the field is given by
+\[\vec{E} = \frac{-1}{4 \pi \epsilon_0}\frac{sq}{r^3}\hat{p}\]
+
+\marginnote{}
+
+
+\end{document}
