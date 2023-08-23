@@ -84,7 +84,6 @@ for electrical and computer engineers as well as for engineers
     \item Coulomb's Law: $\vec{F} = \frac{1}{4\pi \epsilon_0}\frac{q_1 q_2}{r^2}\hat{r}$
     \item Kirchhoff's Voltage Law: 
     \item Ohm's Law: $V=IR$
-
 \end{enumerate}
 
 \section{Charge, current, voltage, and power}
@@ -97,17 +96,44 @@ for electrical and computer engineers as well as for engineers
 
 \defn{Power}{The rate of doing work, or changing energy}
 
-Passive sign convention is a sign convention or arbitrary 
-standard rule adopted universally by the electrical 
-engineering community for defining the sign of electric 
-power in an electric circuit. The convention defines 
+\defn{Passive sign convention}{Defines 
 electric power flowing out of the circuit into an electrical 
 component as positive, and power flowing into the circuit out 
 of a component as negative. So a passive component which 
 consumes power, such as an appliance or light bulb, will 
 have positive power dissipation, while an active component, 
 a source of power such as an electric generator or battery, 
-will have negative power dissipation.
+will have negative power dissipation.}
+
+It's useful to have an idea of the components of circuit
+schematics (visual representations of a circuit). Below is a list 
+of the terms that will be used in this course:
+\begin{itemize}
+    \item Elements: The term elements means "components and sources."
+    \item Elements: The term elements means "components and sources."
+    \item Symbols: Elements are represented in schematics by symbols. 
+    Symbols for common 2-terminal elements are displayed to the right.
+    
+\begin{marginfigure}
+    \centering
+    \includegraphics{images/symbols.png}
+    \caption{Common circuit symbols}
+    \label{fig:symbols}
+\end{marginfigure} 
+
+    \item Lines: Connections between elements are drawn as lines, 
+    which we often think of as "wires". On a schematic, 
+    these lines represent perfect conductors with zero resistance. 
+    Every component or source terminal touched by a line is at the same voltage.
+    \item Dots: Connections between lines can be indicated by dots. 
+    Dots are an unambiguous indication that lines are connected. 
+    If the connection is obvious, you don't have to use a dot.
+\end{itemize}
+Check out the circuit schematic below and see how many components you 
+can identify!
+\begin{center}
+    \includegraphics[width=\textwidth/2]{images/PS0_CapacitorCircuit.png}
+\end{center}
 
 Current is the rate of change of charge. Voltage is
 the pressure from an electrical circuit's power source that 
