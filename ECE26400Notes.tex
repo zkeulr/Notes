@@ -120,9 +120,15 @@ to keep track of changes.
 %insert flowchart here
 
 %Fix for grammar
-You have a local and remote repository (repo). What's on the 
-remote repo is what's graded. You work on your local repo 
-and then push it to the remote repo. 
+When using Git, you will have a staging area on your computer where
+you directly edit your code, a local repository (or repo)
+that tracks all the files associated with a project, and a remote repo
+to store the project. For this class, the remote repo is what's
+that's graded (sending TAs to check student computers took too long).
+
+You code  on your local repo 
+and then push it to the remote repo. We can also pull updates 
+form the remote repo to your local.
 \begin{figure}
    \centering
    \includegraphics{images/workingdir-stage-local-remote.png}
@@ -131,8 +137,6 @@ and then push it to the remote repo.
 \end{figure}
 %explain and understand staging area. use image
 
-We can also get updates form the remote repo to your local.
-This is a "pull". 
 
 Some common Git commands are:
 \begin{itemize}
@@ -149,7 +153,26 @@ Some common Git commands are:
    \item \texttt{git reset} - Resets local repo to earlier version
 \end{itemize}
 
-\defn{GCC}{}
+\defn{GCC}{Compiles C code to executable program.}
+Compiling a file with gcc is simple:
+\begin{lstlisting}[language=bash,caption=Using gcc]
+   $ gcc homework-one.c
+\end{lstlisting}
+Here are some useful gcc options:
+\begin{itemize}
+   \item \texttt{gcc [filename] -o [output name]} - Change executable file name
+   \item \texttt{gcc -g [filename]} - Generates debug information to be used by GDB debugger.
+   \item \texttt{gcc -Wall} - Enables all compiler's warning messages. This option should always be used, in order to generate better code.
+\end{itemize}
+
+%how to link files together
+% Conditional compilation
+%-DSolution1 will tell the compiler to activate a
+%#ifdef Solution1
+%...
+%#endif
+%block
+
 
 \defn{Makefile}{}
 
