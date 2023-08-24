@@ -105,7 +105,7 @@ see \href{https://en.wikipedia.org/wiki/List_of_Unix_commands}{Wikipedia's excel
 \noindent To use these, simply type them in bash. For example, ls
 will print the contents of your directory. 
 
-\begin{lstlisting}[language=bash]
+\begin{lstlisting}[language=bash,caption=Using ls]
    $ ls
    code-folder/   helloworld.c   homework/
 \end{lstlisting}
@@ -146,6 +146,7 @@ Some common Git commands are:
    \item \texttt{git log} - Check different versions of each project
    \item \texttt{git commit -m} - Moves changes from staging area to local repo. Use -m to add a message, and push
    to remote repo with \texttt{git push}
+   \item \texttt{git reset} - Resets local repo to earlier version
 \end{itemize}
 
 \defn{GCC}{}
@@ -153,13 +154,5 @@ Some common Git commands are:
 \defn{Makefile}{}
 
 \defn{GDB}{}
-
-\begin{lstlisting}[label=some-code,caption=Example Code]
-#include <stdio.h>
-int main() {
-   printf("Hello, World!");
-   return 0;
-}
-\end{lstlisting}
 
 \end{document}
