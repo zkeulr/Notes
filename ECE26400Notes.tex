@@ -173,8 +173,26 @@ Here are some useful gcc options:
 %#endif
 %block
 
+%also, #ifndef Solution1 ... #endif will activate if not that
 
-\defn{Makefile}{}
+
+\defn{Makefile}{Allows us to specify which options should be
+used when gcc is called.}
+\begin{lstlisting}[caption=Makefile]
+   GCC=gccc
+   CFLAGS=-std=c99 -g -Wall -Wshadow --pedantic -Wvla -Werror
+   EXEC = sort
+   TESTFLAGS = -DASCENDING
+
+   all: main.c sort.c
+         $(GCC) $(CFLAGS) -o $(EXEC) main.c sort.c
+
+   # Fix the gcc command for the target ascending by fill in the missing part
+   ascending: main.c sort.c
+         $(GCC) 
+\end{lstlisting}
+
+Called with male all in bash
 
 \defn{GDB}{}
 
