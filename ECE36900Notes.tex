@@ -76,13 +76,101 @@ see the syllabus.
 \section{Equations}
 
 \begin{enumerate}
-    \item
+    \item De Morgan's Theorem: 
+    
+    $\neg(P \wedge Q) \equiv \neg P \vee \neg Q$
+
+    $\neg(P \vee Q) \equiv \neg P \wedge \neg Q$
 \end{enumerate}
 
 \section{Propositional Logic}
 
-Need to add lecture 1. Missed it :(
+We often wish that others would be more logical, tell the truth,
+or shower. While studying formal logic cannot help with the latter
+(in fact, studies have shown a negative correlation between
+hygiene and studying formal logic) it is a useful way to 
+define what the first mean two. In a formal logic model, we have two constructs:
+\begin{itemize}
+    \item \defn{Statements/propostion}{A statement or a proposition is a sentence that
+    is either true or false.} Propositions are often represented 
+    with letters of the alphabet. For example: "$q$: the more time
+    you spend coding, the less time you have to buy deodorant."
+    \item \defn{Logical connectives}{Used to connect statements.} For 
+    example, "and" is a logical connective in English. It can be
+    used to connect two statements, e.g. "the person next to me
+    smells like dog \emph{and} looks like a dog." 
+\end{itemize}
+
+Here are the common logical connectives in Boolean logic:
+\begin{table}[h]
+    \centering
+    \begin{tabular}{lc}
+    \toprule
+    \textbf{Logical Connective} & \textbf{Symbol} \\
+    \midrule
+    Negation (NOT) & $\lnot$ \\
+    Conjunction (AND) & $\land$ \\
+    Disjunction (OR) & $\lor$ \\
+    Exclusive OR (XOR) & $\oplus$ \\
+    Implication & $\rightarrow$ \\
+    Biconditional & $\leftrightarrow$ \\
+    \bottomrule
+    \end{tabular}
+    \caption{Logical Connectives in Boolean Logic}
+    \label{tab:logical-connectives}
+\end{table}
+
+\defn{Truth table}{Defines how each of the
+connectives operate on truth values.}
 
 \section{Lecture 2}
+
+With each additional variable in your truth table, the number
+of choices grows exponentially. Specifically, if you have $n$ statement
+letters, you would have $2^n$ choices for your truth table. 
+
+\defn{Tautology}{A formula that is true in every model.} 
+Example: the Bible is infallible because the Bible itself
+says it is infallible.  
+
+\defn{Contradiction}{A formula that is false in every model} Examples:
+"it is raining and it is not raining", "I am sleeping and I am awake", 
+"IU is a good school". 
+
+Confusion often arises when negating a sentence such as 
+"the book is thick and boring". An natural inclination is to 
+negate it thus: "the book is not thick and not boring".
+However, consider the truth table for this:
+$p$: "the book is thick", $q$: "the book is boring". 
+\begin{table}[ht]
+    \centering
+    \begin{tabular}{|c c|c|c|c|}
+    \hline
+    $p$ & $q$ & $p \wedge q$ & $\neg(p \wedge q)$ & $\neg p \wedge \neg q$\\
+    \hline
+    T & T & T & F & F\\
+    T & F & F & T & F\\
+    F & T & F & T & F\\
+    F & F & F & T & T\\
+    \hline
+    \end{tabular}
+    \caption{A Simple Table}
+    \label{tab:demorganswrong}
+\end{table}
+We can see the last two rows are not identical, therefore
+the negation of "the book is not thick and not boring"
+is not "the book is not thick and not boring". For $p$ to 
+be false, either the book must not be thick \emph{or} the
+book must not be boring. This is summarized by 
+\defn{De Morgan's Theorem}{
+    \[\neg(P \wedge Q) \equiv \neg P \vee \neg Q\]
+    \[\neg(P \vee Q) \equiv \neg P \wedge \neg Q\]
+}
+
+\defn{Modus ponens (mp)}{P, if p then q, therefore q}
+
+\defn{Modus totens (mt)}{if p then q, not q, therefore not p}
+
+%Include equivalence rules table
 
 \end{document}
