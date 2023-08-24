@@ -8,6 +8,9 @@
 \usepackage[activate={true,nocompatibility},final,tracking=true,kerning=true,spacing=true,factor=1100,stretch=10,shrink=10]{microtype}
 \usepackage{color}
 
+% Fixes captions and images being cut off
+\usepackage{marginfix}
+
 \usepackage{tikz}
 \usepackage{amsmath,amsthm}
 \usetikzlibrary{shapes}
@@ -181,6 +184,13 @@ sources:
     symbol with a plus sign and a minus sign, indicating 
     the polarity of the voltage.} A battery maintaining a constant
     voltage of 9 V is an example of an independent voltage source.
+    \begin{marginfigure}
+        \centering
+        \includegraphics{images/independentvoltagesource.png}
+        \caption{inependent voltage source}
+        \label{fig:independentvoltagesource}
+    \end{marginfigure} 
+
     \item \defn{Independent current source}{Maintains a constant 
     current through its terminals, regardless of the 
     voltage across it. It is usually represented by 
@@ -190,6 +200,13 @@ sources:
     will deliver a current of 2A through any component 
     connected to it, regardless of the 
     voltage across the component.
+    \begin{marginfigure}
+        \centering
+        \includegraphics{images/independentcurrentsource.png}
+        \caption{Independent current source}
+        \label{fig:independentcurrentsource}
+    \end{marginfigure} 
+    
 \end{itemize}
 Contrasted with independent sources, there are also
 dependent sources. Dependent sources are sources 
@@ -202,30 +219,36 @@ the circuit. There are four types of dependent sources:
     \item \defn{Voltage-Controlled Voltage Source (VCVS)}{
     This type of dependent source generates a voltage 
     that is proportional to the voltage across a 
-    separate part of the circuit. It is represented 
-    as an ideal voltage source with a gain factor 
-    that indicates the voltage ratio.}
+    separate part of the circuit.}
+    \begin{marginfigure}
+        \centering
+        \includegraphics{images/dependentvoltagesource.png}
+        \caption{Dependent voltage source}
+        \label{fig:dependentvoltagesource}
+    \end{marginfigure} 
 
     \item \defn{Current-Controlled Current Source (CCCS)}{
     This type of dependent source generates a current 
     that is proportional to the current flowing 
-    through a different part of the circuit. It 
-    is represented as an ideal current source with 
-    a gain factor that indicates the current ratio.}
+    through a different part of the circuit.}
+    \begin{marginfigure}
+        \centering
+        \includegraphics{images/dependentcurrentsource.png}
+        \caption{Dependent current source}
+        \label{fig:dependentcurrentsource}
+    \end{marginfigure} 
+
 
     \item \defn{Voltage-Controlled Current Source (VCCS)}{
     This type of dependent source generates a 
     current that is proportional to the 
     voltage across a different part of the 
-    circuit. It is represented as an ideal 
-    current source with a gain factor.}
-
+    circuit.}
     \item \defn{Current-Controlled Voltage Source (CCVS)}{
     This type of dependent source generates a 
     voltage that is proportional to the 
     current flowing through a separate part 
-    of the circuit. It is represented as an 
-    ideal voltage source with a gain factor.}
+    of the circuit.}
 \end{itemize}
 
 \defn{Series Combination}{In a series combination, the elements 
