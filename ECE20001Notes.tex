@@ -149,7 +149,7 @@ Now, on to what circuits are doing. For interesting things
 to happen we need electrons flowing through those wires.
 Current is how quickly
 electrons are moving along, or in more formal terms the rate of
-change of charge. That is, $I = \frac{dQ}{dt}$. Its units are amperes (more commonly referred to as amps)
+change of charge. That is, $I = \frac{dQ}{dt}$. Its units are amperes (amps)
 Voltage (or electric potential) is the amount of work done in moving charged 
 particles such as electrons between two points. Whenever we want to separate 
 two oppositely (positive and negative) charged particles or push two similarly-charged
@@ -176,13 +176,59 @@ circuit. They are not influenced by the circuit's current or
 voltage conditions. There are two main types of independent 
 sources:
 \begin{itemize}
-    \item[] Independent voltage source: maintains a constant 
+    \item \defn{Independent voltage source}{Maintains a constant 
     voltage across its terminals, regardless of the current 
     flowing through it. It is typically represented by a 
     symbol with a plus sign and a minus sign, indicating 
-    the polarity of the voltage. A battery maintaining a constant
-    voltage of 9 V is an example of an independent voltage source. 
+    the polarity of the voltage.} A battery maintaining a constant
+    voltage of 9 V is an example of an independent voltage source.
+    \item \defn{Independent current source}{Maintains a constant 
+    current through its terminals, regardless of the 
+    voltage across it. It is usually represented by 
+    a symbol with an arrow indicating the 
+    direction of current flow.} Consider a current source that 
+    provides a constant current of 2 amperes. This source 
+    will deliver a current of 2A through any component 
+    connected to it, regardless of the 
+    voltage across the component.
 \end{itemize}
+Contrasted with independent sources, there are also
+dependent sources. Dependent sources are sources 
+whose values are 
+dependent on other variables within the circuit. 
+These sources are used to model components whose 
+behavior changes according to the conditions in 
+the circuit. There are four types of dependent sources:
+\begin{itemize}
+    \item \defn{Voltage-Controlled Voltage Source (VCVS)}{
+    This type of dependent source generates a voltage 
+    that is proportional to the voltage across a 
+    separate part of the circuit. It is represented 
+    as an ideal voltage source with a gain factor 
+    that indicates the voltage ratio.}
+
+    \item \defn{Current-Controlled Current Source (CCCS)}{
+    This type of dependent source generates a current 
+    that is proportional to the current flowing 
+    through a different part of the circuit. It 
+    is represented as an ideal current source with 
+    a gain factor that indicates the current ratio.}
+
+    \item \defn{Voltage-Controlled Current Source (VCCS)}{
+    This type of dependent source generates a 
+    current that is proportional to the 
+    voltage across a different part of the 
+    circuit. It is represented as an ideal 
+    current source with a gain factor.}
+
+    \item \defn{Current-Controlled Voltage Source (CCVS)}{
+    This type of dependent source generates a 
+    voltage that is proportional to the 
+    current flowing through a separate part 
+    of the circuit. It is represented as an 
+    ideal voltage source with a gain factor.}
+\end{itemize}
+
 \defn{Series Combination}{In a series combination, the elements 
 are connected with end to end in contact, such that 
 current flow is equal in all the elements in the 
