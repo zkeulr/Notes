@@ -18,7 +18,7 @@
 \setkeys{Gin}{width=\linewidth,totalheight=\textheight,keepaspectratio}
 \graphicspath{{.}}
 
-\title{Notes for ECE 20001 - Electric Engineering Fundementals I}
+\title{Notes for ECE 20001 - EE Fundementals I}
 \author[Ezekiel Ulrich]{Ezekiel Ulrich}
 \date{\today}  % if the \date{} command is left out, the current date will be used
 
@@ -85,6 +85,7 @@ for electrical and computer engineers as well as for engineers
     \item Coulomb's Law: $\vec{F} = \frac{1}{4\pi \epsilon_0}\frac{q_1 q_2}{r^2}\hat{r}$
     \item Kirchhoff's Voltage Law: 
     \item Ohm's Law: $V=IR$
+    \item Conductance: $G = \frac{1}{R}$
 \end{enumerate}
 
 \section{Charge, current, voltage, and power}
@@ -97,8 +98,17 @@ for electrical and computer engineers as well as for engineers
 
 \defn{Power}{The rate of doing work, or changing energy}
 
-\defn{Passive sign convention}{Defines 
-electric power flowing out of the circuit into an electrical 
+\begin{marginfigure}
+    \centering
+    \includegraphics{images/Passive_sign_convention.svg.png}
+    \caption{Passive sign convention}
+    \label{fig:psc} 
+\end{marginfigure}
+
+\defn{Passive sign convention}{Defines current as going into 
+positive terminal of component. The component loses energy 
+and consumes power.
+Defines electric power flowing out of the circuit into an electrical 
 component as positive, and power flowing into the circuit out 
 of a component as negative. So a passive component which 
 consumes power, such as an appliance or light bulb, will 
@@ -156,7 +166,23 @@ $P=iV$. To make sense of this equation consider a light bulb in a circuit, with 
 $P=iV = 5 * 10 = 50$ watts, meaning it uses 50 J per second. 
 
 \section{(In)dependent sources, connections, resistance and Ohm's Law}
-
+Independent and dependent sources are fundamental elements in 
+electrical circuits that provide voltage or current. 
+They are used to model various types of input signals, 
+power supplies, and components within a circuit.
+Independent sources are voltage sources or current sources 
+that maintain a constant value regardless of the rest of the 
+circuit. They are not influenced by the circuit's current or 
+voltage conditions. There are two main types of independent 
+sources:
+\begin{itemize}
+    \item[] Independent voltage source: maintains a constant 
+    voltage across its terminals, regardless of the current 
+    flowing through it. It is typically represented by a 
+    symbol with a plus sign and a minus sign, indicating 
+    the polarity of the voltage. A battery maintaining a constant
+    voltage of 9 V is an example of an independent voltage source. 
+\end{itemize}
 \defn{Series Combination}{In a series combination, the elements 
 are connected with end to end in contact, such that 
 current flow is equal in all the elements in the 
@@ -178,5 +204,12 @@ open circuit (broken line).
 $Resistance = \rho * Length of resistor/ cross section area$ $\rho$ is the resistivity of the material 
 
 Conductance = 1/R 
+
+Independent vs dependent sources 
+G = 1/Voltage
+
+Short and open circuit defn
+
+
 
 \end{document}
