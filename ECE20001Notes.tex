@@ -92,14 +92,47 @@ for electrical and computer engineers as well as for engineers
 \end{enumerate}
 
 \section{Charge, current, voltage, and power}
+Before we begin a discussion
+of electrical engineering, we will want an
+understanding of some important concepts. 
 
-\defn{Charge}{A fundemental property of matter.}
+\defn{Charge}{A fundemental property of matter.} Charge
+is measured in units of Coulombs (C) and 
+arises from aggregates of charged 
+fundemental particles like electrons.
 
-\defn{Current}{The rate of flow of charge.}
+\defn{Current}{The rate of flow of charge.} Typically,
+we think of current as occuring in a circuit, a loop
+through which charge can flow. Current can
+be mathematically defined as $I = \frac{dq(t)}{dt}$, where 
+$q(t)$ is the charge at time $t$. Current therefore has units
+of Coulombs per second (C/s). 
 
-\defn{Voltage}{Related to the potential energy of charges.}
+\defn{Voltage}{The difference in electric potential energy
+between two points, per unit charge.} Voltage thus has units of
+$\frac{J}{C}$. or Volts (V).
+Intuitively, a stronger voltage source (such
+as a battery) will result in a higher current on 
+identical wires. Imagine a voltage source
+as a concentration of negative charges on
+one side and positive charges on the other. 
+If we hook both ends up to a conducting wire and place 
+an electron in the wire, it will be repelled 
+from the negative side and attracted to the
+positive side. The electron has a high
+potential energy near the concentration of
+negative charge, and a low potential energy
+near the positive charges. The difference
+between these potentials is the voltage. This should
+make it clear that voltage must always be
+defined as across two points, each with its
+electric potential. A good note is that
+voltage can be negative (if the electric 
+potential at the second point measured is higher)
+and it may not be constant with time. 
 
-\defn{Power}{The rate of doing work, or changing energy}
+\defn{Power}{The rate of doing work, or changing energy.} 
+Mathematically, $P = \frac{dW}{dt} = IV$ and has units of Watts (W).
 
 \begin{marginfigure}
     \centering
@@ -108,15 +141,10 @@ for electrical and computer engineers as well as for engineers
     \label{fig:psc} 
 \end{marginfigure}
 \defn{Passive sign convention}{Defines current as going into 
-positive terminal of component. The component loses energy 
-and consumes power.
-Defines electric power flowing out of the circuit into an electrical 
-component as positive, and power flowing into the circuit out 
-of a component as negative. So a passive component which 
-consumes power, such as an appliance or light bulb, will 
-have positive power dissipation, while an active component, 
-a source of power such as an electric generator or battery, 
-will have negative power dissipation.}
+positive voltage node of a component. The component
+is labeled a \emph{load} or a \emph{passive device}.
+We call it this because the component
+consumes power.}
 
 It's useful to have an idea of the components of circuit
 schematics (visual representations of a circuit). Below is a list 
