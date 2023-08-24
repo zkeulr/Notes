@@ -98,8 +98,6 @@ see the syllabus.
     $\neg q$
 
     $\therefore \neg p$
-
-    \item
 \end{enumerate}
 
 \section{Propositional Logic}
@@ -159,9 +157,8 @@ For example, consider $\land$ AND:
     \label{tab:truthtableand}
 \end{table}
 
-%pick up with truth tables
 
-\section{Lecture 2}
+\section{Rules and proofs}
 
 With each additional variable in your truth table, the number
 of choices grows exponentially. Specifically, if you have $n$ statement
@@ -251,9 +248,28 @@ and
 
 Below are two tables for commonly used rules.
 
+\begin{table}[ht]
+    \centering
+    \caption{Equivalence rules}
+    \begin{tabular}{|c|c|c|}
+    \hline
+    Expression & Equivalent to & Name - abbreviation\\
+    \hline
+    $p \lor q$ & $q \lor p$ & Commutative - comm\\
+    $p \land q$ & $q \land p $ &\\
+    \hline
+    $(p \lor q) \lor r$ &$p \lor (q \lor r)$ & Associative - ass\\
+    $(p \land q) \land r$ &$p \land (q \land r)$ &\\
+    \hline
+    $\neg(P \wedge Q)$ & $\neg P \vee \neg Q$ & De Morgan's Laws - De Morgan\\
+    $\neg(P \vee Q)$ & $\neg P \wedge \neg Q$ &\\
+    \hline
+    \end{tabular}
+    \label{tab:equivalencerules}
+\end{table}
 
+%does the book use ` for negation? that sucks
 
-%Include equivalence rules table
 %Include inference rules table
 
 \end{document}
