@@ -71,7 +71,7 @@ These are lecture notes for fall 2023 ECE 26400 at Purdue. Modify, use, and dist
 
 \section{Course Introduction}
 
-This class will be taught by Joy Xiaoqian Wang. There will be four online exams, 
+This class will be taught by Prof. Joy Xiaoqian Wang. There will be four online exams, 
 weekly online quizzes, and 20 homework assignments. For more information, 
 consult the syllabus \href{https://github.com/ezekielulrich/Notes/blob/d83855d25b40c224ce70b0b46ae6a86adc5a783f/ECE%20264%20Fall%202023%20Syllabus.pdf}{here}.
 
@@ -119,23 +119,40 @@ to keep track of changes.
 
 %insert flowchart here
 
+%Fix for grammar
 You have a local and remote repository (repo). What's on the 
 remote repo is what's graded. You work on your local repo 
 and then push it to the remote repo. 
+\begin{figure}
+   \centering
+   \includegraphics{images/workingdir-stage-local-remote.png}
+   \caption{Layout of staging area, local repo, and remote repo}
+   \label{fig:wdstagelocalremote} 
+\end{figure}
+%explain and understand staging area. use image
 
 We can also get updates form the remote repo to your local.
 This is a "pull". 
+
+Some common Git commands are:
+\begin{itemize}
+   \item \texttt{git push} - Replace what's on the remote repo with your local repo
+   \item \texttt{git pull} - Replace your local repo with the remote repo
+   \item \texttt{git init} - Creates a new Git repository
+   \item \texttt{git clone} - Gets repo from specified url and copies to your machine, creating a new local repo
+   \item \texttt{git add} - Adds file to staging area
+   \item \texttt{git status} - Check what files in the working directory
+   are added or committed
+   \item \texttt{git log} - Check different versions of each project
+   \item \texttt{git commit -m} - Moves changes from staging area to local repo. Use -m to add a message, and push
+   to remote repo with \texttt{git push}
+\end{itemize}
 
 \defn{GCC}{}
 
 \defn{Makefile}{}
 
 \defn{GDB}{}
-
-
-This is sample text to outline how notes will be structured. 
-Notes will be a combination of text, code snippets, and math (when appropriate). 
-would otherwise interrupt the notes. 
 
 \begin{lstlisting}[label=some-code,caption=Example Code]
 #include <stdio.h>
