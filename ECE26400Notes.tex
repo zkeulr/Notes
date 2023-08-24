@@ -10,6 +10,9 @@
 \usepackage{xcolor}
 \usepackage{listings}
 
+% Define a custom command for definitions
+\newcommand{\defn}[2]{\noindent\textbf{#1}:\ #2}
+
 % Fixes captions and images being cut off
 \usepackage{marginfix}
 
@@ -74,9 +77,51 @@ consult the syllabus \href{https://github.com/ezekielulrich/Notes/blob/d83855d25
 
 \section{Tools}
 
+\defn{UNIX System}{The environment we'll use in this course.}
+
+\noindent No matter your machine, you can use the UNIX environment. 
+Some common commands in UNIX-like systems are:
+\marginnote{For a comprehensive list of UNIX commands, 
+see \href{https://en.wikipedia.org/wiki/List_of_Unix_commands}{Wikipedia's excellent page}}
+\begin{itemize}
+   \item \texttt{ls} - List directory contents
+   \item \texttt{cd} - Change directory
+   \item \texttt{mkdir} - Make directory
+   \item \texttt{rm} - Remove files or directories. Use -rf to recursively delete files regardless of permission
+   \item \texttt{mv} - Move files or directories
+   \item \texttt{diff} - Comparing two files and showing their difference. Use -w to ignore whitespace
+   \item \texttt{cat} - Shows contents of file without opening
+   \item \texttt{cp} - Create a copy of a file
+   \item \texttt{[CTRL + U]} - Undoes what was last typed
+   \item \texttt{chmod} - Change file permissions
+   \item \texttt{chown} - Change file ownership
+   \item \texttt{kill} - Terminate processes
+   \item \texttt{ssh} - Secure shell remote login
+   \item \texttt{scp} - Securely copy files between hosts
+   \item \texttt{wget} - Download files from the web
+   \item \texttt{find} - Search for files and directories
+   \item \texttt{vim} - Powerful text editor
+\end{itemize}
+
+\noindent To use these, simply type them in bash. For example, ls
+will print the contents of your directory. 
+
+\begin{lstlisting}[language=bash]
+   $ ls
+   code-folder/   helloworld.c   homework/
+\end{lstlisting}
+
+\defn{Git for Version Control}{}
+
+\defn{GCC}{}
+
+\defn{Makefile}{}
+
+\defn{GDB}{}
+
+
 This is sample text to outline how notes will be structured. 
 Notes will be a combination of text, code snippets, and math (when appropriate). 
-Marginalia will contain details and explanations that 
 would otherwise interrupt the notes. 
 
 \begin{lstlisting}[label=some-code,caption=Example Code]
@@ -86,7 +131,5 @@ int main() {
    return 0;
 }
 \end{lstlisting}
-
-\marginnote{Listing 1 is an example code snippet, which will print "Hello, World!" to the screen}
 
 \end{document}

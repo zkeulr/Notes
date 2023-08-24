@@ -4,6 +4,7 @@
 
 \newcommand{\bra}[1]{\left(#1\right)}
 \usepackage{clrscode3e}
+\usepackage{amssymb}
 \usepackage{hyperref}
 \usepackage[activate={true,nocompatibility},final,tracking=true,kerning=true,spacing=true,factor=1100,stretch=10,shrink=10]{microtype}
 \usepackage{color}
@@ -81,6 +82,24 @@ see the syllabus.
     $\neg(P \wedge Q) \equiv \neg P \vee \neg Q$
 
     $\neg(P \vee Q) \equiv \neg P \wedge \neg Q$
+
+    \item Modus ponens (mp)
+    
+    $p$
+
+    $p \rightarrow q$
+
+    $\therefore q$
+
+    \item Modus tonens (mt)
+    
+    $p \rightarrow q$
+
+    $\neg q$
+
+    $\therefore \neg p$
+
+    \item
 \end{enumerate}
 
 \section{Propositional Logic}
@@ -122,7 +141,25 @@ Here are common logical connectives in Boolean logic:
 \end{table}
 
 \defn{Truth table}{Defines how each of the
-connectives operate on truth values.}
+connectives operate on truth values. Every connective has one.}
+For example, consider $\land$ AND:
+
+\begin{table}[ht]
+    \centering
+    \begin{tabular}{|c c|c|}
+    \hline
+    $p$ & $q$ & $p \land q$ \\
+    \hline
+    T & T & T \\
+    T & F & F \\
+    F & T & F \\
+    F & F & F \\
+    \hline
+    \end{tabular}
+    \label{tab:truthtableand}
+\end{table}
+
+%pick up with truth tables
 
 \section{Lecture 2}
 
@@ -137,6 +174,30 @@ says it is infallible.
 \defn{Contradiction}{A formula that is false in every model} Examples:
 "it is raining and it is not raining", "I am sleeping and I am awake", 
 "IU is a good school". 
+
+\marginnote{Interestingly, it is possible to prove any statement
+in a system where a contradiction exists. This is known as the 
+\emph{principle of explosion}. To see how it works, consider
+the following example: 
+
+\begin{enumerate}
+    \item $p$: Donuts are good for you.
+    \item $q$: Unicorns exist. 
+\end{enumerate}
+
+I'll now assume the contradictory statement "donuts are good for you
+and donuts are not good for you".
+
+\begin{align*}
+    \neg p &\land p \quad \text{(Contradiction)} \\
+    p &\lor q \quad \text{(Addition)}\\
+    \neg p\\
+    \therefore q
+\end{align*}
+
+Ergo, unicorns exist :0
+
+}
 
 Confusion often arises when negating a sentence such as 
 "the book is thick and boring". An natural inclination is to 
@@ -155,7 +216,6 @@ $p$: "the book is thick", $q$: "the book is boring".
     F & F & F & T & T\\
     \hline
     \end{tabular}
-    \caption{A Simple Table}
     \label{tab:demorganswrong}
 \end{table}
 We can see the last two rows are not identical, therefore
@@ -168,10 +228,32 @@ book must not be boring. This is summarized by
     \[\neg(P \vee Q) \equiv \neg P \wedge \neg Q\]
 }
 
-\defn{Modus ponens (mp)}{P, if p then q, therefore q}
+We now have a sufficient understanding of truth tables and 
+logical connectives to come up with some useful rules. First of these 
+are 
+\defn{Modus ponens (mp)}{
+    \begin{align*}
+        &p \\
+        &p \rightarrow q \\
+        &\therefore q \\
+    \end{align*}
+}
 
-\defn{Modus totens (mt)}{if p then q, not q, therefore not p}
+and
+
+\defn{Modus totens (mt)}{
+    \begin{align*}
+        &p \rightarrow q \\
+        &\neg q \\
+        &\therefore \neg p \\
+    \end{align*}
+}
+
+Below are two tables for commonly used rules.
+
+
 
 %Include equivalence rules table
+%Include inference rules table
 
 \end{document}
