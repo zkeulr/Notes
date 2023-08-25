@@ -51,8 +51,9 @@
 \newcommand{\doccls}[1]{\texttt{#1}}% document class name
 \newcommand{\docclsopt}[1]{\texttt{#1}}% document class option name
 
-% Define a custom command for definitions
+% Define a custom command for definitions and biconditional
 \newcommand{\defn}[2]{\noindent\textbf{#1}:\ #2}
+\let\biconditional\leftrightarrow
 
 \begin{document}
 
@@ -194,7 +195,7 @@ and donuts are not good for you".
     \therefore q
 \end{align*}
 
-Ergo, unicorns exist :0
+Ergo, unicorns exist :)
 
 }
 
@@ -240,7 +241,7 @@ are
 
 and
 
-\defn{Modus totens (mt)}{
+\defn{Modus tollens (mt)}{
     \begin{align*}
         &p \rightarrow q \\
         &\neg q \\
@@ -263,15 +264,37 @@ Below are two tables for commonly used rules.
     $(p \lor q) \lor r$ &$p \lor (q \lor r)$ & Associative - ass\\
     $(p \land q) \land r$ &$p \land (q \land r)$ &\\
     \hline
-    $\neg(P \wedge Q)$ & $\neg P \vee \neg Q$ & De Morgan's Laws - De Morgan\\
-    $\neg(P \vee Q)$ & $\neg P \wedge \neg Q$ &\\
+    $\neg(p \wedge q)$ & $\neg p \vee \neg q$ & De Morgan's Laws - De Morgan\\
+    $\neg(p \vee q)$ & $\neg p \wedge \neg q$ &\\
+    \hline
+    $p \rightarrow q$ & $\neg p \lor q$ & Implication - imp \\
+    \hline
+    $p$ & $\neg (\neg p)$ & Double negation - dn \\
+    \hline
+    $p \biconditional q$ & $(p \rightarrow q) \land (q \rightarrow )p$ & Def'n of equivalence - equ\\
     \hline
     \end{tabular}
     \label{tab:equivalencerules}
 \end{table}
 
-%does the book use ` for negation? that sucks
-
-%Include inference rules table
+\begin{table}[ht]
+    \centering
+    \caption{Inference rules}
+    \begin{tabular}{|c|c|c|}
+    \hline
+    From & Can derive & Name - abbreviation\\
+    \hline
+    $p, p \rightarrow q$ & $q$ & Modus ponens - mp\\
+    $p \rightarrow q, \neg q$ & $\neg p$ & Modus tollens - mt\\
+    \hline
+    $p, q$ & $p \lor q$ & Conjunction - con\\
+    \hline
+    $p \land q$ & $p, q$ & Simplification - sim\\
+    \hline
+    $p$ & $p \lor q$ & Addition - add\\
+    \hline
+    \end{tabular}
+    \label{tab:inferencerules}
+\end{table}
 
 \end{document}
