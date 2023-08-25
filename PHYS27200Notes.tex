@@ -80,10 +80,14 @@ solving by computer are employed throughout. For more information, consult the s
     \item Dipole moment between charges $-q$ and $q$ separated by $\vec{s}$: $\vec{p} = q\vec{s}$
     \item Electric field on dipole axis: $\vec{E} = \frac{1}{4\pi \epsilon_0}\frac{2sq}{r^3}\hat{p}$
     \item Electric field on dipole bisecting plane: $\vec{E} = \frac{-1}{4 \pi \epsilon_0}\frac{sq}{r^3}\hat{p}$
-
 \end{enumerate}
 
+\pagebreak
+
 \section{Electric charge}
+
+\defn{Electric Charge}{Electric charge is an intrinsic characteristic of the
+fundamental particles that make up objects.}
 
 \marginnote{It was mentioned in class that mass is likewise intrinsic. 
 However, when discussing the Higgs field's role in giving particles mass, 
@@ -91,9 +95,6 @@ the distinction between mass as an intrinsic or emergent property becomes
 more nuanced. The mass of elementary particles like electrons and quarks is 
 emergent in the sense that it arises from their interaction with the Higgs 
 field, which itself is a fundamental aspect of the universe.}
-
-\defn{Electric Charge}{Electric charge is an intrinsic characteristic of the
-fundamental particles that make up objects.}
 
 \defn{Conservation of charge}{The net charge of a \emph{closed system} never changes}
 
@@ -225,5 +226,20 @@ formed by the two particles), the electric field is
 On the bisecting plane (i.e., the plane exactly halfway from each 
 point) the field is given by
 \[\vec{E} = \frac{-1}{4 \pi \epsilon_0}\frac{sq}{r^3}\hat{p}\]
-
+The force on a positive point charge $q$ a 
+distance of d away from the dipole, aligned with the dipole, and 
+on the side of the negative charge is given by 
+\[\vec{F}=q\vec{E_{dipole}}=q(\frac{-1}{4\pi \epsilon_0}\frac{2qs}{d^3},0,0)\]
+Now consider a dipole in a uniform electric field, like so:
+\begin{figure}
+    \caption{Dipole in uniform electric field}
+    \center
+    \includegraphics[width=\textwidth /2]{images/dipoleinuniformelectricfield.png}
+\end{figure}
+The positive end will be pulled to the right and the negative 
+end to the left, exerting a torque given by $\vec{\tau} = \vec{p} \times \vec{E_{uniform}}$.
+Note that by the definition of $\times$, $\tau = p E_{uniform} \sin{\theta}$, where $\theta$ is the
+dipole's angle from horizontal. It can be shown that the potential
+energy of a dipole in a uniform eletric field is $U = -\vec{p} \cdot \vec{E_{uniform}}$
+and similarly as before (but now with $\cdot$) $U = -p E_{uniform} \cos{\theta}$. 
 \end{document}
