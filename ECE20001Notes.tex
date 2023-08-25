@@ -189,17 +189,48 @@ an example. Say we have the below circuit:
 
 \end{circuitikz}
 
+We know $\sum P_i = \sum V_i I_i = 0$. Let's keep track 
+of each $P_i$ in a table, not forgetting passive
+sign convention:
+\begin{table}[ht]
+    \centering
+    \begin{tabular}{|c c|}
+    \hline
+    Symbol & Watts \\
+    \hline
+    $P_A$ & -30 \\
+    $P_B$ & 16 \\ 
+    $P_C$ & 30 \\
+    $P_D$ & -16 \\
+    $P_E$ & 2 \\
+    $P_F$ & -2$I$ \\
+    $P_G$ & -4 \\
+    \hline
+    \end{tabular}
+    \caption{Power absorbed}
+    \label{tab:powerabsorbtable}
+\end{table}
+Summing the rows of this table, we have 
+$\sum P_i = 2I - 2 = 0$, implying $I = 1$.
+
+In the previous example, we had current flowing
+both into and out of the positive terminals
+of elements. We also had negative currents. Let's define 
+how to handle signage in circuits:
+
+\defn{Passive sign convention}{Defines current as going into 
+positive voltage node of a component.} The component
+is labeled a \emph{load} or a \emph{passive device}.
+We call it this because the component
+consumes power. If a current is negative,
+it is flowing in the opposite direction shown by the
+arrow.
 \begin{marginfigure}
     \centering
     \includegraphics{images/Passive_sign_convention.svg.png}
     \caption{Passive sign convention}
     \label{fig:psc} 
 \end{marginfigure}
-\defn{Passive sign convention}{Defines current as going into 
-positive voltage node of a component.} The component
-is labeled a \emph{load} or a \emph{passive device}.
-We call it this because the component
-consumes power. 
 It's useful to have an idea of the components of circuit
 schematics (visual representations of a circuit). Below is a list 
 of the terms that will be used in this course:
