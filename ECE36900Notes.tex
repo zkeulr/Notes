@@ -129,7 +129,7 @@ Here are common logical connectives in Boolean logic:
     \toprule
     \textbf{Logical Connective} & \textbf{Symbol} \\
     \midrule
-    Negation (NOT) & $\lnot$ \\
+    Negation (NOT) & $\lnot$ or $'$ \\
     Conjunction (AND) & $\land$ \\
     Disjunction (OR) & $\lor$ \\
     Exclusive OR (XOR) & $\oplus$ \\
@@ -157,9 +157,61 @@ For example, consider $\land$ AND:
     F & F & F \\
     \hline
     \end{tabular}
+    \caption{Truth table for $\land$}
     \label{tab:truthtableand}
 \end{table}
+We see that $p$ AND $q$ is only true when $p$ is true and 
+$q$ is true. Similarly, $p$ or $q$ is only true when $p$ is true or 
+$q$ is true (or both). An important connective for 
+discovering new truths is the implication $\rightarrow$, which basically
+says "if the first letter is true, then so is the second".
+Let $p$: "I live in Wiley" and $q$: "I have no AC". In English,
+the statement $p \rightarrow q$ would be stated as "If I live in 
+Wiley, then I have no AC". 
 
+\begin{table}[ht]
+    \centering
+    \begin{tabular}{|c c|c|}
+    \hline
+    $p$ & $q$ & $p \rightarrow q$ \\
+    \hline
+    T & T & T \\
+    T & F & F \\
+    F & T & T \\
+    F & F & T\\
+    \hline
+    \end{tabular}
+    \caption{Truth table for $\rightarrow$}
+    \label{tab:truthtableimp}
+\end{table}
+Table \ref{tab:truthtableimp} shows the truth table for $\rightarrow$.
+It may not seem immediately clear why, for instance, 
+if $p$ and $q$ are false, then $p \rightarrow q$ is true.
+If we consider what this means in English, then all we know is 
+that I don't live in Wiley. Perhaps I live in Tarkington and still
+don't have AC, or perhaps I live in Honors and I do. In any case
+the first letter isn't true, so "if the first letter is true
+then so is the second" stands as true. If we have the statement 
+$p \rightarrow q$, then we call $q$ a \emph{necessary condition}
+for $p$. Conversely, $p$ is a \emph{sufficient condition} for $q$.
+
+Say we have a statement such as 
+$\neg A \lor B \rightarrow C$.
+This is ambiguous, since we can interpret 
+it as either $(A \lor B) \rightarrow C$ 
+or $A \lor (B \rightarrow C)$. The truth tables
+will differ in each case, so it 
+becomes necessary to specify in
+what order we should apply logical
+connectives. 
+
+\begin{enumerate}
+    \item Parentheses "()"
+    \item Negation "$\neg$"
+    \item AND and OR "$\land$, $\lor$"
+    \item Implication "$\rightarrow$"
+    \item Biconditional "$\biconditional$"
+\end{enumerate}
 
 \section{Rules and proofs}
 
@@ -296,5 +348,7 @@ Below are two tables for commonly used rules.
     \end{tabular}
     \label{tab:inferencerules}
 \end{table}
+
+
 
 \end{document}
