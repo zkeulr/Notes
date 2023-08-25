@@ -133,6 +133,9 @@ and it may not be constant with time.
 
 \defn{Power}{The rate of doing work, or changing energy.} 
 Mathematically, $P = \frac{dW}{dt} = IV$ and has units of Watts (W).
+In a closed system, power is always balanced: whatever 
+is put out by sources is consumed by
+loads. Thus, in a closed circuit, $\sum P = 0$
 
 \begin{marginfigure}
     \centering
@@ -141,11 +144,10 @@ Mathematically, $P = \frac{dW}{dt} = IV$ and has units of Watts (W).
     \label{fig:psc} 
 \end{marginfigure}
 \defn{Passive sign convention}{Defines current as going into 
-positive voltage node of a component. The component
+positive voltage node of a component.} The component
 is labeled a \emph{load} or a \emph{passive device}.
 We call it this because the component
-consumes power.}
-
+consumes power. 
 It's useful to have an idea of the components of circuit
 schematics (visual representations of a circuit). Below is a list 
 of the terms that will be used in this course:
@@ -177,23 +179,6 @@ can identify!
 
 Now, on to what circuits are doing. For interesting things
 to happen we need electrons flowing through those wires.
-Current is how quickly
-electrons are moving along, or in more formal terms the rate of
-change of charge. That is, $I = \frac{dQ}{dt}$. Its units are amperes (amps)
-Voltage (or electric potential) is the amount of work done in moving charged 
-particles such as electrons between two points. Whenever we want to separate 
-two oppositely (positive and negative) charged particles or push two similarly-charged
-particles together, we need to do
-work to overcome the force between them. The work done in 
-separating them is stored as potential energy.
-This stored energy is known as electric potential (or voltage) and is measured in volts.
-Thus, $V = \frac{W}{q}$. Just as with potential energy, voltage is always 
-measured as a difference between two points. Power is the rate at which work is being done,
-i.e. $P = \frac{dW}{dt}$. This would give power units of J/s, which
-is known as Watts. Now, by rearranging the equation for voltage, we obtain also
-$P=iV$. To make sense of this equation consider a light bulb in a circuit, with an electric potential difference of
-5 V and a current flowing through of 10 A. The power used by the light bulb is 
-$P=iV = 5 * 10 = 50$ watts, meaning it uses 50 J per second. 
 
 \section{(In)dependent sources, connections, resistance and Ohm's Law}
 Independent and dependent sources are fundamental elements in 
