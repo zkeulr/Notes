@@ -11,10 +11,11 @@
 % Fixes captions and images being cut off
 \usepackage{marginfix}
 
-\usepackage{tikz}
+\usepackage{circuitikz}
 \usepackage{amsmath,amsthm}
 \usetikzlibrary{shapes}
 \usetikzlibrary{positioning}
+\usetikzlibrary{arrows}
 
 % Set up the images/graphics package
 \usepackage{graphicx}
@@ -137,7 +138,56 @@ and it may not be constant with time.
 Mathematically, $P = \frac{dW}{dt} = IV$ and has units of Watts (W).
 In a closed system, power is always balanced: whatever 
 is put out by sources is consumed by
-loads. Thus, in a closed circuit, $\sum P = 0$
+loads. Thus, in a closed circuit, $\sum P = 0$ This
+is an important point, so allow me to illustrate it with 
+an example. Say we have the below circuit:
+
+\begin{circuitikz} \draw
+    (0,-2) -- (0,2)
+      (0,2) -- (3,2)
+      (3, 2) -- (3, 0)
+      (0, -2) -- (9, -2)
+      (0, 0) -- (9,0)
+      (3, -2) -- (3, 0)
+      (6, -2) -- (6, 0)
+      (9, -2) -- (9, 0)
+    ;
+    \node[draw, rectangle, minimum width=0.5cm, minimum height=0.5cm] at (1.5,2) {G}
+    (1.5,2.25) node[above] {$+ 4 V -$}
+
+    (1.5,2) to [short,i=$1A$] (0,2);
+
+    \node[draw, rectangle, minimum width=0.5cm, minimum height=0.5cm] at (1.5,0) {B}
+    (1.5,0.25) node[above] {$+ 4 V -$}
+
+    (0,0) to [short,i=$4A$] (1.5,0);
+
+    \node[draw, rectangle, minimum width=0.5cm, minimum height=0.5cm] at (0,-1) {A}
+    (-.25,-1) node[label={[rotate=90]above:$- 10V +$}] {};
+
+    \draw (0,-.25) to[short, i=$3A$] (0, 0);
+
+    \node[draw, rectangle, minimum width=0.5cm, minimum height=0.5cm] at (3,-1) {C}
+    (2.75,-1) node[label={[rotate=90]above:$- 6V +$}] {};
+
+    \draw (3,0) to[short, i=$5A$] (3, -.25);
+
+    \node[draw, rectangle, minimum width=0.5cm, minimum height=0.5cm] at (6,-1) {E}
+    (5.75,-1) node[label={[rotate=90]above:$+ 2V -$}] {};
+
+    \draw (6,0) to[short, i=$-1A$] (6, -.25);
+
+    \node[draw, rectangle, minimum width=0.5cm, minimum height=0.5cm] at (4.5,0) {D}
+    (4.5,.25) node[above] {$+ 8V -$};
+
+    \draw (3,0) to[short, i=$-2A$] (4.5, 0);
+
+    \node[draw, rectangle, minimum width=0.5cm, minimum height=0.5cm] at (9,-1) {F}
+    (8.75,-1) node[label={[rotate=90]above:$- 2V +$}] {};
+
+    \draw (9,-1) to[short, i=$I$] (9, 0);
+
+\end{circuitikz}
 
 \begin{marginfigure}
     \centering
