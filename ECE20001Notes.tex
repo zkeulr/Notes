@@ -380,25 +380,46 @@ If you have a node with two known currents going in and one unkown comming out,
 Kirchhoff's current law tells us the unknown current is simply the sum
 of the known currents. 
 
-\defn{Kirchhoff's Voltage Law}{In a closed path, the sum
-of all voltage drops is zero. Mathematically, $\sum_k v_k = 0$}.
+Contrasted with Kirchhoff's current law, we have Kirchhoff's voltage
+law. 
 
-Now that we have a good idea of circuit components, we can look 
+\defn{Kirchhoff's Voltage Law}{In a closed loop, the sum
+of all voltage drops is zero. Mathematically, $\sum_k v_k = 0$}.
+Imagine a closed loop such as fig. \ref{fig:series}.
+Say the voltage across the battery is $15V$ and each resistor
+is identical. Although we don't know for sure yet, we can guess
+that the current will be the same through each, and ergo
+by Ohm's Law ($V=IR$) so will each voltage. Therefore,
+\[15 + 3V = 0 \rightarrow V = -5\]
+
+Now that we have a good idea of circuit components and how voltage/current behave, we can look 
 at important configurations. These are the most useful:
 
 \defn{Series Combination}{In a series combination, the elements 
-are connected with end to end in contact, such that 
-current flow is equal in all the elements in the 
-combination}
-
-\includegraphics[width=\textwidth/2]{images/Series_circuit.svg.png}
+are connected with end to end in contact}. We can use Kirchhoff's current
+law to show that the current at each point in the circuit is the same. Since current 
+flows into a resistor it has no option but to flow out the same resistor.
+\begin{figure}
+    \center
+    \includegraphics[width=\textwidth/2]{images/Series_circuit.svg.png}
+    \caption{Series Combination}
+    \label{fig:series}
+\end{figure}
+Say the resistances are $R_1, R_2$, and $R_3$. The we have
+\begin{align*}
+    V &= \\
+\end{align*}
 
 \defn{Parallel Combination}{When two or more resistances are 
 connected between the same two points, they are said to be 
 connected in parallel combination. In this case voltage is equal
 across all elements}
 
-\includegraphics[width=\textwidth/2]{images/220px-Resistors_in_parallel.svg.png}
-
+\begin{figure}
+    \center
+    \includegraphics[width=\textwidth/2]{images/220px-Resistors_in_parallel.svg.png}
+    \caption{Parallel Combination}
+    \label{fig:parallel}
+\end{figure}
 
 \end{document}
