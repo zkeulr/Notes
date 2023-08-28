@@ -78,7 +78,7 @@ solving by computer are employed throughout. For more information, consult the s
     \item Electric field due to a point or charged sphere: $\vec{E_1} = \frac{1}{4\pi \epsilon_0}\frac{q_1}{r^2}\hat{r}$
     \item Force due to electric field: $\vec{F_2} = E_1 q_2$
     \item Dipole moment between charges $-q$ and $q$ separated by $\vec{s}$: $\vec{p} = q\vec{s}$
-    \item Electric field on dipole axis: $\vec{E} = \frac{1}{4\pi \epsilon_0}\frac{2sq}{r^3}\hat{p}$
+    \item Electric field on dipole axis: $\vec{E} = \frac{1}{4\pi \epsilon_0}\frac{-2sq}{r^3}\hat{p}$
     \item Electric field on dipole bisecting plane: $\vec{E} = \frac{-1}{4 \pi \epsilon_0}\frac{sq}{r^3}\hat{p}$
 \end{enumerate}
 
@@ -248,5 +248,58 @@ end to the left, exerting a torque given by $\vec{\tau} = \vec{p} \times \vec{E_
 Note that by the definition of $\times$, $\tau = p E_{uniform} \sin{\theta}$, where $\theta$ is the
 dipole's angle from horizontal. It can be shown that the potential
 energy of a dipole in a uniform eletric field is $U = -\vec{p} \cdot \vec{E_{uniform}}$
-and similarly as before (but now with $\cdot$) $U = -p E_{uniform} \cos{\theta}$. 
+and similarly as before (but now with $\cdot$) $U = -p E_{uniform} \cos{\theta}$. Usefully,
+this means dipoles can be used to measure the direction of an electric field. 
+
+Throughout these examples, we have been assuming the associated 
+speeds are much less than the speed of light. If the velocities
+approach a significant fraction of the speed of light Coulomb's
+law no longer holds, and we must account for relativity. 
+
+\defn{Conservation of Charge}{Charge cannot be created nor 
+destroyed, with the exception of electron-positron annihilation
+and other such quantum hijinks.} We can use conservation
+of charge to predict the behavior 
+\marginnote{Interestingly, in annihilation
+between positrons and electrons (or any other 
+subatomic particles) the total energy and momentum 
+of the initial pair are conserved in the process and 
+distributed among a set of other particles in the final state
+(photons in the example of the electron-positron pair). 
+Antiparticles have exactly opposite additive quantum numbers 
+from particles, so the sums of all quantum numbers of 
+such an original pair are zero. Hence any set of 
+particles may be produced whose total quantum numbers are 
+also zero as long as conservation of energy, 
+conservation of momentum, and conservation of spin are obeyed.}
+of many systems. For example, consider tape pulled from a roll.
+You may have noticed when dangling strips of freshly-pulled tape 
+they tend to drift towards nearby surfaces to stick and become tangled:
+this is because peeling a strip of tape off a roll strips electrons 
+from the tape, resulting in a net positive charge because of 
+conservation of charge. When this charge approaches a net neutral 
+object, such as your hand, the electrons in the atoms of your hand
+are attracted to the positively charged tape and congregate closer to the tape.
+This results in a negative charge buildup near the tape. The
+positive tape is attracted to the negative charges, and so the tape
+moves towards your hand and becomes tangled and useless. The process
+of one charge inducing a charge on a neutral object occurs 
+often enough for the phenomenon to be named. We call it
+\defn{Polarization}{The process by which a dipole is formed
+in a neutral object by an electric field.} The dipole moment is given by
+$\vec{p} = \alpha \vec{E}$, where $\alpha$ is a material-dependent constant
+called polarizability. Such a dipole is \emph{induced}. Consider 
+a point charge near a neutral atom. The point charge creates an 
+electric field given by 
+\[\vec{E_1} = \frac{1}{4\pi \epsilon_0}\frac{q_1}{r^2}\hat{r}\]
+Inducing a dipole given by the expression
+\[\vec{p} = \alpha \vec{E_1} = \frac{1}{4\pi \epsilon_0}\frac{\alpha q_1}{r^2}\hat{r}\]
+This dipole creates a field at the point charge of
+\begin{align*}
+    \vec{E_2} &= \frac{1}{4\pi \epsilon_0}\frac{2\vec{p}}{r^3} \\
+    &= \frac{1}{4\pi \epsilon_0}\frac{2\alpha \vec{E_1}}{r^3} \\
+    &= \frac{1}{4\pi \epsilon_0}\frac{2\alpha}{r^3}(\frac{1}{4\pi \epsilon_0} \frac{q_1}{r^2}\hat{r}) \\
+    &= \left(\frac{1}{4\pi \epsilon_0}\right)^2 \frac{2 \alpha q_1}{r^5}\hat{r}
+\end{align*}
+
 \end{document}
