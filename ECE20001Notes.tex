@@ -278,7 +278,7 @@ sources:
     voltage of 9 V is an example of an independent voltage source.
     \begin{marginfigure}
         \centering
-        \includegraphics{images/independentvoltagesource.png}
+        \includegraphics[width=\textwidth/2]{images/independentvoltagesource.png}
         \caption{inependent voltage source}
         \label{fig:independentvoltagesource}
     \end{marginfigure} 
@@ -294,7 +294,7 @@ sources:
     voltage across the component.
     \begin{marginfigure}
         \centering
-        \includegraphics{images/independentcurrentsource.png}
+        \includegraphics[width=\textwidth/2]{images/independentcurrentsource.png}
         \caption{Independent current source}
         \label{fig:independentcurrentsource}
     \end{marginfigure} 
@@ -314,7 +314,7 @@ the circuit. There are four types of dependent sources:
     separate part of the circuit.}
     \begin{marginfigure}
         \centering
-        \includegraphics{images/dependentvoltagesource.png}
+        \includegraphics[width=\textwidth/2]{images/dependentvoltagesource.png}
         \caption{Dependent voltage source}
         \label{fig:dependentvoltagesource}
     \end{marginfigure} 
@@ -325,7 +325,7 @@ the circuit. There are four types of dependent sources:
     through a different part of the circuit.}
     \begin{marginfigure}
         \centering
-        \includegraphics{images/dependentcurrentsource.png}
+        \includegraphics[width=\textwidth/2]{images/dependentcurrentsource.png}
         \caption{Dependent current source}
         \label{fig:dependentcurrentsource}
     \end{marginfigure} 
@@ -346,6 +346,42 @@ In both the independent and dependent case, we assume
 the sources are ideal. There are two
 critical attributes of ideal sources. First, their value remains unchanged indefi-
 nitely. Second, they can deliver any amount of power needed by their loads.
+Turning off a voltage source is equivalent to replacing it with a 
+short circuit (line). Turning off a current source is equivalent to replacing it with an
+open circuit (broken line). Also equivalent to an open
+circuit is a resistor with infinite resistance. 
+Resistance is a measure of how hard it is to shove current
+through a resistor. The harder it is, the higher the
+resistance. It's given by $R = \frac{\rho L}{A} = \frac{V}{I}$, where $\rho$ 
+is the resistivity, $L$ is the length of the resistor, and $A$ is the 
+cross-sectional area of the resistor. The reciprocal of
+resistance is conductance ($G = \frac{1}{R}$). We can relate 
+voltage, current and resistance with \emph{Ohm's Law}.
+
+\defn{Ohm's Law}{$V = IR$.} This law is fundemental to EE and will
+occur repeatedly throughout the course. 
+
+\section{Kirchhoff's Laws, resistor combinations, and voltage/current division}
+\defn{Kirchhoff's Current Law}{The sum of all currents going into
+a node is 0. Mathematically, $\sum_k i_k = 0$}. We may intuit 
+this by imagining electricity as water flowing into a pipe. Anything that flows 
+in must flow out.
+Say you have a circuit such as fig. \ref{fig:kcl}. 
+\begin{figure}
+    \center
+    \includegraphics[width=\textwidth/2]{images/1200px-Kirchhoff's_Current_Law.svg.png}
+    \caption{Kirchhoff's Current Law}
+    \label{fig:kcl}
+\end{figure}
+By Kirchhoff's
+current law, we see that $i_1+i_2-i_3-i_4 = 0 \rightarrow i_1 + i_2 = i_3 +i_4$.
+The neat thing is that this must be true for any node in a circuit. 
+If you have a node with two known currents going in and one unkown comming out,
+Kirchhoff's current law tells us the unknown current is simply the sum
+of the known currents. 
+
+\defn{Kirchhoff's Voltage Law}{In a closed path, the sum
+of all voltage drops is zero. Mathematically, $\sum_k v_k = 0$}.
 
 Now that we have a good idea of circuit components, we can look 
 at important configurations. These are the most useful:
@@ -363,23 +399,6 @@ connected in parallel combination. In this case voltage is equal
 across all elements}
 
 \includegraphics[width=\textwidth/2]{images/220px-Resistors_in_parallel.svg.png}
-
-Turning off a voltage source is equivalent to replacing it with a 
-short circuit (line). Turning off a current source is equivalent to replacing it with an
-open circuit (broken line). Also equivalent to an open
-circuit is a resistor with infinite resistance. 
-Resistance is a measure of how hard it is to shove current
-through a resistor. The harder it is, the higher the
-resistance. It's given by $R = \frac{\rho L}{A} = \frac{V}{I}$, where $\rho$ 
-is the resistivity, $L$ is the length of the resistor, and $A$ is the 
-cross-sectional area of the resistor. The reciprocal of
-resistance is conductance ($G = \frac{1}{R}$). We can relate 
-voltage, current and resistance with \emph{Ohm's Law}.
-
-\defn{Ohm's Law}{$V = IR$.} This law is fundemental to EE and will
-occur repeatedly throughout the course. 
-
-\section{Kirchhoff's Laws, resistor combinations, and voltage/current division}
 
 
 \end{document}
