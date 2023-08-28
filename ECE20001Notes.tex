@@ -405,21 +405,38 @@ flows into a resistor it has no option but to flow out the same resistor.
     \caption{Series Combination}
     \label{fig:series}
 \end{figure}
-Say the resistances are $R_1, R_2$, and $R_3$. The we have
+Say the resistances are $R_1, R_2$, and $R_3$. By Kirchhoff's voltage law, we have
 \begin{align*}
-    V &= \\
+    V &= IR_1 + IR_2 + IR_3\\
+    &= I(R_1 + R_2 + R_3) \\
+    &= IR_{total} \\
+    &\rightarrow R_{total} = R_1 + R_2 + R_3\\
 \end{align*}
+Therefore for resistors in series, the total resistance is 
+equal to the sum of each individual resistance. 
 
 \defn{Parallel Combination}{When two or more resistances are 
 connected between the same two points, they are said to be 
-connected in parallel combination. In this case voltage is equal
-across all elements}
-
+connected in parallel combination. Here, voltage is equal
+across all elements}. 
 \begin{figure}
     \center
     \includegraphics[width=\textwidth/2]{images/220px-Resistors_in_parallel.svg.png}
     \caption{Parallel Combination}
     \label{fig:parallel}
 \end{figure}
+In fig. \ref{fig:parallel}, the total current is split among
+$n$ different resistors. That is, $I = \sum_k^n i_k$. With a bit of
+manipulation and Ohm's Law, we have that
+\begin{align*}
+    I &= \frac{V}{R_{total}}\\
+    &= \sum_k^n i_k \\
+    &= \sum_k^n V/R_k \\
+    &\rightarrow \frac{1}{R_{total}} \\
+    &= \sum_k^n \frac{1}{R_k} \\
+\end{align*}
 
+
+So for resistors in parallel, the reciprocal of the total resistance is 
+the sum of the reciprocals of the individual resistances.
 \end{document}
