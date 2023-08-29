@@ -192,16 +192,16 @@ combined with a target in the terminal, like so
 \begin{lstlisting}[caption=make clean]
    $ make clean
 \end{lstlisting}
-%how to link files together
-% Conditional compilation
-%-DSolution1 will tell the compiler to activate a
-%#ifdef Solution1
-%...
-%#endif
-%block
-
-%also, #ifndef Solution1 ... #endif will activate if not that
-
+The test flags correspond with preprocessor directives present in 
+your C code. For the above Makefile, perhaps we have something
+such as the following:
+\begin{lstlisting}[caption=Conditional compilation]
+   #ifdef ASCENDING
+   ...
+   #endif
+\end{lstlisting}
+The compiler will only run the code in this block if we use
+the correct test flag when compiling. 
 
 \defn{Header file}{Encapsulates formulas, function, and 
 useful code for use in other programs. Uses ".h" extension.} For
@@ -244,5 +244,6 @@ variable, we have a statement of the form
 This single line has a surprisingly rich amount of information.
 The \texttt{int} tells us (and the compiler) the data type, which
 in turn determines memory allocated, permissible operations, and more.
-
+\texttt{var} tells us the variable's name, and \texttt{= 0} tells us its
+initial value. 
 \end{document}
