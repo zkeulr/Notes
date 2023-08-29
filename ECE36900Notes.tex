@@ -423,15 +423,19 @@ variables and quantifiers}, the latter of which propositional logic lacks.
 
 \defn{Existential quantifer}{"There exists": $\exists$}
 
-Predicate formulas are built by combining predicates with quantifers,
-grouping symbols, and logical connectives seen before. 
-
-For example: $(\forall x)(\exists y) x > y$. We would read this statment as 
+As an example of a predicate formula: $(\forall x)(\exists y) x > y$. We would read this statment as 
 "for all $x$ there exists a $y$ such that $x > y$." At first glance it may seem 
 obvious that this statement is true, but consider the domain. What if the domain is 
 all natural numbers? Then we could let $x=1$ (or zero depending
 or your definition of natural numbers) and there would be no corresponding
-lesser $y$. 
+lesser $y$. We can see from this example that the truth value of 
+a predicate logic formula depends on quantifiers, domain, and the predicates. 
+
+Just as with propositional logic, we often need to translate English statements
+into predicate logic. Take the statement "every movie made by George Lucas is great".
+We can rephrase this as "for any movie, if the movie is made by George Lucas, it is great".
+We would write this formula as
+\[(\forall x)(GL(x) \rightarrow Great(x))\]
 
 
 \end{document}
