@@ -80,6 +80,8 @@ solving by computer are employed throughout. For more information, consult the s
     \item Dipole moment between charges $-q$ and $q$ separated by $\vec{s}$: $\vec{p} = q\vec{s}$
     \item Electric field on dipole axis: $\vec{E} = \frac{1}{4\pi \epsilon_0}\frac{-2sq}{r^3}\hat{p}$
     \item Electric field on dipole bisecting plane: $\vec{E} = \frac{-1}{4 \pi \epsilon_0}\frac{sq}{r^3}\hat{p}$
+    \item Electric field from point charge-induced dipole: 
+    \item Electric field from dipole-induced dipole: 
 \end{enumerate}
 
 \pagebreak
@@ -300,6 +302,21 @@ This dipole creates a field at the point charge of
     &= \frac{1}{4\pi \epsilon_0}\frac{2\alpha \vec{E_1}}{r^3} \\
     &= \frac{1}{4\pi \epsilon_0}\frac{2\alpha}{r^3}(\frac{1}{4\pi \epsilon_0} \frac{q_1}{r^2}\hat{r}) \\
     &= \left(\frac{1}{4\pi \epsilon_0}\right)^2 \frac{2 \alpha q_1}{r^5}\hat{r}
+\end{align*}
+This formula is valid provided the electric field that induced the dipole is 
+from a point charge. If the electric field is instead from, say, another (permanent)
+dipole then $\vec{p} = \alpha \vec{E_1}$ is still valid. However, in this case
+the formula for $\vec{E_1}$ will be given by the equation for the electric field
+along the axis of a dipole instead. Following this logic, 
+\begin{align*}
+    \vec{p} &= \alpha \vec{E_1} \\
+    &= \alpha \frac{1}{4\pi \epsilon_0}\frac{2\vec{p_1}}{r^3} \\
+\end{align*}
+If we let $'vec{r'}$ be the location of the permanent dipole from the induced 
+dipole, we have the electric field at the permanent dipole as 
+\begin{align*}  
+    \vec{E(\vec{r'})} &= \left(\frac{1}{4\pi \epsilon_0}\frac{2}{r^3}\right)\left(\alpha \frac{1}{4\pi \epsilon_0}\frac{2\vec{p_1}}{r'^3}\right) \\
+    &= \left(\frac{1}{4\pi \epsilon_0}\right)^2 \frac{4 \alpha \vec{p_1}}{r^3 r'^3}\\
 \end{align*}
 
 \end{document}
