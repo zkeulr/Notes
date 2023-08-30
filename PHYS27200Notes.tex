@@ -80,8 +80,8 @@ solving by computer are employed throughout. For more information, consult the s
     \item Dipole moment between charges $-q$ and $q$ separated by $\vec{s}$: $\vec{p} = q\vec{s}$
     \item Electric field on dipole axis: $\vec{E} = \frac{1}{4\pi \epsilon_0}\frac{-2sq}{r^3}\hat{p}$
     \item Electric field on dipole bisecting plane: $\vec{E} = \frac{-1}{4 \pi \epsilon_0}\frac{sq}{r^3}\hat{p}$
-    \item Electric field from point charge-induced dipole: 
-    \item Electric field from dipole-induced dipole: 
+    \item Electric field from point charge-induced dipole: $\left(\frac{1}{4\pi \epsilon_0}\right)^2 \frac{2 \alpha q_1}{r^5}\hat{r}$
+    \item Electric field from dipole-induced dipole: $\left(\frac{1}{4\pi \epsilon_0}\right)^2 \frac{4 \alpha q p_1}{r^7}$
 \end{enumerate}
 
 \pagebreak
@@ -318,5 +318,9 @@ dipole, we have the electric field at the permanent dipole as
     \vec{E(\vec{r'})} &= \left(\frac{1}{4\pi \epsilon_0}\frac{2}{r^3}\right)\left(\alpha \frac{1}{4\pi \epsilon_0}\frac{2\vec{p_1}}{r'^3}\right) \\
     &= \left(\frac{1}{4\pi \epsilon_0}\right)^2 \frac{4 \alpha \vec{p_1}}{r^3 r'^3}\\
 \end{align*}
+Calculating the force on the permanent dipole is slightly more complicated than
+multiplying by the charge of the dipole, since $r'$ and the sign of 
+$q$ varies based on which end of the dipole we consider. To find the net force, we
+must find the force on each charge and sum them, like so:
 
 \end{document}
