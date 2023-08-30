@@ -312,15 +312,24 @@ along the axis of a dipole instead. Following this logic,
     \vec{p} &= \alpha \vec{E_1} \\
     &= \alpha \frac{1}{4\pi \epsilon_0}\frac{2\vec{p_1}}{r^3} \\
 \end{align*}
-If we let $'vec{r'}$ be the location of the permanent dipole from the induced 
+If we let $\vec{r'}$ be the location of the permanent dipole from the induced 
 dipole, we have the electric field at the permanent dipole as 
 \begin{align*}  
-    \vec{E(\vec{r'})} &= \left(\frac{1}{4\pi \epsilon_0}\frac{2}{r^3}\right)\left(\alpha \frac{1}{4\pi \epsilon_0}\frac{2\vec{p_1}}{r'^3}\right) \\
+    \vec{E}(\vec{r'}) &= \left(\frac{1}{4\pi \epsilon_0}\frac{2}{r^3}\right)\left(\alpha \frac{1}{4\pi \epsilon_0}\frac{2\vec{p_1}}{r'^3}\right) \\
     &= \left(\frac{1}{4\pi \epsilon_0}\right)^2 \frac{4 \alpha \vec{p_1}}{r^3 r'^3}\\
 \end{align*}
 Calculating the force on the permanent dipole is slightly more complicated than
 multiplying by the charge of the dipole, since $r'$ and the sign of 
 $q$ varies based on which end of the dipole we consider. To find the net force, we
 must find the force on each charge and sum them, like so:
+\begin{align*}  
+    F^+ &= q\vec{E}(r - \frac{s}{2}) \\
+    F^- &= q\vec{E}(r + \frac{s}{2}) \\
+    F_{net} &= F^+ + F^- \\
+    &= q\left[\left(\frac{1}{4\pi \epsilon_0}\right)^2 \frac{4 \alpha \vec{p_1}}{r^3 (r + \frac{s}{2})^3} + \left(\frac{1}{4\pi \epsilon_0}\right)^2 \frac{4 \alpha \vec{p_1}}{r^3 (r - \frac{s}{2})^3}\right] \\
+    &= q\left(\frac{1}{4\pi \epsilon_0}\right)^2 \left[\frac{4 \alpha \vec{p_1}}{r^3 (r + \frac{s}{2})^3} + \frac{4 \alpha \vec{p_1}}{r^3 (r - \frac{s}{2})^3}\right] \\
+\end{align*}
+With a bit more algebraic simplification, we can show that
+
 
 \end{document}
