@@ -326,10 +326,17 @@ must find the force on each charge and sum them, like so:
     F^+ &= q\vec{E}(r - \frac{s}{2}) \\
     F^- &= q\vec{E}(r + \frac{s}{2}) \\
     F_{net} &= F^+ + F^- \\
-    &= q\left[\left(\frac{1}{4\pi \epsilon_0}\right)^2 \frac{4 \alpha \vec{p_1}}{r^3 (r + \frac{s}{2})^3} + \left(\frac{1}{4\pi \epsilon_0}\right)^2 \frac{4 \alpha \vec{p_1}}{r^3 (r - \frac{s}{2})^3}\right] \\
-    &= q\left(\frac{1}{4\pi \epsilon_0}\right)^2 \left[\frac{4 \alpha \vec{p_1}}{r^3 (r + \frac{s}{2})^3} + \frac{4 \alpha \vec{p_1}}{r^3 (r - \frac{s}{2})^3}\right] \\
+    &= q\left[\left(\frac{1}{4\pi \epsilon_0}\right)^2 \frac{4 \alpha \vec{p_1}}{r^3 (r + \frac{s}{2})^3} - \left(\frac{1}{4\pi \epsilon_0}\right)^2 \frac{4 \alpha \vec{p_1}}{r^3 (r - \frac{s}{2})^3}\right] \\
+    &= q\left(\frac{1}{4\pi \epsilon_0}\right)^2 \left[\frac{4 \alpha \vec{p_1}}{r^3 (r + \frac{s}{2})^3} - \frac{4 \alpha \vec{p_1}}{r^3 (r - \frac{s}{2})^3}\right] \\
+    &= q\left(\frac{1}{4\pi \epsilon_0}\right)^2\left(4 \alpha \vec{p_1}\right) \left[\frac{1}{r^3 (r + \frac{s}{2})^3} - \frac{1}{r^3 (r - \frac{s}{2})^3}\right] \\
 \end{align*}
-With a bit more algebraic simplification, we can show that
-
+With a bit more algebraic simplification and the assumption
+that $r >> s$, we can show that
+\begin{align*}  
+    F_{net} &= F^+ + F^- \\
+    &= q\left(\frac{1}{4\pi \epsilon_0}\right)^2 \left(\frac{4 \alpha \vec{p_1}}{r^6}\right) \left[(1+\frac{3s}{2r})-(1-\frac{3s}{2r})\right]\\
+    &= q\left(\frac{1}{4\pi \epsilon_0}\right)^2 \left(\frac{4 \alpha \vec{p_1}}{r^6}\right) \left[\frac{3s}{r}\right]\\
+    &\approx q\left(\frac{1}{4\pi \epsilon_0}\right)^2 \left(\frac{12 \alpha \vec{p_1}s}{r^7}\right) \\
+\end{align*}
 
 \end{document}
