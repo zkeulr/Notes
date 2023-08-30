@@ -387,8 +387,44 @@ until they reach the edges of whatever container holds them.
 %show that the electric field within is zero
 More commonly, we see conductors in the form of metals. 
 The atomic structure of a metal allows electrons to move freely
-from atom to atom. 
-\defn{Drift speed}{}
+from atom to atom. Thus, within a metal, the electrons can freely 
+move in whichever direction the electric field determines.
+\marginnote{Typically electrons are bound to the metal as a whole. However,
+if the electric field is strong enough, then air surrounding
+a metal can become ionized and allow electrons to flow freely
+through it, creating a spark.}
+"Freely" is used liberally here, since the electrons 
+can collide with other electrons or defects in the metal and lose energy.
+The mobile electrons in 
+the conductor will have a momentum and velocity given by 
+\begin{align*}
+    \vec{\Delta p} &= \vec{F_{net}} \Delta t \\
+    &= q\vec{E_{net}} \\
+    &= -e \vec{E_{net}} \\
+    &\rightarrow \vec{\Delta p} = -e \vec{E_{net}} \Delta t \\
+    &= m_e v \\
+    &\rightarrow v = \frac{e \vec{E_{net}} \Delta t}{m_e}\\
+\end{align*}
+A good approximation for the average velocity of 
+an electron is $\bar{v} = \mu E$. The constant $\mu$ is called
+the "mobility". 
 
+Now, consider a conductor with a net charge, such as a charged sphere.
+Inside the sphere like charges will repel each another and push 
+to get as far away from one another as possible. This occurs when
+all the charges are on the surface of the conducting object, since anywhere 
+else would be closer together and they cannot go outside the 
+bounds of the object. This rearrangement has two effects.
+First, any charge in a conductor will be found on the surface.
+Second, the net electric field inside a conductor will be zero. 
+\marginnote{To see why this must be the case, imagine if it 
+were not. Then any charge within the conductor would be moved
+by the electric field, so we see that the case where no electric field
+is present is the only stable possibility. However, if electrons 
+are moving, then there can be (and is) an electric field within
+the conductor. It is only when the conductor is in static 
+equilibrium that there is no net electric field within.}
+
+%charge by conduction
 
 \end{document}
