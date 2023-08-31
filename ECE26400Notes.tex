@@ -195,7 +195,7 @@ combined with a target in the terminal, like so
 The test flags correspond with preprocessor directives present in 
 your C code. For the above Makefile, perhaps we have something
 such as the following:
-\begin{lstlisting}[caption=Conditional compilation]
+\begin{lstlisting}[language=C,caption=Conditional compilation]
    #ifdef ASCENDING
    ...
    #endif
@@ -208,7 +208,7 @@ useful code for use in other programs. Uses ".h" extension.} For
 compiler-included header files, include them in a preprocessor
 directive with triangle brackets. For user-made header files,
 use quotes instead. 
-\begin{lstlisting}[caption=Header file usage]
+\begin{lstlisting}[language=C,caption=Header file usage]
    #include <stdio.h>
    #include "myheader.h"
 \end{lstlisting}
@@ -238,7 +238,7 @@ and the slash (/) refers to a specific file.
 Although the reader is likely familiar with data types, let us 
 briefly recap variables for the sake of completeness. To declare a 
 variable, we have a statement of the form 
-\begin{lstlisting}[caption=Variable]
+\begin{lstlisting}[language=C,caption=Variable]
    int var = 0;
 \end{lstlisting}
 This single line has a surprisingly rich amount of information.
@@ -276,9 +276,13 @@ has an address. Each house takes
 up a certain size, just as each variable type takes up a certain 
 size in memeory. The computer only cares about the address, but
 to make our code readable by humans we refer to addresses by names, 
-analogous to calling 104 North St "Wu's house".
+analogous to calling 104 North St "Wu's house". If we create a variable 
+"\texttt{double a = 3.2}" the computer will store an address-value pair that includes
+the address (where the value of the variable is) and the value (what the value
+of the variable is).
 
-A computer has two types of memory: volatile and non-volatile.
+We may be curious where the computer stores this information.
+For our purposes there are two types of memory: volatile and non-volatile.
 
 \defn{Volatile}{Also called primary memory, volatile memory
 maintains its data only while the device is powered.} Examples:
@@ -295,5 +299,71 @@ supply to retain the data or program code stored in a computing device.} Example
    \item Hard drive 
    \item CD
 \end{itemize}
+So address-value pairs are stored in volatile memory, specifically the stack. 
+The stack operates in a last-in-first-out manner, which can be visualized as
+an actual stack. We can put something on the top of the stack, or take something off
+the top of the stack. We cannot go to an arbitrary index in the stack, we may 
+only "push" (add something to the top) or "pop" (get the top value of the stack).
+When a function such as \texttt{main()} is called, it often invokes another functions
+within itself. The way a computer keeps track of what order the code should be 
+executed in is by pushing the \emph{return location} onto the stack, essentially
+where in the program the function was called. This process 
+repeats for any nested function calls We can visualize this on the stack, as
+seen in fig. \ref{table:stackfunctionlocation}. 
+\begin{table}[h]
+   \centering
+   \caption{Stack}
+   \label{table:stackfunctionlocation}
+   \begin{tabular}{|c|}
+   \hline
+   function $n$ location\\
+   \hline
+   \dots\\
+   \hline
+   function 2 location\\
+   \hline
+   function 1 location\\
+   \hline
+   main \\
+   \hline
+   \end{tabular}
+\end{table}
+
+Suppose \texttt{function()} is defined as follows.  
+\begin{lstlisting}[language=C,caption=Functions in memory]
+   void function (int a, char c) { // Args: a, c
+      int i = 0; // i is a local variable
+      function2(); // Pushes a new block into the
+      // stack. The first line will be the return 
+      // location.
+   }
+\end{lstlisting}
+At this point the stack looks like fig. \ref{table:stackexample}.
+\begin{table}[h]
+   \centering
+   \caption{Stack}
+   \label{table:stackexample}
+   \begin{tabular}{|c|}
+   \hline
+   \dots \\
+   function2 location\\
+   \hline
+   \texttt{i} address and value \\
+   \texttt{c} address and value \\
+   \texttt{a} address and value \\
+   function location\\
+   \hline
+   main \\
+   \hline
+   \end{tabular}
+\end{table}
+Now \texttt{function2} would execute, and once it was finished, the code would pop
+values from the stack until it reached 
+the return location and resume from there. Note that \texttt{function2}
+does not have access to \texttt{i}, \texttt{a}, or \texttt{c} since only the 
+topmost value on the stack can be accessed. Likewise, any variables defined in 
+\texttt{function2} would be gone once everything was popped from the stack
+and we returned to \texttt{function}, so any such variables are 
+outside the \emph{scope} of \texttt{function}. 
 
 \end{document}
