@@ -364,6 +364,28 @@ does not have access to \texttt{i}, \texttt{a}, or \texttt{c} since only the
 topmost value on the stack can be accessed. Likewise, any variables defined in 
 \texttt{function2} would be gone once everything was popped from the stack
 and we returned to \texttt{function}, so any such variables are 
-outside the \emph{scope} of \texttt{function}. 
-
+outside the \emph{scope} of \texttt{function}. If we want to access some calculation
+from \texttt{function2} outside of \texttt{function2}, we must return it. When
+we call a function with a return value, the computer will include a \emph{value address}
+in the stack, as seen in fig. \ref{table:stackvalueaddress}. 
+\begin{table}[h]
+   \centering
+   \caption{Stack}
+   \label{table:stackvalueaddress}
+   \begin{tabular}{|c|}
+   \hline
+   \dots \\
+   function2 location\\
+   \hline
+   \texttt{i} address and value \\
+   \texttt{c} address and value \\
+   \texttt{a} address and value \\
+   function location and value address\\
+   \hline
+   main \\
+   \hline
+   \end{tabular}
+\end{table}
+Now when we call \texttt{function2} and it returns a value, that value will 
+be stored in the value address specified on the bottom of the stack. 
 \end{document}
