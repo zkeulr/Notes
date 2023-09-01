@@ -541,23 +541,72 @@ Note that this method is only possible when the circuit has
 resistors in series or parallel. For more complex situations, such as
 when souces are present or resistors are combined in neither
 series nor parallel, we must use Kirchhoff's laws and good judgement 
-to find the equivalent resistance. Consider the below example, where 
+to find the equivalent resistance. Consider fig. \ref{fig:eqresources}, where 
 we have a circuit with both dependent and independent sources. 
 \begin{figure}
     \caption{Finding equivalent resistance in cirucit with sources}
     \label{fig:eqresources}
-    \begin{circuitikz}
+    \begin{circuitikz}[american currents, american voltages]
         % Circuit code
         \draw (0,0)node[left=0.2cm]{B}
             to[short,o-] ++(0.5,0) coordinate (b1)
-            to[short] ++(3,0) coordinate (b2)
+            to[short,] ++(2,0) coordinate (b2)
             ;
-
+        \draw (0,2)node[left=0.2cm]{A}
+            to[short,o-] ++(0.5,0) coordinate (a1)
+            ;
+        \draw to[short] (b1) (a1)
+            (b1) to[I, l_=$3A$] (a1)
+            ;
+        \draw (a1) to[short] ++ (0.5,0) 
+            to[R,l^=$\SI{4}{\ohm}$, v_>=$V_1$] ++(1,0)   
+            to[short] ++ (0.5,0) coordinate (a2)
+            ;
+        \draw (b2) to [cI, l_=$(0.25 S) V_1$] (a2);
+        \draw (a2) to[short] ++(3,0) coordinate (a3)
+            (a3) to[R,l^=$\SI{8}{\ohm}$] ++(0,-2) coordinate (b3)
+            (b3) to[short] (b2)
+            ;
     \end{circuitikz}
 \end{figure}
-%what to do with indpendent and dependent sources
-%solved without Theveninizing shit
-
+The process for finding the equivalent resistance of a circuit 
+with sources is as follows:
+\begin{enumerate}
+    \item "Turn off" all independent sources. That is, replace independent current sources with
+    opens and independent voltage sources with shorts. 
+    \item Apply a test current or voltage across $a$ and $b$.
+    \item Use $R_{eq} = \frac{V_test}{I_test}$, circuit laws, and algebra to solve. 
+\end{enumerate}
+Let's apply a test current of $1 A$ across $a,b$, as shown in fig. \ref{fig:eqresources2}
+\begin{figure}
+    \caption{Finding equivalent resistance in cirucit with sources}
+    \label{fig:eqresources2}
+    \begin{circuitikz}[american currents, american voltages]
+        % Circuit code
+        \draw (0,0)node[left=0.2cm]{B}
+            to[short,o-] ++(0.5,0) coordinate (b1)
+            to[short,] ++(2,0) coordinate (b2)
+            ;
+        \draw (0,2)node[left=0.2cm]{A}
+            to[short,o-] ++(0.5,0) coordinate (a1)
+            ;
+        \draw (0,0) to[I, l_=$3A$] (0,2);
+        \draw (a1) to[short] ++ (0.5,0) 
+            to[R,l^=$\SI{4}{\ohm}$, v_>=$V_1$] ++(1,0)   
+            to[short] ++ (0.5,0) coordinate (a2)
+            ;
+        \draw (b2) to [cI, l_=$(0.25 S) V_1$] (a2);
+        \draw (a2) to[short] ++(3,0) coordinate (a3)
+            (a3) to[R,l^=$\SI{8}{\ohm}$] ++(0,-2) coordinate (b3)
+            (b3) to[short] (b2)
+            ;
+        \draw (a2) node[above]{x};
+        \draw (a3) to [short,i>=$I_y$] ++(0,-0.25);
+    \end{circuitikz}
+\end{figure}
+By using Kirchhoff's voltage law
+on the outermost loop, we have 
+\[V_{test} = V_1 + 8 I_y\]
 
 
 \end{document}
