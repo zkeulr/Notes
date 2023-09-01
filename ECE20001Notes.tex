@@ -607,6 +607,14 @@ Let's apply a test current of $1 A$ across $a,b$, as shown in fig. \ref{fig:eqre
 By using Kirchhoff's voltage law
 on the outermost loop, we have 
 \[V_{test} = V_1 + 8 I_y\]
-
+We also know that the current flowing into node $x$ must be 
+equal to the current flowing out. That is, 
+\[1 + (0.25 S)V_1 =I_y\]
+But since we know $R_1$ and $I_1$, we can find $V_i$. We simply have 
+\[V_1 = 1 A \times 4 \Omega = 4 V\]
+Meaning 
+\[I_y = 4 * 0.25 + 1 = 2\]
+We can plug $V_1$ and $I_y$ into $V_{test} = V_1 + 8 I_y$ to get $V_{test} = 4 + 16 = 20$,
+and via $R_{eq} = \frac{V_{test}}{I_{test}}$ we have $R_{eq} = \frac{20 V}{1 A} = 20 \Omega$.
 
 \end{document}
