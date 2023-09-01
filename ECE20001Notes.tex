@@ -454,11 +454,10 @@ and current relationship.} We have already seen formulas
 for when the resistors are in parallel or series, and can
 use them to determine the equivalent resistance across two nodes.
 For instance, consider fig. \ref{fig:seriesandparallelequi}.
-
 \begin{figure}
 
     \caption{Finding equivalent resistance in circuit with 
-    resistors in series and parallel}
+    resistors in series and parallel, step 1}
     \center
     \label{fig:seriesandparallelequi}
     \begin{circuitikz}
@@ -475,18 +474,16 @@ For instance, consider fig. \ref{fig:seriesandparallelequi}.
          
         \draw (a1) to[R,l_=$\SI{10}{\kilo\ohm}$,*-*] (b1);
          
-        \draw (c1) to[R,l_=$\SI{5}{\kilo\ohm}$,*-] ++ (-2.5,0)coordinate (c2);
+        %\draw (c1) to[R,l_=$\SI{5}{\kilo\ohm}$,*-] ++ (-2.5,0)coordinate (c2);
          
-        \draw (c2) to[R,l=$\SI{2}{\kilo\ohm}$,-*] (a2);
-        \draw (c2) to[R,l_=$\SI{5}{\kilo\ohm}$,*-*] (b2);
+        \draw (c1) ++ (-2.5,0) to[R,l=$\SI{2}{\kilo\ohm}$,-*] (a2);
+        \draw (c1) ++ (-2.5,0) to[R,l_=$\SI{5}{\kilo\ohm}$,*-*] (b2);
          
     \end{circuitikz}
 \end{figure}
-
 We can see that the $1 \Omega$ and the $10 \Omega$ resistor are in series, 
 so their equivalent resistance is simply $1 + 10 \Omega = 11 \Omega$. We can condense the
 circuit to fig \ref{fig:seriesandparallelequi2}. 
-
 \begin{figure}
 
     \caption{Finding equivalent resistance in circuit with 
@@ -507,17 +504,58 @@ circuit to fig \ref{fig:seriesandparallelequi2}.
          
         \draw (a1) to[R,l_=$\SI{11}{\kilo\ohm}$,*-*] (b1);
          
-        \draw (c1) to[R,l_=$\SI{5}{\kilo\ohm}$,*-] ++ (-2.5,0)coordinate (c2);
-         
-        \draw (c2) to[R,l=$\SI{2}{\kilo\ohm}$,-*] (a2);
-        \draw (c2) to[R,l_=$\SI{5}{\kilo\ohm}$,*-*] (b2);
-         
+        \draw (c1) ++ (-2.5,0) to[R,l=$\SI{2}{\kilo\ohm}$,-*] (a2);
+        \draw (c1) ++ (-2.5,0) to[R,l_=$\SI{5}{\kilo\ohm}$,*-*] (b2);
     \end{circuitikz}
 \end{figure}
+We next combine the $2 \Omega$ and the $5 \Omega$ resistor to obtain an
+equivalent resistance of $7 \Omega$, and the $3 \Omega$ and the $1.5 \Omega$
+to obtain $4.5 \Omega$ (fig. \ref{fig:seriesandparallelequi3})
+\begin{figure}
 
+    \caption{Finding equivalent resistance in circuit with 
+    resistors in series and parallel, step 3}
+    \center
+    \label{fig:seriesandparallelequi3}
+    \begin{circuitikz}
+        % Circuit code
+        \draw (0,0)node[left=0.2cm]{B} 
+            to[short,o-] ++(1,0) coordinate(b1) 
+            to[short] ++(3,0) coordinate (b2) 
+            to[short] ++ (2.5,0) 
+            to[R,l_=$\SI{1.5}{\kilo\ohm}$] ++(0,5)  coordinate (c1) 
+            to[short] ++(-2.5,0) coordinate (a2) 
+            to[short] ++(-3,0) coordinate (a1)
+            to[short,-o] ++(-1,0) node[left=0.2cm]{A} ;
+         
+        \draw (a1) to[R,l_=$\SI{11}{\kilo\ohm}$,*-*] (b1);
+         
+        \draw (c1) ++ (-2.5,0) to[R,l=$\SI{2}{\kilo\ohm}$,-*] (b2);
+    \end{circuitikz}
+\end{figure}
+Now that we are left with only resistors in parallel, we may use the formula
+$\frac{1}{R_{eq}} = \sum_k \frac{1}{R_k}$ to obtain 
+$\frac{1}{R_eq} = \frac{1}{11} + \frac{1}{2} + \frac{1}{1.5} = \frac{83}{66}$,
+yielding $R_{eq} = \frac{66}{83} \Omega$. 
+Note that this method is only possible when the circuit has 
+resistors in series or parallel. For more complex situations, such as
+when souces are present or resistors are combined in neither
+series nor parallel, we must use Kirchhoff's laws and good judgement 
+to find the equivalent resistance. Consider the below example, where 
+we have a circuit with both dependent and independent sources. 
+\begin{figure}
+    \caption{Finding equivalent resistance in cirucit with sources}
+    \label{fig:eqresources}
+    \begin{circuitikz}
+        % Circuit code
+        \draw (0,0)node[left=0.2cm]{B}
+            to[short,o-] ++(0.5,0) coordinate (b1)
+            to[short] ++(3,0) coordinate (b2)
+            ;
 
-
-%still more work to do, edit the circuit so it can be 
+    \end{circuitikz}
+\end{figure}
+%what to do with indpendent and dependent sources
 %solved without Theveninizing shit
 
 
