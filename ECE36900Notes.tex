@@ -271,9 +271,9 @@ $p$: "the book is thick", $q$: "the book is boring".
     \label{tab:demorganswrong}
 \end{table}
 We can see the last two rows are not identical, therefore
-the negation of "the book is not thick and not boring"
-is not "the book is not thick and not boring". For $p$ to 
-be false, either the book must not be thick \emph{or} the
+the negation of "the book is thick and boring" is not 
+"the book is not thick and not boring". For $p$ to be 
+false, either the book must not be thick \emph{or} the
 book must not be boring. This is summarized by 
 \defn{De Morgan's Theorem}{
     \[\neg(P \wedge Q) \equiv \neg P \vee \neg Q\]
@@ -323,7 +323,7 @@ Below are two tables for commonly used rules.
     \hline
     $p$ & $\neg (\neg p)$ & Double negation - dn \\
     \hline
-    $p \biconditional q$ & $(p \rightarrow q) \land (q \rightarrow )p$ & Def'n of equivalence - equ\\
+    $p \biconditional q$ & $(p \rightarrow q) \land (q \rightarrow p)$ & Def'n of equivalence - equ\\
     \hline
     \end{tabular}
     \label{tab:equivalencerules}
@@ -339,7 +339,7 @@ Below are two tables for commonly used rules.
     $p, p \rightarrow q$ & $q$ & Modus ponens - mp\\
     $p \rightarrow q, \neg q$ & $\neg p$ & Modus tollens - mt\\
     \hline
-    $p, q$ & $p \lor q$ & Conjunction - con\\
+    $p, q$ & $p \land q$ & Conjunction - con\\
     \hline
     $p \lor q, \neg p$ & $q$ & Disjunction - dis\\
     \hline
