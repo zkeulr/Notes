@@ -488,7 +488,7 @@ pointers to access the value at the address they store, while "\&" can
 be used on any variable to get its address. It's important to also note 
 that you cannot mix types of pointers and types of variables. That is, 
 something like 
-\begin{lstlisting}[language=C,caption=Pointers pt. 2]
+\begin{lstlisting}[language=C,caption=Type error]
    int main() {
       int *p;
       char c = 'c';
@@ -498,5 +498,13 @@ something like
       return 0;
    }
 \end{lstlisting}
-will throw an error. 
+will throw an error. To ensure you've fully understood how pointers and addresses 
+work, try to fix the \texttt{swap} program from earlier. One possible solution is 
+\begin{lstlisting}[language=C,caption=Corrected swap]
+   void swap(int* p1, int* p2) {
+      int c = *p1;
+      *p1 = *p2;
+      *p2 = c;
+   }
+\end{lstlisting}
 \end{document}
