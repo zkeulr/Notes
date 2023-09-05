@@ -480,7 +480,6 @@ These rules hold given certain conditions. Namely:
     with $x$ as a free variable, and $P(x)$ is not derived by ei from wff with $x$ as a free variable. 
     \item[(ui)] $a$ is a constant. 
 \end{enumerate}
-
 \marginnote{A \emph{free variable} is a variable not bound by a quantifer. For
 example, in the formula 
 \[(\forall x)(\forall y)P(x,y)\]
@@ -488,6 +487,17 @@ both $x$ and $y$ are bound by quantifers. Constrast this with the formula
 \[(\exists x)(\forall y)q(x, y, z)\]
 In this example, $z$ is a free variable, since it is not associated with 
 any quantifiers.}
+Let's see some of these rules in action by proving 
+$P(x) \rightarrow (\forall y) (Q(x,y))$. 
+\begin{align*}
+    (\forall x)(\forall y)L(x,y) \rightarrow [(\exists x) H(x)] \quad &\text{(hypothesis)}\\
+    P(x) \quad &\text{(hypothesis)} \\
+    P(x) \rightarrow Q(x,y) \quad &\text{(1, ui)} \\
+    Q(x,y) \quad &\text{(2, 3, mp)} \\
+    (\forall y) Q(x,y) \quad &\text{(4, ug)} \\
+    \hline
+    \therefore P(x) \rightarrow (\forall y) (Q(x,y)) \notag
+\end{align*}
 
 
 \end{document}
