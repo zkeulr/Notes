@@ -479,8 +479,24 @@ Let's peek inside the stack during the execution of this program.
 Here I've used the imaginary addresses 100 and 101. We see that the 
 value of \texttt{x} is 6, while the value of \texttt{p} is the 
 address of \texttt{x}, 100. If we want to use \texttt{p} to get the value of 
-\texttt{x}, we can use "*\texttt{p}", which will point the computer
-to the address and the value stored there. To clarify, "*" can be used on 
+\texttt{x}, we can use "\texttt{*p}", which will point the computer
+to the address and the value stored there. If you feel like 
+getting wacky, use \texttt{*p = 10;} to set the value of x to 10. 
+We can even make pointers to pointers (\texttt{int** pp = \&p}).
+To clarify, "*" can be used on 
 pointers to access the value at the address they store, while "\&" can 
-be used on any variable to get its address. 
+be used on any variable to get its address. It's important to also note 
+that you cannot mix types of pointers and types of variables. That is, 
+something like 
+\begin{lstlisting}[language=C,caption=Pointers pt. 2]
+   int main() {
+      int *p;
+      char c = 'c';
+
+      p = &c; //problematic line
+
+      return 0;
+   }
+\end{lstlisting}
+will throw an error. 
 \end{document}
