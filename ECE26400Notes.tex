@@ -388,4 +388,69 @@ in the stack, as seen in fig. \ref{table:stackvalueaddress}.
 \end{table}
 Now when we call \texttt{function2} and it returns a value, that value will 
 be stored in the value address specified on the bottom of the stack. 
+Interestingly, it's possible to access the value of \texttt{a} without popping out 
+\texttt{b} and \texttt{c}. The last-in-first-out property only applies to frames (i.e. function's frame,
+function2's frame, etc.). To access \texttt{a} we simply go to the address dictated by the stack pointer
+plus the offset corresponding to \texttt{a}. To clarify what's possible with a stack and what's 
+not, let's consider a faulty function \texttt{swap}, which is meant to swap the value of two variables. 
+\begin{lstlisting}[language=C,caption=Swap]
+   void swap (int a, char c) {
+      int tmp = a;
+      a = b;
+      b = tmp;
+   }
+   int main() {
+      int a = 1;
+      int b = 2;
+      swap(a, b);
+      return 0;
+   }
+\end{lstlisting}
+If we examine the stack as this function executes, we can see why the values 
+of \texttt{a} and \texttt{b} will actually remain unchanged. 
+\begin{table}[h]
+   \centering
+   \caption{Stack}
+   \label{table:scopestack}
+   \begin{tabular}{|c|}
+   \hline
+   \texttt{c} address2, 1 \\
+   \texttt{b} address2, 2 \\
+   \texttt{a} address2, 1 \\
+   return location \\
+   swap\\
+   \hline
+   \texttt{b} address, 2 \\
+   \texttt{a} address, 1 \\
+   main \\
+   \hline
+   \end{tabular}
+\end{table}
+Once \texttt{swap} runs, everything in the top frame will be popped off.
+We can see that the original \texttt{a} and \texttt{b} in \texttt{main} will be unchanged. 
+
+A useful construct is the array. The computer creates an array by storing 
+the address of the first element (perhaps at address 100) and the address of each 
+consecutive element in consecutive addresses (101, 102, \dots). 100, 101, 102\dots are 
+used only for illustration, since the computer determines what address 
+a variable is stored in. If we want to mess around with addresses, we can use a
+
+\defn{Pointer}{a variable that stores an address}. Say we have some variable \texttt{v}
+and we'd like to see where the computer has stored it. We can check like so:
+\begin{lstlisting}[language=C,caption=Pointers]
+   int main() {
+      char b = 66;
+
+      printf("value of v is %c\n", b);
+      printf("address of v is %p\n", &b);
+
+      return 0;
+   }
+\end{lstlisting}
+The \& character returns the memory location of the variable to which
+it is prefixed. In this case it would display the address of \texttt{b}
+as some number in hexadecimal, perhaps \texttt{0x7ff1a990af}. We used the 
+\%p format specifier to indicate that we want to print the value of a pointer.
+The address will always be positive and not NULL, and will change each time
+the program is run as available memory changes. 
 \end{document}
