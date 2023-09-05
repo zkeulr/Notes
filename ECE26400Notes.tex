@@ -453,4 +453,34 @@ as some number in hexadecimal, perhaps \texttt{0x7ff1a990af}. We used the
 \%p format specifier to indicate that we want to print the value of a pointer.
 The address will always be positive and not NULL, and will change each time
 the program is run as available memory changes. 
+Let's see another example using pointers
+\begin{lstlisting}[language=C,caption=Pointers pt. 2]
+   int main() {
+      int x = 66;
+
+      int *p = &x; //could also write 
+      //int* p or int * p
+
+      return 0;
+   }
+\end{lstlisting}
+Let's peek inside the stack during the execution of this program. 
+\begin{table}[h]
+   \centering
+   \caption{Stack}
+   \label{table:scopestack}
+   \begin{tabular}{|c|}
+   \hline
+   p, 101, 100 \\
+   x, 100, 6 \\
+   \hline
+   \end{tabular}
+\end{table}
+Here I've used the imaginary addresses 100 and 101. We see that the 
+value of \texttt{x} is 6, while the value of \texttt{p} is the 
+address of \texttt{x}, 100. If we want to use \texttt{p} to get the value of 
+\texttt{x}, we can use "*\texttt{p}", which will point the computer
+to the address and the value stored there. To clarify, "*" can be used on 
+pointers to access the value at the address they store, while "\&" can 
+be used on any variable to get its address. 
 \end{document}
