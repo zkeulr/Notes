@@ -419,17 +419,19 @@ variables and quantifiers}, the latter of which propositional logic lacks.
 
 \defn{Domain of interpretation}{Collection of objects from which the variable is taken.}
 
-\defn{Universal quantifer}{"For all": $\forall$}
+\defn{Universal quantifer}{"For all": $\forall$}. States that a certain property holds
+for all objects in a domain. 
 
-\defn{Existential quantifer}{"There exists": $\exists$}
+\defn{Existential quantifer}{"There exists": $\exists$}. States that a certain property holds
+for at least one object in a domain. 
 
-As an example of a predicate formula: $(\forall x)[(\exists y) x > y]$. We would read this statment as 
+As an example of a predicate well-formed formula: $(\forall x)[(\exists y) x > y]$. We would read this statment as 
 "for all $x$ there exists a $y$ such that $x > y$." At first glance it may seem 
 obvious that this statement is true, but consider the domain. What if the domain is 
 all natural numbers? Then we could let $x=1$ (or zero depending
 or your definition of natural numbers) and there would be no corresponding
 lesser $y$. We can see from this example that the truth value of 
-a predicate logic formula depends on quantifiers, domain, and the predicates. 
+a predicate logic formula depends on the domain as well as quantifiers and predicates. 
 
 Just as with propositional logic, we often need to translate English statements
 into predicate logic. Take the statement "every movie made by George Lucas is great".
@@ -437,6 +439,55 @@ We can rephrase this as "for any movie, if the movie is made by George Lucas, it
 We would write this formula as
 \[(\forall x)(GL(x) \rightarrow Great(x))\]
 (Author's note: no value judgement is associated with this
-English statement.)
+English statement).
+
+Let's examine some rules in predicate logic. First, negation: 
+\[\neg [\forall x A(x)] \biconditional (\exists)x \neg A(x)\]
+Some rules from propositional logic still apply in predicate logic. Take 
+modus ponens as an example:
+\begin{align*}
+    (\forall x)(\forall y)L(x,y) \rightarrow [(\exists x) H(x)] \quad &\text{(hypothesis)}\\
+    \neg [(\exists x) H(x)] \quad &\text{(hypothesis)}\\
+    \neg [(\forall x)(\forall y)L(x,y)] \quad &\text{(1, 2, mt)}\\
+    (\exists x) (\exists y) \neg L(x,y) \quad &\text{(3, DM)}\\
+    \hline
+    \therefore ()\exists x) (\exists y) \neg L(x,y) \notag
+\end{align*}
+Table \ref{tab:predinferencerules} holds predicate inference rules. 
+\begin{table}[ht]
+    \centering
+    \caption{Predicate inference rules}
+    \begin{tabular}{|c|c|c|c|}
+    \hline
+    Name & Abrv. & Given & Can conclude\\
+    \hline
+    Existential generalization & eg & $P(a)$ & $(\exists x)P(x)$\\
+    \hline
+    Existential instantiation & ei & $(\exists x)P(x)$ & $P(a)$\\
+    \hline
+    Universal generalization & ug & $P(x)$ & $(\exists)P(x)$\\
+    \hline
+    Universal instantiation & ui & $(\forall x)P(x)$ & $P(a)$\\
+    \hline
+    \end{tabular}
+    \label{tab:predinferencerules}
+\end{table}
+These rules hold given certain conditions. Namely:
+\begin{enumerate}
+    \item[(eg)] $x$ not in $P(a)$ 
+    \item[(ei)] Must the be first rule that introduces $a$ 
+    \item[(ug)] $P(x)$ not derived from a hypothesis
+    with $x$ as a free variable, and $P(x)$ is not derived by ei from wff with $x$ as a free variable. 
+    \item[(ui)] $a$ is a constant. 
+\end{enumerate}
+
+\marginnote{A \emph{free variable} is a variable not bound by a quantifer. For
+example, in the formula 
+\[(\forall x)(\forall y)P(x,y)\]
+both $x$ and $y$ are bound by quantifers. Constrast this with the formula
+\[(\exists x)(\forall y)q(x, y, z)\]
+In this example, $z$ is a free variable, since it is not associated with 
+any quantifiers.}
+
 
 \end{document}
