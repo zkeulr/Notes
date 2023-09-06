@@ -626,7 +626,20 @@ of course, for the ground node. By finding every nodal voltage in the cir-
 cuit, we can find every branch current, which enables us to determine the
 power absorbed or delivered by every element. Because of its ability to
 be applied to any circuit, nodal analysis is the method most often used
-in circuit analysis computer programs}.
+in circuit analysis computer programs}. Here are the steps to perform nodal 
+analysis:
+\begin{enumerate}
+    \item Number all (essential) nodes of the given circuit.
+    \item Write KCL for every (essential) node by keeping in mind that only nodal
+    voltages should be used (no currents). If other unknowns are involved (e.g.
+    dependent source equations) express them as a function of the unknown
+    nodal voltages (e.g. by using Ohm's law).
+    \item Group the resulting equations together in a matrix form.
+    \item Solve for the unknown nodal voltages by inverting the resulting linear
+    equation.
+    \item Calculate any quantity of interest (e.g power consumption) from the
+    known nodal voltages.
+\end{enumerate}
 
 \defn{Mesh analysis}{This method is used to determine every loop current in a circuit. We
 use KVL around meshes (loops) to find the mesh (loop) currents. We
