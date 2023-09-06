@@ -619,11 +619,11 @@ and via $R_{eq} = \frac{V_{test}}{I_{test}}$ we have $R_{eq} = \frac{20 V}{1 A} 
 
 \section{Analysis}
 
-\defn{Nodal analysis}{a systematic method used to determine the voltage at every (es-
-sential) node in a circuit. After picking our reference (ground) node, we
+\defn{Nodal analysis}{a systematic method used to determine the voltage at every 
+(essential) node in a circuit. After picking our reference (ground) node, we
 systematically apply KCL at every (essential) node in the circuit except,
-of course, for the ground node. By finding every nodal voltage in the cir-
-cuit, we can find every branch current, which enables us to determine the
+of course, for the ground node. By finding every nodal voltage in the circuit, 
+we can find every branch current, which enables us to determine the
 power absorbed or delivered by every element. Because of its ability to
 be applied to any circuit, nodal analysis is the method most often used
 in circuit analysis computer programs}. Here are the steps to perform nodal 
@@ -659,11 +659,11 @@ Consider an example cirucit, fig. \ref{fig:nodalanal}.
         \draw (a3) node[above]{$V_2$};
     \end{circuitikz}
 \end{figure}
-Let's apply our steps to analyze this circuit.
+Let's apply our steps to find the nodal voltages $V_1$ and $V_2$.
 \begin{enumerate}
     \item Number the essential nodes (fig. \ref{fig:nodalanal2}).
     \begin{figure}
-        \caption{Using nodal analysis}
+        \caption{Numbering nodes}
         \label{fig:nodalanal2}
         \begin{circuitikz}[american currents, american voltages]
             \draw (0,0) to[I, l_=$I_{s_1}$] (0,3) coordinate (a1)
@@ -678,15 +678,51 @@ Let's apply our steps to analyze this circuit.
                 ;
             \draw (a2) node[above]{1};
             \draw (a3) node[above]{2};
-            \draw (2,0) node[below]{3};
-            \draw (4,0) node[below]{4};
         \end{circuitikz}
     \end{figure}
-    \item 
+    \item Apply Kirchhoff's current law to each node
     \begin{align*}
-        \\
+        -I_{s_1} - \frac{0-V_1}{R_1} - \frac{V_2-V_1}{R_2} &= 0\\
     \end{align*}
+    Here we can actually take a shortcut. Since the negative terminal 
+    of $V_{s_3}$ is grounded, then the voltage at the positive terminal 
+    must be $V_{s_3}$. Since this terminal is connected directly to $V_2$, 
+    we know that $V_2 = V_{s_3}$. That makes our equations
+    \begin{align*}
+        -I_{s_1} - \frac{0-V_1}{R_1} - \frac{V_2-V_1}{R_2} &= 0\\
+        V_2 &= V_{s_3} \\
+    \end{align*}
+    \item Let's group these by the variables we wish to find now. 
+    \begin{align*}
+        V_1(\frac{1}{R_1} + \frac{1}{R_2}) - V_2\frac{1}{R_2} &= I_{s_1}\\
+        0V_1 + V_2 &= V_{s_3} \\
+    \end{align*}
+    Which in matrix form becomes
+    \[ \begin{bmatrix}
+        \frac{1}{R_1} + \frac{1}{R_2} & -\frac{1}{R_2} \\
+        0 & 1
+    \end{bmatrix}
+    \begin{bmatrix}
+        V_1 \\
+        V_2
+    \end{bmatrix}
+     =
+    \begin{bmatrix}
+        I_{s_1} \\
+        V_{s_3}
+    \end{bmatrix} \]
+    \item From here, we could use a computer program to find the inverse matrix
+    and multiply both sides by it to get the vector [$V_1$, $V_2$] by itself. 
+    I'm not going to do this because I'm lazy, but if you're interested try 
+    using Mathematica or MATLAB. 
 \end{enumerate}
+
+If our circuit lacks a ground, we may simply choose some node as ground, since
+voltages are relative and having a grounded node makes analysis easier. 
+
+%Super nodes?
+
+%Modified nodal analysis
 
 \defn{Mesh analysis}{This method is used to determine every loop current in a circuit. We
 use KVL around meshes (loops) to find the mesh (loop) currents. We
