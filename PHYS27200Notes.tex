@@ -82,7 +82,7 @@ solving by computer are employed throughout. For more information, consult the s
     \item Electric field on dipole bisecting plane: $\vec{E} = \frac{-1}{4 \pi \epsilon_0}\frac{sq}{r^3}\hat{p}$
     \item Electric field from point charge-induced dipole: $\left(\frac{1}{4\pi \epsilon_0}\right)^2 \frac{2 \alpha q_1}{r^5}\hat{r}$
     \item Electric field from dipole-induced dipole: $\left(\frac{1}{4\pi \epsilon_0}\right)^2 \frac{12 \alpha p_1^2}{r^7}$
-    \item Drift speed: $\bar{V} = uE$
+    \item Drift speed: $\bar{v} = uE$
     \item Electric field of a uniformly charged thin rod at a distance $r$ from the midpoint,
     perpindicular to the rod: $E = \frac{1}{4 \pi \epsilon_0}\left[\frac{Q}{r\sqrt{r^2+(L/2)^2}}\right]$
 \end{enumerate}
@@ -427,7 +427,117 @@ is present is the only stable possibility. However, if electrons
 are moving, then there can be (and is) an electric field within
 the conductor. It is only when the conductor is in static 
 equilibrium that there is no net electric field within.}
+An interesting result of electrons seeking to minimize repulsion inside a conductor is 
+the \emph{sharp point effect}. To visualize this effect, imagine a gymnasium full of students 
+pretending to be electrons, staying as far away from others as possible. 
+Anyone near the center of the crowd will feel badly pressed and will try 
+to work there way towards the edge of the gym, where at least one side 
+will no longer have fellow students milling about. The result? 
+Most of the students will gravitate towards the edge of the gym 
+and hover there, to take advantage of that lack of other students 
+on the wall side of the gym. Now imagine a narrow corridor leading out of the gym. 
+Even better! Students in that corridor will only have 
+fellow students behind and in front of them.
+Now imagine the very end of that corridor, a sort of point. 
+Even better! Now, the student who finds that spot will benefit 
+from having only one student nearby. But somewhat ironically, 
+that same effect will cause other students to pack themselves 
+into the long, narrow corridor more tightly, since pretty 
+much anywhere in the corridor makes them less exposed to the 
+full set of students than being in the gym does.
+This effect makes edges, wires, and points more attractive to electrons, 
+which similarly just don't want other electrons nearby.
 
-%charge by conduction
+\section{Finding electric field}
+
+Now that we understand conceptually how charge behaves in a conductor, 
+let's think about the electric field that charge creates. We can
+visualize any charged object as a collection of point charges in the shape of 
+the object. If we'd like to find the net electric field of these charges, 
+we simply use Coulomb's law and sum up each of their electric fields. To 
+illustrate this approach, imagine a charged rod with length $L$ and charge $Q$. We can 
+approximate it as a bunch of charges in a row. For now, let's use ten, but
+recognize that the more charges we use the better our estimate will be. 
+Each piece of the rod will have a charge of $\frac{Q}{10}$, so to find 
+the electric field at a point we would need to calculate the vector between each piece 
+and the point and use $\vec{F} = \frac{1}{4\pi \epsilon_0}\frac{q_1 q_2}{r^2}\hat{r}$. 
+We would do this ten times and then sum the electric fields to get our approximate net field. 
+Of course, perhaps we would like to find the exact electric field. To do this
+we would have to cut our object up into an infinite number of points, find the 
+infinitesimal electric field due to each, and sum them up. Sound familiar? 
+
+To drive the point home, consider a vertical rod with a uniform charge of $Q$ and length $L$. 
+Let's take a point on the bisecting plane of this rod (the horizontal plane that cuts the rod in half).
+Say we view this point from the side and see that is has coordinates $(0, x)$. 
+If we want to find the electric field due to a little bit of the rod at $\vec{x}$, 
+we need to know the distance between them. If the bit is a distance of $y$ up the rod,
+the distance between it and $\vec{x}$ will be $r = \sqrt{x^2 + y^2}$. 
+The charge of this small piece will be $\frac{Q}{L} \Delta y$ (where $\Delta y$ is the 
+height of the peice), and $\hat{r}$ 
+will be $\frac{(x,-y)}{\sqrt{x^2+y^2}}$. 
+Therefore the electric field at $\vec{x}$ will be given by 
+\begin{align*}
+    \Delta \vec{E} &= \frac{1}{4\pi \epsilon_0}\frac{q_1}{r^2}\hat{r} \\
+    &= \frac{1}{4\pi \epsilon_0}\frac{\frac{Q}{L} \Delta y}{x^2+y^2}\frac{(x,-y)}{\sqrt{x^2+y^2}}
+\end{align*}
+We can see by symmetry (isn't symmetry lovely?) that the contributions in the $y$
+direction will cancel, so we need only consider the $x$ direction. Therefore, 
+\begin{align*}
+    \Delta \vec{E} &= \frac{1}{4\pi \epsilon_0}\frac{\frac{Q}{L} \Delta y}{x^2+y^2}\frac{x}{\sqrt{x^2+y^2}} \\
+    &= \frac{Q}{4\pi \epsilon_0 L}\frac{x \Delta y}{(x^2+y^2)^{3/2}}
+\end{align*}
+Now comes the tricky part: adding these up. You have already likely guessed that
+we will need to integrate between the bottom and top of the rod, which
+corresponds to the integral from $-\frac{L}{2}$ to $\frac{L}{2}$. We have then
+\begin{align*}
+    \vec{E} &= \int_{-L/2}^{L/2} \frac{Q}{4\pi \epsilon_0 L}\frac{x}{(x^2+y^2)^{3/2}} dy\\
+\end{align*}
+I'll spare you the tedious integration and skip to the result:
+\begin{align*}
+    \vec{E} &= \frac{1}{4 \pi \epsilon_0}\left[\frac{Q}{x\sqrt{x^2+(L/2)^2}}\right]\hat{x}\\
+\end{align*}
+
+The steps for finding the electric field due to a charged object in general are outlined below.
+\begin{enumerate}
+    \item Cut up the charge distribution into pieces and draw $\Delta \vec{E}$
+    \begin{itemize}
+        \item Divide the charge distribution into pieces whose field is known. 
+        In particular, very small pieces can be approximated by point particles.
+        You may also wish to break up a complex object into smaller objects whose
+        electric field equations are already known. 
+        \item Pick a representative piece, and at the location of interest draw a 
+        vector $\Delta \vec{E}$ showing the contribution to the electric field of this representative piece. 
+        Drawing this vector helps you figure out the direction of the net field at the location of interest.
+    \end{itemize}
+    \item Write an expression for the electric field due to one piece
+    \begin{itemize}
+        \item Pick an origin for your coordinate system, and show it on your diagram.
+        Draw the vector $\vec{r}$ from the source piece to the observation location. 
+        Write algebraic expressions for $\vec{r}$ and $\hat{r}$.
+        \item Write an algebraic expression for the magnitude $|\Delta \vec{E}|$ contributed by the representative piece. Multiply by
+        $\hat{r}$ to get the vector $\Delta \vec{E}$. You can break this up into 
+        $x$, $y$, and $z$ components for integration. Once you do each expression should 
+        contain one or more “integration variables” ($\Delta x/\Delta y/ \Delta z$ or $dx/dy/dz$) related to the coordinates of the piece.
+        Write the amount of charge on the piece, $\Delta q$, in terms of your variables. 
+    \end{itemize}
+    \item Sum the contributions of all the pieces
+    \begin{itemize}
+        \item The net field is the sum of the contributions of all the pieces. 
+        To write the sum as a definite integral, you must include limits 
+        given by the range of the integration variable. If the integral 
+        can be done symbolically, do it. If not, choose a finite number 
+        of pieces and do the sum with a calculator or a computer.
+    \end{itemize}
+    \item Check the result
+    \begin{itemize}
+        \item Check that the direction of the net field is qualitatively correct.
+        \item Check the units of your result, which should be newtons per coulomb.
+        \item Look at special cases. For example, if the net charge is 
+        nonzero, your result should reduce to the field of a point 
+        charge when you are very far away. For a numerical integration 
+        on a computer, check that the computation gives the correct numerical 
+        result for special cases that can be calculated by hand.
+    \end{itemize}
+\end{enumerate}
 
 \end{document}
