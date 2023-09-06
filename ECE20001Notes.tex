@@ -640,6 +640,53 @@ analysis:
     \item Calculate any quantity of interest (e.g power consumption) from the
     known nodal voltages.
 \end{enumerate}
+Consider an example cirucit, fig. \ref{fig:nodalanal}.
+\begin{figure}
+    \caption{Using nodal analysis}
+    \label{fig:nodalanal}
+    \begin{circuitikz}[american currents, american voltages]
+        \draw (0,0) to[I, l_=$I_{s_1}$] (0,3) coordinate (a1)
+            to[short,-o] ++(2,0) coordinate (a2)
+            to[R, l=$R_2$] ++(2,0) coordinate (a3)
+            to[short] ++(2,0) coordinate (a4)
+            to[V, l=$V_{s_3}$] ++(0,-3) coordinate (b4)
+            (b4) to (3,0) node[ground]{}
+            (3,0) to[short] (0,0)
+            (a2) to[R, l=$R_1$] (2,0)
+            (a3) to[I, l=$I_{s_2}$] (4,0)
+            ;
+        \draw (a2) node[above]{$V_1$};
+        \draw (a3) node[above]{$V_2$};
+    \end{circuitikz}
+\end{figure}
+Let's apply our steps to analyze this circuit.
+\begin{enumerate}
+    \item Number the essential nodes (fig. \ref{fig:nodalanal2}).
+    \begin{figure}
+        \caption{Using nodal analysis}
+        \label{fig:nodalanal2}
+        \begin{circuitikz}[american currents, american voltages]
+            \draw (0,0) to[I, l_=$I_{s_1}$] (0,3) coordinate (a1)
+                to[short,-o] ++(2,0) coordinate (a2)
+                to[R, l=$R_2$] ++(2,0) coordinate (a3)
+                to[short] ++(2,0) coordinate (a4)
+                to[V, l=$V_{s_3}$] ++(0,-3) coordinate (b4)
+                (b4) to (3,0) node[ground]{}
+                (3,0) to[short] (0,0)
+                (a2) to[R, l=$R_1$] (2,0)
+                (a3) to[I, l=$I_{s_2}$] (4,0)
+                ;
+            \draw (a2) node[above]{1};
+            \draw (a3) node[above]{2};
+            \draw (2,0) node[below]{3};
+            \draw (4,0) node[below]{4};
+        \end{circuitikz}
+    \end{figure}
+    \item 
+    \begin{align*}
+        \\
+    \end{align*}
+\end{enumerate}
 
 \defn{Mesh analysis}{This method is used to determine every loop current in a circuit. We
 use KVL around meshes (loops) to find the mesh (loop) currents. We
