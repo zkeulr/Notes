@@ -487,17 +487,55 @@ both $x$ and $y$ are bound by quantifers. Constrast this with the formula
 \[(\exists x)(\forall y)q(x, y, z)\]
 In this example, $z$ is a free variable, since it is not associated with 
 any quantifiers.}
-Let's see some of these rules in action by proving 
-$P(x) \rightarrow (\forall y) (Q(x,y))$. 
+Let's see some of these rules in action by with a predicate logic proof.
+Say we have the statement "every ECE student works harder
+than somebody, and everyone who works harder than any other
+person gets less sleep than that person. Maria is an 
+ECE student. Ergo, Maria gets less sleep than someone. 
+Let $E(x)$: "x is an ECE student", $W(x,y)$: "x works harder than y", 
+$S(x,y)$: "x gets less sleep than y", and $m$: Maria. 
+We want to prove $\exists a (S(m,a))$. 
 \begin{align*}
-    (\forall x)(\forall y)L(x,y) \rightarrow [(\exists x) H(x)] \quad &\text{(hypothesis)}\\
-    P(x) \quad &\text{(hypothesis)} \\
-    P(x) \rightarrow Q(x,y) \quad &\text{(1, ui)} \\
-    Q(x,y) \quad &\text{(2, 3, mp)} \\
-    (\forall y) Q(x,y) \quad &\text{(4, ug)} \\
+    \forall x, E(x) \rightarrow (\exists y) (W(x,y)) \quad &\text{(hypothesis)}\\
+    \forall x, \forall y (W(x,y) \rightarrow S(x,y)) \quad &\text{(hypothesis)}\\
+    E(m) \quad &\text{(hypothesis)}\\
+    \exists y (E(m) \rightarrow S(m,y)) \quad &\text{(1, ui)}\\
+    E(m) \rightarrow W(m,a) \quad &\text{(4, ei)}\\
+    \forall y (W(m,y) \rightarrow S(m,y)) \quad &\text{(3, ui)}\\
+    %the above line doesn't make sense to me
+    W(m,a) \rightarrow S(m,a) \quad &\text{(6, ui)}\\
+    W(m,a) \quad &\text{(3,5 mp)}\\
+    S(m,a) \quad &\text{(7,8, mp)}\\
+    \exists a (S(m,a)) \quad &\text{(9, eg)}\\
     \hline
-    \therefore P(x) \rightarrow (\forall y) (Q(x,y)) \notag
+    \therefore \exists a (S(m,a)) \notag
 \end{align*}
 
-
+\section{Proofs}
+List of common proof techniques:
+\begin{enumerate}
+    \item Exhaustive proof
+    \item Refuting by counter-example
+    \item Direct proof (deduction)
+    \item Indirect proof (contrapositive)
+    \item Proof by contradiction
+    \item Proof by induction
+    \item 
+\end{enumerate}
+% add list of all proof techniques 
+Say we wish to prove the product of two even integers is even. 
+We first need to translate this English sentence to a mathematical 
+statement, which we can do in this case like so:
+\[x = 2a, a \in \mathbb{Z}, y = 2b, b \in \mathbb{Z}, \rightarrow x \times y = 2c, c \in \mathbb{Z}\]
+Our proof is below. 
+\begin{align*}
+    x &= 2a, a \in \mathbb{Z} \\
+    y &= 2b, b \in \mathbb{Z} \\
+    z &= x \times y \\
+    &= 2a\times 2b \\
+    &= 2(2ab) \\
+    &= 2c, c \in \mathbb{Z} \qed
+\end{align*}
+Since $c$ is an integer, $2c$ is even and the proof is complete. Try proving 
+the product of two odds is odd in a similar fashion. 
 \end{document}
