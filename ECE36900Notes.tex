@@ -510,32 +510,77 @@ We want to prove $\exists a (S(m,a))$.
     \hline
     \therefore \exists a (S(m,a)) \notag
 \end{align*}
-
+%I'm pretty sure this proof is wrong, I'll fix it later
 \section{Proofs}
 List of common proof techniques:
 \begin{enumerate}
-    \item Exhaustive proof
-    \item Refuting by counter-example
-    \item Direct proof (deduction)
-    \item Indirect proof (contrapositive)
-    \item Proof by contradiction
-    \item Proof by induction
-    \item 
+    \item Exhaustive proof: 
+    In this kind of proof, the statement to be proved is 
+    split into a finite number of cases or sets of equivalent 
+    cases, and where each type of case is checked to see if 
+    the proposition in question holds
+    \item Refuting by counter-example: 
+    If we have a universal statement such as 
+    $\forall x (P(x) \rightarrow Q(x))$, we may
+    show it to be false by finding a single $a$ 
+    such that $\neg P(a)$. 
+    \item Proof by deduction: 
+    Trying to prove $p \rightarrow q$, start by 
+    assuming $p$ and then show $q$. 
+    \item Proof by contraposition: 
+    The contrapositive of $p \rightarrow q$
+    is $\neg q \rightarrow \neg p$. A statement 
+    and its contrapositive are logically equivalent, so 
+    if proving $p\rightarrow q$ is too difficult 
+    we may try to prove $\neg q \rightarrow \neg p$ instead. 
+    \item Proof by contradiction: 
+    Suppose I have to prove $p \rightarrow q$. I can begin 
+    by saying $p$ is true and $\neg q$ is true. If by a series of 
+    steps I arrive a contradiction, then I may say $p$ implies $q$. 
+    \item Proof by induction: employs a neat trick which 
+    allows you to prove a statement about an arbitrary number 
+    $n$ by first proving it is true when $n=1$ (or some other base case), 
+    assuming it is true for $n=k$, and then showing it is true for $n=k+1$.
 \end{enumerate}
-% add list of all proof techniques 
-Say we wish to prove the product of two even integers is even. 
-We first need to translate this English sentence to a mathematical 
-statement, which we can do in this case like so:
-\[x = 2a, a \in \mathbb{Z}, y = 2b, b \in \mathbb{Z}, \rightarrow x \times y = 2c, c \in \mathbb{Z}\]
-Our proof is below. 
-\begin{align*}
-    x &= 2a, a \in \mathbb{Z} \\
-    y &= 2b, b \in \mathbb{Z} \\
-    z &= x \times y \\
-    &= 2a\times 2b \\
-    &= 2(2ab) \\
-    &= 2c, c \in \mathbb{Z} \qed
-\end{align*}
-Since $c$ is an integer, $2c$ is even and the proof is complete. Try proving 
-the product of two odds is odd in a similar fashion. 
+Below are some example proofs using each of these techniques. 
+\begin{enumerate}
+    \item Proof by deduction: say we wish to prove the product of two even integers is even. 
+    We first need to translate this English sentence to a mathematical 
+    statement, which we can do in this case like so:
+    \[x = 2a, a \in \mathbb{Z}, y = 2b, b \in \mathbb{Z}, \rightarrow x \times y = 2c, c \in \mathbb{Z}\]
+    Our proof is below. 
+    \begin{align*}
+        x &= 2a, a \in \mathbb{Z} \\
+        y &= 2b, b \in \mathbb{Z} \\
+        z &= x \times y \\
+        &= 2a\times 2b \\
+        &= 2(2ab) \\
+        &= 2c, c \in \mathbb{Z} \qed
+    \end{align*}
+    Since $c$ is an integer, $2c$ is even and the proof is complete. Try proving 
+    the product of two odds is odd in a similar fashion. 
+    \item Proof by contradiction: say we wish to prove $\sqrt{2}$ is irrational. In a theme
+    that will become common as we see more proofs by contradiction, 
+    assume the opposite. That is, assume $\sqrt{2}$ is rational. By
+    the definition of rational, we can then write 
+    \[\sqrt{2} = \frac{a}{b}, a,b \in \mathbb{Z}\]
+    Where $a$ and $b$ share no common factors. 
+    We can then perform the following series of steps. 
+    \begin{align*}
+        \sqrt{2} &= \frac{a}{b} \\
+        b\sqrt{2} &= a \\
+        2b^2 &= a^2
+    \end{align*}
+    This means that $a^2$ is even. It can be easily shown 
+    that if $a^2$ is even then $a$ is even. That means that 
+    $a^2$ will actually be divisible by 4. We can rearrange to get
+    \begin{align*}
+        2b^2 &= 4c, c \in \mathbb{Z} \\
+        b^2 &= 2c
+    \end{align*}
+    So $b$ is likewise even. But if both $a$ and $b$ are even, 
+    then they share a common factor and our original supposition is false. 
+    Ergo $\sqrt{2}$ is irrational. $\qed$. 
+\end{enumerate}
+
 \end{document}
