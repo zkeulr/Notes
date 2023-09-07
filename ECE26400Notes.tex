@@ -200,6 +200,11 @@ such as the following:
    ...
    #endif
 \end{lstlisting}
+\marginnote{Ever been curious about the C preprocessor? It's called such because 
+it works on your program before the compiler gets to it, replacing all instances of
+your \texttt{var} with the value in your \texttt{\#define var} line,
+marking what code to ingnore between \texttt{\#ifdef} and \texttt{\#endif}, and
+\texttt{\#include}ing libraries.}
 The compiler will only run the code in this block if we use
 the correct test flag when compiling. 
 
@@ -507,4 +512,41 @@ work, try to fix the \texttt{swap} program from earlier. One possible solution i
       *p2 = c;
    }
 \end{lstlisting}
+
+\section{Strings and files}
+In C, a string is an array of characters terminated by the null terminator '\texttt{\textbackslash 0}'.
+For example, \texttt{char arr[] = \{'I', 'U', ' ', 's', 'u', 'c', 'k', 's', '\textbackslash0'\}}. 
+Some string-related functions: 
+\begin{itemize}
+   \item \texttt{strlen(arr)} will return the length of the string, not including the null terminator. 
+   \item \texttt{strcopy(arr1, arr2)} will copy from \texttt{arr2} to \texttt{arr1}, if there's enough space. 
+   \item \texttt{strcmp(arr1, arr2)} compares two strings. Its behavior is interesting and to understand 
+   it, we have to understand what the function is doing. Say we have the following code. 
+   \begin{lstlisting}[language=C,caption=strcomp]
+      int compare() {
+         arr1 = "apple";
+         arr2 = "peach";
+
+         return strcomp(arr1, arr2);
+      }
+   \end{lstlisting}
+   \texttt{strcmp} will go through letter by letter and compare the ASCII values of 
+   each character. It returns a value less than 0 when the first 
+   not-matching character in arr1 has a greater ASCII value than 
+   the corresponding character in arr2. It returns a value more than 0 when the first not-matching 
+   character in arr1 has a lesser ASCII value than the corresponding 
+   character in arr2. It will return zero if they are equal.  If two strings are equal 
+   up to the point at which one terminates (that is, contains a null character), 
+   the longer string is considered greater. What will it return in the above example?
+   \item \texttt{strstr(string, substring)} finds a substring within a given string. Returns a pointer to 
+   the first char of the first occurrence of the match. That means you need to use \texttt{char*} when 
+   getting a return value. 
+   \item \texttt{strtol(str, NULL, base)} locates and returns long in \texttt{str}, in the given base (which is usually 10). 
+   It will stop searching once it hits a character, which means running it with 
+   a string like "p1000" will return 0. 
+\end{itemize}
+
+The \texttt{main()} function is actually capable of handling inputs. You
+may see it written like so: \texttt{int main()}
+
 \end{document}
