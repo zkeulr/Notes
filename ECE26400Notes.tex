@@ -552,4 +552,24 @@ may see it written like so: \texttt{int main(int argc, char** argv)}. Here,
 said arguments. The \texttt{char **} means that \texttt{argv} is an array
 of strings. 
 
+Now, away from strings and on to files. Opening a file in C is easy:
+\begin{lstlisting}[language=C,caption=fopen]
+   int main(int argc, char** argv) {
+      if(argc != 2) {
+         return EXIT_FAILURE;
+      }
+
+      FILE* fptr; //pointer to variable of type FILE
+      fptr = fopen(argv[1], "r"); //opens to "r"ead
+      if(!fptr) { //checks to see if fopen worked
+         return EXIT_FAILURE;
+      }
+
+      //logic here
+
+      fclose(fptr); //to prevent leaks
+   }
+\end{lstlisting}
+
+%add useful functions
 \end{document}
