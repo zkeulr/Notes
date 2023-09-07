@@ -547,6 +547,9 @@ Some string-related functions:
 \end{itemize}
 
 The \texttt{main()} function is actually capable of handling inputs. You
-may see it written like so: \texttt{int main()}
+may see it written like so: \texttt{int main(int argc, char** argv)}. Here,
+\texttt{argc} is a count of the number of arguments, and \texttt{argv} stores
+said arguments. The \texttt{char **} means that \texttt{argv} is an array
+of strings. 
 
 \end{document}
