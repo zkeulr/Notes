@@ -746,15 +746,15 @@ Note that you don't want two mesh currents flowing through the same
 current source. If you find a circuit where this occurs, make a 
 larger loop where no current sources are shared. 
 
-\section{Thevenin and Norton equivalent}
-These terms describe two different ways of finding a simplified equivalent 2-terminal linear network.
+\section{Source transformations}
+\defn{Source transformation}{Source transformation is a 
+wonderful tool that can be used to change the
+originally given circuit to an equivalent and simpler circuit}
 
 \defn{Thevenin equivalent}{Thevenin's theorem states that it 
 is possible to simplify any linear circuit, irrespective of 
 how complex it is, to an equivalent circuit with a single 
 voltage source and a series resistance}. 
-
-%include image
 \begin{figure}
     \caption{Thevenin equivalent}
     \label{fig:thevenin}
@@ -769,8 +769,6 @@ voltage source and a series resistance}.
 linear circuit can be simplified to an equivalent circuit 
 consisting of a single current source and parallel resistance 
 that is connected to a load}.
-
-%include image
 \begin{figure}
     \caption{Norton equivalent}
     \label{fig:norton}
@@ -785,7 +783,6 @@ that is connected to a load}.
         \end{circuitikz}
     \end{circuitikz}
 \end{figure}
-
 Let's see how to transform between these two. Fig. \ref{fig:tnsimp}
 shows a circuit with one voltage source and a resistor in series. 
 \begin{figure}
