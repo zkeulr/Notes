@@ -629,7 +629,7 @@ we can find every branch current, which enables us to determine the
 power absorbed or delivered by every element. Because of its ability to
 be applied to any circuit, nodal analysis is the method most often used
 in circuit analysis computer programs}. Here are the steps to perform nodal 
-analysis:
+analysis: 
 \begin{enumerate}
     \item Number all (essential) nodes of the given circuit.
     \item Write KCL for every (essential) node by keeping in mind that only nodal
@@ -734,7 +734,12 @@ be applied to planar circuits}.
 
 Here are the steps to perform mesh analysis: 
 \begin{enumerate}
-    \item 
+    \item Choose your loops and draw mesh currents in them. 
+    \item Use Kirchhoff's voltage law and the voltages you encounter 
+    to create a system of equations. If two mesh currents 
+    go against each other, the net current is their difference. 
+    \item Group the resulting equations together in a matrix form.
+    \item Solve for any quantity of interest. 
 \end{enumerate}
 
 Note that you don't want two mesh currents flowing through the same 
