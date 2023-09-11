@@ -737,4 +737,103 @@ Here are the steps to perform mesh analysis:
     \item 
 \end{enumerate}
 
+Note that you don't want two mesh currents flowing through the same 
+current source. If you find a circuit where this occurs, make a 
+larger loop where no current sources are shared. 
+
+\section{Thevenin and Norton equivalent}
+These terms describe two different ways of finding a simplified equivalent 2-terminal linear network.
+
+\defn{Thevenin equivalent}{Thevenin's theorem states that it 
+is possible to simplify any linear circuit, irrespective of 
+how complex it is, to an equivalent circuit with a single 
+voltage source and a series resistance}. 
+
+%include image
+\begin{figure}
+    \caption{Thevenin equivalent}
+    \label{fig:thevenin}
+    \begin{circuitikz}[american currents, american voltages]
+        \draw (0,0) to[V, l_=$V_{s}$] (0,3) coordinate (a1)
+            to[R, l=$R_s$, -o] ++(2,0) coordinate (a2);
+        \draw (0,0) to[short, -o] (2,0);
+    \end{circuitikz}
+\end{figure}
+
+\defn{Norton equivalent}{Norton's theorem states that any 
+linear circuit can be simplified to an equivalent circuit 
+consisting of a single current source and parallel resistance 
+that is connected to a load}.
+
+%include image
+\begin{figure}
+    \caption{Norton equivalent}
+    \label{fig:norton}
+    \begin{circuitikz}[american currents, american voltages]
+        \begin{circuitikz}[american currents, american voltages]
+            \draw (0,0) to[I, l_=$I$] (0,3) coordinate (a1)
+                to[short] ++(2,0) coordinate (a2);
+            \draw (0,0) to[short] (2,0)
+                to[R, l=$R_t$] ++(0,3);
+            \draw (2,3) to[short, -o] (3,3);
+            \draw (0,0) to[short, -o] (3,0);
+        \end{circuitikz}
+    \end{circuitikz}
+\end{figure}
+
+Let's see how to transform between these two. Fig. \ref{fig:tnsimp}
+shows a circuit with one voltage source and a resistor in series. 
+\begin{figure}
+    \caption{Simple case of equivalency}
+    \label{fig:tnsimp}
+    \begin{circuitikz}[american currents, american voltages]
+        \draw (0,0) to[V, l_=$V_{s}$] (0,3) coordinate (a1)
+            to[R, l=$R_s$, -o] ++(2,0) coordinate (a2);
+        \draw (0,0) to[short, -o] (2,0);
+    \end{circuitikz}
+\end{figure}
+This series resistance normally represents the internal 
+resistance of a practical voltage source.
+Let us short circuit the output terminals of the 
+voltage source circuit as shown in fig. \ref{fig:tnsimp2}
+\begin{figure}
+    \caption{Simple case of equivalency}
+    \label{fig:tnsimp2}
+    \begin{circuitikz}[american currents, american voltages]
+        \begin{circuitikz}[american currents, american voltages]
+            \draw (0,0) to[V, l_=$V_{s}$] (0,3) coordinate (a1)
+                to[R, l=$R_s$, -o] ++(2,0) coordinate (a2);
+            \draw (0,0) to[short, -o] (2,0)
+                to[short] ++(0,3);
+                ;
+        \end{circuitikz}
+    \end{circuitikz}
+\end{figure}
+We know that $V_s = I R_s$, where $I$ is the current delivered
+by the voltage source when it is short circuited.
+Now, let's take a current source of the same current $I$ 
+which produces same open-circuit voltage at its open terminals 
+as shown in fig. \ref{fig:tnsimp3}
+\begin{figure}
+    \caption{Simple case of equivalency}
+    \label{fig:tnsimp3}
+    \begin{circuitikz}[american currents, american voltages]
+        \begin{circuitikz}[american currents, american voltages]
+            \draw (0,0) to[I, l_=$I$] (0,3) coordinate (a1)
+                to[short] ++(2,0) coordinate (a2);
+            \draw (0,0) to[short] (2,0)
+                to[R, l=$R_t$] ++(0,3);
+            \draw (2,3) to[short, -o] (3,3);
+            \draw (0,0) to[short, -o] (3,0);
+        \end{circuitikz}
+    \end{circuitikz}
+\end{figure}
+Now we have $I = \frac{V_s}{R_t}$, meaning $R_s = R_t$. The open circuit 
+voltage of both the sources is $V_s$ and short 
+circuit current of both sources is $I$. The 
+same resistance connected in series in voltage 
+source is connected in parallel in its equivalent current source.
+So, the voltage source and current source are equivalent to each other.
+Changing between forms is called a source transformation and can be used 
+to simplify an electric circuit. 
 \end{document}
