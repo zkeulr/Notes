@@ -540,6 +540,65 @@ The steps for finding the electric field due to a charged object in general are 
     \end{itemize}
 \end{enumerate}
 
-
-
+Let's apply these steps to some new problems. First, let's consider the electric field
+produced by a charged ring (fig. \ref{fig:ring}).
+\begin{figure}
+    \center
+    \caption{Charged ring}
+    \label{fig:ring}
+    \includegraphics[width=\textwidth/2]{images/ring.png}
+\end{figure}
+We have a ring of radius $a$, with a charge of $Q$. The ring is centered on the xy plane
+and we are calculating the electric field on the z-axis. 
+\begin{enumerate}
+    \item Cut the charge distribution and find $\Delta \vec{E}$. 
+    \begin{figure}
+        \center
+        \caption{Charged ring slice}
+        \label{fig:ringslice}
+        \includegraphics[width=\textwidth/2]{images/ringslice.png}
+    \end{figure}
+    Let's take a slice of this ring, like fig. \ref{fig:ringslice}. We can 
+    view the slice of the annulus here as a point charge a distance 
+    of $\sqrt{a^2+z^2}$ away from $(0,0,a)$. We find then that 
+    \begin{align*}
+        \vec{r} &= (a,0,z) \\
+        \hat{r} &= \frac{(a,0,z)}{\sqrt{a^2+z^2}}
+    \end{align*}
+    %what is \Delta e?
+    \item By symmetry, only the z components of each individual electric field
+    contribute. Therefore, 
+    \begin{align*}
+        \vec{E} &= \sum \frac{1}{4 \pi \epsilon_0} \frac{z \Delta q}{(a^2+z^2)^{3/2}}
+    \end{align*}
+    \item Since the charge is uniformly distributed, we have that 
+    $\Delta q = \frac{Q \Delta \theta}{2 \pi}$. 
+    Therefore our integral becomes 
+    \begin{align*}
+        \vec{E} &= \int_0^{2 \pi} \frac{1}{4 \pi \epsilon_0} \frac{z \frac{Q}{2 \pi}}{(a^2+z^2)^{3/2}} d \theta \\
+        &= \frac{Q}{4 {\pi}^2 \epsilon_0}\frac{z}{{(a^2+z^2)^{3/2}}} \int_{0}^{2\pi}d\theta \\
+        &= \frac{1}{4 \pi \epsilon_0}\frac{Qz}{{(a^2+z^2)^{3/2}}}\hat{z}
+    \end{align*}
+    \item This looks pretty good. It goes to zero as z goes to either zero or infinity, as it should. 
+\end{enumerate}
+Let's consider the electric field on the z-axis of a disk with radius $r$ and charge $Q$ now. 
+\begin{enumerate}
+    \item Take some point on the disk. The calculation for the electric field due to 
+    this point is identical to the case of the ring. Therefore 
+    \begin{align*}
+        \vec{r} &= (a,0,z) \\
+        \hat{r} &= \frac{(r,0,z)}{\sqrt{a^2+z^2}}
+    \end{align*}
+    \item Now we have that $\Delta q = \frac{Q}{\pi r^2} da d\theta$. Therefore
+    \begin{align*}
+        \vec{E} &= \sum \frac{1}{4 \pi \epsilon_0}\frac{z \Delta q}{(a^2+z^2)^{3/2}} \\
+        &= \sum \frac{1}{4 \pi \epsilon_0} \frac{Q}{\pi r^2} \frac{z da d\theta}{(a^2+z^2)^{3/2}}
+    \end{align*}
+    \item 
+    \begin{align*}
+        \vec{E} &= \frac{1}{4 \pi \epsilon_0} \frac{Qz}{\pi r^2} \int \int \frac{a}{(a^2+z^2)^{3/2}} da d \theta \\
+        &= \frac{1}{4 \pi \epsilon_0} \frac{Qz}{\pi r^2} \int_{0}^{2 \pi} \int_0^{r} \frac{a}{(a^2+z^2)^{3/2}} da d \theta \\
+        &= \frac{1}{2 \epsilon_0} \frac{Qz}{\pi r^2} \left[\frac{1}{z} - \frac{1}{\sqrt{r^2 + z^2}}\right] \hat{z}
+    \end{align*}
+\end{enumerate}
 \end{document}
