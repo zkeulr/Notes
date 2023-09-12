@@ -570,6 +570,14 @@ Now, away from strings and on to files. Opening a file in C is easy:
       fclose(fptr); //to prevent leaks
    }
 \end{lstlisting}
-
-%add useful functions
+Some file-related functions:
+\begin{itemize}
+   \item texttt{fopen} opens a file in a specified mode. 
+   \item \texttt{feof} will return \texttt{true} at end of file.
+   \item \texttt{fscanf} functions like \texttt{scanf}, but takes in file pointer as first argument.
+   and reads from file. 
+   \item \texttt{fgetc} gets the next character from the specified file. 
+   \item \texttt{fprintf} functions like \texttt{printf}, but takes in file pointer as first argument. 
+   \item \texttt{fclose} closes the file. This should always be called after a successful fopen. 
+\end{itemize}
 \end{document}
