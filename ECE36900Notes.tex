@@ -541,6 +541,12 @@ List of common proof techniques:
     allows you to prove a statement about an arbitrary number 
     $n$ by first proving it is true when $n=1$ (or some other base case), 
     assuming it is true for $n=k$, and then showing it is true for $n=k+1$.
+    The steps to prove $\forall n P(n)$ are:
+    \begin{enumerate}
+        \item Prove $P(1)$ (this is your \emph{base case}). 
+        \item Assume for arbitrary $k \geq 1$, $P(k)$ (your \emph{inductive hypothesis}).
+        \item Prove $P(k+1)$. 
+    \end{enumerate}
 \end{enumerate}
 Below are some example proofs using each of these techniques. 
 \begin{enumerate}
