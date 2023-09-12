@@ -544,7 +544,41 @@ List of common proof techniques:
 \end{enumerate}
 Below are some example proofs using each of these techniques. 
 \begin{enumerate}
-    \item Proof by deduction: say we wish to prove the product of two even integers is even. 
+    \item \emph{Exhaustive proof (cases)}: say we wish to prove $|xy| = |x||y|$. 
+    Let's split this into four cases:
+    \begin{enumerate}
+        \item Case 1: $x$ and $y$ positive.
+        Then the absolute values are equal to the original
+        numbers, and we have 
+        \begin{align*}
+            |x| &= x \\
+            |y| &= y \\
+            |xy| &= xy \\
+            |x||y| &= xy \\
+            \therefore |xy| &= |x||y|
+        \end{align*}
+        \item Case 2: $x$ and $y$ negative. 
+        If $x$ and $y$ are both negative, then 
+        $xy$ is positive. We thus have that 
+        \begin{align*}
+            |x||y| &= xy \\
+            |xy| &= xy \\
+            \therefore |xy| &= |x||y| 
+        \end{align*}
+        \item Case 3: $x$ negative and $y$ positive. 
+        Now we have that $xy$ is negative. Still, though, 
+        $|xy|$ will be positive (by def'n of ||), and so will 
+        $|x|$ and $|y|$. So we again have that 
+        \begin{align*}
+            |xy| &= |x||y| 
+        \end{align*}
+        \item Case 4: $x$ positive and $y$ negative. 
+        WLOG, case 3. 
+    \end{enumerate}
+    \begin{align*}
+        \therefore |xy| &= |x||y| \qed
+    \end{align*}
+    \item \emph{Direct proof}: say we wish to prove the product of two even integers is even. 
     We first need to translate this English sentence to a mathematical 
     statement, which we can do in this case like so:
     \[x = 2a, a \in \mathbb{Z}, y = 2b, b \in \mathbb{Z}, \rightarrow x \times y = 2c, c \in \mathbb{Z}\]
@@ -559,7 +593,7 @@ Below are some example proofs using each of these techniques.
     \end{align*}
     Since $c$ is an integer, $2c$ is even and the proof is complete. Try proving 
     the product of two odds is odd in a similar fashion. 
-    \item Proof by contradiction: say we wish to prove $\sqrt{2}$ is irrational. In a theme
+    \item \emph{Proof by contradiction}: say we wish to prove $\sqrt{2}$ is irrational. In a theme
     that will become common as we see more proofs by contradiction, 
     assume the opposite. That is, assume $\sqrt{2}$ is rational. By
     the definition of rational, we can then write 
