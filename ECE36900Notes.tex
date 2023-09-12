@@ -99,6 +99,69 @@ see the syllabus.
     $\neg q$
 
     $\therefore \neg p$
+
+    \item Predicate inference rules:
+    \begin{table}[ht]
+        \centering
+        \begin{tabular}{|c|c|c|c|}
+        \hline
+        Name & Abrv. & Given & Can conclude\\
+        \hline
+        Existential generalization & eg & $P(a)$ & $(\exists x)P(x)$\\
+        \hline
+        Existential instantiation & ei & $(\exists x)P(x)$ & $P(a)$\\
+        \hline
+        Universal generalization & ug & $P(x)$ & $(\forall x)P(x)$\\
+        \hline
+        Universal instantiation & ui & $(\forall x)P(x)$ & $P(a)$\\
+        \hline
+        \end{tabular}
+    \end{table}
+
+    \item Propositional equivalence rules: 
+    \begin{table}[ht]
+        \centering
+        \begin{tabular}{|c|c|c|}
+        \hline
+        Expression & Equivalent to & Name - abbreviation\\
+        \hline
+        $p \lor q$ & $q \lor p$ & Commutative - comm\\
+        $p \land q$ & $q \land p $ &\\
+        \hline
+        $(p \lor q) \lor r$ &$p \lor (q \lor r)$ & Associative - ass\\
+        $(p \land q) \land r$ &$p \land (q \land r)$ &\\
+        \hline
+        $\neg(p \wedge q)$ & $\neg p \vee \neg q$ & De Morgan's Laws - De Morgan\\
+        $\neg(p \vee q)$ & $\neg p \wedge \neg q$ &\\
+        \hline
+        $p \rightarrow q$ & $\neg p \lor q$ & Implication - imp \\
+        \hline
+        $p$ & $\neg (\neg p)$ & Double negation - dn \\
+        \hline
+        $p \biconditional q$ & $(p \rightarrow q) \land (q \rightarrow )p$ & Def'n of equivalence - equ\\
+        \hline
+        \end{tabular}
+    \end{table}
+    \item Propositional inference rules: 
+    \begin{table}[ht]
+        \centering
+        \begin{tabular}{|c|c|c|}
+        \hline
+        From & Can derive & Name - abbreviation\\
+        \hline
+        $p, p \rightarrow q$ & $q$ & Modus ponens - mp\\
+        $p \rightarrow q, \neg q$ & $\neg p$ & Modus tollens - mt\\
+        \hline
+        $p, q$ & $p \lor q$ & Conjunction - con\\
+        \hline
+        $p \lor q, \neg p$ & $q$ & Disjunction - dis\\
+        \hline
+        $p \land q$ & $p, q$ & Simplification - sim\\
+        \hline
+        $p$ & $p \lor q$ & Addition - add\\
+        \hline
+        \end{tabular}
+    \end{table}
 \end{enumerate}
 
 \pagebreak
