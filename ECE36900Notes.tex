@@ -684,6 +684,30 @@ Below are some example proofs using each of these techniques.
     So $b$ is likewise even. But if both $a$ and $b$ are even, 
     then they share a common factor and our original supposition is false. 
     Ergo $\sqrt{2}$ is irrational. $\qed$. 
+    \item \emph{Poof by induction}: say we wish to show 
+    \[\sum_{i = 1}^{n} = \frac{n(n+1)}{2}\]
+    Begin with the base case $n=1$. 
+    \begin{align*}
+        \sum_{i = 1}^{1} &= 1 \\
+        &= \frac{1(1+1)}{2} \\
+        &= \frac{n(n+1)}{2}
+    \end{align*}
+    Since we have shown the base case to be true, 
+    we may now make our inductive hypothesis and assume that for
+    arbitrary $k \geq 1$, 
+    \begin{align*}
+        \sum_{i = 1}^{k} &= \frac{k(k+1)}{2}
+    \end{align*}
+    Let us now show that the formula holds for $k + 1$. 
+    \begin{align*}
+        \sum_{i = 1}^{k + 1} &= \sum_{i = 1}^{k} + (k + 1)\\
+        &= \frac{k(k+1)}{2} + (k + 1) \\
+        &= \frac{k(k+1) + 2(k+1)}{2}\\
+        &= \frac{k^2+3k+2}{2}\\
+        &= \frac{(k + 1)(k + 2)}{2} \\
+        &= \frac{(k + 1)((k+1) + 1)}{2} 
+    \end{align*}
+    And we are done $\qed$. 
 \end{enumerate}
 
 \end{document}
