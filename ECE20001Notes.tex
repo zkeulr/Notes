@@ -749,23 +749,25 @@ larger loop where no current sources are shared.
 \section{Source transformations}
 \defn{Source transformation}{Source transformation is a 
 wonderful tool that can be used to change the
-originally given circuit to an equivalent and simpler circuit}
+originally given circuit to an equivalent and simpler circuit}.
+Two important theorems are Thevenin's theorem and Norton's theorem.
 
-\defn{Thevenin equivalent}{Thevenin's theorem states that it 
+\defn{Thevenin's theorem}{states that it 
 is possible to simplify any linear circuit, irrespective of 
 how complex it is, to an equivalent circuit with a single 
 voltage source and a series resistance}. 
+
 \begin{figure}
     \caption{Thevenin equivalent}
     \label{fig:thevenin}
     \begin{circuitikz}[american currents, american voltages]
-        \draw (0,0) to[V, l_=$V_{s}$] (0,3) coordinate (a1)
+        \draw (0,0) to[V, v=$V_{s}$, invert] (0,3) coordinate (a1)
             to[R, l=$R_s$, -o] ++(2,0) coordinate (a2);
         \draw (0,0) to[short, -o] (2,0);
     \end{circuitikz}
 \end{figure}
 
-\defn{Norton equivalent}{Norton's theorem states that any 
+\defn{Norton's theorem}{states that any 
 linear circuit can be simplified to an equivalent circuit 
 consisting of a single current source and parallel resistance 
 that is connected to a load}.
@@ -789,7 +791,7 @@ shows a circuit with one voltage source and a resistor in series.
     \caption{Simple case of equivalency}
     \label{fig:tnsimp}
     \begin{circuitikz}[american currents, american voltages]
-        \draw (0,0) to[V, l_=$V_{s}$] (0,3) coordinate (a1)
+        \draw (0,0) to[V, v=$V_{s}$, invert] (0,3) coordinate (a1)
             to[R, l=$R_s$, -o] ++(2,0) coordinate (a2);
         \draw (0,0) to[short, -o] (2,0);
     \end{circuitikz}
@@ -803,7 +805,7 @@ voltage source circuit as shown in fig. \ref{fig:tnsimp2}
     \label{fig:tnsimp2}
     \begin{circuitikz}[american currents, american voltages]
         \begin{circuitikz}[american currents, american voltages]
-            \draw (0,0) to[V, l_=$V_{s}$] (0,3) coordinate (a1)
+            \draw (0,0) to[V, v=$V_{s}$, invert] (0,3) coordinate (a1)
                 to[R, l=$R_s$, -o] ++(2,0) coordinate (a2);
             \draw (0,0) to[short, -o] (2,0)
                 to[short] ++(0,3);
