@@ -558,7 +558,7 @@ we have a circuit with both dependent and independent sources.
         \draw to[short] (b1) (a1)
             (b1) to[I, l_=$3A$] (a1)
             ;
-        \draw (a1) to[short] ++ (0.5,0) 
+        \draw (a1) to[short] ++ (0.5,0)
             to[R,l^=$\SI{4}{\ohm}$, v_>=$V_1$] ++(1,0)   
             to[short] ++ (0.5,0) coordinate (a2)
             ;
@@ -788,7 +788,7 @@ that is connected to a load}.
 Let's see how to transform between these two. Fig. \ref{fig:tnsimp}
 shows a circuit with one voltage source and a resistor in series. 
 \begin{figure}
-    \caption{Simple case of equivalency}
+    \caption{Thevenin to Norton}
     \label{fig:tnsimp}
     \begin{circuitikz}[american currents, american voltages]
         \draw (0,0) to[V, v=$V_{s}$, invert] (0,3) coordinate (a1)
@@ -801,7 +801,7 @@ resistance of a practical voltage source.
 Let us short circuit the output terminals of the 
 voltage source circuit as shown in fig. \ref{fig:tnsimp2}
 \begin{figure}
-    \caption{Simple case of equivalency}
+    \caption{Thevenin to Norton}
     \label{fig:tnsimp2}
     \begin{circuitikz}[american currents, american voltages]
         \begin{circuitikz}[american currents, american voltages]
@@ -819,7 +819,7 @@ Now, let's take a current source of the same current $I$
 which produces same open-circuit voltage at its open terminals 
 as shown in fig. \ref{fig:tnsimp3}
 \begin{figure}
-    \caption{Simple case of equivalency}
+    \caption{Thevenin to Norton}
     \label{fig:tnsimp3}
     \begin{circuitikz}[american currents, american voltages]
         \begin{circuitikz}[american currents, american voltages]
@@ -840,4 +840,27 @@ source is connected in parallel in its equivalent current source.
 So, the voltage source and current source are equivalent to each other.
 Changing between forms is called a source transformation and can be used 
 to simplify an electric circuit. 
+
+Let's do an example to see Thevenin and Nortion's theorems in action. 
+Say we have the circuit in fig. \ref{fig:tnexample}. 
+\begin{figure}
+    \caption{Source transformation example}
+    \label{fig:tnexample}
+    \begin{circuitikz}[american currents, american voltages]
+        \begin{circuitikz}[american currents, american voltages]
+            \draw (0,0) to[V, v=$30$ V, invert] (0,3) coordinate (a1)
+                to[R, i=$I_0$, l=$10\Omega$] ++(3,0) coordinate (a2);
+            \draw (0,0) to[short] (3,0) coordinate (b2)
+                to[cV, l=$2V_x$, invert] ++(0,3);
+            \draw (b2) to ++(1,0) coordinate (b3) node[ground]{}
+                (b3) to[short] ++(1,0) coordinate (b4);
+            \draw (b4) to[cI, l_=$0.2I_0$] ++(0,3) coordinate (a3)
+                (a3) to[short, -o] ++(3,0) coordinate (a4)
+                (b4) to[short, -o] ++(3,0) coordinate (b5);
+            \draw (a4) to[R, l=$50 \Omega$, v=$V_x$] (b5);
+            \draw (a4) node[above]{$a$};
+            \draw (b5) node[below]{$b$};
+        \end{circuitikz}
+    \end{circuitikz}
+\end{figure}
 \end{document}
