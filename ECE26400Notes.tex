@@ -612,8 +612,7 @@ running.
 
    int* arr;
    arr = malloc(num*sizeof(int));
-   if(arr == NULL) { //can't free up memory that 
-                     //doesn't exist
+   if(!arr) { //same as arr == NULL
       return EXIT_FAILURE;
    }
 
@@ -622,6 +621,7 @@ running.
    }
 
    free(arr); //prevents memory leaks
+              //by freeing memory in the heap
 \end{lstlisting}
 Static memory is allocated in the stack, while
 dynamic memory is allocated in the heap. 
