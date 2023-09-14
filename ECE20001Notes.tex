@@ -883,7 +883,7 @@ yields $V_x = 10$ V, meaning $I_0 = 1$ A. Since the Norton current is the
 current through $a$ and $b$ when they are shorted, $I_N = 0.2I_0 = 0.2$ A. Likewise, since the 
 Thevenin voltage is the voltage across $a$ and $b$, the Thevenin voltage is 10 V. 
 
-Well and good, but what if we want to try source transforming? Let's do just that
+Well and good, but what if we want to try source transformations? Let's do just that
 on circuit \ref{fig:stexample}. 
 \begin{figure}
     \center
@@ -897,12 +897,15 @@ on circuit \ref{fig:stexample}.
         to[cI, l=$2V_x$, invert] ++(0,-3) coordinate (a3);
     \draw (a3) to ++(-4.5,0) node[ground]{}
         to[short] ++(-4.5,0);
-    \draw(b1) to[R, l=$12\Omega$] (b2);
+    \draw (b1) to[R, l_=$12\Omega$] (b2);
+    \draw (b2) to[R, l=$8\Omega$] ++(0,-3);
     \end{circuitikz}
     \caption{Source transformation example}
     \label{fig:stexample}
 \end{figure}
+We could pretty easily solve this with nodal analysis, but I think there's 
+an easier way. We know that a current source $I$ and resistor $R$ in parallel 
+can be simplified to a resistor and voltage source in series, with a 
+voltage of $RI$. 
 
-For question 8, you can transform the current and resistor in parallel to 
-voltage and resistor in series. then sum around and all are 0
 \end{document}
