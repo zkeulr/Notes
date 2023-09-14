@@ -629,10 +629,13 @@ dynamic memory is allocated in the heap.
    \centering
    \caption{Stack}
    \label{table:stackmalloc}
-   \begin{tabular}{|c | c|}
+   \begin{tabular}{|c | c | c|}
    \hline
-   arr & [address] \\
-   num & 3 \\
+   arr[2] & [address] & 4 \\
+   arr[1] & [address] & 2\\
+   arr[0] & [address] & 0\\
+   arr & [address] & [hpaddress]\\
+   num & [address] & 3 \\
    \hline
    \end{tabular}
 \end{table}
@@ -640,11 +643,11 @@ dynamic memory is allocated in the heap.
    \centering
    \caption{Heap}
    \label{table:heapmalloc}
-   \begin{tabular}{|c|c|}
+   \begin{tabular}{|c|c|c|}
    \hline
-   arr[2] & 4 \\
-   arr[1] & 2\\
-   arr[0] & 3\\
+   arr[2] & [address] & 4 \\
+   arr[1] & [address] & 2\\
+   arr[0] & [hpaddress] & 0\\
    \hline
    \end{tabular}
 \end{table}
