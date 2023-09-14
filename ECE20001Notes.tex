@@ -779,7 +779,7 @@ that is connected to a load}.
             \draw (0,0) to[I, l_=$I$] (0,3) coordinate (a1)
                 to[short] ++(2,0) coordinate (a2);
             \draw (0,0) to[short] (2,0)
-                to[R, l=$R_t$] ++(0,3);
+                to[R, l=$R_s$] ++(0,3);
             \draw (2,3) to[short, -o] (3,3);
             \draw (0,0) to[short, -o] (3,0);
         \end{circuitikz}
@@ -839,28 +839,57 @@ same resistance connected in series in voltage
 source is connected in parallel in its equivalent current source.
 So, the voltage source and current source are equivalent to each other.
 Changing between forms is called a source transformation and can be used 
-to simplify an electric circuit. 
+to simplify an electric circuit, since any place a voltage source 
+and resistor are in series we can transform to a current source and resistor
+in parallel (and vice versa). If the voltage of the voltage source is 
+$V_{th}$ and the resistance is $R$, then the current of the equivalent
+current source will be $\frac{V_{th}}{R}$.
 
 Let's do an example to see Thevenin and Nortion's theorems in action. 
-Say we have the circuit in fig. \ref{fig:tnexample}. 
+Say we have the circuit in fig. \ref{fig:tnexample} and we wish to find 
+the Thevenin voltage and Norton current with respect to terminals $a$ and $b$.  
 \begin{figure}
+    \begin{center}
+        \begin{circuitikz}[american currents, american voltages]
+            \begin{circuitikz}[american currents, american voltages]
+                \draw (0,0) to[V, v=$30$ V, invert] (0,3) coordinate (a1)
+                    to[R, i=$I_0$, l=$10\Omega$] ++(3,0) coordinate (a2);
+                \draw (0,0) to[short] (3,0) coordinate (b2)
+                    to[cV, l=$2V_x$, invert] ++(0,3);
+                \draw (b2) to ++(1,0) coordinate (b3) node[ground]{}
+                    (b3) to[short] ++(1,0) coordinate (b4);
+                \draw (b4) to[cI, l_=$0.2I_0$] ++(0,3) coordinate (a3)
+                    (a3) to[short, -o] ++(3,0) coordinate (a4)
+                    (b4) to[short, -o] ++(3,0) coordinate (b5);
+                \draw (a4) to[R, l=$50 \Omega$, v=$V_x$] (b5);
+                \draw (a4) node[above]{$a$};
+                \draw (b5) node[below]{$b$};
+            \end{circuitikz}
+        \end{circuitikz}
+    \end{center}
     \caption{Source transformation example}
     \label{fig:tnexample}
-    \begin{circuitikz}[american currents, american voltages]
-        \begin{circuitikz}[american currents, american voltages]
-            \draw (0,0) to[V, v=$30$ V, invert] (0,3) coordinate (a1)
-                to[R, i=$I_0$, l=$10\Omega$] ++(3,0) coordinate (a2);
-            \draw (0,0) to[short] (3,0) coordinate (b2)
-                to[cV, l=$2V_x$, invert] ++(0,3);
-            \draw (b2) to ++(1,0) coordinate (b3) node[ground]{}
-                (b3) to[short] ++(1,0) coordinate (b4);
-            \draw (b4) to[cI, l_=$0.2I_0$] ++(0,3) coordinate (a3)
-                (a3) to[short, -o] ++(3,0) coordinate (a4)
-                (b4) to[short, -o] ++(3,0) coordinate (b5);
-            \draw (a4) to[R, l=$50 \Omega$, v=$V_x$] (b5);
-            \draw (a4) node[above]{$a$};
-            \draw (b5) node[below]{$b$};
-        \end{circuitikz}
-    \end{circuitikz}
 \end{figure}
+Let's simplify 
+this circuit a bit before trying to transform it. First, notice 
+that we have $2V_x-30$ V across the $10 \Omega$ resistor. 
+By Ohm's law, $I_0 = \frac{30-2V_x}{10}$. Looking at the right loop,
+we have that the current flowing across the resistor is $0.2\frac{2V_x-30}{10}$. 
+That means $V_x = 50 * 0.2\frac{2V_x-30}{10} = 10 \frac{2V_x-30}{10}$. Let's
+organize our equations. 
+\begin{align*}
+    I_0 &= \frac{2V_x-30}{10} \\
+    V_x &= 10 \frac{2V_x-30}{10}
+\end{align*}
+In this case, we don't even need linear algebra to solve. The second equation
+yields $V_x = 30$ V, meaning $I_0 = 3$ A. Since the Norton current is the 
+current through $a$ and $b$, $I_N = I_0 = 3$ A. Likewise, since the 
+Thevenin voltage is the voltage across $a$ and $b$, the Thevenin voltage is 30 V. 
+Vx = 10
+vx and vth are in parallel so smae voltagedrop
+To find Norton current, short across the terminals 
+N = 0.2 I0
+
+For question 8, you can transform the current and resistor in parallel to 
+voltage and resistor in series. then sum around and all are 0
 \end{document}
