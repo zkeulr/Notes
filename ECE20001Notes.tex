@@ -756,7 +756,6 @@ Two important theorems are Thevenin's theorem and Norton's theorem.
 is possible to simplify any linear circuit, irrespective of 
 how complex it is, to an equivalent circuit with a single 
 voltage source and a series resistance}. 
-
 \begin{figure}
     \caption{Thevenin equivalent}
     \label{fig:thevenin}
@@ -766,7 +765,18 @@ voltage source and a series resistance}.
         \draw (0,0) to[short, -o] (2,0);
     \end{circuitikz}
 \end{figure}
-
+Here are the steps to find the Thevenin equivalent circuit:
+\begin{enumerate}
+    \item Remove the load resistor.
+    \item Find $R_{th}$ by shorting all voltage sources and 
+    by open circuiting all the current sources and then see what 
+    the resistance looks like from the point of view of the nodes 
+    where the load resistor was located.
+    \item Find $V_{Th}$ by finding the voltage across the nodes the load was 
+    originally hooked to, using standard circuit analysis methods.
+    \item Replace the load and find the current 
+    flowing through the load with these new values.
+\end{enumerate}
 \defn{Norton's theorem}{states that any 
 linear circuit can be simplified to an equivalent circuit 
 consisting of a single current source and parallel resistance 
@@ -785,6 +795,17 @@ that is connected to a load}.
         \end{circuitikz}
     \end{circuitikz}
 \end{figure}
+Here are the steps to find the Norton equivalent circuit: 
+\begin{enumerate}
+    \item Remove the load resistor and replace it with a short circuit.
+    \item Find $I$ by calculating the current through the short circuit where the load was.
+    \item Find $R$ by creating an open circuit where the load resistor is, 
+    shorting all voltage sources and by open circuiting all the current sources. 
+    Once this is done, calculate the resistance seen by the open circuit.
+    \item Replace load and find the current flowing through the load or 
+    voltage across the load with these new values.
+\end{enumerate}
+
 Let's see how to transform between these two. Fig. \ref{fig:tnsimp}
 shows a circuit with one voltage source and a resistor in series. 
 \begin{figure}
@@ -880,7 +901,7 @@ organize our equations.
 \end{align*}
 In this case, we don't even need linear algebra to solve. The second equation
 yields $V_x = 10$ V, meaning $I_0 = 1$ A. Since the Norton current is the 
-current through $a$ and $b$ when they are shorted, $I_N = 0.2I_0 = 0.2$ A. Likewise, since the 
+current through $a$ and $b$ when their load resistance is shorted, $I_N = 0.2I_0 = 0.2$ A. Likewise, since the 
 Thevenin voltage is the voltage across $a$ and $b$, the Thevenin voltage is 10 V. 
 
 Well and good, but what if we want to try source transformations? Let's do just that
