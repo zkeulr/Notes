@@ -708,5 +708,34 @@ Below are some example proofs using each of these techniques.
     \end{align*}
     And we are done $\qed$. 
 \end{enumerate}
-
+The form of induction we have just seen is the \emph{weak} form of 
+induction. The \emph{strong} form of induction is the following.
+\marginnote{Also known as the \emph{second principle of mathematical induction}}
+To prove $\forall x, P(x)$, we still prove the base case ($P(n)$). 
+Now, however, we assume for arbitrary $k \geq 1$ that $P(r)$ is 
+true for $1 \leq r \leq k$ and try to prove $P(k+1)$.
+Let's see this in action. Say we'd like to prove any postage 
+greater than or equal to 8 cents can be created with a combination 
+of 3 cent and 5 cent postage stamps. First, the base case. 8 can be 
+created like so: $3+5 = 8$. Now let's assume for all $8 \leq r \leq k$, 
+$P(r)$. Now the tricky part. To prove $P(k+1)$, notice that
+\begin{align*}
+    P(k+1) &= k+1 \\
+    &= (k-2) + 3 \\
+    &= (3a+5b) + 3 \\
+    &= 3c + 5b \qed
+\end{align*}
+We had to rewrite $k+1$ as $k-2 + 3$ so we could 
+use our assumption about $k-2$. We see that simply assuming $P(k)$
+wouldn't be sufficient in this case, so there are proofs where we can 
+use strong induction but not weak induction. Anything that can be proved
+with weak induction can be proved with strong induction, since in 
+strong induction we assume $P(k)$ in addition to $P(r)$ for all $r$ between 
+$1$ and $k$. The astute among you will recognize that our proof is technically
+imcomplete. We have assumed $P(k-2)$, but what if we wish to prove $P(9)$? 
+This is not included in our inductive step, since we only assume $P(r)$ 
+for $8\leq r \leq k$. We are in the domain of natural numbers (unless you
+have somehow managed to find a postage stamp with negative or fractional value),
+then there is no $r$ for which this is true. Therefore we also need to prove 
+$P(9)$ and $P(10)$, which is trivial. 
 \end{document}
