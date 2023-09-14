@@ -89,6 +89,8 @@ solving by computer are employed throughout. For more information, consult the s
     $\frac{1}{4 \pi \epsilon_0}\frac{xQ}{\left(x^{2}+r_{1}^{2}\right)^{\frac{3}{2}}}$
     \item Electric field due to a charged disk, along the axis of the disk:
     $\frac{1}{2 \epsilon_0}\left(\frac{Q}{\pi r_{1}^{2}}\right)x\left(\frac{1}{x}-\frac{1}{\sqrt{r_{1}^{2}+x^{2}}}\right)$
+    \item Eletric field due to a uniformly charged insulating ball within the ball: 
+    $\frac{Q}{4\pi \epsilon_0}\frac{r}{R^3}\hat{r}$
 \end{enumerate}
 
 \pagebreak
@@ -654,24 +656,26 @@ Well and good, but what if we have a insulating ball, a filled sphere? What is t
 We know that it will be given by Coulomb's law outside of the ball, but on the inside 
 it isn't zero anymore. A=If you picture the ball as a series of concentric shells then the 
 shells radially past the inner point will contribute nothing, but you will still have a 
-small sphere of charge radially inward with a net field. To find the field contributed by this sphere, 
-let's apply our steps to find a general electric field. 
-\begin{enumerate}
-    \item Cut up the charge distribution and find $\vec{E}$. 
-    The charge per volume will be 
-    \begin{align*}
-        \frac{Q}{V} &= \frac{Q}{4/3 \pi R^3}
-    \end{align*}
-    For a point a distance of $r$ within the ball, we have 
-    \begin{align*}
-        \frac{\Delta q}{4/3 \pi r^3} 
-    \end{align*}
-    We know that the sphere is uniformly charged. That is, the charge density everywhere is the same. 
-    Thus, 
-    \begin{align*}
-        \frac{\Delta q}{4/3 \pi r^3} &= \frac{Q}{4/3 \pi R^3} \\
-        \rightarrow \Delta q &= Q\frac{r^3}{R^3}
-    \end{align*}
-\end{enumerate}
-
+small sphere of charge radially inward with a net field. Let's find the field contributed by this sphere. 
+First, cut up the charge distribution and find $\vec{E}$. 
+The charge per volume will be 
+\begin{align*}
+    \frac{Q}{V} &= \frac{Q}{4/3 \pi R^3}
+\end{align*}
+For a point a distance of $r$ within the ball, we have 
+\begin{align*}
+    \frac{\Delta q}{4/3 \pi r^3} 
+\end{align*}
+We know that the sphere is uniformly charged. That is, the charge density everywhere is the same. 
+Thus, 
+\begin{align*}
+    \frac{\Delta q}{4/3 \pi r^3} &= \frac{Q}{4/3 \pi R^3} \\
+    \rightarrow \Delta q &= Q\frac{r^3}{R^3}
+\end{align*}
+So we now have that 
+\begin{align*}
+    \vec{E} &= \frac{1}{4 \pi \epsilon_0} \frac{Q\frac{r^3}{R^3}}{r^2} \\
+    &= \frac{Q}{4\pi \epsilon_0}\frac{r}{R^3}\hat{r}
+\end{align*}
+And we are done 
 \end{document}
