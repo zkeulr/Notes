@@ -710,7 +710,7 @@ Below are some example proofs using each of these techniques.
 \end{enumerate}
 The form of induction we have just seen is the \emph{weak} form of 
 induction. The \emph{strong} form of induction is the following.
-\marginnote{Also known as the \emph{second principle of mathematical induction}}
+\marginnote{The strong form is also known as the \emph{second principle of mathematical induction}}
 To prove $\forall x, P(x)$, we still prove the base case ($P(n)$). 
 Now, however, we assume for arbitrary $k \geq 1$ that $P(r)$ is 
 true for $1 \leq r \leq k$ and try to prove $P(k+1)$.
@@ -726,12 +726,14 @@ $P(r)$. Now the tricky part. To prove $P(k+1)$, notice that
     &= 3c + 5b \qed
 \end{align*}
 We had to rewrite $k+1$ as $k-2 + 3$ so we could 
-use our assumption about $k-2$. We see that simply assuming $P(k)$
+use our assumption that $P(k-2)$ is true. 
+\marginnote{We see that simply assuming $P(k)$
 wouldn't be sufficient in this case, so there are proofs where we can 
 use strong induction but not weak induction. Anything that can be proved
 with weak induction can be proved with strong induction, since in 
 strong induction we assume $P(k)$ in addition to $P(r)$ for all $r$ between 
-$1$ and $k$. The astute among you will recognize that our proof is technically
+$1$ and $k$. Hence, "strong"}
+The astute among you will recognize that our proof is technically
 imcomplete. We have assumed $P(k-2)$, but what if we wish to prove $P(9)$? 
 This is not included in our inductive step, since we only assume $P(r)$ 
 for $8\leq r \leq k$. We are in the domain of natural numbers (unless you
