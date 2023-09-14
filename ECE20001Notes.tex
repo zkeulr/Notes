@@ -903,9 +903,28 @@ on circuit \ref{fig:stexample}.
     \caption{Source transformation example}
     \label{fig:stexample}
 \end{figure}
-We could pretty easily solve this with nodal analysis, but I think there's 
-an easier way. We know that a current source $I$ and resistor $R$ in parallel 
-can be simplified to a resistor and voltage source in series, with a 
-voltage of $RI$. 
+We could pretty easily solve this with nodal analysis, but we know that a current source $I$ and resistor $R$ in parallel 
+can be simplified to a resistor and an $RI$ voltage source in series. Performing this transformation, 
+we have fig. \ref{fig:stexample2}. 
+\begin{figure}
+    \center
+    \begin{circuitikz}[american currents, american voltages]
+        \draw (0,0) to[V, l=$40$ V, invert] (0,3) coordinate (b0)
+        to[R, l=$10\Omega$, v=$V_x$] (3,3) coordinate (b1)
+
+        to[V, l=$36$ V, invert] ++(1.5,0) coordinate (b2)
+        to[R, l_=$12\Omega$] ++(1.5,0) coordinate (b3)
+
+        to[short] ++(3,0) coordinate (b4)
+        to[R, l=$8\Omega$] ++(0,-1.5)
+        to[cV, l=$16V_x$] ++(0,-1.5) coordinate (a3);
+    \draw (a3) to ++(-4.5,0) node[ground]{}
+        to[short] ++(-4.5,0);
+    \end{circuitikz}
+    \caption{Source transformation example, with transformed sources}
+    \label{fig:stexample2}
+\end{figure}
+Now what? Looking at the $10\Omega$ resistor, we see that the 
+voltage across it is $40 - 36 = 4$ V. Since this is what we wished to find, we are done. 
 
 \end{document}
