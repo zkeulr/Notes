@@ -581,4 +581,71 @@ Some file-related functions:
    \item \texttt{fprintf} functions like \texttt{printf}, but takes in file pointer as first argument. 
    \item \texttt{fclose} closes the file. This should always be called after a successful fopen. 
 \end{itemize}
+
+\section{Dynamic memeory allocation}
+It is often the case in coding that we need 
+to create an array but we don't know what size it will be. 
+A possible workaround is making a very large array (perhaps
+of size 10000000), but this is wasteful and it still may not be enough. 
+Luckily, there is a way to dynamically allocate memory in C with the 
+\texttt{malloc} (memory allocate) function. 
+\begin{lstlisting}[language=C,caption=malloc]
+   int num;
+   scanf("%d", &num);
+
+   int* arr;
+   arr = malloc(num*sizeof(int));
+   if(arr == NULL) { //can't free up memory that 
+                     //doesn't exist
+      return EXIT_FAILURE;
+   }
+
+   free(arr); //prevents memory leaks
+\end{lstlisting}
+\texttt{malloc} will return either \texttt{NULL} if it failed, 
+or the address of the allocated memory block. Let's peek 
+inside the memory of the computer as the following code is 
+running. 
+\begin{lstlisting}[language=C,caption=malloc example]
+   int num;
+   scanf("%d", &num); //input 3
+
+   int* arr;
+   arr = malloc(num*sizeof(int));
+   if(arr == NULL) { //can't free up memory that 
+                     //doesn't exist
+      return EXIT_FAILURE;
+   }
+
+   for(int i = 0; i < num; i++) {
+      arr[i] = i*2;
+   }
+
+   free(arr); //prevents memory leaks
+\end{lstlisting}
+Static memory is allocated in the stack, while
+dynamic memory is allocated in the heap. 
+\begin{table}[h]
+   \centering
+   \caption{Stack}
+   \label{table:stackmalloc}
+   \begin{tabular}{|c | c|}
+   \hline
+   arr & [address] \\
+   num & 3 \\
+   \hline
+   \end{tabular}
+\end{table}
+\begin{table}[h]
+   \centering
+   \caption{Heap}
+   \label{table:heapmalloc}
+   \begin{tabular}{|c|c|}
+   \hline
+   arr[2] & 4 \\
+   arr[1] & 2\\
+   arr[0] & 3\\
+   \hline
+   \end{tabular}
+\end{table}
 \end{document}
