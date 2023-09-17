@@ -11,8 +11,20 @@
     \item $R = \frac{\rho L}{A}$
     \item Ohm's Law: $V=IR$
     \item Coulomb's Law: $\vec{F} = \frac{1}{4\pi \epsilon_0}\frac{q_1 q_2}{r^2}\hat{r}$
-    \item Kirchhoff's Voltage Law: 
+    \item Kirchhoff's Voltage Law: $\sum V_i = 0$
     \item Conductance: $G = \frac{1}{R}$
     \item Equivalent resistance: $R_{eq} = \frac{V_{test}}{I_{test}}$
 \end{enumerate}
+\begin{itemize}
+    \item[($R_{eq}$)] Turn off all independent sources (dependent
+    sources remain unchanged) and calculate the resulting resistance at the
+    desired port. Notice that you may have to apply the i-v test if resistors
+    cannot be combined through series and parallel connections, or if the
+    circuit includes dependent sources.
+    \item[($V_{th}$)] Leave the desired port open-circuited
+    (i.e. no load connected) and find the voltage across it.
+    \item[($I_N$)] Short-circuit the desired port (i.e. connect
+    a short circuit across the port) and find the current through it. 
+\end{itemize}
+
 \end{document}
