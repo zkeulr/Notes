@@ -912,9 +912,12 @@ organize our equations.
     V_x &= 10 \frac{30 - 2V_x}{10}
 \end{align*}
 In this case, we don't even need linear algebra to solve. The second equation
-yields $V_x = 10$ V, meaning $I_0 = 1$ A. Since the Norton current is the 
-current through $a$ and $b$ when their load resistance is shorted, $I_N = 0.2I_0 = 0.2$ A. Likewise, since the 
-Thevenin voltage is the voltage across $a$ and $b$, the Thevenin voltage is 10 V. 
+yields $V_x = 10$ V. The Norton current is the 
+current through $a$ and $b$ when their load resistance is shorted, so let's replace 
+that $50 \Omega$ resistor with a short. That makes $V_x = 0$, and using KVL on the 
+leftmost loop we find that $-30+2\times0+10I_0=0 \rightarrow I_0 = 3$. The Norton current 
+is the current through that short between terminals $a$ and $b$, which is simply 
+$0.2 \times 3 = 0.6$ A. Notice that $V_x = V_{th}$ and we are done.  
 
 Well and good, but what if we want to try source transformations? Let's do just that
 on circuit \ref{fig:stexample}. 
