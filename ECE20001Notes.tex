@@ -963,4 +963,57 @@ we have fig. \ref{fig:stexample2}.
 Now what? Looking at the $10\Omega$ resistor, we see that the 
 voltage across it is $40 - 36 = 4$ V. Since this is what we wished to find, we are done. 
 
+\section{Linearity, superposition, and max power transfer}
+\defn{Linear system}{a linear circuit is one in which the electronic 
+components' values (such as resistance, capacitance, inductance, gain, 
+etc.) do not change with the level of voltage or current in the circuit}. Linear 
+circuits are so called because they can be expressed as a linear combination of
+sources. 
+
+\defn{Superposition}{for any linear and bilateral network or circuit with 
+multiple independent sources, the response of an element will be equal to the 
+sum of the responses of that element by considering one source at a time}. For 
+instance, say we have a circuit such as fig. \ref{fig:super}
+\begin{figure}
+    \center
+    \begin{circuitikz}
+        \draw (0,0) to[short, i=$I_1$] (3,0)
+            to[R, l=$R$] (3,3);
+        \draw (0,3) to[short, i=$I_2$] (3,3);
+    \end{circuitikz}
+    \caption{Superposition}
+    \label{fig:super}
+\end{figure}
+If we want to calculate the voltage across $R$, then we can simply sum the 
+currents to get $V = (I_1+I_2)R$ by the principle of superposition. 
+
+Say we have a linear system with two terminals, like fig. \ref{fig:linear}. 
+\begin{figure}
+    \center
+    \begin{circuitikz}
+        \draw (0,0) to[short] (0,3)
+        to[short] (3,3)
+        to[short] (3,0)
+        to[short] (0,0);
+    \draw (3,1) to[short, -o] (4,1);
+    \draw (3,2) to[short, -o] (4,2);
+    \end{circuitikz}
+    \caption{Linear system with two terminals}
+    \label{fig:linear}
+\end{figure}
+We may be interested in finding the value of $R$ that maximizes the power extracted across
+the terminals by a load resistor placed there. To see how to do this, let's consider the example fig. \ref{fig:maxpow}. 
+\begin{figure}
+    \center
+    \begin{circuitikz}[american currents, american voltages]
+        \draw (0,0) to[R, l=$R$] (0,3)
+        to[short] (3,3)
+        to[short] (3,0)
+        to[V, l=$V$] (0,0);
+    \draw (3,1) to[short, -o] (4,1);
+    \draw (3,2) to[short, -o] (4,2);
+    \end{circuitikz}
+    \caption{Max power extracted}
+    \label{fig:maxpow}
+\end{figure}
 \end{document}
