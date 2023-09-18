@@ -680,5 +680,86 @@ So we now have that
 And we are done. 
 
 \section{Electric potential} 
+To begin this section, let's imagine what happens when we touch two 
+conductors together. Say one has a charge of 6 nc and the other of 0 nC, 
+but otherwise they are identical. What happens when the conductors are brought 
+in contact? We intuit that the charge flows from one to the other 
+until each has a charge of 3 nC, and this is indeed what would happen. 
+Consider a similar situation, but now the conductor of 6 nC is 
+much smaller than the neutral conductor. What happens when these two 
+are brought in contact now?
 
+As you ponder that, let's briefly review energy. The energy of 
+a particle moved by a force $\vec{F}$ along a path $\vec{l}$ is given by 
+\[\Delta E_{particle} = W = \int \vec{F} \dot d\vec{l}\]
+If the forces involved are conservative, we also have that 
+\[\Delta U = -W_{internal}\]
+Consider a particle between two charged infinite plates. Let's find the change in its potential energy
+as it moves from point A to point B. If the electric field strength is $E$ N/C, 
+then 
+\begin{align*}
+    \Delta U &= -W_{internal} \\
+    &= -\int qE d\vec{r} \\
+    &= -q\int dx \\
+    &= -qE\Delta X
+\end{align*}
+So the difference in potential energy of a particle inside a charged 
+electric field is proportional to the strength of the field and the distance
+moved. We can classify the ability to have potential energy 
+if a charge enters a system as the
+
+\defn{Electric potential}{the amount of work energy needed 
+per unit of electric charge to move this charge from a 
+reference point to the specific point in an electric field}.
+Mathematically, the potential $\Delta V$ can be expressed as
+\[\Delta V = -E\Delta x\]
+\marginnote{The astute reader will notice 
+that this equation is not very general, 
+as it only applies when the charge moves 
+in a straight line through a uniform 
+eletric field. In general, 
+\[\Delta V = -\int_{i}^{f} \vec{E} d\vec{l}\]
+This integral is a \emph{line integral}. It can be 
+computed using multivariable calculus, but sometimes 
+it simplifies to a form that makes this approach unecessary.}
+V may seem like an odd choice of variable here, but electric 
+potential is such an important concept that it gets its own
+units of Volts (which are equivalent to J/C).
+Despite the fancy name, we can think of eletric potential the 
+same way as gravitational or any other potential. Charges
+will move from high to low potential, just like a ball rolling 
+down a hill is moving from high to low potential. 
+Here the strength of the electric field is analogous 
+to the height of the hill, and the charge is the ball. 
+Just as with a hill and a ball, we also need two things 
+in order to find electric potential energy (what's the potential energy 
+of something floating around by itself in space? The question
+make no sense, since potential energy is defined as a difference 
+between two states). In the simplest case, 
+imagine two charges near one another. The force 
+of one on the other is simply 
+\[\vec{F} = \frac{q_1 q_2}{4 \pi \epsilon_0 r^2}\hat{r}\]
+and as we have learned, 
+\[W = \int_{a}^{b}\vec{F} d\vec{x}.\]
+So to find the work done as one 
+particle goes from A to B, we have 
+\begin{align*}
+    W &= \int_{a}^{b} \vec{F}dr \\
+    &= \int_{a}^{b} \frac{q_1 q_2}{4 \pi \epsilon_0 r^2}\hat{r} dr \\
+    &= \frac{q_1 q_2}{4 \pi \epsilon_0} \int_{a}^{b} \frac{dr}{r} \\
+    &= \frac{q_1 q_2}{4 \pi \epsilon_0} \left(\frac{-1}{r}\right) \\
+    &= \frac{q_1 q_2}{4 \pi \epsilon_0} \left(\frac{1}{a}-\frac{1}{b}\right)
+\end{align*}
+We can define the Electric Potential Energy
+of a system of charges as
+the work needed to assemble the
+system by bringing each
+charge from infinity to its
+final position. That is, 
+\[U = \frac{q_1 q_2}{4 \pi \epsilon_0 r},\]
+where $r$ is the distance between one charge 
+and another. For a system with multiple particles, 
+the total energy will simply be the sum 
+of the energies of each individual charge with 
+respect to each other.
 \end{document}
