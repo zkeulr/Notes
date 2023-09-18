@@ -1001,7 +1001,7 @@ Say we have a linear system with two terminals, like fig. \ref{fig:linear}.
     \caption{Linear system with two terminals}
     \label{fig:linear}
 \end{figure}
-We may be interested in finding the value of $R$ that maximizes the power extracted across
+We may be interested in finding the value of $R_L$ that maximizes the power extracted across
 the terminals by a load resistor placed there. To see how to do this, let's consider the example fig. \ref{fig:maxpow}. 
 \begin{figure}
     \center
@@ -1012,6 +1012,7 @@ the terminals by a load resistor placed there. To see how to do this, let's cons
         to[V, l=$V$] (0,0);
     \draw (3,1) to[short, -o] (4,1);
     \draw (3,2) to[short, -o] (4,2);
+    \draw (4,1) to[R, l_=$R_L$] (4,2);
     \end{circuitikz}
     \caption{Max power extracted}
     \label{fig:maxpow}
