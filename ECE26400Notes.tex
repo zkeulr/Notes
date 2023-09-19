@@ -754,4 +754,16 @@ so if we want to alter them we'll have to pass in a pointer instead.
       changeRec(&r);
    }
 \end{lstlisting}
+Equivalent to \texttt{*ptr.att} is \texttt{ptr->att}. Both can be used 
+interchangeably. For example, 
+\begin{lstlisting}[language=C,caption=-> and malloc]
+   Rectangle* r;
+   r = malloc(sizeof(Rectangle));
+   if(!r) {
+      return EXIT_FAILURE;
+   }
+   r->len = 15;
+   r->wid = 10;
+   free(r);
+\end{lstlisting}
 \end{document}
