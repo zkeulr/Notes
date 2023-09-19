@@ -709,7 +709,7 @@ types like \texttt{Rectangle} cannot be used with operators like ">" or
 "==". To compare derived data types, define a function like \texttt{rectEquals}
 or \texttt{rectLargerThan} that access the attributes and compare them 
 directly. Let's see an example.
-\begin{lstlisting}[language=C,caption=Struct]
+\begin{lstlisting}[language=C,caption=changeRec]
    void changeRec(Rectangle rec) {
       rec.len += 1;
       rec.wid -= 1;
@@ -741,5 +741,17 @@ Table \ref{table:structstack} is the stack during execution.
 \end{table}
 We see that the original values of \texttt{r} are unchanged, 
 so if we want to alter them we'll have to pass in a pointer instead. 
+\begin{lstlisting}[language=C,caption=changeRec pointer]
+   void changeRec(Rectangle* rec) {
+      *rec.len += 1;
+      *rec.wid -= 1;
+   }
 
+   void main() {
+      Rectangle r;
+      r.len = 9;
+      r. wid = 9;
+      changeRec(&r);
+   }
+\end{lstlisting}
 \end{document}
