@@ -750,6 +750,22 @@ $P(1) = 2 = 2^1$, so that's out of the way. Now assume $P(k)$. That is, for any
 set with $k < n$ elements, the number of subsets is $2^k$. You now need to show 
 $P(k+1)$, which can be done by noticing that if we add an additional element to the set, 
 then for other group you can add the new element to get $2^k$ new groups, bringing your total 
-number of subsets to $2^k+2^k=2*2^k = 2^{k+1}$, and we are done.  
+number of subsets to $2^k+2^k=2\times2^k = 2^{k+1}$, and we are done.  
 
+We've seen some examples of when induction is used well, but doing everything 
+perfectly is tiring. Let's show something false: any group of horses are 
+all the same color. Obviously the base case is true: a group of one horse 
+is always the color of that horse. Assume $P(k)$, that any group of $k$ horses 
+is monochromatic. Now we need to prove it for $k+1$. First, exclude one horse and 
+look only at the other $k$ horses; all these are the same color, since $k$ horses 
+always are the same color. Likewise, exclude some other horse (not identical to 
+the one first removed) and look only at the other $k$ horses. By the same reasoning, 
+these, too, must also be of the same color. Therefore, the first horse that 
+was excluded is of the same color as the non-excluded horses, who in turn are 
+of the same color as the other excluded horse. Hence, the first horse excluded, 
+the non-excluded horses, and the last horse excluded are all of the same color, 
+and we are done. What's the issue here? The issue is that in order to select two different 
+horses, we need at least two different horses. However, our base case was with one horse. 
+To use this logic we would need to show $P(2)$, for which our original argument is
+obviously not true. 
 \end{document}
