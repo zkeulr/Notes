@@ -739,6 +739,17 @@ This is not included in our inductive step, since we only assume $P(r)$
 for $8\leq r \leq k$. We are in the domain of natural numbers (unless you
 have somehow managed to find a postage stamp with negative or fractional value),
 then there is no $r$ for which this is true. Therefore we also need to prove 
-$P(9)$ and $P(10)$, which is pretty simple. 
+$P(9)$ and $P(10)$, which is pretty simple. Let's see a more advanced example 
+of induction. 
+
+Say you have a set of $n$ elements, and you want to create subsets of this set. 
+You are interested in knowing how many subsets exist. After trying it out with 
+$n=1,2,3$ you suspect the number of subsets that can exist is $2^n$, and you see
+that this problem is a good candidate for induction. Your base case is 
+$P(1) = 2 = 2^1$, so that's out of the way. Now assume $P(k)$. That is, for any 
+set with $k < n$ elements, the number of subsets is $2^k$. You now need to show 
+$P(k+1)$, which can be done by noticing that if we add an additional element to the set, 
+then for other group you can add the new element to get $k$ new groups, bringing your total 
+number of subsets to $k+k=2k = 2^{k+1}$, and we are done.  
 
 \end{document}
