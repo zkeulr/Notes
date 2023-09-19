@@ -313,7 +313,7 @@ imagining the computer's storage as a neighborhood with a
 set of houses. Each house has an address, just as each variable 
 has an address. Each house takes
 up a certain size, just as each variable type takes up a certain 
-size in memeory. The computer only cares about the address, but
+size in memory. The computer only cares about the address, but
 to make our code readable by humans we refer to addresses by names, 
 analogous to calling 104 North St "Wu's house". If we create a variable 
 "\texttt{double a = 3.2}" the computer will store an address-value pair that includes
@@ -616,7 +616,7 @@ Some file-related functions:
    \item \texttt{fclose} closes the file. This should always be called after a successful fopen. 
 \end{itemize}
 
-\section{Dynamic memeory allocation}
+\section{Dynamic memory allocation}
 It is often the case in coding that we need 
 to create an array but we don't know what size it will be. 
 A possible workaround is making a very large array (perhaps
@@ -685,4 +685,61 @@ dynamic memory is allocated in the heap.
    \hline
    \end{tabular}
 \end{table}
+
+\section{Struct}
+Consider how you might represent a rectangle 
+in C with one variable. You may choose to identify rectangles by their height and 
+width, and to pack these attributes into a single rectangle we need a \emph{struct}. 
+\begin{lstlisting}[language=C,caption=Struct]
+   typedef struct { //tells compiler we 
+                    //are creating a new type
+      int len; //length attribute
+      int wid; //width attribute
+   } Rectangle; //name of type
+
+   //create new rectangle object, rect
+   Rectangle rect = {.len=5, .wid=4};
+
+   //change len value
+   rect.len = 1;
+\end{lstlisting}
+If we want to use the Rectangle struct in our code, we would define it 
+in a \texttt{.h} file and \texttt{include} it in our program. \emph{Derived} 
+types like \texttt{Rectangle} cannot be used with operators like ">" or 
+"==". To compare derived data types, define a function like \texttt{rectEquals}
+or \texttt{rectLargerThan} that access the attributes and compare them 
+directly. Let's see an example.
+\begin{lstlisting}[language=C,caption=Struct]
+   void changeRec(Rectangle rec) {
+      rec.len += 1;
+      rec.wid -= 1;
+   }
+
+   void main() {
+      Rectangle r;
+      r.len = 9;
+      r. wid = 9;
+      changeRec(r);
+   }
+\end{lstlisting}
+Table \ref{table:structstack} is the stack during execution. 
+\begin{table}[h]
+   \centering
+   \caption{Stack}
+   \label{table:structstack}
+   \begin{tabular}{|c c c|}
+   \hline
+   r.len & ADDR & 10 \\
+   r.wid & ADDR & 8 \\
+   changeRec & line 10 &\\
+   \hline
+   r.len & ADDR & 9 \\
+   r.wid & ADDR & 9 \\
+   main & & \\
+   \hline
+   \end{tabular}
+\end{table}
+We see that the original values of \texttt{r} are unchanged, 
+so if we want to alter them we'll have to pass in a pointer instead. 
+
 \end{document}
