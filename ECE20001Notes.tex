@@ -88,6 +88,10 @@ for electrical and computer engineers as well as for engineers
     \item Kirchhoff's Voltage Law: $\sum V_i = 0$
     \item Conductance: $G = \frac{1}{R}$
     \item Equivalent resistance: $R_{eq} = \frac{V_{test}}{I_{test}}$
+    \item Series capacitance: $\frac{1}{C_{total}} = \frac{1}{C_1} + \frac{1}{C_2} + \dots$
+    \item Parallel capacitance: $C_{total} = C_1 + C_2 + \dots$
+    \item Series inductor: $L_{total} = L_1+L_2+\dots$
+    \item Parallel inductor: $\frac{1}{L_{total}} = \frac{1}{L_1} + \frac{1}{L_1}$
 \end{enumerate}
 
 \pagebreak
@@ -1017,4 +1021,78 @@ the terminals by a load resistor placed there. To see how to do this, let's cons
     \caption{Max power extracted}
     \label{fig:maxpow}
 \end{figure}
+We know that the amount of power dissapated is $P_L = I^2 R_L$. 
+Substitute $I=\frac{VTh}{RTh+RL}$ in the above equation, and obtain 
+\[P_L = \left( \frac{V_{Th}}{(R_{Th} + R_L)} \right) ^2 R_L.\]
+For maximum or minimum, the first derivative will be zero. So, differentiate 
+$P_L$ with respect to $R_L$ and make it equal to zero.
+\begin{align*}
+    \frac{dP_L}{dR_L} &= {V_{Th}}^2 \lbrace \frac{(R_{Th} + R_L)^2 \times 1 - R_L \times 2(R_{Th} + R_L)}{(R_{Th} + R_L)^4} \rbrace = 0 \\
+    &\rightarrow (R_{Th} + R_L)^2 -2R_L(R_{Th} + R_L) = 0\\
+    &\rightarrow (R_{Th} + R_L)(R_{Th} + R_L - 2R_L) = 0\\
+    &\rightarrow (R_{Th} - R_L) = 0 \\
+    &\rightarrow R_{Th} = R_L
+\end{align*}
+
+\section{Capacitors and inductors}
+\defn{Capacitor}{two conducting plates with a gap in between, connected to a voltage source}. 
+One plate will have positive charge $Q$ and the other plate will have charge $-Q$. 
+The units of capacitance are Faradays.
+\begin{figure}
+    \center
+    \caption{Capacitor}
+    \label{fig:cap}
+    \begin{tikzpicture}
+        \draw (0,2) to [short,*-] (3,2) to[C] (3,0) to [short,-*] (0,0);
+        \node[below left] at (0,2) {$+$};
+        \node[above left] at (0,0) {$-$};
+        \node at (0,1) {$\Delta V$};
+      \end{tikzpicture}
+\end{figure}
+The formula for capacitance is $i = C\frac{dV}{dt}$. This formula is true \emph{only if} $V$
+is continuous. 
+
+Take the example of a current source hooked up to a capacitor, as in fig. \ref{fig:capcur}. 
+\begin{figure}
+    \center
+    \caption{Capacitor with current source}
+    \label{fig:capcur}
+    \begin{circuitikz}[american currents, american voltages]
+        \draw (0,2) to [short] (3,2) to[C] (3,0) to [short] (0,0);
+        \draw (0,0) to[I, l=$I$] (0,2);
+      \end{circuitikz}
+\end{figure}
+Say $C = 0.5 F$. We know that $i = C\frac{dV}{dt}$, so 
+\[V(t) = \int_{0}^{t}\frac{I}{C}dt.\] 
+If $I = 2t-2$, for example, then we have that 
+\begin{align*}
+    V(t) &= 4\int_{0}^{t}(2t-2)dt \\
+    &= 4t^2-8t
+\end{align*}
+and we are done. 
+
+Say we have two capacitors in series. It can be shown that 
+$\frac{1}{C_{total}} = \frac{1}{C_1} + \frac{1}{C_2}$. Similarly, if 
+the capacitors are in parallel instead, $C_{total} = C_1 + C_2$. 
+
+If the reader is familiar with the practical application of capacitors, 
+they will know that capacitors are often used to store energy. To see how 
+much energy can be stored, recall that $P = IV$ and $I = C\frac{dV}{dt}$. 
+Therefore, 
+\begin{align*}
+    E(t_2)-E(t_1) &= \int_{t_1}^{t_2} P(t) dt \\
+    &= \int_{t_1}^{t_2} VC\frac{dV}{dt} \\
+    &= \frac{CV^2(t_2)}{2} - \frac{CV^2(t_1)}{2}
+\end{align*}
+
+\defn{Inductor}{a passive two-terminal electrical 
+component that stores energy in a magnetic field when 
+electric current flows through it, according to the 
+formula $V = L\frac{dI}{dt}$}. The units of inductance are Henrys (H).
+Note that, comparable to capacitors, the given formula is true 
+only if \emph{current} is continous. We could show that if the 
+current is continuous, then energy stored is equal to $\frac{1}{2}LI^2(t_2) - \frac{1}{2}LI^2(t_1)$
+We could also show that for series inductance $L_{total} = L_1+L_2+\dots$
+and for parallel inductance $\frac{1}{L_{total}} = \frac{1}{L_1} + \frac{1}{L_1}$. 
+
 \end{document}
