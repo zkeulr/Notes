@@ -417,7 +417,7 @@ At this point, let us formally define an
 
 \defn{Argument}{An argument can be symbolized as 
 \[P_1 \lor P_2 \lor P_3 \lor ... \lor P_n \rightarrow Q\] 
-where $P_i$ is called a premise and $Q$ is the conclusion.} If this statement
+where $P_i$ is called a hypothesis and $Q$ is the conclusion.} If this statement
 is a tautology, then the argument is \emph{valid}. 
 There are multiple ways we could prove a given argument is a tautology.
 For instance, we could create a truth table and brute force an answer.
@@ -428,11 +428,11 @@ it becomes exponentially harder. Therefore we instead often turn to the
 in which each formula is either a premise or the result 
 of applying a derivation rule to earlier well-formed formulas.} In practice this looks like
 \begin{align*}
-    P_1 \quad &\text{(premise)}\\
-    P_2 \quad &\text{(premise)}\\
-    P_3 \quad &\text{(premise)}\\
+    P_1 \quad &\text{(hypothesis)}\\
+    P_2 \quad &\text{(hypothesis)}\\
+    P_3 \quad &\text{(hypothesis)}\\
     &\dots \\
-    P_n \quad &\text{(premise)}\\
+    P_n \quad &\text{(hypothesis)}\\
     \text{(formula) }1 \quad &\text{(obtained from derivation rule)} \\
     \text{(formula) }2 \quad &\text{(obtained from derivation rule)} \\
     &\dots \\
