@@ -732,7 +732,7 @@ wouldn't be sufficient in this case, so there are proofs where we can
 use strong induction but not weak induction. Anything that can be proved
 with weak induction can be proved with strong induction, since in 
 strong induction we assume $P(k)$ in addition to $P(r)$ for all $r$ between 
-$1$ and $k$. Hence, "strong"}
+$1$ and $k$. Hence, "strong".}
 The astute among you will recognize that our proof is technically
 imcomplete. We have assumed $P(k-2)$, but what if we wish to prove $P(9)$? 
 This is not included in our inductive step, since we only assume $P(r)$ 
@@ -749,7 +749,7 @@ that this problem is a good candidate for induction. Your base case is
 $P(1) = 2 = 2^1$, so that's out of the way. Now assume $P(k)$. That is, for any 
 set with $k < n$ elements, the number of subsets is $2^k$. You now need to show 
 $P(k+1)$, which can be done by noticing that if we add an additional element to the set, 
-then for other group you can add the new element to get $2^k$ new groups, bringing your total 
+then for every pre=existing group you can add the new element to get $2^k$ new groups, bringing your total 
 number of subsets to $2^k+2^k=2\times2^k = 2^{k+1}$, and we are done.  
 
 We've seen some examples of when induction is used well, but doing everything 
