@@ -92,6 +92,8 @@ solving by computer are employed throughout. For more information, consult the s
     \item Electric field due to a uniformly charged insulating ball within the ball: 
     $\frac{Q}{4\pi \epsilon_0}\frac{r}{R^3}\hat{r}$
     \item Electric potential in a uniform electric field: $\Delta V = -E\Delta x$
+    \item Electric potential in a nonuniform electric field: $\Delta V = -\int_{i}^{f} \vec{F} \cdot \vec{l}$
+    \item Electric potential of a point charge, at a distance $r$: $\Delta V = \frac{1}{4\pi \epsilon_0}\frac{q}{r}$
 \end{enumerate}
 
 \pagebreak
@@ -719,7 +721,7 @@ Mathematically, the potential $\Delta V$ can be expressed as
 that this equation is not very general, 
 as it only applies when the charge moves 
 in a straight line through a uniform 
-eletric field. In general, 
+electric field. In general, 
 \[\Delta V = -\int_{i}^{f} \vec{E} d\vec{l}\]
 This integral is a \emph{line integral}. It can be 
 computed using multivariable calculus, but sometimes 
@@ -727,17 +729,21 @@ it simplifies to a form that makes this approach unecessary.}
 V may seem like an odd choice of variable here, but electric 
 potential is such an important concept that it gets its own
 units of Volts (which are equivalent to J/C).
-Despite the fancy name, we can think of eletric potential the 
+Despite the fancy name, we can think of electric potential the 
 same way as gravitational or any other potential. Charges
 will move from high to low potential, just like a ball rolling 
 down a hill is moving from high to low potential. 
 Here the strength of the electric field is analogous 
 to the height of the hill, and the charge is the ball. 
 Just as with a hill and a ball, we also need two things 
-in order to find electric potential energy (what's the potential energy 
+in order to find electric potential energy. 
+\marginnote{What's the potential energy 
 of something floating around by itself in space? The question
-make no sense, since potential energy is defined as a difference 
-between two states). In the simplest case, 
+seems to make no sense, since potential energy is defined as a difference 
+between two states. However, the potential at a single point is often defined as the 
+potential relative to infinity, $V_A = V_A - V_{\infty}$. The electric potential 
+is a scalar field, and has a value at every point in space. }
+In the simplest case, 
 imagine two charges near one another. The force 
 of one on the other is simply 
 \[\vec{F} = \frac{q_1 q_2}{4 \pi \epsilon_0 r^2}\hat{r}\]
@@ -752,16 +758,61 @@ particle goes from A to B, we have
     &= \frac{q_1 q_2}{4 \pi \epsilon_0} \left(\frac{-1}{r}\right) \\
     &= \frac{q_1 q_2}{4 \pi \epsilon_0} \left(\frac{1}{a}-\frac{1}{b}\right)
 \end{align*}
-We can define the Electric Potential Energy
+We can define the \emph{electric potential energy}
 of a system of charges as
 the work needed to assemble the
 system by bringing each
 charge from infinity to its
-final position. That is, 
+final position. 
+\marginnote{\emph{Electric potential energy} is NOT \emph{electric potential}. 
+Electric potential energy has a dependency upon the charge of the 
+object experiencing the electric field, electric potential is 
+purely location dependent. Electric potential is the electric potential 
+energy per charge.}
+In this case, 
 \[U = \frac{q_1 q_2}{4 \pi \epsilon_0 r},\]
 where $r$ is the distance between one charge 
 and another. For a system with multiple particles, 
 the total energy will simply be the sum 
 of the energies of each individual charge with 
 respect to each other.
+
+Let's calculate the electric potential of three point charges $A,B$, and $C$.
+The distances are $r_{12}$, $r_{13}$, and $r_{23}$. The electric potential energy is 
+the sum of the individual potential energies. That is, 
+\begin{align*}
+    U &= \sum U_i \\
+    &= \frac{1}{4\pi \epsilon_0}\frac{q_1 q_2}{r_{12}} + \frac{1}{4\pi \epsilon_0}\frac{q_1 q_3}{r_{13}} + \frac{1}{4\pi \epsilon_0}\frac{q_2 q_3}{r_{23}}
+\end{align*}
+
+Now, you have probably noticed that, in general, things love moving from high potential to 
+low potential. Lift something high up in the gravitational field, and it gains potential, let it go
+and it falls and loses potential. Gifted students and especially electric fields follow the same 
+principle. The electric field points from the highest potential to the lowest potential, 
+dictating how a charge will move if placed in a field. We can see this mathematically, 
+since we know 
+\begin{align*}
+    \Delta V &= -\int_{i}^{f} \vec{E} \cdot d\vec{l} \\
+    &\rightarrow dV = -\vec{E}\cdot d\vec{l}
+\end{align*}
+Since $\vec{l}$ can be multidimensional, to find $dV$ we'd need multivariable calculus. 
+If we calculate the derivative what we would get is 
+\begin{align*}
+    dV &= -\vec{E}\cdot d\vec{l} \\
+    &\rightarrow \frac{dV}{d\vec{l}} = -\vec{E} \\
+    &= V\left( \frac{\partial}{\partial x} + \frac{\partial}{\partial y} + \frac{\partial}{\partial z} \right) \\
+    &= -\nabla V
+\end{align*}
+If you are familiar with gradients ($\nabla$) you will know this means
+the electric field points in the direction in which the potential decreases most rapidly. 
+We also know the electric field always points in the direction of
+steepest descent of $V$ and its
+magnitude is the slope. And just as with gravity, it can be shown that the 
+electric potential between two points does not
+depend on the integration path. Any path will do. Moreover, any closed path 
+has an electric poential of 0. 
+\marginnote{Take a momement to convince yourself of this by whatever 
+means you find most useful. It can be shown both mathematically 
+and intuitively.}
+
 \end{document}
