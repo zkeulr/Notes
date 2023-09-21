@@ -766,4 +766,77 @@ interchangeably. For example,
    r->wid = 10;
    free(r);
 \end{lstlisting}
+When dealing with structs, there is a useful function called \texttt{fread}. 
+\begin{lstlisting}[language=C,caption=fread]
+   size_t fread(void* ptr, size_t size, 
+      size_t nmemb, FILE* stream);
+   //reads nmemb elements of data, 
+   //each size bytes long, 
+   //from stream, storing them at ptr
+\end{lstlisting}
+\texttt{fread} can be used to read and write structs to files.
+
+\section{Recursion}
+\defn{Recursion}{recusrion is where a process calls itself}, like so:
+\begin{lstlisting}[language=C,caption=recursion]
+   int func(int n) {
+      //...
+      int m = func(n)
+      //...
+   }
+\end{lstlisting}
+To avoid infinite recursion, every recursive function should 
+have a \emph{base case}. 
+\begin{lstlisting}[language=C,caption=recursion]
+   int func(int n) {
+      if(n == 0) { //base case
+         return 0;
+      } else {
+         return {1 + func(n-1)};
+      }
+   }
+
+   void main() {
+      printf("%d\n", func(3));
+   }
+   //what does func(3) return?
+   //what about func(n)?
+\end{lstlisting}
+Table \ref{table:structstack} is the stack during recursion. 
+\begin{table}[h]
+   \centering
+   \caption{Stack}
+   \label{table:stackrecur}
+   \begin{tabular}{|c c c|}
+      \hline
+      n & ADDR & 0 \\
+      func & RL & \\
+      \hline
+      n & ADDR & 1 \\
+      func & RL & \\
+      \hline
+      n & ADDR & 2 \\
+      func & RL & \\
+      \hline
+      n & ADDR & 3 \\
+      func & RL & \\
+      \hline
+      main & & \\
+      \hline
+   \end{tabular}
+\end{table}
+A common example of recusion is the Tower of Hanoi, 
+also known as the Tower of Brahma or the Lucas Tower. 
+The tower consists of three 
+rods with $n$ disks of different diameters.
+The objective is to shift the entire 
+stack of disks from one rod to another 
+following these three rules :
+\begin{itemize}
+   \item Only one disk can be moved at a time.
+   \item Only the uppermost disk from one stack 
+   can be moved on to the top of another stack or an empty rod.
+   \item Larger disks cannot be placed on the top of smaller disks.
+\end{itemize}
+
 \end{document}
