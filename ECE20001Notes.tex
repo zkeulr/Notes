@@ -91,7 +91,8 @@ for electrical and computer engineers as well as for engineers
     \item Series capacitance: $\frac{1}{C_{total}} = \frac{1}{C_1} + \frac{1}{C_2} + \dots$
     \item Parallel capacitance: $C_{total} = C_1 + C_2 + \dots$
     \item Series inductor: $L_{total} = L_1+L_2+\dots$
-    \item Parallel inductor: $\frac{1}{L_{total}} = \frac{1}{L_1} + \frac{1}{L_1}$
+    \item Parallel inductor: $\frac{1}{L_{total}} = \frac{1}{L_1} + \frac{1}{L_1} + \dots$
+    \item Voltage in RC circuit: $v_c(\infty) +\left(v_c{t_0} - v_c(\infty)\right)e^{(\frac{-1}{RC})(t - t_0)}$
 \end{enumerate}
 
 \pagebreak
@@ -1097,5 +1098,54 @@ We could also show that for series inductance $L_{total} = L_1+L_2+\dots$
 and for parallel inductance $\frac{1}{L_{total}} = \frac{1}{L_1} + \frac{1}{L_1}$. 
 To find the equivalent inductance between two terminals, simply turn off all 
 independent sources and apply these rules. 
+
+\section{First order circuit analysis}
+
+\defn{First order circuit}{contain only one energy storage element 
+(capacitor or inductor), and that can, therefore, be described using 
+only a first order differential equation}
+
+As we have seen, the three major circuit components are resistors, 
+capacitors, and inductors. We can combine these components into 
+RC (resistor and capacitor) circuits, $LR$ (inductor and resistor), 
+and so on. If we have more than one energy-storing component then 
+we will need a high-order differential equation in order to solve the 
+circuit. Recall 
+\begin{align*}
+    V = L \frac{di}{dt} \\
+    i = C\frac{dV}{dt}
+\end{align*}
+In the steady state, an inductor acts as a short circuit, 
+while a capacitor acts as an open circuit. In the first case we 
+require that $i$ be continuous and in the second that $V$ be 
+continuous. With this information in mind, we can start on first-order 
+circuit analysis. Let's see an example with fig. \ref{fig:capvolt}. 
+\begin{figure}
+    \center
+    \caption{Capacitor with voltage source}
+    \label{fig:capvolt}
+    \begin{tikzpicture}[american currents, american voltages]
+        \draw (0,2) to [short,, i=$i$] (3,2) to[C] (3,0) to [short] (0,0);
+        \draw (0,0) to[V, l=$V$, invert] (0,2);
+        \node[below left] at (0,2) {$+$};
+        \node[above left] at (0,0) {$-$};
+        \node at (3,1) {$V_c$};
+    \end{tikzpicture}
+\end{figure}
+
+It can be shown (I apologize for not showing it) that this circuit
+can be modeled by
+\begin{align*}
+    V &= iR + V_c \\
+    &= CR\frac{V_c}{dt} + V_c \\
+    &\rightarrow \frac{-1}{RC}V_c + \frac{V}{RC} \\
+    &= \frac{di}{dt}R+\frac{dV_c}{dt} \\
+    &= \frac{di}{dt}R = \frac{i}{C} \\
+    &\rightarrow \frac{-1}{RCi} + \frac{1}{R}\frac{V}{R} \\
+    &\rightarrow v(t) = v(t_0)e^{\lambda (t-t_0)}
+\end{align*}
+Where $\lambda = -\frac{1}{RC}$ and $v(t)$ is the voltage (across the capacitor or source, it doesn't matter). 
+
+% do a couple HW problems in here as examples
 
 \end{document}
