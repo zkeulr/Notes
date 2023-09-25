@@ -1101,16 +1101,16 @@ independent sources and apply these rules.
 
 \section{First order circuit analysis}
 
-\defn{First order circuit}{contain only one energy storage element 
+\defn{First order circuit}{contains only one energy storage element 
 (capacitor or inductor), and that can, therefore, be described using 
 only a first order differential equation}
 
 As we have seen, the three major circuit components are resistors, 
 capacitors, and inductors. We can combine these components into 
-RC (resistor and capacitor) circuits, $LR$ (inductor and resistor), 
-and so on. If we have more than one energy-storing component then 
+RC (resistor and capacitor) circuits, LR (inductor and resistor), 
+and so on (though if we have more than one energy-storing component then 
 we will need a high-order differential equation in order to solve the 
-circuit. Recall 
+circuit). Recall 
 \begin{align*}
     V = L \frac{di}{dt} \\
     i = C\frac{dV}{dt}
@@ -1129,22 +1129,18 @@ circuit analysis. Let's see an example with fig. \ref{fig:capvolt}.
         \draw (0,0) to[V, l=$V$, invert] (0,2);
         \node[below left] at (0,2) {$+$};
         \node[above left] at (0,0) {$-$};
-        \node at (3,1) {$V_c$};
+        \node at (3,1) {$v_c$};
     \end{tikzpicture}
 \end{figure}
 
 It can be shown (I apologize for not showing it) that this circuit
 can be modeled by
 \begin{align*}
-    V &= iR + V_c \\
-    &= CR\frac{V_c}{dt} + V_c \\
-    &\rightarrow \frac{-1}{RC}V_c + \frac{V}{RC} \\
-    &= \frac{di}{dt}R+\frac{dV_c}{dt} \\
-    &= \frac{di}{dt}R = \frac{i}{C} \\
-    &\rightarrow \frac{-1}{RCi} + \frac{1}{R}\frac{V}{R} \\
-    &\rightarrow v(t) = v(t_0)e^{\lambda (t-t_0)}
+    v_c(t) &= v_c(\infty) +\left(v_c{t_0} - v_c(\infty)\right)e^{(\frac{-1}{R_{th}C})(t - t_0)} \\
+    &= x(t_0)e^{\lambda (t-t_0)}
 \end{align*}
-Where $\lambda = -\frac{1}{RC}$ and $v(t)$ is the voltage (across the capacitor or source, it doesn't matter). 
+Where $\lambda = \frac{-1}{R_{th}C}$, $R_{th}$ is the Thevenin resistance, and $v_c(t)$ is the 
+voltage across the capacitor. 
 
 % do a couple HW problems in here as examples
 
