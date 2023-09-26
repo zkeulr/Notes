@@ -858,4 +858,16 @@ steps follows the formula $s(n) = 2s(n) + 1$, so a recursive implementation migh
       }
    }
 \end{lstlisting}
+
+We can estimate the amount of time an algortihm will take 
+with time complexity. 
+\defn{Time complexity}{quantifies the amount of time taken 
+by an algorithm to run as a function of the length of the input}.
+For example, the total number of operations selection sort 
+performs is $(n-1) + (n-2) + (n-3) + ... + 2 + 1 = \frac{(n+1)n}{2} = 
+an^2+bn+c$. For big O notation, we look at the highest power. In this 
+case the time complexity would be O($n^2$). Although it's inaccurate, 
+this tells us we should expect the time to increase roughly quadratically 
+as the number of arguments goes up. 
+
 \end{document}
