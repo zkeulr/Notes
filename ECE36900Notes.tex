@@ -771,5 +771,33 @@ horses, we need at least two different horses. However, our base case was with o
 To use this logic we would need to show $P(2)$, for which our original argument is
 obviously not true. 
 
+\section{Program proofs}
 
+Say you are part of a team developing software for the NSA or NASA. 
+A common requirement for the deliverable is to prove that it meets 
+certain properties. You may be asked to show that your code 
+will eventually return an answer (i.e. the algorithm terminates)
+or that, /emph{if} an answer is returned, it will be correct. 
+Correct in this sense means that it meets whatever specifications 
+have been laid out. 
+
+Broadly speaking, there are two properties that a program must 
+satisfy. The first is 
+\defn{safety}{the program will not violate any invariant that you write 
+(think \texttt{assert} for C programs. If you always need to return 
+a positive integer, for instance, and you can show that it always does, 
+then you have satisfied safety)}. The second is 
+\defn{liveness}{that your program is going to terminate}. This can be 
+done by showing there are no infinite loops, for example. You may also specify
+the amount of time in which your program is guarenteed to terminate. 
+In the field, the longest possible time your program will take 
+is known as Worst Case Execution Time (WCET).
+
+In software development, as you are likely aware, your code is often checked 
+using tests. This is one method of gaining evidence that the kernel of your 
+program is correct. We may also prove that the code is correct, which is 
+often more laborious. Unless you're developing software for safety-critical 
+areas, you'll probably use testing more than formal proof. Even though 
+testing cannot prove the correctness of a program, it can still reveal issues
+and build confidence that the code is correct. 
 \end{document}
