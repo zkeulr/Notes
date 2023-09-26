@@ -800,4 +800,14 @@ often more laborious. Unless you're developing software for safety-critical
 areas, you'll probably use testing more than formal proof. Even though 
 testing cannot prove the correctness of a program, it can still reveal issues
 and build confidence that the code is correct. 
+
+With the idea of correctness hopefully clear, let me introduce you to 
+\defn{assignment statements}{statements like \texttt{x = y + 10}}. 
+Assignment statements often come with a \defn{postcondition}{something 
+that must be true after the program executes}. It will be your job to find 
+the precondition that makes it true. Say the postcondition is 
+\texttt{x = 4}. What precondition makes this true? Perhaps obviously, 
+\texttt{y = -6}. What precondition must be met for the postcondition 
+\texttt{x > 4}? If you have the precondition \texttt{x > 10}, will 
+the postcondition be met? 
 \end{document}
