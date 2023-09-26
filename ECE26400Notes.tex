@@ -825,6 +825,7 @@ Table \ref{table:structstack} is the stack during recursion.
       \hline
    \end{tabular}
 \end{table}
+
 A common example of recusion is the Tower of Hanoi, 
 also known as the Tower of Brahma or the Lucas Tower. 
 The tower consists of three 
@@ -838,5 +839,23 @@ following these three rules :
    can be moved on to the top of another stack or an empty rod.
    \item Larger disks cannot be placed on the top of smaller disks.
 \end{itemize}
-
+To solve this recursively, consider the base case with two plates. 
+To solve this case, move the top plate to the third rod, move the formerly
+lower plate to the second rod, and move the top plate back on top of it
+for a total of three steps. Say we have three plates. Then we do something similar: 
+move the top plate to the second rod. Move the second plate to the third rod. 
+Move the top plate to the third rod (so now we have a stack of two on the third rod). 
+Move the lower plate to the second rod, move the top plate to the first, the middle 
+to the second, and finally plate the top plate back on them all for a total of 
+7 moves. After playing around with this a bit more, we'll notice that the number of 
+steps follows the formula $s(n) = 2s(n) + 1$, so a recursive implementation might look like:
+\begin{lstlisting}[language=C,caption=Tower of Hanoi]
+   int s(int n) {
+      if(n == 1) { //stop criterion
+         return 1;
+      } else {
+         return(2*s(n) + 1);
+      }
+   }
+\end{lstlisting}
 \end{document}
