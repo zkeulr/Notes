@@ -92,7 +92,8 @@ for electrical and computer engineers as well as for engineers
     \item Parallel capacitance: $C_{total} = C_1 + C_2 + \dots$
     \item Series inductor: $L_{total} = L_1+L_2+\dots$
     \item Parallel inductor: $\frac{1}{L_{total}} = \frac{1}{L_1} + \frac{1}{L_1} + \dots$
-    \item Voltage in RC circuit: $v_c(\infty) +\left(v_c{t_0} - v_c(\infty)\right)e^{(\frac{-1}{RC})(t - t_0)}$
+    \item Voltage in RC circuit: 
+    $v_c(\infty) +\left(v_c(t_0) - v_c(\infty)\right)e^{(\frac{-1}{RC})(t - t_0)} = x(t_0)e^{\lambda (t-t_0)}$
 \end{enumerate}
 
 \pagebreak
@@ -1136,7 +1137,7 @@ circuit analysis. Let's see an example with fig. \ref{fig:capvolt}.
 It can be shown (I apologize for not showing it) that this circuit
 can be modeled by
 \begin{align*}
-    v_c(t) &= v_c(\infty) +\left(v_c{t_0} - v_c(\infty)\right)e^{(\frac{-1}{R_{th}C})(t - t_0)} \\
+    v_c(t) &= v_c(\infty) +\left(v_c(t_0) - v_c(\infty)\right)e^{(\frac{-1}{R_{th}C})(t - t_0)} \\
     &= x(t_0)e^{\lambda (t-t_0)}
 \end{align*}
 Where $\lambda = \frac{-1}{R_{th}C}$, $R_{th}$ is the Thevenin resistance, and $v_c(t)$ is the 
