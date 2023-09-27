@@ -94,6 +94,7 @@ for electrical and computer engineers as well as for engineers
     \item Parallel inductor: $\frac{1}{L_{total}} = \frac{1}{L_1} + \frac{1}{L_1} + \dots$
     \item Voltage in RC circuit: 
     $v_c(\infty) +\left(v_c(t_0) - v_c(\infty)\right)e^{(\frac{-1}{RC})(t - t_0)} = x(t_0)e^{\lambda (t-t_0)}$
+    (if $v_c(\infty) = 0$)
 \end{enumerate}
 
 \pagebreak
@@ -1137,12 +1138,59 @@ circuit analysis. Let's see an example with fig. \ref{fig:capvolt}.
 It can be shown (I apologize for not showing it) that this circuit
 can be modeled by
 \begin{align*}
-    v_c(t) &= v_c(\infty) +\left(v_c(t_0) - v_c(\infty)\right)e^{(\frac{-1}{R_{th}C})(t - t_0)} \\
+    v_c(t) &= v_c(\infty) +\left(v_c(t_0) - v_c(\infty)\right)e^{(\frac{-1}{RC})(t - t_0)} \\
     &= x(t_0)e^{\lambda (t-t_0)}
 \end{align*}
-Where $\lambda = \frac{-1}{R_{th}C}$, $R_{th}$ is the Thevenin resistance, and $v_c(t)$ is the 
-voltage across the capacitor. 
+Where $\lambda = \frac{-1}{RC}$ for RC and $-\frac{R}{L}$ for RL (we also have that 
+$\lambda = -\frac{1}{\tau}$, where $\tau$ is called the time constant), 
+$R_{th}$ is the Thevenin resistance, and $v_c(t)$ is the 
+voltage across the capacitor. RC and RL circuits are the only first-order circuits. LC, RLC, and so on all require higher-order
+differential equations to solve. 
+\marginnote{A useful function to know for diff. eq.s is the \emph{unit step function}, $u(t)$. 
+\begin{equation*}
+    u(t)=\begin{cases}
+              0 \quad &\text{if} \, t < 0 \\
+              1 \quad &\text{if} \, t \geq 0 \\
+         \end{cases}
+\end{equation*}
+To change when the function turns off, you can add an offset of $c$, 
+like $u(t - c)$. }
+In general, the equation for a circuit with a source is 
+\[\frac{dx}{dx} = \lambda x + f(t)\]
+with solution 
+\[x(t_0)e^{\lambda(t - t_0)} + \int_{t_0}^{t} e^{\lambda(t - t_0)} f(\tau) d\tau\]
+If the source is constant, the equation becomes 
+\[\frac{F}{-\lambda} + (x_0 - \frac{F}{-\lambda}) e^{\lambda(t - t_0)}\]
+where $F = f(\tau)$ is constant. This is where the equation 
+\[v_c(t) = v_c(\infty) +\left(v_c(t_0) - v_c(\infty)\right)e^{(\frac{-1}{RC})(t - t_0)}\]
+comes from. 
 
-% do a couple HW problems in here as examples
+Let's see an example. In fig. \ref{fig:foce} the switch has been open for a long time. 
+\begin{figure}
+    \center
+    \caption{First order circuit example}
+    \label{fig:foce}
+    \begin{circuitikz}[american currents, american voltages]
+        \draw (0,0) to[V, l=$10 V$, invert] (0,3)
+        to[R, l=$1 \Omega$] (2,3)
+        to[short] (3,3)
+        (3,3) to[C, l = $1 F$] (3,0)
+        ;
+        \draw (2,3) to[nos] (2,1.5)
+        (2,1.5) to[R, l=$1 \Omega$] (2,0)
+        ;
+        \draw (3,0) to[short] (0,0);
+      \end{circuitikz}
+\end{figure}
+Thus, at $t_0$, the voltage $v_c(t_0)$ will be equal to the source voltage, 
+10. After the switch is closed and sufficient time has passed, the voltage will be across 
+the two 1 $\Omega$ resistances, 
+which are in series. Therefore $v_c(\infty) = 10 V \times \frac{1 \Omega}{1 \Omega + 1 \Omega} = 5 V$.
+Plugging these values into our equation for $v_c(t)$, we get 
+\[v_c(t) = 5 +\left(10 - 5\right)e^{(\frac{-1}{RC})(t - t_0)}\]
+and all that remains is to find the resistance $R$. $R$ is always calculated with respect to 
+the capacitor, so in this case the capacitor will see two resistors in parallel and the total 
+resistance will be $(\frac{1}{\frac{1}{1}+\frac{1}{1}}) = 1/2$, so our final equation is 
+\[v_c(t) = 5 + 5e^{-2t}\]
 
 \end{document}
