@@ -94,6 +94,7 @@ solving by computer are employed throughout. For more information, consult the s
     \item Electric potential in a uniform electric field: $\Delta V = -E\Delta x$
     \item Electric potential in a nonuniform electric field: $\Delta V = -\int_{i}^{f} \vec{E} \cdot \vec{l}$
     \item Electric potential of a point charge, at a distance $r$: $\Delta V = \frac{1}{4\pi \epsilon_0}\frac{q}{r}$
+    \item Eletric field within insulator: $E_{net} = \frac{E_{applied}}{K}$
     \item Potential difference in capacitor with insulator: $\Delta V_{ins} = \frac{\Delta V_{vac}}{K}$
     \item Charge on capacitor: $Q=\frac{\epsilon_0 AKV}{d}$
 \end{enumerate}
@@ -818,7 +819,85 @@ means you find most useful. It can be shown both mathematically
 and intuitively.}
 In general, if you know electric field, you may integrate to find 
 the eletric potential between two points. If you know the potential, 
-differentiate. Take the eletric field due to a uniformly charged shell, 
-for instance. 
+differentiate. 
 
+If you have a shape, there are two ways to get the potential. 
+\begin{enumerate}
+    \item Break the object into point changes and add up the potential from each. 
+    \item If you know the eletric field, use $\Delta V = \int_{a}^{b} E \cdot dl$
+\end{enumerate}
+Say we have a ring with radius $R$ and charge $Q$. Using method 1, the potential due 
+to each charge on the axis is $\Delta V_i = \frac{1}{4\pi \epsilon_0}\frac{\Delta q_i}{r}$.
+If we are a distance of $z$ along the axis, $r = \sqrt{z^2+R^2}$, and we have 
+\[V = \sum \frac{1}{4 \pi \epsilon_0}\frac{\Delta q_i}{\sqrt{z^2+R^2}}\]
+\begin{align*}
+    V &= \sum \frac{1}{4 \pi \epsilon_0}\frac{\Delta q_i}{\sqrt{z^2+R^2}} \\
+    &= \frac{1}{4 \pi \epsilon_0}\frac{1}{\sqrt{z^2+R^2}} \sum \Delta q_i \\
+    &= \frac{1}{4 \pi \epsilon_0}\frac{Q}{\sqrt{z^2+R^2}}
+\end{align*}
+Let's try to find the potential again, this time using method 2. 
+We recall that 
+\[\vec{E} = \frac{1}{4 \pi \epsilon_0}\frac{Qz}{(R^2+z^2)^{3/2}}\]
+So the potential will be 
+\begin{align*}
+    V &= -\int_{\infty}^{z} \frac{1}{4 \pi \epsilon_0}\frac{Qz}{(R^2+z^2)^{3/2}} dz \\
+    &= - \frac{Q}{4 \pi \epsilon_0}\int_{\infty}^{z}\frac{z}{(R^2+z^2)^{3/2}} dz \\
+    &= \frac{1}{4 \pi \epsilon_0}\frac{Q}{\sqrt{z^2+R^2}}
+\end{align*}
+Identical to the expression previously obtained, as it should be.
+
+Allow me to now briefly remind the reader of 
+the relationship between voltage and eletric field. 
+\[\Delta V = -\int_{i}^{f} \vec{E}\cdot d\vec{l}\]
+\[\vec{E} = - \left[ \left(\frac{\partial}{\partial x}V\right)\hat{x} + \left(\frac{\partial}{\partial y}V\right)\hat{y} + \left(\frac{\partial}{\partial y}V\right)\hat{y} \right]\]
+If you remember, a conductor inside a capacitor
+has no net eletric field within its bounds. 
+That means the eletric field perpindicular to 
+the surface is $\frac{\sigma}{\epsilon_0}$, while parallel 
+to the surface the eletric field is 0. 
+That means that $V_f - V_i = 0$ on 
+the surface, since any path on the surface has 
+no eletric field. We say that the surface of 
+a conductor is \emph{equipotential}; that is, 
+every point has the same voltage. Of course, this 
+is only true if the conductor is at equilibrium.
+We have no guarantee of charge distribution is the 
+conductor is not in electrostatic equilibrium. 
+The situation changes if we instead have an insulator 
+between the two plates of a capacitor. The eletric field 
+within an insulator is not zero. The nonzero 
+eletric field induces dipoles within the molecules 
+of the insulator, which then have an eletric field of their own. 
+It turns out that inside an insulator, the eletric field is 
+proportional to the applied eletric field by a factor of $1/K$, 
+where $K$ is called the dieletric constant and is known for various materials. 
+Let's see if we can calculate the potential between plates with an insulator between 
+them. The problem: a capacitor with a 3mm gap has a potential
+difference of 6V. A disk of glass 1mm thick, with
+area the same as the metal plates has a dielectric
+constant of 2.5. The glass is inserted in the middle
+of the gap between the plates. What is now the
+potential difference between the plates? 
+We know that without the insulator between the plates, the eletric 
+field will be. 
+\begin{align*}
+    E &= \frac{\Delta V}{\Delta x} \\
+    &= \frac{6V}{0.003 m} \\
+    &= 200 \frac{V}{m}
+\end{align*}
+Inside the glass, 
+\begin{align*}
+    E_{net} &= \frac{E}{K_glass} \\
+    &= \frac{2000}{2.5} \\
+    &= 800 \frac{V}{m}
+\end{align*}
+The total voltage will be the sum of the voltage 
+between the first plate and the glass, the two sides of 
+the glass, and the glass and the second plate. 
+\begin{align*}
+    \Delta V &= V_1 + V_2 + V_3 \\
+    &= 2000(0.001) + 800(0.001) + 2000(0.001) \\
+    &= 4.8 V
+\end{align*}
+And we are done. 
 \end{document}
