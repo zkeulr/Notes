@@ -9,6 +9,7 @@
 \usepackage{color}
 \usepackage{xcolor}
 \usepackage{listings}
+\usepackage{pgfplots}
 
 % Define a custom command for definitions
 \newcommand{\defn}[2]{\noindent\textbf{#1}:\ #2}
@@ -301,6 +302,12 @@ initial value. For review, the data types built into C are:
 \end{itemize}
 Users can also define or derive their own data types. Some examples
 of derived data types:
+\marginnote{
+The \texttt{const} qualifer in C makes a variable read-only after the declaration. 
+Later assignment of a value to the variable produces an error. We cannot make pointers 
+to variables with the \texttt{const} qualifer unless we declare those pointers to also 
+be \texttt{const}. 
+}
 \begin{itemize}
    \item function
    \item array
@@ -868,6 +875,32 @@ performs is $(n-1) + (n-2) + (n-3) + ... + 2 + 1 = \frac{(n+1)n}{2} =
 an^2+bn+c$. For big O notation, we look at the highest power. In this 
 case the time complexity would be O($n^2$). Although it's inaccurate, 
 this tells us we should expect the time to increase roughly quadratically 
-as the number of arguments goes up. 
-
+as the number of arguments goes up. We may want to know what sorting algorithm 
+is the fastest: the answer varies based on the task, but it turns out 
+that merge sort has a time complexity of O($n \log{n}$). We can see in fig. 
+\ref{fig:tc} that $n \log{n}$ grows much more slowly than $n^2$. 
+\begin{figure}
+   \caption{$n^2$ vs. $n\log(n)$}
+   \label{fig:tc}
+   \begin{tikzpicture}
+      \begin{axis}[
+          xlabel=$n$,
+          ylabel={$n^2$ vs $n\log(n)$},
+          legend pos=north west,
+          grid=major,
+          xmin=0, xmax=100, % Set x-axis limits
+          ymin=0 % Set y-axis minimum value to 0
+      ]
+      
+      \addplot[color=blue,mark=none,domain=0:100]{x^2};
+      \addlegendentry{$n^2$}
+      
+      \addplot[color=red,mark=none,domain=0:100]{x*ln(x)};
+      \addlegendentry{$n\log(n)$}
+      
+      \end{axis}
+      \end{tikzpicture}
+\end{figure}
+Merge sort is so much faster than other algorithms because it uses the principle of 
+transitivity. 
 \end{document}
