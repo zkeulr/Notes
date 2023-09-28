@@ -879,4 +879,89 @@ We can use the assignment rule with \texttt{x = 7} to show this is true.
 Then we have \texttt{$y = 2\times7 = 14$}, so our postcondition is true. If 
 $x$ is not 7, then we have that $y$ is true by the defn of implication. We 
 have then shown that both are cases are true, so we are done. 
+
+Let's see another example of a conditional proof. We want to verify 
+the correctness of this code block: 
+\begin{lstlisting}[caption=Example]
+    {x = 11}
+        y = x - 1
+    {y = 10}
+        if x <= 0
+            z = y - 1
+        else 
+            z = y + 3
+    {z = 13}
+\end{lstlisting}
+We must show each of the two cases again. 
+\begin{enumerate}
+    \item $\{y = 10 \land y \leq 0\}$ $z = y - 1$ \{z = 13\}
+    \item  $\{y = 10 \land y > 0\}$ $z = y + 3$ \{z = 13\}
+\end{enumerate}
+Again, since $10 \nleq 0 $, the first case is true. 
+For the second, use the assignment rule.  
+\begin{align*}
+    y + 3 &= 13 \text{ by assignment rule}\\
+    z &= y + 3 \\
+    z &= 13
+\end{align*}
+So the second case is true as well. We ought to show via 
+the assignment rule that \{y = 10\} and \texttt{y = x - 1}
+gives us the derived precondition \texttt{x = 11}, which is a subset 
+of our given precondition, but we are lazy so we won't do that. 
+
+Let's look at something a lot more interesting: loop statements. 
+\begin{lstlisting}[caption=Example]
+    while B
+        S
+\end{lstlisting}
+The strategy here is to repeatedly perform statement S until B is true. 
+That is, 
+\begin{align*}
+    \{Q\}\{R\} \\
+    \{Q\}S\{R\} \\
+    \{Q\}S;S\{R\} \\
+    \dots
+\end{align*}
+Covering every case: that the loop executes no times, once, etc. 
+Doing this by cases would be exhausting, so let's use induction instead. 
+We must find a \emph{loop invariant}, a statement that is true no matter 
+how many times the loop executes. Then we must show that the loop invariant and 
+not B implies the conclusion we want to verify. 
+\begin{lstlisting}[caption=Loop invariant]
+    Sum(n)
+    i = 1;
+    j = 0;
+    while i != n 
+        j = j + i
+        i = i + 1
+\end{lstlisting}
+What's something that's true here no matter the number of times the loop
+executes? How about j = 0 + 1 + ... + (i - 1)? Since this program 
+is supposed to calculate the sum from 0 to n - 1, this would 
+be a useful thing to prove. To show this is true, 
+we can use induction. The base case is when the loop executes not at all, 
+so j = 0 and i = 1. It is definitely true that 0 = 1 - 1, so the base 
+case works. Now we assume jk = 0 + 1 + ... (ik - 1), and try to show 
+that j(k+1) = 0 + 1 + ... (i(k+1) - 1). Try this yourself: it is a good exercise 
+in induction. Once we have proved this, then we have to show that the loop 
+invariant and not B (i = n) gives us the desired result, which in this case 
+is the sum from 0 to n - 1. 
+
+Let's try another example. 
+\begin{lstlisting}[caption=Loop invariant]
+    {a >= b, not both zero}
+    GCD(a, b)
+    i = a;
+    j = b;
+    while j != 0
+        r = i mod j 
+        i = j 
+        j = r 
+    {i = gcd(a,b)}
+\end{lstlisting}
+Here's the loop invariant: gcd(i,j) = gcd(a,b). We know not B 
+is j = 0. Therefore, gcd(i,0) = gcd(a,b) = i. Now we just need 
+to prove that the loop invariant is true, again usign induction. 
+The hardest part of these problems is coming up with a loop invariant, 
+after that step we just apply induction. 
 \end{document}
