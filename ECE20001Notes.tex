@@ -92,6 +92,8 @@ for electrical and computer engineers as well as for engineers
     \item Parallel capacitance: $C_{total} = C_1 + C_2 + \dots$
     \item Series inductor: $L_{total} = L_1+L_2+\dots$
     \item Parallel inductor: $\frac{1}{L_{total}} = \frac{1}{L_1} + \frac{1}{L_1} + \dots$
+    \item $I_{cap} = C \frac{dV}{dt}$
+    \item $V_{ind} = L \frac{dI}{dt}$
     \item Voltage in RC circuit: 
     $v_c(\infty) +\left(v_c(t_0) - v_c(\infty)\right)e^{(\frac{-1}{RC})(t - t_0)} = x(t_0)e^{\lambda (t-t_0)}$
     (if $v_c(\infty) = 0$)
@@ -1039,6 +1041,19 @@ $P_L$ with respect to $R_L$ and make it equal to zero.
 Note that this implies $P_{max} = \frac{V_{th}^2}{4R_{th}}$. 
 
 \section{Capacitors and inductors}
+
+Summary: 
+\begin{enumerate}
+    \item The \emph{voltage} of a capacitor is always continous. 
+    \item The \emph{current} of an inductor is always continous. 
+    \item $I_{cap} = C \frac{dV}{dt}$
+    \item $V_{ind} = L \frac{dI}{dt}$
+    \item Series capacitance: $\frac{1}{C_{total}} = \frac{1}{C_1} + \frac{1}{C_2} + \dots$
+    \item Parallel capacitance: $C_{total} = C_1 + C_2 + \dots$
+    \item Series inductor: $L_{total} = L_1+L_2+\dots$
+    \item Parallel inductor: $\frac{1}{L_{total}} = \frac{1}{L_1} + \frac{1}{L_1} + \dots$
+\end{enumerate}
+
 \defn{Capacitor}{two conducting plates with a gap in between, connected to a voltage source}. 
 One plate will have positive charge $Q$ and the other plate will have charge $-Q$. 
 The units of capacitance are Faradays.
