@@ -847,6 +847,36 @@ wish to prove the following computes $x(x-1)$ correctly.
     y = x - 1
     y = x * y
 \end{lstlisting}
-To show this, we can use the assignment rule with \texttt{y = x -1}
+To show this, we can use the assignment rule with \texttt{y = x - 1}
 and plug it into \texttt{y = x * y} to get \texttt{y = x * (x - 1)}. 
+The key principle here is that you can use proof rules to show 
+that a postcondition holds for a given set of preconditions. As long 
+as the given set of preconditions is a subset of the derived preconditions, 
+you're good and the postconditions will be met. 
+
+Let's examine conditional statements now. 
+Proving a conditional statement "$\{Q\}$ if $B$ then $P_1$ else $P_2$ $\{R\}$"
+boils down to showing two things:
+\begin{enumerate}
+    \item $\{Q$ and $B\}$ $P_1$ $\{R\}$
+    \item $\{Q$ and $\neg B\}$ $P_1$ $\{R\}$
+\end{enumerate}
+Say we have something like the following:
+\begin{lstlisting}[caption=Example]
+    {x = 7}
+        if x <= 0 
+            y = X
+        else
+            y = 2*x 
+    {y = 14}
+\end{lstlisting}
+We must show each of the two cases, that 
+\begin{enumerate}
+    \item $\{x = 7 \land x \leq 0\}$ $y = x$ 
+    \item  $\{x = 7 \land x > 0\}$ $y = 2x$ 
+\end{enumerate}
+We can use the assignment rule with \texttt{x = 7} to show this is true. 
+Then we have \texttt{$y = 2\times7 = 14$}, so our postcondition is true. If 
+$x$ is not 7, then we have that $y$ is true by the defn of implication. We 
+have then shown that both are cases are true, so we are done. 
 \end{document}
