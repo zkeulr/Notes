@@ -776,14 +776,14 @@ horses, we need at least two different horses. However, our base case was with o
 To use this logic we would need to show $P(2)$, for which our original argument is
 obviously not true. 
 
-\section{Program proofs}
+\section{Proofs of correctness}
 
 Say you are part of a team developing software for the NSA or NASA. 
 A common requirement for the deliverable is to prove that it meets 
 certain properties. You may be asked to show that your code 
 will eventually return an answer (i.e. the algorithm terminates)
-or that, /emph{if} an answer is returned, it will be correct. 
-Correct in this sense means that it meets whatever specifications 
+or that, \emph{if} an answer is returned, it will be correct. 
+Correct in this sense means your program meets whatever specifications 
 have been laid out. 
 
 Broadly speaking, there are two properties that a program must 
@@ -800,14 +800,80 @@ is known as Worst Case Execution Time (WCET).
 
 In software development, as you are likely aware, your code is often checked 
 using tests. This is one method of gaining evidence that the kernel of your 
-program is correct. We may also prove that the code is correct, which is 
-often more laborious. Unless you're developing software for safety-critical 
-areas, you'll probably use testing more than formal proof. Even though 
+program is correct. 
+\marginnote{Note that "testing can prove the presence of errors 
+but never their absence". We cannot show through testing that a program
+will behave exactly as it should in all cases, unless the number of possible 
+inputs is so small that it is possible to enumerate through them. Even though 
 testing cannot prove the correctness of a program, it can still reveal issues
-and build confidence that the code is correct. 
+and build confidence that the code is correct. }
+We may also prove that the code is correct, which is 
+often more laborious. Unless you're developing software for safety-critical 
+areas, you'll probably use testing more than formal proof. If you needed 
+to unequivocally show that your program will do what it 
+should under all circumstances of interest, you'll have to use formal 
+logic techniques. 
+
+To understand how we can apply logical rules to programming, imagine 
+your algorithm as a function $P$ that takes in some input values $X$
+and produces some output values $Y$. 
+\[Y = P(X)\]
+The predicate $Q(X)$ describes conditions that the input values 
+will satisfy (e.g. $X > 0$, $X \in \mathbb{R}$, $X$ is a string under 127
+characters). The predicate $R(X,Y)$ describes conditions that the output must satisfy
+for a given input (e.g. $Y = \sqrt{X}$, $Y$ gives the prime factorization of $X$, 
+$Y$ capitalizes $X$). We say a program is correct if the implication
+\[\forall X[Q(X) \rightarrow R(X,P(X))]\]
+is valid. That is, whenever $Q(X)$ is true of the inputs, $R(X,Y)$ should 
+be true of the outputs. The notation changes when dealing with 
+program correctness: here's the more common way to write the above implication:
+\[\{Q\}P\{R\}\]
+The terminology here is that $Q$ is a \emph{precondition} for program $P$, 
+and $R$ is the \emph{postcondition}.
+\marginnote{
+$\{Q\}P\{R\}$ is called a \emph{Hoare triple} and gives 
+before and after conditions for a program fragment. For instance, 
+precondition: $Q(x)$, program: $Y = P(x)$, postcondition: $R(x,y)$
+is a Hoare triple that means 
+\begin{align*}
+    (\forall X) Q(X) &\rightarrow R(X,Y) \\
+    (\forall X) Q(x) &\rightarrow R(X, P(X))
+\end{align*}
+}
+
+\defn{Precondition}{a condition that is true before the execution of a program}.
+
+\defn{Postcondition}{a condition that is true after the execution of a program}.
+
+A program is broken down into individual statements $s_i$, with predicates
+sandwiching them.
+\marginnote{These sandwiching predicates are also called \emph{assertations}, 
+because having multiple names for the same concept makes it much more fun to learn.}
+Here is the general form of a predicate-statement sandwich: 
+\begin{align*}
+    \{Q\} \\
+    s_0 \\
+    \{R_1\} \\
+    s_1 \\
+    \{R_2\} \\
+    \dots \\
+    s_{n-1} \\
+    \{R\}
+\end{align*}
+$Q, R_1, R_2, R_n = R$ are assertations. Your program $P$ is provably correct if
+each of the following implications holds: 
+\begin{align*}
+    \{Q\}s_0\{R_1\} \\
+    \{R_1\}s_1\{R_2\} \\
+    \dots \\
+    \{R_{n-1}\}s_{n-1}\{R\}
+\end{align*}
+So to prove correctness for $P$, "all" you need to do is 
+produce this sequence of valid implications. 
 
 With the idea of correctness hopefully clear, let me introduce you to 
-\defn{assignment statements}{statements like \texttt{x = y + 10}}. 
+\emph{assignment statements}. An assignment statement is something 
+with an equals, like $x = a$.
 Assignment statements often come with a \defn{postcondition}{something 
 that must be true after the program executes}. It will be your job to find 
 the precondition that makes it true. Say the postcondition is 
@@ -816,7 +882,7 @@ the precondition that makes it true. Say the postcondition is
 \texttt{x > 4}? If you have the precondition \texttt{x > 10}, will 
 the postcondition be met? 
 
-We have seen that pre and post conditions specify what must be truth
+We have seen that pre and post conditions specify what must be true
 before and after a program is run. A \emph{Hoare triple} gives 
 before and after conditions for a program fragment. For instance, 
 precondition: $Q(x)$, program: $Y = P(x)$, postcondition: $R(x,y)$
