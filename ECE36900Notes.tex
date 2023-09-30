@@ -874,24 +874,18 @@ produce this sequence of valid implications.
 With the idea of correctness hopefully clear, let me introduce you to 
 \emph{assignment statements}. An assignment statement is something 
 with an equals, like $x = a$.
-Assignment statements often come with a \defn{postcondition}{something 
-that must be true after the program executes}. It will be your job to find 
-the precondition that makes it true. Say the postcondition is 
-\texttt{x = 4}. What precondition makes this true? Perhaps obviously, 
-\texttt{y = -6}. What precondition must be met for the postcondition 
-\texttt{x > 4}? If you have the precondition \texttt{x > 10}, will 
-the postcondition be met? 
+Assignment statements often come with a postcondition. 
+It will be your job to find 
+the precondition that makes it true. For example, say you have 
+the assignment statement $y = x + 1$ and the postcondition $y = 10$. 
+What is the precondition that makes this true? What is the Hoare triple?
 
-We have seen that pre and post conditions specify what must be true
-before and after a program is run. A \emph{Hoare triple} gives 
-before and after conditions for a program fragment. For instance, 
-precondition: $Q(x)$, program: $Y = P(x)$, postcondition: $R(x,y)$
-is a Hoare triple that means 
-\begin{align*}
-    (\forall X) Q(X) &\rightarrow R(X,Y) \\
-    (\forall X) Q(x) &\rightarrow R(X, P(X))
-\end{align*}
+The appropriate rule of inference for assignment statements is the 
+\defn{assignment rule}{states that $\{R_i\}s_i\{R_{i+1}\}$ is valid 
+provided $s_i$ is an assignment statement ($x = a$) and $R_i$ is 
+$R_{i+1}$ with $a$ substituted everywhere for $x$.}
 
+\marginnote{
 In proving code correctness, we often put arithmetically equivalent 
 assertations in sequences with no lines of code in between, like 
 \begin{align*}
@@ -900,16 +894,11 @@ assertations in sequences with no lines of code in between, like
     x &= y + 10 \\
     \{x &= 14\}
 \end{align*}
+}
 
 Let's put all of this into practice with an example. Say we 
 wish to prove the following computes $x(x-1)$ correctly. 
-\begin{align*}
-    \{x = 2\} \\
-    y = x + 2 \\
-    y = 2*y \\
-    \{y = 8\}
-\end{align*}
-\begin{lstlisting}[caption=Example]
+\begin{lstlisting}[caption=Assignment rule example]
     y = x - 1
     y = x * y
 \end{lstlisting}
@@ -925,13 +914,13 @@ Proving a conditional statement "$\{Q\}$ if $B$ then $P_1$ else $P_2$ $\{R\}$"
 boils down to showing two things:
 \begin{enumerate}
     \item $\{Q$ and $B\}$ $P_1$ $\{R\}$
-    \item $\{Q$ and $\neg B\}$ $P_1$ $\{R\}$
+    \item $\{Q$ and $\neg B\}$ $P_2$ $\{R\}$
 \end{enumerate}
 Say we have something like the following:
 \begin{lstlisting}[caption=Example]
     {x = 7}
         if x <= 0 
-            y = X
+            y = x
         else
             y = 2*x 
     {y = 14}
@@ -942,9 +931,9 @@ We must show each of the two cases, that
     \item  $\{x = 7 \land x > 0\}$ $y = 2x$ 
 \end{enumerate}
 We can use the assignment rule with \texttt{x = 7} to show this is true. 
-Then we have \texttt{$y = 2\times7 = 14$}, so our postcondition is true. If 
-$x$ is not 7, then we have that $y$ is true by the defn of implication. We 
-have then shown that both are cases are true, so we are done. 
+In case 2, we have \texttt{$y = 2\times7 = 14$}, so our postcondition is true. In case 1, 
+$x$ is not less than or equal to zero, so we have that $y$ is true by the defn of implication. We 
+have then shown that both are cases are true and we are done. 
 
 Let's see another example of a conditional proof. We want to verify 
 the correctness of this code block: 
