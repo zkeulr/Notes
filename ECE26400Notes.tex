@@ -68,8 +68,7 @@
 These are lecture notes for fall 2023 ECE 26400 at Purdue. Modify, use, and distribute as you please.
 \end{abstract}
 
-\tableofcontents
-
+\tableofcontents 
 
 \section{Course Introduction}
 Continuation of a first programming course. 
@@ -78,7 +77,7 @@ This class will be taught by Prof. Joy Xiaoqian Wang. There will be four online 
 weekly online quizzes, and 20 homework assignments. For more information, 
 consult the syllabus \href{https://github.com/ezekielulrich/Notes/blob/d83855d25b40c224ce70b0b46ae6a86adc5a783f/ECE%20264%20Fall%202023%20Syllabus.pdf}{here}.
 
-\pagebreak
+\pagebreak 
 
 \section{Tools}
 
@@ -273,6 +272,8 @@ Valgrind will print its results like so:
 ==19182==    by 0x8048385: f (example.c:5)
 ==19182==    by 0x80483AB: main (example.c:11)
 \end{lstlisting}
+
+\pagebreak 
 
 \section{Data types and storage}
 Although the reader is likely familiar with data types, let us 
@@ -554,6 +555,8 @@ work, try to fix the \texttt{swap} program from earlier. One possible solution i
    }
 \end{lstlisting}
 
+\pagebreak 
+
 \section{Strings and files}
 In C, a string is an array of characters terminated by the null terminator '\texttt{\textbackslash 0}'.
 For example, \texttt{char arr[] = \{'I', 'U', ' ', 's', 'u', 'c', 'k', 's', '\textbackslash0'\}}. 
@@ -622,6 +625,8 @@ Some file-related functions:
    \item \texttt{fprintf} functions like \texttt{printf}, but takes in file pointer as first argument. 
    \item \texttt{fclose} closes the file. This should always be called after a successful fopen. 
 \end{itemize}
+
+\pagebreak 
 
 \section{Dynamic memory allocation}
 It is often the case in coding that we need 
@@ -692,6 +697,8 @@ dynamic memory is allocated in the heap.
    \hline
    \end{tabular}
 \end{table}
+
+\pagebreak 
 
 \section{Struct}
 Consider how you might represent a rectangle 
@@ -782,6 +789,8 @@ When dealing with structs, there is a useful function called \texttt{fread}.
    //from stream, storing them at ptr
 \end{lstlisting}
 \texttt{fread} can be used to read and write structs to files.
+
+\pagebreak 
 
 \section{Recursion}
 \defn{Recursion}{recusrion is where a process calls itself}, like so:

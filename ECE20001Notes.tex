@@ -10,6 +10,7 @@
 % Fixes captions and images being cut off
 \usepackage{marginfix}
 
+\usepackage{pgfplots}
 \usepackage{circuitikz}
 \usepackage{siunitx}
 \usepackage{amsmath,amsthm}
@@ -75,6 +76,8 @@ for electrical and computer engineers as well as for engineers
  transistors as well as their primary applications are also 
  discussed. For more information, see the syllabus. 
 
+\pagebreak 
+
 \section{Equations}
 
 \begin{enumerate}
@@ -100,7 +103,7 @@ for electrical and computer engineers as well as for engineers
     \item Current in RL circuit: $I_L(\infty) +\left(I_L(t_0) - I_L(\infty)\right)e^{(\frac{-R}{L})(t - t_0)}$
 \end{enumerate}
 
-\pagebreak
+\pagebreak 
 
 \section{Charge, current, voltage, and power}
 Before we begin a discussion
@@ -268,6 +271,8 @@ can identify!
     \includegraphics[width=\textwidth/2]{images/PS0_CapacitorCircuit.png}
 \end{center}
 
+\pagebreak 
+
 \section{(In)dependent sources, connections, resistance and Ohm's Law}
 Now, on to what circuits are doing. For interesting things
 to happen we need electrons flowing through those wires,
@@ -369,6 +374,8 @@ voltage, current and resistance with \emph{Ohm's Law}.
 \defn{Ohm's Law}{$V = IR$.} This law is fundemental to EE and will
 occur repeatedly throughout the course. 
 
+\pagebreak 
+
 \section{Kirchhoff's Laws, resistor combinations, and voltage/current division}
 \defn{Kirchhoff's Current Law}{The sum of all currents going into
 a node is 0. Mathematically, $\sum_k i_k = 0$}. We may intuit 
@@ -454,6 +461,8 @@ the sum of the reciprocals of the individual resistances.
 
 Now would
 be an excellent point to introduce the idea of 
+
+\pagebreak 
 
 \section{Equivalent resistance}
 
@@ -627,6 +636,8 @@ Meaning
 We can plug $V_1$ and $I_y$ into $V_{test} = V_1 + 8 I_y$ to get $V_{test} = 4 + 16 = 20$,
 and via $R_{eq} = \frac{V_{test}}{I_{test}}$ we have $R_{eq} = \frac{20 V}{1 A} = 20 \Omega$.
 
+\pagebreak 
+
 \section{Analysis}
 Let's now examine a couple of extremely powerful techniques we can use 
 to analyze circuits, \emph{nodal analysis} and \emph{mesh analysis}.  
@@ -755,6 +766,8 @@ Here are the steps to perform mesh analysis:
 Note that you don't want two mesh currents flowing through the same 
 current source. If you find a circuit where this occurs, make a 
 larger loop where no current sources are shared. 
+
+\pagebreak 
 
 \section{Source transformations}
 \defn{Source transformation}{Source transformation is a 
@@ -973,6 +986,8 @@ we have fig. \ref{fig:stexample2}.
 Now what? Looking at the $10\Omega$ resistor, we see that the 
 voltage across it is $40 - 36 = 4$ V. Since this is what we wished to find, we are done. 
 
+\pagebreak 
+
 \section{Linearity, superposition, and max power transfer}
 \defn{Linear system}{a linear circuit is one in which the electronic 
 components' values (such as resistance, capacitance, inductance, gain, 
@@ -1040,6 +1055,8 @@ $P_L$ with respect to $R_L$ and make it equal to zero.
     &\rightarrow R_{Th} = R_L
 \end{align*}
 Note that this implies $P_{max} = \frac{V_{th}^2}{4R_{th}}$. 
+
+\pagebreak 
 
 \section{Capacitors and inductors}
 
@@ -1116,6 +1133,8 @@ We could also show that for series inductance $L_{total} = L_1+L_2+\dots$
 and for parallel inductance $\frac{1}{L_{total}} = \frac{1}{L_1} + \frac{1}{L_1}$. 
 To find the equivalent inductance between two terminals, simply turn off all 
 independent sources and apply these rules. 
+
+\pagebreak 
 
 \section{First order circuit analysis}
 
@@ -1209,4 +1228,186 @@ the capacitor, so in this case the capacitor will see two resistors in parallel 
 resistance will be $(\frac{1}{\frac{1}{1}+\frac{1}{1}}) = 1/2$, so our final equation is 
 \[v_c(t) = 5 + 5e^{-2t}\]
 
+\pagebreak 
+
+\section{Response classification}
+
+We may write the general equation for voltage across a capacitor or current across an inductor as 
+\[x(\infty) + (x(t_0)-x(\infty))e^{\lambda (t-t_0)}.\]
+This can itself be rewritten, as 
+\[x(t_0)e^{\lambda (t-t_0)} + x(\infty)(1 - e^{\lambda (t-t_0)})\]
+The first term is called the \emph{zero input response}, while the second is 
+called the \emph{zero state response}. 
+
+\defn{Zero input response}{the natural 
+response of a system to its initial conditions, that is, how the 
+system behaves without any external inputs. It is the response 
+that arises from the internal dynamics of the system, such as 
+the energy stored in its capacitors or inductors}.
+
+\defn{Zero state response}{the output of a system when the input to the system is zero}.
+
+This splitting can be immensely useful when your circuit has sources 
+that turn on at different times. The total response will simply be the 
+zero input response plus each zero state response. Allow me to show you 
+what I mean with the circuit in fig. \ref{fig:response}.
+\begin{figure}
+    \center
+    \caption{Response splitting example}
+    \label{fig:response}
+
+    \begin{circuitikz}[american currents, american voltages]
+        \draw (0,0) to[V, l=$10u(t)$, invert] (0,3)
+        (0,3) to[R, l=$10\Omega$] (2,3)
+        (2,3) to[short] (6,3)
+        (6,3) to[I, l=$2u(t-100)$, invert] (6,0)
+        (6,0) to[short] (0,0)
+        ;
+        \draw (2,3) to[L, l=$2H$] (2,0)
+        ;
+        \draw (4,3) to[R, l=$\frac{20}{3}\Omega$] (4,0)
+        ;
+    \end{circuitikz}
+\end{figure}
+Say the initial current through the inductor is 
+1 amp upwards. Let's build our entire equation 
+by finding the zero input response and 
+then each of the zero state responses. 
+\begin{enumerate}
+    \item[Zero input:] Fig. \ref{fig:zir} displays 
+    the zero input circuit. 
+    \begin{figure}
+        \center
+        \caption{Zero input response}
+        \label{fig:zir}
+    
+        \begin{circuitikz}[american currents, american voltages]
+            \draw (0,0) to[short] (0,3)
+            (0,3) to[R, l=$10\Omega$] (2,3)
+            (2,3) to[short] (4,3)
+            (4,0) to[short] (0,0)
+            ;
+            \draw (2,3) to[L, l=$2H$] (2,0)
+            ;
+            \draw (4,3) to[R, l=$\frac{20}{3}\Omega$] (4,0)
+            ;
+        \end{circuitikz}
+
+    \end{figure}
+    From the perspective of the 
+    inductor, there is a $10 \Omega$ and $\frac{20}{3} \Omega$
+    resistor in parallel, so the total resistance will be $4 \Omega$.
+    Thus we have 
+    \begin{align*}
+        x(t_0)e^{\lambda (t-t_0)} &= I_L(t_0)e^{\frac{-R}{L} (t-t_0)}\\
+        &= 1\times e^{\frac{-4}{2} (t-0)} \\
+        &= e^{-2t}
+    \end{align*}
+    as the zero input response. 
+
+    \item[Zero state response for voltage source:] Fig. 
+    \ref{fig:vs} displays the circuit for the zero state response 
+    in the case of the voltage source. 
+    \item[] \begin{figure}
+        \center
+        \caption{Zero state response for voltage source}
+        \label{fig:vs}
+    
+        \begin{circuitikz}[american currents, american voltages]
+            \draw (0,0) to[V, l=$10u(t)$, invert] (0,3)
+            (0,3) to[R, l=$10\Omega$] (2,3)
+            (2,3) to[short] (4,3)
+            (4,0) to[short] (0,0)
+            ;
+            \draw (2,3) to[L, l=$2H$] (2,0)
+            ;
+            \draw (4,3) to[R, l=$\frac{20}{3}\Omega$] (4,0)
+            ;
+        \end{circuitikz}
+
+    \end{figure}
+    Let us now calculate the zero state response. At infinity, the inductor will 
+    behave as a short circuit and so $I_L(\infty) = \frac{10 V}{10 \Omega} = 1 A$. 
+    From the perspective of the inductor, the resistance is again $4 \Omega$. 
+    \marginnote{In fact, the resistance in every response will be the same, 
+    since the find resistance we turn off every source anyway.}
+    \begin{align*}
+        x(\infty)(1 - e^{\lambda (t-t_0)}) &= I_L(\infty)(1-e^{\frac{-R}{L}(t-t_0)})\\
+        &= 1 \times (1-e^{\frac{-R}{2}(t-0)}) \\
+        &= 1-e^{-2t}
+    \end{align*}
+    But we're not quite done! Because this source turns on at $t=0$, we must multiply the 
+    zero state response by $u(t)$, to obtain 
+    \[(1-e^{-2t})u(t)\]
+
+    \item[Zero state response for current source:] Fig. 
+    \ref{fig:cs} displays the circuit for the current source. 
+    \begin{figure}
+        \center
+        \caption{Zero state response for current source}
+        \label{fig:cs}
+    
+        \begin{circuitikz}[american currents, american voltages]
+            \draw (0,0) to[short] (0,3)
+            (0,3) to[R, l=$10\Omega$] (2,3)
+            (2,3) to[short] (6,3)
+            (6,3) to[I, l=$2u(t-100)$, invert] (6,0)
+            (6,0) to[short] (0,0)
+            ;
+            \draw (2,3) to[L, l=$2H$] (2,0)
+            ;
+            \draw (4,3) to[R, l=$\frac{20}{3}\Omega$] (4,0)
+            ;
+        \end{circuitikz}
+
+    \end{figure}
+    By now we're experts. $R=4$, $L=2$, and $t_0 = 100$, so we already have 
+    \begin{align*}
+        x(\infty)(1 - e^{\lambda (t-t_0)}) &= I_L(\infty)(1-e^{\frac{-R}{L}(t-t_0)})\\
+        &= I_L(\infty) \times (1-e^{\frac{-4}{2}(t-100)})
+    \end{align*}
+    $I(\infty)$ will simply be the current from the source, $2A$. Ergo, 
+    \begin{align*}
+        I_L(\infty)(1-e^{\frac{-R}{L}(t-t_0)}) &= I_L(\infty) \times (1-e^{\frac{-4}{2}(t-100)})\\
+        &= 2\times (1-e^{-2(t-100)})
+    \end{align*}
+    Again we must multiply by $u(t-100)$, yielding a final answer of 
+    \[2\times (1-e^{-2(t-100)})u(t-100)\]
+\end{enumerate}
+Putting this all together, we obtain 
+\[I_L(t) = e^{-2t} + (1-e^{-2t})u(t) + 2\times (1-e^{-2(t-100)})u(t-100)\]
+and we are done. 
+\pagebreak 
+
+\section{Waveform generation}
+
+Again, take the equation 
+\[x(\infty) + (x(t_0)-x(\infty))e^{\lambda (t-t_0)}.\]
+Select two value on this graph at times $t_1$ and $t_2$, 
+$x_1$ and $x_2$. 
+\begin{figure}
+    \center
+    \caption{Waveform}
+    \label{fig:waveform}
+
+    \begin{tikzpicture}
+        \begin{axis}[
+            xlabel=$t$,
+            ylabel=$x(t)$,
+            domain=0:5,
+            samples=100,
+            grid=both
+        ]
+            \def\xinf{2}
+            \def\xto{4}
+            \def\lam{-0.5}
+            \def\tto{0}
+            \addplot { \xinf + (\xto - \xinf)*exp(\lam*(x - \tto)) };
+        \end{axis}
+        \end{tikzpicture}
+\end{figure}
+It can be shown that
+\[\frac{x_1-x_{\infty}}{x_2-x_{\infty}} = e^{\lambda(t_t-t_2)}\]
+\[t_1-t_2 = \frac{1}{\lambda} \ln{\left(\frac{x_1-x_{\infty}}{x_2-x_{\infty}}\right)}\]
+\[t_2-t_1 = \tau \ln{\left(\frac{x_1-x_{\infty}}{x_2-x_{\infty}}\right)}\]
 \end{document}
