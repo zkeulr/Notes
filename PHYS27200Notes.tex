@@ -97,7 +97,7 @@ solving by computer are employed throughout. For more information, consult the s
     \item Eletric field within insulator: $E_{net} = \frac{E_{applied}}{K}$
     \item Potential difference in capacitor with insulator: $\Delta V_{ins} = \frac{\Delta V_{vac}}{K}$
     \item Charge on capacitor: $Q=\frac{\epsilon_0 AKV}{d}$
-    \item Energy density of electric field in capacitor: $u = \frac{\epsilon_0}{2}E^2$
+    \item Energy density of electric field in capacitor: $\frac{U}{\text{volume}} = \frac{1}{2} \epsilon_0 E^2$
     \item Magnetic field at a distance $\vec{r}$ due to a charge $q$ moving at velocity $\vec{v}$: $\vec{B} = \frac{\mu_0}{4 \pi}\frac{q\vec{v}\times \hat{r}}{r^2}$
     \item Magnetic force $\vec{F}$ on charge $q$ moving at velocity $\vec{v}$ in magnetic field $\vec{B}$: 
     $\vec{F} = q\vec{v} \times \vec{B}$
@@ -906,4 +906,73 @@ the glass, and the glass and the second plate.
     &= 4.8 V
 \end{align*}
 And we are done. 
+
+Since the electric field can perform work, it must have
+energy associated with it. The energy depends on the electric field. 
+Say you have two plates of charge $Q$ a distance $s$ apart, but instead of 
+holding them there, you let one plate go to see how much energy 
+you can get out of this setup. You know the force on one plate is 
+\[F = \frac{\sigma Q}{2 \epsilon_0}.\]
+Additionally, we recall that 
+\[Q = \int F dr.\]
+Combining these two equations and noticing the bounds on the integral 
+will be the distance between the plates, we have 
+\begin{align*}
+    W &= \int_{0}^{s} \frac{\sigma Q}{2 \epsilon_0} dr \\
+    &= \frac{Q\sigma s}{2 \epsilon_0} \\
+    &= \frac{Q^2 s}{2 \epsilon_0 A} \\
+    &= \frac{1}{2} \epsilon_0 E^2 s A
+    &= -U
+\end{align*}
+We can define the energy density as the potential energy per 
+volume. In this case, 
+\[\frac{U}{s A} = \frac{1}{2} E^2 \epsilon_0 E^2\]
+and for a general eletric field, 
+\[\frac{U}{\text{volume}} = \frac{1}{2} E^2 \epsilon_0 E^2\]
+
+\section{Magnetism}
+Electricity and magentism are fundementally intertwined in many ways. 
+A moving eletrically charged particle creates a magentic field.
+\marginnote{Note that this magentic field is different than the particle's eletric field. 
+}
+Here is some information about magnetism: 
+\begin{itemize}
+    \item The needle of a compass aligns 
+    with the direction of the net magnetic field at its location.
+    \item An eletric current is a continous flow of charge.
+    \item The superposition principle is still valid for 
+    magentic fields, so to calculate the net magnetic field we can 
+    simply sum individual magentic fields. 
+    \item The units of magentic field are Teslas ($T$) or Gausses ($G$). 
+    $1 G = 10^{-4} T$. 
+    \item Magentic fields are typically symbolized by the letter $B$. 
+    \item The earth has a magentic field approximately $.5 G$ strong.  
+\end{itemize}
+\marginnote{This was confirmed in 1820 when a Danish physicist, Hans Christian Oersted, 
+discovered if you held a compass near a live wire the needle deflected.  
+Thus Oersted showed that moving electrons can create a magnetic field.
+}
+I have previously said that a moving charge produces a magnetic field. 
+Since current is just a bunch of moving charges flowing through a wire, 
+then we should expect a current-carrying wire to have a magnetic field, 
+and it does. 
+The magnetic field looks like fig. \ref{fig:wire}. 
+\begin{figure}
+    \caption{Magentic field of live wire}
+    \label{fig:wire}
+    \includegraphics{images/wire.png}
+\end{figure}
+The equation for the field a distance $\vec{r}$ from a charge $q$ moving at velocity $\vec{v}$ is given by the following law,
+called the Biot-Savart law:
+\marginnote{$\mu_0$ is a constant, defined to be $4 \pi \times 10^{-7}$. So 
+$\frac{\mu_0}{4 \pi} = 10^{-7}$}
+\[\vec{B} = \frac{\mu_0}{4 \pi}\frac{q\vec{v}\times \hat{r}}{r^2}\]
+Recall that the magnitude of the cross product of two vectors $A$ and 
+$B$ at an angle $\theta$ from one another is defined as 
+\[A \times B = |A||B|\sin{\theta}.\]
+\marginnote{What do you get when you cross a mountain-climber with a mosquito?. 
+Nothing: you can't cross a scaler with a vector.}
+The full cross product can be found using the following formula: 
+\[A \times B = (a_2b_3-a_3b_2)\hat{i} + (a_1b_3-a_3b_1)\hat{j} + (a_1b_2-a_2b_1)\hat{k}\]
+assuming $a_i$ is the $i$th component of $A$ and likewise for $B$. 
 \end{document}
