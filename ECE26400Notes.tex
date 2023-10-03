@@ -921,4 +921,67 @@ be used everywhere. Here's a general guide of how to use recursion:
    \item Derive the relation between complex cases and simpler cases. 
    \item Identify the simplest cases where solutions are known.
 \end{enumerate}
+
+Let's try our hand at recursion with the problem of integer partitioning. 
+Say you have some number $n$. How many possible ways can $n$ be written 
+as the sum of positive integers? For example, if $n=3$, 
+\begin{align*}
+   3 &= 1 + 1 + 1 \\
+   &= 1 + 2 \\
+\end{align*}
+Let's apply our steps here. 
+\begin{enumerate}
+   \item The positive integer to partition. 
+   \item Call it $f(n)$.
+   \item We have that $f(1) = 1$. A little bit of thought will show 
+   $f(n) = 1 + \sum_{i=1}^{n-1} f(n-i)$.
+   \item For $n=1$, there is $1$ possible way to partition $n$, 
+   so $f(1) = 1$. 
+\end{enumerate}
+
+A real-world example of this is binary search. Binary search 
+compares the target value to the middle element of the array. 
+If they are not equal, the half in which the target cannot 
+lie is eliminated and the search continues on the remaining half, 
+again taking the middle element to compare to the target value, 
+and repeating this until the target value is found. If the search 
+ends with the remaining half being empty, the target is 
+not in the array. Here's an implimentation of binary search in C: 
+\begin{lstlisting}[language=C,caption=Binary search]
+   #include <stdio.h>
+ 
+   int binarySearch(int arr[], int l, int r, int x)
+   {
+      while (l <= r) {
+         int m = l + (r - l) / 2;
+   
+         // Check if x is present at mid
+         if (arr[m] == x)
+               return m;
+   
+         // If x greater, ignore left half
+         if (arr[m] < x)
+               l = m + 1;
+   
+         // If x is smaller, ignore right half
+         else
+               r = m - 1;
+      }
+   
+      // If we reach here, then element was not present
+      return -1;
+   }
+   
+   // Driver code
+   int main(void)
+   {
+      int arr[] = { 2, 3, 4, 10, 40 };
+      int n = sizeof(arr) / sizeof(arr[0]);
+      int x = 10;
+      int result = binarySearch(arr, 0, n - 1, x);
+      printf("Result: %d", result);
+      return 0;
+   }
+\end{lstlisting}
+
 \end{document}
