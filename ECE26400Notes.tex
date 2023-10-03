@@ -968,7 +968,7 @@ not in the array. Here's an implimentation of binary search in C:
                r = m - 1;
       }
    
-      // If we reach here, then element was not present
+      // If we reach here, the element was not present
       return -1;
    }
    
@@ -983,5 +983,26 @@ not in the array. Here's an implimentation of binary search in C:
       return 0;
    }
 \end{lstlisting}
+
+Recursion is popular in many of the most effective sorting algorithms. 
+Quicksort, one of the fastest, also uses recursion. Here's an 
+overview of how it works: 
+\begin{enumerate}
+   \item Pivot Selection: Choose a pivot element from the array. 
+   The pivot is used to partition the array into two groups.
+
+   \item Partitioning: Rearrange the elements in the array 
+   such that all elements less than the pivot are on the left 
+   side, and all elements greater than the pivot are on the right side.
+
+   \item Recursion: Apply the above steps 
+   recursively to the sub-arrays on the left and 
+   right of the pivot until the base case is reached. 
+   The base case usually involves sub-arrays of size 
+   one or zero, which are already sorted by definition.
+
+   \item Combine: The sorted sub-arrays are then 
+   combined to get the final sorted array.
+\end{enumerate}
 
 \end{document}
