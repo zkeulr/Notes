@@ -1022,7 +1022,7 @@ invariant and not B (i = n) gives us the desired result, which in this case
 is the sum from 0 to n - 1. 
 
 Let's try another example. 
-\begin{lstlisting}[caption=Loop invariant]
+\begin{lstlisting}[caption=Loop invariant example]
     {a >= b, not both zero}
     GCD(a, b)
     i = a;
@@ -1037,5 +1037,32 @@ Here's the loop invariant: gcd(i,j) = gcd(a,b). We know $\neg B$
 is j = 0. Therefore, gcd(i,0) = gcd(a,b) = i. Now we just need 
 to prove that the loop invariant is true, again usign induction. 
 The hardest part of these problems is coming up with a loop invariant, 
-after that step we just apply induction. 
+after that step we just apply induction. If you can find a loop invariant 
+that's useful to you and is actually true after an abritrary number of 
+executions, you are basically done. 
+
+Here's another example that computes the $n$th power of 2.
+\begin{lstlisting}[caption=2**n]
+    i = 1
+    j = 2
+    while i != n 
+        j = j * 2
+        i = i + 1
+    return j //the power of 2
+\end{lstlisting}
+Here's the loop invariant: $j = 2^i$. When this loop executes 0 times, 
+we have that $i=n=1 \land j=2=2^1$, so the base case is valid. 
+Now, we need to assume $P(k)$: $j_k=2^{i_k}$ and show 
+$P(k+1)$: $j_{k+1} = 2^{i_{k+1}}$. 
+From the program, we know that 
+\begin{align*}
+    j_{k+1} &= 2*j_k \\
+    i_{k+1} &= i_k + 1
+\end{align*}
+Ergo, 
+\begin{align*}
+    j_{k+1} &= 2 * 2^{i_k} \\
+    &= 2^{i_k+1} 
+\end{align*}
+And so it is proven. 
 \end{document}
