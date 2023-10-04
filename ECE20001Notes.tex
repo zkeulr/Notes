@@ -1162,7 +1162,7 @@ circuit analysis. Let's see an example with fig. \ref{fig:capvolt}.
     \caption{Capacitor with voltage source}
     \label{fig:capvolt}
     \begin{tikzpicture}[american currents, american voltages]
-        \draw (0,2) to [short,, i=$i$] (3,2) to[C] (3,0) to [short] (0,0);
+        \draw (0,2) to [short, i=$i$] (3,2) to[C] (3,0) to [short] (0,0);
         \draw (0,0) to[V, l=$V$, invert] (0,2);
         \node[below left] at (0,2) {$+$};
         \node[above left] at (0,0) {$-$};
@@ -1385,29 +1385,51 @@ Again, take the equation
 \[x(\infty) + (x(t_0)-x(\infty))e^{\lambda (t-t_0)}.\]
 Select two value on this graph at times $t_1$ and $t_2$, 
 $x_1$ and $x_2$. 
-\begin{figure}
-    \center
-    \caption{Waveform}
-    \label{fig:waveform}
-
-    \begin{tikzpicture}
-        \begin{axis}[
-            xlabel=$t$,
-            ylabel=$x(t)$,
-            domain=0:5,
-            samples=100,
-            grid=both
-        ]
-            \def\xinf{2}
-            \def\xto{4}
-            \def\lam{-0.5}
-            \def\tto{0}
-            \addplot { \xinf + (\xto - \xinf)*exp(\lam*(x - \tto)) };
-        \end{axis}
-        \end{tikzpicture}
-\end{figure}
 It can be shown that
 \[\frac{x_1-x_{\infty}}{x_2-x_{\infty}} = e^{\lambda(t_t-t_2)}\]
 \[t_1-t_2 = \frac{1}{\lambda} \ln{\left(\frac{x_1-x_{\infty}}{x_2-x_{\infty}}\right)}\]
 \[t_2-t_1 = \tau \ln{\left(\frac{x_1-x_{\infty}}{x_2-x_{\infty}}\right)}\]
+
+\section{Phasors}
+
+Until this point we have been studying direct current (DC) circuits. 
+DC circuits are easier to analyze and were the first to be 
+studied, but most circuits you find in the real world are alternating
+current (AC) circuits. An AC source
+produce sinusoidal signals (current or voltage) of the form 
+\[v(t) = V_m \cos(\omega t + \theta)\]
+for voltage, and 
+\[i(t) = I_m \cos(\omega t + \theta)\]
+for current. Here is the name for each term in the sinusoidal equation:
+\begin{itemize}
+    \item[$V_m$] Magnitude of voltage: amplitude of voltage graph. 
+    \item[$I_m$] Magnitude of current: amplitude of current graph. 
+    \item[$\omega$] Radial frequency: equal to $\frac{2 \pi}{T}$, where 
+    $T$ is the period. 
+    \item[$\phi$] Phase shift: horizontal displacement of the graph from the origin. 
+\end{itemize}
+
+Someone with sufficient background in math may see a sinusoidal equation and 
+immediately think of complex numbers. Complex numbers can vastly simplify 
+circuit analysis, as we will shortly see. 
+\marginnote{In circuit analysis, $i$ is usually reserved for 
+current. Thus the symbol used for $\sqrt{-1}$ is $j$: $j = \sqrt{-1}$.}
+Complex numbers may be expressed in rectangular or polar form interchangeably, 
+via Euler's identity. That is, 
+\[e^{j\theta} = \cos(\theta) + j\sin(\theta).\]
+The utility of complex numbers comes from a couple interesting properties.
+First, if the real part of one complex number is equal to 
+the real part of another, then the two complex numbers 
+must be equal. That is, 
+\begin{align*}
+    Re[Ae^{j\omega t}] &= Re[Be^{j\omega t}] \\
+    &\iff \\
+    Ae^{j\omega t} &= Be^{j\omega t}
+\end{align*}
+The second property relates to the sum of derivatives and 
+integrals of a complex number $z$. 
+\[Az + B\frac{dz}{dt} + c\frac{d^2 z}{dt^2} + \dots + \int z dt + \int \int z dt + \dots = \alpha z\]
+We will also find out that any circuit element
+will transform into what we will call an impedance $Z$ which will help us treat
+all elements as resistors. 
 \end{document}
