@@ -106,6 +106,7 @@ solving by computer are employed throughout. For more information, consult the s
     $\vec{F} = q\vec{v} \times \vec{B}$
     \item Magnitude of magentic force $F$ on charge $q$ moving at speed $v$ in magnetic field of strength $B$
     with angle $\theta$ between magentic field vector and velocity: $F = qvB\sin(\theta)$
+    \item Electron current: $i = nA\bar{v}$
 \end{enumerate}
 
 \pagebreak
@@ -967,7 +968,28 @@ Here is some information about magnetism:
 discovered if you held a compass near a live wire the needle deflected.  
 Thus Oersted showed that moving electrons can create a magnetic field.
 }
-I have previously said that a moving charge produces a magnetic field. 
+You have likely seen and played with magnets before, 
+and already know some of their properties. You know that similar poles 
+repel one another, and like poles attract. You know magents attract ferromagnetic 
+materials (like iron, cobalt, or nickel).  
+A magnet is any material or object that produces a magnetic field. 
+A type of magnet you are likely familiar with 
+is the bar magnet, which looks like fig. \ref{fig:bar}.
+\begin{figure}
+    \center
+    \caption{Bar magnet}
+    \label{fig:bar}
+    \includegraphics[width=\textwidth/2]{images/bar_magnet.jpg}
+\end{figure}
+The lines emanating from the north pole and entering the south 
+are magentic field lines.  
+
+I have previously said that a moving eletric charge produces a magnetic field. 
+The equation for the field a distance $\vec{r}$ from a charge $q$ moving at velocity $\vec{v}$ is given by the following law,
+called the Biot-Savart law:
+\marginnote{$\mu_0$ is a constant, defined to be $4 \pi \times 10^{-7}$. So 
+$\frac{\mu_0}{4 \pi} = 10^{-7}$}
+\[\vec{B} = \frac{\mu_0}{4 \pi}\frac{q\vec{v}\times \hat{r}}{r^2}\]
 Since current is just a bunch of moving charges flowing through a wire, 
 then we should expect a current-carrying wire to have a magnetic field, 
 and it does. 
@@ -977,28 +999,39 @@ The magnetic field looks like fig. \ref{fig:wire}.
     \label{fig:wire}
     \includegraphics{images/wire.png}
 \end{figure}
-The equation for the field a distance $\vec{r}$ from a charge $q$ moving at velocity $\vec{v}$ is given by the following law,
-called the Biot-Savart law:
-\marginnote{$\mu_0$ is a constant, defined to be $4 \pi \times 10^{-7}$. So 
-$\frac{\mu_0}{4 \pi} = 10^{-7}$}
-\[\vec{B} = \frac{\mu_0}{4 \pi}\frac{q\vec{v}\times \hat{r}}{r^2}\]
-Side note: recall that the magnitude of the cross product of two vectors $A$ and 
+It is given by the equation
+\[\vec{B} = \frac{\mu_0}{4 \pi}\frac{I \Delta l\times \hat{r}}{r^2}\]
+\marginnote{Recall that the magnitude of the cross product of two vectors $A$ and 
 $B$ at an angle $\theta$ from one another is defined as 
 \[A \times B = |A||B|\sin{\theta}.\]
-\marginnote{What do you get when you cross a mountain-climber with a mosquito?. 
-Nothing: you can't cross a scaler with a vector.}
 The full cross product can be found using the following formula: 
 \[A \times B = (a_2b_3-a_3b_2)\hat{i} + (a_1b_3-a_3b_1)\hat{j} + (a_1b_2-a_2b_1)\hat{k}\]
 assuming $a_i$ is the $i$th component of $A$ and likewise for $B$. 
-
+}
+If you have calculated the magnitude of the magentic field and wish 
+to find its direction, there is another right-hand-rule to follow, 
+not to be confused with the right-hand-rule that allows one to find 
+the direction of magentic field for a moving charge. 
+Point your thumb along the direction of conventional current 
+in the wire. Your fingers will curl in the direction of the magentic 
+field. 
 Although we now know that the mobile charges in a wire are electrons, 
 current is conventionally definded as following from flowing from 
 the positive to negative terminal of a battery (that is, positive charges 
 moving). 
-\marginnote{You can thank Benjamin Franklin for that.}
 \begin{marginfigure}
     \center 
     \includegraphics{images/urgent_mission.png}
 \end{marginfigure}
+\noindent Despite this, we sometimes want to find the \emph{electron current}, 
+the number of electrons that flow through a given volume per second. 
+Mathematically, the electron current $i$ is given by  
+\[i = nA\bar{v},\]
+where $n$ is $\frac{electrons}{m^3}$, $A$ is cross sectional area of the wire, and
+$\bar{v}$ is the average velocity of electrons in the wire. 
+Electron current is what's physically happening, but since we're stuck 
+with convention, let's try to think in conventional current. 
+Electron current flowing one way is equivalent to conventional current 
+flowing the other way. 
 
 \end{document}
