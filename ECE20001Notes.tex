@@ -13,6 +13,7 @@
 \usepackage{pgfplots}
 \usepackage{circuitikz}
 \usepackage{siunitx}
+\usepackage{steinmetz}
 \usepackage{amsmath,amsthm}
 \usetikzlibrary{shapes}
 \usetikzlibrary{positioning}
@@ -1433,12 +1434,31 @@ We will also find out that any circuit element
 will transform into what we will call an impedance $Z$ which will help us treat
 all elements as resistors. 
 
-Now, on to the meat of this section: phasors. A phasor representation is a 
+Now, on to the meat of this section: phasors.
+
+\defn{Phasor}{a complex number representing a sinusoidal 
+function whose amplitude ($A$), angular frequency ($\omega$), 
+and initial phase ($\theta$) are time-invariant.}
+A phasor representation is a 
 method or a way to treat sinusoids as complex
 numbers or vectors. We represent a sinusoidal signal as a complex number
 which will make operations of sinusoids much easier. The only requirement of
 this method is that all sinusoids involved have to oscillate at the same
-frequency. If we had multiple frequencies in our circuit, we would have to use
-our powerful method of superposition. 
-
+frequency. 
+\marginnote{If we had multiple frequencies in our circuit, we would have to use
+our powerful method of superposition instead.}
+If you have a signal 
+\[x(t) = Acos(\omega t + \theta^\circ)\]
+the phasor is given by 
+\begin{align*}
+    \tilde{X} &= Ae^{j \theta}
+\end{align*}
+Let's examine a few different signals and how they compare. 
+\begin{align*}
+    y(t) &= 2Acos(\omega t + \phi^\circ) \\
+    z(t) &= \frac{1}{2}Acos(\omega t)
+\end{align*}
+In the lingo of electrical engineering, we say $y(t)$ 
+\emph{leads} $z(t)$ by $\phi^\circ$, while 
+$z(t)$ \emph{lags} $y(t)$ by $\phi^\circ$. 
 \end{document}
