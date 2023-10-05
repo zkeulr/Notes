@@ -1076,6 +1076,18 @@ As you have likely seen, recursions consist of two parts.
 \marginnote{What is the basis step for the Fibonacci sequence? What is the 
 recursive step?}
 We are not limited to sequences for recursion. We may also have sets, 
-or other constructs. 
+or other constructs. Sometimes, it is possible to find 
+an explicit formula for the $n$th element of a recursively defined 
+sequence: this is called the \emph{closed form}. 
+
+In computer programming, we are especially interested in recursive operations. 
+For example, say we have the function \texttt{exp(x,n)}, $n > 0$. We can define this recursively. 
+Our basis step will be $n=1$, where $x^n = x$. Now we need the inductive step, which will be
+\texttt{exp(x,n) = x * exp(x, n-1)}. Recursion and closed form is constrasted with iteration (loops), 
+and often multiple of the three methods are possible to solve a problem. 
+\marginnote{Just because any method could be used doesn't mean they are equivalent. 
+Recursive solutions are often more succinct, but use more memory because each time 
+the function is called a new frame is pushed on the stack. Iterative solutions are 
+usually longer to define, but use less memory.}
 
 \end{document}
