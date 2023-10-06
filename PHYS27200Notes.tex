@@ -989,6 +989,13 @@ The equation for the field a distance $\vec{r}$ from a charge $q$ moving at velo
 called the Biot-Savart law:
 \marginnote{$\mu_0$ is a constant, defined to be $4 \pi \times 10^{-7}$. So 
 $\frac{\mu_0}{4 \pi} = 10^{-7}$}
+\marginnote{Recall that the magnitude of the cross product of two vectors $A$ and 
+$B$ at an angle $\theta$ from one another is defined as 
+\[A \times B = |A||B|\sin{\theta}.\]
+The full cross product can be found using the following formula: 
+\[A \times B = (a_2b_3-a_3b_2)\hat{i} + (a_1b_3-a_3b_1)\hat{j} + (a_1b_2-a_2b_1)\hat{k}\]
+assuming $a_i$ is the $i$th component of $A$ and likewise for $B$. 
+}
 \[\vec{B} = \frac{\mu_0}{4 \pi}\frac{q\vec{v}\times \hat{r}}{r^2}\]
 Since current is just a bunch of moving charges flowing through a wire, 
 then we should expect a current-carrying wire to have a magnetic field, 
@@ -1000,14 +1007,7 @@ The magnetic field looks like fig. \ref{fig:wire}.
     \includegraphics{images/wire.png}
 \end{figure}
 It is given by the equation
-\[\vec{B} = \frac{\mu_0}{4 \pi}\frac{I \Delta l\times \hat{r}}{r^2}\]
-\marginnote{Recall that the magnitude of the cross product of two vectors $A$ and 
-$B$ at an angle $\theta$ from one another is defined as 
-\[A \times B = |A||B|\sin{\theta}.\]
-The full cross product can be found using the following formula: 
-\[A \times B = (a_2b_3-a_3b_2)\hat{i} + (a_1b_3-a_3b_1)\hat{j} + (a_1b_2-a_2b_1)\hat{k}\]
-assuming $a_i$ is the $i$th component of $A$ and likewise for $B$. 
-}
+\[B = \frac{\mu_0 I}{2\pi r}\]
 If you have calculated the magnitude of the magentic field and wish 
 to find its direction, there is another right-hand-rule to follow, 
 not to be confused with the right-hand-rule that allows one to find 
