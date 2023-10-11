@@ -1457,6 +1457,9 @@ the phasor is given by
 \begin{align*}
     \tilde{X} &= Ae^{j \theta}
 \end{align*}
+\marginnote{Note that if the signal is in terms of sine, then 
+it must be transformed to cosine before the phasor can be calculated
+(the relationship $\sin(\theta) = \cos(90 - \theta)$ is useful here).}
 Let's examine a few different signals and how they compare. 
 \begin{align*}
     y(t) &= 2Acos(\omega t + \phi^\circ) \\
@@ -1466,11 +1469,26 @@ In the lingo of electrical engineering, we say $y(t)$
 \emph{leads} $z(t)$ by $\phi^\circ$, while 
 $z(t)$ \emph{lags} $y(t)$ by $\phi^\circ$. 
 
-\section{Impedance}
-
 \defn{Impedance}{a complex number (not a phasor) that is equal to the
 ratio of the phasor voltage over the phasor current of an element. It is
 defined only for AC signals and is measured in $\Omega$. In general it is a function
 of frequency and is a measure of the difficulty that AC current faces when
 flowing through a device.}
+
+\begin{itemize}
+    \item Impedance of resistor $R$: $Z = R$
+    \item Impedance of capacitor $C$: $Z = \frac{-j}{\omega C}$
+    \item Impedance of inductor $L$: $Z = j \omega L$
+\end{itemize}
+
+Impedances are basically resistances for AC current. Just as with 
+resistances, series impedances are summed while impedances in parallel 
+follow the same reciprocal pattern as resistances. 
+\begin{itemize}
+    \item[Series] $Z_{eq} = \sum_{i=0}^{n} Z_i$
+    \item[Parallel] $\frac{1}{Z_{eq}} = \sum_{i=0}^{n} \frac{1}{Z_i}$ 
+\end{itemize}
+
+Kirchhoff's voltage and current laws are still valid in the phasor domain. 
+%be cool to give a worked example here, hw has some good ones
 \end{document}
