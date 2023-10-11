@@ -101,6 +101,11 @@ for electrical and computer engineers as well as for engineers
     $v_c(\infty) +\left(v_c(t_0) - v_c(\infty)\right)e^{(\frac{-1}{RC})(t - t_0)} = x(t_0)e^{\lambda (t-t_0)}$
     (if $v_c(\infty) = 0$)
     \item Current in RL circuit: $I_L(\infty) +\left(I_L(t_0) - I_L(\infty)\right)e^{(\frac{-R}{L})(t - t_0)}$
+    \item Impedance of a capacitor: $\frac{-j}{\omega C}$
+    \item Impedance of an inductor: $j \omega L$
+    \item Equivalent impedance for impedances in series: $Z_{eq} = \sum_{i}^{n} Z_i$
+    \item Equivalent impedance for impedances in parallel: $\frac{1}{Z_{eq}} = \sum_{i}^{n} \frac{1}{Z_i}$
+
 \end{enumerate}
 
 \pagebreak 
@@ -1394,7 +1399,7 @@ It can be shown that
 
 Until this point we have been studying direct current (DC) circuits. 
 DC circuits are easier to analyze and were the first to be 
-studied, but most circuits you find in the real world are alternating
+studied historically, but most circuits you find in the real world are alternating
 current (AC) circuits. An AC source
 produce sinusoidal signals (current or voltage) of the form 
 \[v(t) = V_m \cos(\omega t + \theta)\]
