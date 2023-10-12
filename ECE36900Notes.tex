@@ -1089,7 +1089,42 @@ and often multiple of the three methods are possible to solve a problem.
 Recursive solutions are often more succinct, but use more memory because each time 
 the function is called a new frame is pushed on the stack. Iterative solutions are 
 usually longer to define, but use less memory. Closed forms are the best, if you can find one.}
+To find the closed form, our best approach is often to simply look at the first few terms of the 
+sequence, try to spot a pattern, and then prove that pattern holds for any term. In class, 
+this is called the \emph{expand-guess-verify} approach. 
 
-
-
+We don't always need to use this approach, sometimes 
+the solution for a certain form of recurrence is known. A relation of the form 
+\[S(n) = cS(n-1) + g(n)\]
+is known as a \emph{linear first order} relation.
+It can be shown that the 
+solution to such a relation is given by 
+\[S(n) = c^{n-1}S(1) + \sum_{i=2}^{n} c^{n-i} g(i)\]
+For example, say we have the recurrence 
+\begin{itemize}
+    \item $T(1) = 1$
+    \item $T(n) = T(n-1) + 3, n \geq 2$
+\end{itemize}
+By the above formula, we have that the closed form is given by 
+\begin{align*}
+    T(n) &= c^{n-1}T(1) + \sum_{i=2}^{n} c^{n-i} g(i) \\
+    &= 1^{n-1}T(1) + \sum_{i=2}^{n} 1^{n-i} 3 \\
+    &= T(1) + \sum_{i=2}^{n} 3 \\
+    &= 1 + \sum_{i=2}^{n} 3 \\
+    &= 1 + 3(n-1) \\
+    &= 3n - 2
+\end{align*}
+As another example, say we have 
+\begin{itemize}
+    \item $A(1) = 1$
+    \item $A(n) = A(n-1) + n^2, n \geq 2$
+\end{itemize}
+Again using the formula, we'll have 
+\begin{align*}
+    A(n) &= c^{n-1}A(1) + \sum_{i=2}^{n} c^{n-i} g(i) \\
+    &= 1^{n-1}A(1) + \sum_{i=2}^{n} 1^{n-i} i^2 \\
+    &= A(1) + \sum_{i=2}^{n} i^2 \\
+    &= 1 + \left(\frac{n(n+1)(2n+1)}{6} - 1 \right) \\
+    &= \frac{n(n+1)(2n+1)}{6}
+\end{align*}
 \end{document}
