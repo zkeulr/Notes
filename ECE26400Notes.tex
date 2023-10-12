@@ -1098,4 +1098,30 @@ There are multiple types of linked lists. Another common type is
 the \emph{doubly-linked list}, where each node references both the 
 next node and the previous node, and the \emph{circularly-linked list}, 
 where the final node points to the first node. 
+
+\section{Deep vs. Shallow Copy}
+
+Suppose we have code like so, 
+\begin{lstlisting}[language=C, caption=Struct]
+   typedef struct {
+      int year;
+      char* name;
+   } Person
+
+   int main() {
+      Person* p = malloc(sizeof(Person));
+      p->name = malloc(sizeof(char)*10);
+
+      p->year = 2023;
+      strcpy(p->name, "user);
+
+      Person q* = malloc(sizeof(Person));
+      q->name = malloc(sizeof(char)*10);
+
+      // How do we copy p to q?
+
+      q = p; //?
+   }
+\end{lstlisting}
+
 \end{document}
