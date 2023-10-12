@@ -1097,6 +1097,7 @@ We don't always need to use this approach, sometimes
 the solution for a certain form of recurrence is known. A relation of the form 
 \[S(n) = cS(n-1) + g(n)\]
 is known as a \emph{linear first order} relation.
+\marginnote{If $g(n) = 0$, then the relation is also \emph{homogeneous}.}
 It can be shown that the 
 solution to such a relation is given by 
 \[S(n) = c^{n-1}S(1) + \sum_{i=2}^{n} c^{n-i} g(i)\]
@@ -1127,4 +1128,20 @@ Again using the formula, we'll have
     &= 1 + \left(\frac{n(n+1)(2n+1)}{6} - 1 \right) \\
     &= \frac{n(n+1)(2n+1)}{6}
 \end{align*}
+
+If you have a \emph{second order homogeneous recurrence relation},
+which is of the form 
+\[S(n) = c_1 S(n-1) + c_2 S(n-2),\]
+then the closed form is different. 
+Say the characteristic equation
+\[t^2 -c_1 t - c_2 = 0\]
+has two roots 
+$r_1$ and $r_2$. Then
+\[S(n) = pr_1^{n-1} + qr_2^{n-1}.\]
+If the two roots are not distinct, then 
+\[S(n) = pr^{n-1} + q(n-1)r^{n-1}.\]
+In either case $p$ and $q$ may be found by substiting 
+values of $n$ into the formula and solving the resultant 
+system of equations. 
+
 \end{document}
