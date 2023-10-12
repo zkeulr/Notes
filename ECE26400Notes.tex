@@ -1005,4 +1005,97 @@ overview of how it works:
    combined to get the final sorted array.
 \end{enumerate}
 
+\section{Linked Lists}
+Arrays are useful, but unfortunately are not mutable. 
+Once their size is defined it cannot be changed afterwards. 
+In some applications we want to have a way of storing variables
+whose size can be changed after initialization. A \emph{linked list}
+is one way of accomplishing this. 
+
+\defn{Linked list}{consists of a data element known as a node. 
+Each node consists of two fields: one field has data, 
+and in the second field, the node has an address that keeps a 
+reference to the next node.}
+\begin{lstlisting}[language=C,caption=Linked list]
+   // Defining a node
+   typedef struct node {
+    int val;           //value of this node
+    struct node* next; //address of next node
+   } Node;
+
+   // Creating the list
+   Node* head = NULL;  //NULL node means EOL
+   head = malloc(sizeof(Node)); 
+   head->next = NULL
+   head->value = 10; 
+\end{lstlisting}
+We can do all the standard list operations with a linked list:
+changing the value of elements, deleting the list, and so on, 
+and we can also add new values! If we want to add a new value, 
+we should add it to the beginning instead of the end so our 
+program doesn't need to traverse the entire list every time 
+we add an element. 
+\begin{lstlisting}[language=C,caption=Adding to linked list]
+   Node* nd = malloc(sizeof(Node));
+   nd->value = 15;
+   nd->next = head; //add the node before head
+   head = nd;       //make new node head
+   //note the order of these steps matters
+\end{lstlisting}
+If you don't want to repeat these steps for every node you enter, 
+make it into functions, like the below. 
+\begin{lstlisting}[language=C,caption=Linked list functions]
+   static Node* construct(int val) {
+      Node* nd = malloc(sizeof(Node));
+      nd->next = NULL;
+      nd->value = val;
+      return nd;
+   }
+   Node* insert(Node* head, int val) {
+      Node* ptr = construct(val);
+      ptr->next = head;
+      return ptr;
+   }
+   void print(Node * head) {
+      while (head != NULL) {
+      printf ("%d ", head -> value);
+      head = head -> next;
+      }
+   }
+   Node* delete(Node* head, int value) {
+      Node* p = head;
+      if(p == NULL) {return p;}
+
+      if ((p -> value) == val) {
+         p = p->next;
+         free(head);
+         return p;
+      }
+
+      Node * q = p -> next;
+      while ((q != NULL) && ((q -> value) != val)) {
+         p = p->next;
+         q = q->next;
+      }
+      
+      if (q != NULL) {
+      p->next = q->next; // reroute the link
+      free(q); // release the memory. 
+      //Note that the order of "reroute" and "release" matters
+      }
+
+      return head;
+   }
+   void destroy(Node * head) {
+      while (head != NULL) {
+         Node * ptr = head -> next;
+         free(head);
+         head = ptr;
+      }
+   }
+\end{lstlisting}
+There are multiple types of linked lists. Another common type is 
+the \emph{doubly-linked list}, where each node references both the 
+next node and the previous node, and the \emph{circularly-linked list}, 
+where the final node points to the first node. 
 \end{document}
