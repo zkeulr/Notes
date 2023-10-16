@@ -1081,4 +1081,65 @@ For our purposes, there are three kinds of magnetism
     opposite to the applied magentic field. This causes diamagnetic objects 
     to be repelled by a magnetic field. 
 \end{enumerate}
+
+\section{Circuits}
+A \emph{circuit} is a complete circular path that electricity flows through.
+Usually, the current is flowing through a wire. There are three states a circuit 
+can be in. 
+\begin{enumerate}
+    \item Equilibrium: no current flows. The average drift velocity of the electrons is 0. 
+    \item Transient: when the current is changing, usually after elements are hooked up. 
+    \item Steady-state: current is flowing. The average drift velocity is nonzero, 
+    and there is no change in the deposits of excess charge on the wire anywhere.
+\end{enumerate} 
+Importantly, when a circuit is in steady-state, the current at the start equals the current 
+at the end. 
+Since current is just the flow of electrons, the current needs to be conserved
+in the same way charge is conserved. I.e. current in is current out, current can't be "used up",
+so on. You may wonder how a current lights a lightbulb if it isn't used up - wouldn't that violate 
+conservation of energy? The answer is no, whatever is driving the current powers the lightbulb. Think 
+of it like water flowing and turning a turbine that lights the bulb. Water in is water out, but the energy
+comes from whatever propelled the water through. In the case of water and a turbine the energy comes from 
+kinetic energy and is transferred to electric energy, in the case of the lightbulb the energy usually 
+comes from stored potential in a battery. As the electrons collide with the atoms in the bulb filament, 
+light and heat are produced. In order to keep shoving these electrons along there needs to be an electric 
+field within the wire. This field is produced by an uneven distribution of charge on the wire: electrons 
+piled up at one terminal repel other electrons to the other terminal, like in figs. \ref{fig:ringsofpower}
+and \ref{fig:chargedistr}
+\begin{figure}
+    \center
+    \caption{Electric field in circuit}
+    \label{fig:ringsofpower}
+    \includegraphics{images/bfucc.png}
+\end{figure}
+\begin{figure}
+    \center
+    \caption{Charge distribution in a wire}
+    \label{fig:chargedistr}
+    \includegraphics{images/L5thM.png}
+\end{figure}
+This means that in a circuit, there is a pile of negative charge where the electrons are coming out,
+and a pile of positive charge at the other end. 
+
+The analogy of water continues to be useful when you consider a wire with variable 
+cross-sectional area. Just as water rushing through a pipe picks up speed when the pipe 
+narrows (think of putting your thumb over the end of a hose), the drift velocity
+increases when the wire narrows. 
+\marginnote{Note that the current is still constant provided the circuit is 
+in steady-state, although the drift velocity can change.}
+The electric field and drift velocity both increase in order to keep 
+the current constant, according to the equation. 
+\[I = |q|nAu|E|\]
+Where $|q|$ is the charge on an electron, $n$ is the number of electrons per 
+volume of material, $A$ is the cross-sectional area in consideration, 
+$u$ is the electron mobility (a constant that determines how quickly 
+an electron can move through a material), and $E$ is the strength of the electric field
+at that point. The electric field at every point in the wire is actually parallel 
+to the wire at that point (see fig. \ref{fig:efww})
+\begin{figure}
+    \center
+    \caption{Electric field within a wire}
+    \label{fig:efww}
+    \includegraphics{images/eflineswire.png}
+\end{figure}
 \end{document}
