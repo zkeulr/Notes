@@ -1470,7 +1470,7 @@ In the lingo of electrical engineering, we say $y(t)$
 $z(t)$ \emph{lags} $y(t)$ by $\phi^\circ$. 
 
 \defn{Impedance}{a complex number (not a phasor) that is equal to the
-ratio of the phasor voltage over the phasor current of an element. It is
+ratio of the phasor voltage over the phasor current of an element ($\frac{V(\omega)}{I(\omega)}$). It is
 defined only for AC signals and is measured in $\Omega$. In general it is a function
 of frequency and is a measure of the difficulty that AC current faces when
 flowing through a device.}
@@ -1488,7 +1488,31 @@ follow the same reciprocal pattern as resistances.
     \item[Series] $Z_{eq} = \sum_{i=0}^{n} Z_i$
     \item[Parallel] $\frac{1}{Z_{eq}} = \sum_{i=0}^{n} \frac{1}{Z_i}$ 
 \end{itemize}
+Again, just as with resistances, the reciprocal of impedance has units 
+of mhos or siemens, although in this case it is called \emph{admittance}. 
+Since impedance is defined as 
+\begin{align*}
+    Z &= \frac{\tilde{V}}{\tilde{I}} \\
+    &= \frac{V_0 e^{j\theta_v}}{I_0 e^{j \theta_i}}\\
+    &= \frac{V_0}{I_0} e^{j(\theta_v-\theta_i)}
+\end{align*}
+we have for free that
+\[\angle Z = \theta_v - \theta_i\]
+So the phase of the impedance tells us about the phase difference between
+the current and the voltage.
 
-Kirchhoff's voltage and current laws are still valid in the phasor domain. 
-%be cool to give a worked example here, hw has some good ones
+Every technique that we used to analyze DC circuits can be applied to
+AC circuits, with some small changes. 
+\begin{itemize}
+    \item Series and parallel combinations of impedance elements
+    \item Mesh analysis
+    \item Nodal analysis
+    \item Superposition
+    \item Source transformations
+    \item Thevenin equivalents
+\end{itemize}
+Superposition allows us to solve circuits with sources of different 
+frequencies, since normally we can only add phasors if the frequencies 
+are identical. 
+
 \end{document}
