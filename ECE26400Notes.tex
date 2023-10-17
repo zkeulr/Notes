@@ -1101,27 +1101,125 @@ where the final node points to the first node.
 
 \section{Deep vs. Shallow Copy}
 
-Suppose we have code like so, 
-\begin{lstlisting}[language=C, caption=Struct]
+In C, there are two kinds of copying. 
+\begin{itemize}
+   \item[Shallow copy] A shallow copy involves copying the elements 
+   (or fields) of a structure, but not the data they point to. 
+   This means that if the structure contains pointers to dynamically 
+   allocated memory, the copy will have pointers pointing to the same 
+   memory locations as the original.
+   \item[Deep copy] A deep copy, on the other hand, involves not only 
+   copying the elements but also creating new memory for the data they 
+   point to. This means that changes made to the copy will not affect 
+   the original, and vice versa.
+\end{itemize}
+
+\begin{lstlisting}[language=C, caption=Shallow copy]
+   #include <stdio.h>
+   #include <string.h>
+
    typedef struct {
-      int year;
-      char* name;
-   } Person
+      char *name;
+      int age;
+   } Person;
 
    int main() {
-      Person* p = malloc(sizeof(Person));
-      p->name = malloc(sizeof(char)*10);
+      Person person1;
+      person1.name = strdup("John Doe");
+      person1.age = 30;
 
-      p->year = 2023;
-      strcpy(p->name, "user);
+      Person person2;
+      person2 = person1; // Shallow copy
 
-      Person q* = malloc(sizeof(Person));
-      q->name = malloc(sizeof(char)*10);
+      printf("person1.name: %s\n", person1.name);
+      printf("person2.name: %s\n", person2.name);
 
-      // How do we copy p to q?
+      // Freeing person1's name will affect person2's name too
+      free(person1.name);
 
-      q = p; //?
+      return 0;
    }
 \end{lstlisting}
+
+\begin{lstlisting}[language=C, caption=Deep copy]
+   #include <stdio.h>
+   #include <string.h>
+
+   typedef struct {
+      char *name;
+      int age;
+   } Person;
+
+   Person deep_copy(Person original) {
+      Person new_person;
+      new_person.name = strdup(original.name);
+      new_person.age = original.age;
+      return new_person;
+   }
+
+   int main() {
+      Person person1;
+      person1.name = strdup("John Doe");
+      person1.age = 30;
+
+      Person person2 = deep_copy(person1); // Deep copy
+
+      printf("person1.name: %s\n", person1.name);
+      printf("person2.name: %s\n", person2.name);
+
+      free(person1.name);
+      free(person2.name);
+
+      return 0;
+   }
+
+\end{lstlisting}
+
+In C, the \texttt{memcpy()} function 
+\begin{lstlisting}[language=C]
+   memcpy(void* dest, const void* src, size_t n)
+   \end{lstlisting}
+copies \texttt{n} characters from memory area \texttt{src} to memory area \texttt{dest}.
+
+\begin{lstlisting}[language=C, caption=memcpy]
+   #include <stdio.h>
+   #include <string.h>
+
+   int main () {
+      const char src[50] = "Worlddddddddd";
+      char dest[50];
+      strcpy(dest,"Heloooo!!");
+      printf("Before memcpy dest = %s\n", dest);
+      memcpy(dest, src, strlen(src)+1);
+      printf("After memcpy dest = %s\n", dest);
+      
+      return(0);
+   }
+\end{lstlisting}
+
+\section{Arithmetic Expression}
+Arithmetic expressions are mathematical expressions that consist 
+of operands (numbers) and operators (such as +, -, *, /) 
+that dictate how the operands are combined.
+In programming, there are three common ways to represent and 
+evaluate arithmetic expressions: infix notation, postfix, and prefix.
+
+\begin{enumerate}
+   \item[Infix Notation] In infix notation, operators are placed between their operands. This is the most common way we write mathematical expressions.
+
+      - For example: '3 + 5 * 2'
+
+      - To evaluate infix expressions, we use the order of operations (PEMDAS: Parentheses, Exponents, Multiplication and Division, Addition and Subtraction).
+   
+   \item[Postfix] In postfix notation, operators follow their operands. There are no parentheses, and the order of operations is implicit.
+      
+      - For example: '3 5 2 * +'
+
+      - To evaluate postfix expressions, we use a stack data structure.
+   
+   \item[Prefix] In prefix notation, operators precede their operands. Like postfix, there are no parentheses, and the order of operations is implicit.
+     
+      - For example: '+ 3 * 5 2'
+\end{enumerate}
 
 \end{document}
