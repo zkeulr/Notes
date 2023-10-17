@@ -1142,6 +1142,61 @@ If the two roots are not distinct, then
 \[S(n) = pr^{n-1} + q(n-1)r^{n-1}.\]
 In either case $p$ and $q$ may be found by substiting 
 values of $n$ into the formula and solving the resultant 
-system of equations. 
+system of equations. Say we have the Fibonacci sequence, defined by 
+\begin{align*}
+    F(0) &= 1 \\
+    F(1) &= 2 \\
+    F(n) &= F(n-1) + F(n-2).
+\end{align*}
+Then the polynomial we need to solve is 
+\[t^2 - t - 1 = 0.\]
+The solutions are given by the quadratic formula, 
+\begin{align*}
+    t &= \frac{1 \pm \sqrt{1 + 4}}{2} \\
+    &= \frac{1 \pm \sqrt{5}}{2}.
+\end{align*}
+Call the two roots $\phi$ and $\psi$. Then the solution is 
+\begin{align*}
+    F(n) &= p\phi^{n} + q\phi^{n} \\
+    F(0) &= p + q \\
+    &= 1 \\
+    F(1) &= p\phi + q\psi \\
+    &= 1
+\end{align*}
+Solving the system of equations yields 
+\begin{align*}
+    p &= \frac{1}{\sqrt{5}} \\
+    q &= \frac{1}{\sqrt{5}}.
+\end{align*}
+So our final formula is 
+\[F(n) = \frac{\phi^n - \psi^n}{\sqrt{5}}.\]
 
+It is natural to wonder what recurrence relations have an 
+equivalent closed form, and how to find that closed form. Let's start 
+with a simple example. Say we have a \emph{first-order homogeneous 
+linear} recurrence relation of the form
+\begin{align*}
+    S(1) &= S_0 \\
+    S(n) &= cS(n-1)
+\end{align*}
+It is easy to see that the solution is 
+\[S(n) = S_0 c^{n-1}.\]
+Take instead a quadratic homogeneous relation of the form
+\begin{align*}
+    S(1) = S_0 \\
+    S(n) &= cS^2(n-1).
+\end{align*}
+Then what will the closed form look like? 
+\marginnote{\emph{Hint: try calculating $S(n)$ by plugging in $S(n-2), S(n-3), \dots$}}
+Say you have a $k$th order linear homogeneous relation of the form
+\[S(n) = c_1 S(n-1) + c_2 S(n-2) + \dots + c_k S(n-k).\]
+The characteristic equation will be 
+\[t^k - c_1 t^{k-1} - \dots c_{k-1} t - c_k.\]
+If the $i$th root is $r_i$, then 
+\[S(n) = \alpha_1 r_1^{n-1} + \alpha_2 r_2^{n-1} + \dots + \alpha_k r_k^{n-1}.\]
+\marginnote{This formula implies that for second, third, and fourth order 
+recurrence relations it is always possible to find a closed form, since one can 
+always find the roots for second, third, and fourth degree polynomials. 
+However, unlike quadratics, cubics, and quartics, the general fifth-or-above order polynomial cannot be 
+solved as proved by the Abel-Ruffini theorem.}
 \end{document}
