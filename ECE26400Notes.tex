@@ -1079,9 +1079,9 @@ make it into functions, like the below.
       }
       
       if (q != NULL) {
-      p->next = q->next; // reroute the link
-      free(q); // release the memory. 
-      //Note that the order of "reroute" and "release" matters
+         p->next = q->next; // reroute the link
+         free(q); // release the memory. 
+         //Note that the order of "reroute" and "release" matters
       }
 
       return head;
