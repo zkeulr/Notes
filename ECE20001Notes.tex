@@ -1511,8 +1511,100 @@ AC circuits, with some small changes.
     \item Source transformations
     \item Thevenin equivalents
 \end{itemize}
+\marginnote{
 Superposition allows us to solve circuits with sources of different 
 frequencies, since normally we can only add phasors if the frequencies 
-are identical. 
+are identical.}
 
+\section{Average power}
+We can use the definition of instantaneous 
+power to find the power absorbed for AC sources. 
+\[p(t) = v(t)i(t)\]
+Recall also from your calculus courses that 
+the average value of a function over 
+an interval $[a,b]$ is
+\[\frac{1}{b-a} \int_{a}^{b} f(x) dx.\]
+Thus, we can use the formula for instantaneous 
+power to calculate average power absorbed 
+by an element. Let's first find 
+an expression for power in an AC circuit. 
+\begin{align*}
+    p(t) &= i(t)v(t) \\
+    &= (I_m \cos(\omega t + \theta_i)) (V_m \cos(\omega t +theta_v)) \\
+    &= \frac{V_m I_m}{2} cos(2 \omega t + \theta_v + \theta_i) + \frac{V_m I_m}{2} cos(\theta_v - \theta_i)
+\end{align*}
+To find the average power, let's use the period as our domain. 
+\begin{align*}
+    P &= \frac{1}{T} \int_{t_0}^{t_0 + T} p(t) dt \\
+    &= \frac{V_m I_m}{2T} \int_{t_0}^{t_0 + T} cos(2 \omega t + \theta_v + \theta_i) + cos(\theta_v - \theta_i) dt
+\end{align*}
+Reason that, over a period, the integral of a sinusoidal
+function is zero. Therefore the only part that contributes to 
+the average power is the $cos(\theta_v - \theta_i)$ term. 
+\marginnote{If you'd like, you may compute the integral and confirm this.}
+Therefore the average power is given by 
+\[P = \frac{V_m I_m}{2} cos(\theta_v - \theta_i)\]
+
+Let's see an example of this in fig. \ref{fig:ap}.
+\begin{figure}
+    \center
+    \caption{Average power}
+    \label{fig:ap}
+
+    \begin{circuitikz}[american voltages]
+        \draw (0,0) to[V, l=$150\cos(10t+ 10^\circ)$ V, invert] (0,3)
+        to[R, l=$17.5 \Omega$] (2,3)
+        to[L, l=6 H] (4,3)
+        to[short] (6,3)
+        to[R, l=$25 \Omega$] (6,1.5)
+        to[C, l=2 mF] (6,0)
+        to[short] (0,0)
+        ;
+        \draw (4,3) to[R, l=$25 \Omega$] (4,1.5)
+        to[L, l=5 H] (4,0)
+        ;
+    \end{circuitikz}
+
+\end{figure}
+We can calculate the equivalent impedance
+of the circuit to find the current. It works out to be 
+\[Z = 80 + j60 \Omega,\]
+making our current 
+\begin{align*}
+    I &= \frac{V}{Z} \\
+    &= \frac{150 \angle 10^\circ}{80 + j60} \\
+    &= 1.5 \angle -26.87^\circ
+\end{align*}
+We then have that 
+\begin{align*}
+    P &= \frac{V_m I_m}{cos(\theta_v - \theta_i)} \\
+    &= \frac{150 \times 1.5}{2} \cos(10^\circ + 26.87^\circ) \\
+    &= 90 W
+\end{align*}
+
+The effective value (also known as root mean 
+square or RMS) of a signal is given by the formula 
+\[X_{rms} = X_{emf} = \sqrt{\frac{1}{T}\int_{t_0}^{t_0+T} x^2(t) dt}.\]
+If $v(t) = V_m \cos(\omega t + \theta_v)$, then 
+\begin{align*}
+    V_{RMS} &= \sqrt{\frac{1}{T} \int_{t_0}^{T + t_0} V_m^2 (\cos(\omega t + \theta_v))^2 dt} \\
+    &= \sqrt{\frac{1}{T} \int_{t_0}^{T + t_0} \frac{1}{2} + \frac{\cos(2 \omega t + 2 \theta_v)}{2} dt} \\
+    &= \sqrt{\frac{V_m^2}{T} \frac{T}{2}} \\
+    &= \frac{V_m}{\sqrt{2}}
+\end{align*}
+Notice that our expression for average power
+from earlier, 
+\[P = \frac{V_m I_m}{2} cos(\theta_v - \theta_i),\]
+is therefore equal to 
+\[V_{RMS} I_{RMS} \cos(\theta_v - \theta_i).\]
+This is true in general for complex impedance. 
+In fact, it can be shown that 
+\begin{align*}
+    P &= V_{RMS} I_{RMS} \cos(\theta_v - \theta_i) \\
+    &= |\tilde{V_{RMS}}|^2 \mathbb{R}(\frac{1}{Z^*})
+\end{align*}
+
+Capacitors and inductors don't ever absorb power, although they do have impedance. 
+The only components able to absorb power in a circuit are resistors. Therefore, the 
+average power we calculate will be the power absorbed by the resistors in the circuit. 
 \end{document}
