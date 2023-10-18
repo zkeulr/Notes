@@ -1092,6 +1092,12 @@ can be in.
     \item Steady-state: current is flowing. The average drift velocity is nonzero, 
     and there is no change in the deposits of excess charge on the wire anywhere.
 \end{enumerate} 
+Equilibrium is rather boring, so let's focus on transient and steady-state. Imagine connecting 
+a battery to a loop of wire. Just after the circuit is connected, the circuit is in transience.
+There is a disturbance in the previous (equilibrium) electric field right next to the battery. 
+At the speed of light, the region next to the disturbance updates its electric field in response, 
+and the next region updates, and so on until steady state is achieved.
+
 Importantly, when a circuit is in steady-state, the current at the start equals the current 
 at the end. 
 Since current is just the flow of electrons, the current needs to be conserved
@@ -1128,9 +1134,9 @@ increases when the wire narrows.
 \marginnote{Note that the current is still constant provided the circuit is 
 in steady-state, although the drift velocity can change.}
 The electric field and drift velocity both increase in order to keep 
-the current constant, according to the equation. 
+the current constant, according to the equation 
 \[I = |q|nAu|E|\]
-Where $|q|$ is the charge on an electron, $n$ is the number of electrons per 
+where $|q|$ is the charge on an electron, $n$ is the number of electrons per 
 volume of material, $A$ is the cross-sectional area in consideration, 
 $u$ is the electron mobility (a constant that determines how quickly 
 an electron can move through a material), and $E$ is the strength of the electric field
@@ -1142,4 +1148,63 @@ to the wire at that point (see fig. \ref{fig:efww})
     \label{fig:efww}
     \includegraphics{images/eflineswire.png}
 \end{figure}
+
+We usually make the assumption that wires
+are ideal and allow current to flow 
+freely. Elements for which this is not 
+the case are called \emph{resistors}. 
+
+\defn{Resistor}{a part of the circuit that resists 
+the passage of electrons.}
+Placing a resistor in a circuit reduces 
+the overall electric field of the circuit, 
+but within the resistor, the electric field is higher 
+in order to force eletrons along and maintain a 
+constant current. 
+
+Now, as you are familiar with voltage and the general
+concept of potential, this next part should be no surprise to you.
+We are now going to discuss \emph{Kirchhoff's loop rule}. 
+The rule states that the total change in eletric potential 
+as you move around a circuit is zero. That is sensible, 
+since no matter where you go in an eletric field, if you return 
+to the same point you will have the same potential 
+regardless of what you did between leaving and coming back. 
+\marginnote{This is analogous to gravitational potential and height. 
+If you climb a tree, then jump down, then run in circles, 
+and climb back up the tree, you end with the same potential as 
+when you started.}
+Mathematically, we express this as 
+\[\sum_{i=0}^n \Delta V_i = 0.\]
+You can pick any closed loop to use the loop rule, 
+and as long as you end where you started the rule will be valid.
+
+Assuming there isn't anything within 
+your circuit adding to electric potential, 
+the only gain in potential difference will 
+be across the battery. Imagine a battery 
+as a capacitor, where chemical reactions 
+constantly replenish the electrons that flow 
+from the negative plate. The change in 
+voltage across the battery of length $s$ is simply 
+\[|\Delta V| = Es = \frac{Fs}{e}.\]
+This quantity, the energy input per unit charge, is called 
+the \emph{electromotive force} (emf). 
+The emf is the function of a battery to 
+maintain a potential difference between its
+terminals. The emf is measured in volts, but 
+the energy input isn't electric. The energy input 
+is from however the battery works. It's most commonly 
+chemical energy, but can be nuclear, gravitational, 
+kinetic, or any other flavor. 
+
+If you have two batteries in series, 
+then the potential difference across them 
+is $2emf$. The electric field is doubled everywhere 
+in the circuit, the drift speed is doubled, 
+and the current is doubled. Any element 
+that uses power in the circuit (such as 
+a lightbulb) will have its power absorbtion quadrupled 
+according the the equation for power, 
+$P = I^2 R$. 
 \end{document}
