@@ -1199,4 +1199,82 @@ recurrence relations it is always possible to find a closed form, since one can
 always find the roots for second, third, and fourth degree polynomials. 
 However, unlike quadratics, cubics, and quartics, the general fifth-or-above order polynomial cannot be 
 solved as proved by the Abel-Ruffini theorem.}
+
+\section{Operations on Sets}
+A set is a collection of distinct objects. 
+There can be any number of items, be it a 
+collection of whole numbers, months of a year, 
+types of birds, and so on. Each item in the 
+set is known as an element of the set. 
+Some examples of sets: 
+\begin{align*}
+    A &= \{1, 2, 3, 4, \dots\} \\
+    S &= \{"blue", "red", "green", 10, 10, 20\} \\
+    Z &= \{\frac{\pi}{2}n\}, n \in \mathbb{Z^+}
+\end{align*}
+Table \ref{tab:setrules} holds common set operations and notation. 
+\begin{table}[ht]
+    \centering
+    \caption{Set notation}
+    \begin{tabular}{|c|c|c|}
+    \hline
+    Name & Description & Symbol\\
+    \hline
+    Union & All elements in either $A$ or $B$ & $A \cup B$ \\
+    Intersection & Only shared elements in $A$ and $B$ & $A \cap B$\\
+    Subset & $A$ is composed only of elements in $B$ & $A \subseteq B$ \\
+    Proper subset & $A$ is a subset of $B$ and $A \neq B$ & $A \subset B$ \\ 
+    In & $x$ is a member of $A$ & $x \in A$ \\
+    Cartesian product & $\{(a, b) | x \in A \land y \in B\}$ & $A \times B$ \\
+    Squaring & $A \times A$ & $A^2$ \\
+    Empty set & The set with no elements & $\varnothing$ \\
+    \hline
+    \end{tabular}
+    \label{tab:setrules}
+\end{table}
+
+Sets are often associated with combinatorics. The foundational idea of 
+combinatorics is known as the \emph{fundemental princple of counting}, and says
+if an event can occur in $m$ different ways, and another event can 
+occur in $n$ different ways, then the total number of occurrences 
+of the events is $mn$. 
+
+We also have the principle of inclusion and exclusion, which states 
+that the number of elements in $A_1 \cup A_2 \cup \dots \cup A_n$ is
+\begin{align*}
+    N &= |A_1 \cup A_2 \cup \dots \cup A_n| \\
+    &= \sum_{1 \leq j \leq n} |A_i| - \sum_{1 \leq i < \leq n} |A_i \cap A_j| \\
+    &+ \sum_{1 \leq i < j < k \leq n} |A_i \cap A_j \cap A_k| - \dots \\
+    &+ (-1)^{n+1} |A_i \cap A_j \cap \dots \cap A_n|.
+\end{align*} 
+That's a nasty formula. What it's saying is when you have the union of sets, 
+you can't just add the number of elements in each together because 
+they might share elements, and sets don't allow duplicates. So you have 
+to subtract their intersection to avoid overcounting. 
+If you have just two sets, the formula becomes 
+\[N = |A| + |B| - |A \cap B|,\]
+which hopefully is slightly clearer. 
+
+With all this talk of combinatorics, I would be remiss to not define
+a permutation. A permutation is an ordered arrangement of objects.
+Contrast this with a combination, where order does not matter. 
+We denote a permutation of $k$ distinct objects from $n$ total 
+objects as $P(n,k) = \frac{n!}{(n-r)!}$. The formula for a
+combination (where order doesn't matter) is $C(n,k) = \frac{n!}{(n-k)!k!}$
+Note that we are assuming each object is distinct.
+
+Now, let's turn to a favorite of mathematical problem solvers, 
+the \emph{pigeon hole principle}. The principle states that 
+if more than $k$ pigeons fly into $k$
+pigeonholes, then at least one pigeonhole
+will have more than one pigeon. More generally,
+If more than $k$ items are placed into $k$ bins
+then at least one bin will contain more than
+one item. This seemingly trivial principle has 
+surprisingly deep ramifications for problem solving. 
+\marginnote{See also the $Chicken McNugget theorem$, 
+which states that states that for any two relatively 
+prime positive integers $m,n$, the greatest integer 
+that cannot be written in the form $am + bn$ for 
+nonnegative integers $a, b$ is $mn-m-n$.}
 \end{document}
