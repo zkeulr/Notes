@@ -12,6 +12,7 @@
 \usepackage{marginfix}
 
 \usepackage{tikz}
+\usepackage{circuitikz}
 \usepackage{amsmath,amsthm}
 \usetikzlibrary{shapes}
 \usetikzlibrary{positioning}
@@ -1207,4 +1208,93 @@ that uses power in the circuit (such as
 a lightbulb) will have its power absorbtion quadrupled 
 according the the equation for power, 
 $P = I^2 R$. 
+
+To this point, we have been approximating our batteries 
+as capacitors, those plates of charge separated by a distance. 
+Imagine you have a battery hooked up to a wire with two plates 
+on each end, like in fig. \ref{fig:cap}. 
+\begin{figure}
+    \center 
+    \caption{Capacitor and battery}
+    \label{fig:cap}
+    \includegraphics{images/Energy-Stored-in-Capacitor.jpg}
+\end{figure}
+The symbol for capacitors is shown in fig. \ref{fig:capa}
+\begin{figure}
+    \center 
+    \caption{Capacitor symbol}
+    \label{fig:capa}
+    \begin{circuitikz}
+        \draw (0,0) to[C] (0,1);
+    \end{circuitikz}
+\end{figure}
+Capacitors, as many ECE students are aware, are immensely useful elements.
+They can be used to store energy, stabilize signals, and detonators for explosives. 
+If you imagine hooking up an uncharged capacitor to a battery, the voltage 
+will look like fig. \ref{fig:capcharge}.
+\begin{figure}
+    \center 
+    \caption{Capacitor charging}
+    \label{fig:capcharge}
+    \includegraphics{images/2021-06-fig2.jpg}
+\end{figure}
+As more and more charge piles up on the plates of the capcitor, the incoming charge is 
+gradually reduced until current flow essentially stops. Likewise, when discharging a capacitor, 
+the current will initially be large as the charges piled up on the capacitor, but as charges 
+on the plates flow around the wire and equalize, the current will gradually slow and eventually stop. 
+The graph of voltage across a capacitor as it discharges looks like fig. \ref{fig:capdis}.
+\begin{figure}
+    \center 
+    \caption{Capacitor discharging}
+    \label{fig:capdis}
+    \includegraphics{images/Capacitor-discharge-curve.png}
+\end{figure}
+The relationship between the amount of charge piled up 
+on a plate of the capacitor and the voltage of the capacitor is 
+\[Q = C|V|,\]
+where $C$ is known as the capacitance and is a constant specific to 
+a certain capacitor. 
+The capacitance is found via the formula 
+\[C = \frac{\epsilon_0 A}{s},\]
+where $A$ is the area of a plate and $s$ is the distance between plates. 
+If capacitors are connected in parallel, you can imagine them as just one 
+big capacitor with an area that is the sum of the individual areas and 
+charge that is the sum of the charges. Thus the capacitance of parallel
+capacitors is simply the sum of the individual capacitances, or mathematically, 
+\[C_{total} = C_1 + C_2 + ... C_n = \sum_{i=1}^{n} C_i.\]
+If we instead have capacitors in series, i.e. hooked up one after the other, 
+we know that the voltage drop across the total will be equal to 
+the sum of voltage drops across each capacitor. That is, 
+\begin{align*}
+    V_{total} &= V_1 + V_2 + \dots V_n \\
+    \frac{Q}{C_{total}} &= \frac{Q}{C_1} + \frac{Q}{C_2} + \dots + \frac{Q}{C_n} \\
+    \frac{1}{C_{total}} &= \frac{1}{C_1} + \frac{1}{C_2} + \dots + \frac{1}{C_n}
+\end{align*}
+\marginnote{
+As I was typing these notes, my friend asked an excellent question about 
+Kirchhoff's current law and capacitors. Since charge in piling up on 
+the surfaces of the capacitor, the current never has a chance to flow across 
+the capacitor and Kirchhoff's current law is violated. Kirchhoff's current law 
+only holds for steady-state, and since the current is always changing across 
+a capacitor, then we can't use Kirchhoff's current law! However, any negative charge 
+that accumulates on one plate will push away charge on the other plate, so current 
+entering one plate of a capacitor equals current leaving the other plate. 
+}
+In these cases we have been assuming a vacuum between the plates of the capacitor. 
+If instead there is some insulating medium, the eletric field within 
+the plates of the capacitor will be 
+\[E = \frac{Q}{KA\epsilon_0}.\]
+That implies 
+\[C = K\frac{\epsilon_0 A}{s},\]
+which tells us that the higher $K$ (the dieletric constant) is 
+between the plates of a capacitor, the higher the capacitance. 
+Manufacturers use this fact in making capacitors by putting
+a highly insulating material between the plates, which are then rolled together
+into a cylinder like in fig. \ref{fig:realcap}
+\begin{figure}
+    \center 
+    \caption{Real capacitor}
+    \label{fig:realcap}
+    \includegraphics{images/internal-construction-(1).png}
+\end{figure}
 \end{document}
