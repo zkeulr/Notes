@@ -105,7 +105,8 @@ for electrical and computer engineers as well as for engineers
     \item Impedance of an inductor: $j \omega L$
     \item Equivalent impedance for impedances in series: $Z_{eq} = \sum_{i}^{n} Z_i$
     \item Equivalent impedance for impedances in parallel: $\frac{1}{Z_{eq}} = \sum_{i}^{n} \frac{1}{Z_i}$
-
+    \item Maximum power extracted by a load in DC circuits: $\frac{V{th}^2}{4R_{th}}$
+    \item Maximum power extracted by a load in AC circuits: $\frac{|\tilde{V}_{th}|^2}{8R_{th}}$
 \end{enumerate}
 
 \pagebreak 
@@ -1615,4 +1616,65 @@ In fact, it can be shown that
     P &= V_{RMS} I_{RMS} \cos(\theta_v - \theta_i) \\
     &= |\tilde{V_{RMS}}|^2 \mathbb{R}(\frac{1}{Z^*})
 \end{align*}
+The impedance of capacitors and inductors 
+varies based on the frequency of the input signal. 
+If you have a circuit with these elements present, 
+you can plot how the voltage out changes in response to frequency, as 
+in fig. \ref{fig:vf}.
+\begin{figure}
+    \center 
+    \caption{Voltage vs. Frequency}
+    \label{fig:vf}
+    \begin{tikzpicture}
+        \begin{axis}[
+            xlabel={$\omega$},
+            ylabel={Voltage out},
+            xmin=0, xmax=10, % Set your desired x-axis limits
+            ymin=0, ymax=5,  % Set your desired y-axis limits
+            legend pos=north west, % Adjust legend position if needed
+            grid=both, % Enable grid
+            minor tick num=1, % Number of minor ticks between major ticks
+            width=0.8\linewidth, % Adjust the width of the plot
+            height=6cm, % Adjust the height of the plot
+            ]
+            
+            \addplot[blue, mark=*, samples=100, domain=0:10] {2*sin(2*x)+2}; % Example function, replace with your data
+            
+            % Add more \addplot commands for additional data series if needed
+            
+            \legend{Voltage}
+          \end{axis}
+    \end{tikzpicture}
+\end{figure}
+
+Say we have a system like fig. \ref{fig:avgpow}. 
+\begin{figure}
+    \center
+    \caption{Power}
+    \label{fig:avgpow}
+    \begin{circuitikz}[american voltages, european resistors]
+        \draw (0,0) to[V, l=$\tilde{V}_{th}$, invert] (0,2)
+        to[R, l=$Z_{th}$] (4,2)
+        to[R, l=$Z_{L}$] (4,0)
+        to[short] (0,0)
+        ;
+    \end{circuitikz}
+\end{figure}
+We are interested in finding the
+load that extracts the maximum power. 
+Recall that 
+\[P_{load} = \frac{1}{2}R_{load}|\tilde{I}_{load}|^2.\]
+The current through the circuit is 
+\begin{align*}
+    \tilde{I} &= \frac{\tilde{V}_{th}}{Z_{th} + Z_L} \\
+    &= \frac{\tilde{V}_{th}}{R_{th} + R_{load} + j(X_{th} + X_{load})} \\
+    |\tilde{I}| &= \frac{|\tilde{V}_{th}|}{\sqrt{(R_{th} + R_{load})^2+(X_{th} + X_{load})^2}}
+\end{align*}
+Ergo, 
+\begin{align*}
+    P_{load} &= \frac{R_{load}|\tilde{V}_{th}|^2}{2((R_{th} + R_{load})^2+(X_{th} + X_{load})^2)} \\
+\end{align*}
+Which has a maximum when $X_{load} = -X_{th}$ and gives us a maximum possible 
+value of 
+\[P_{load,max} = \frac{|\tilde{V}_{th}|^2}{8R_{th}}\]
 \end{document}
