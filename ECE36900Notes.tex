@@ -1261,7 +1261,10 @@ Contrast this with a combination, where order does not matter.
 We denote a permutation of $k$ distinct objects from $n$ total 
 objects as $P(n,k) = \frac{n!}{(n-r)!}$. The formula for a
 combination (where order doesn't matter) is $C(n,k) = \frac{n!}{(n-k)!k!}$
-Note that we are assuming each object is distinct.
+Note that we are assuming each object is distinct. If the first object 
+is repeated $r_1$ times, the second $r_2$ times, and so on, out of 
+a total of $n$ objects, then the number of possible permutations is 
+$\frac{n!}{r_1!r_2!\dots r_n!}$.
 
 Now, let's turn to a favorite of mathematical problem solvers, 
 the \emph{pigeon hole principle}. The principle states that 
@@ -1272,9 +1275,13 @@ If more than $k$ items are placed into $k$ bins
 then at least one bin will contain more than
 one item. This seemingly trivial principle has 
 surprisingly deep ramifications for problem solving. 
-\marginnote{See also the $Chicken McNugget theorem$, 
-which states that states that for any two relatively 
+\marginnote{See also the Chicken McNugget 
+theorem, which states that states that for any two relatively 
 prime positive integers $m,n$, the greatest integer 
 that cannot be written in the form $am + bn$ for 
 nonnegative integers $a, b$ is $mn-m-n$.}
+The pigeon hole principle can answer questions such 
+as "how many times must a die be rolled to guarentee
+that the same number is obtained twice?".
+
 \end{document}

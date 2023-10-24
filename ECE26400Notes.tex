@@ -1222,4 +1222,112 @@ evaluate arithmetic expressions: infix notation, postfix, and prefix.
       - For example: '+ 3 * 5 2'
 \end{enumerate}
 
+\section{Binary Tree}
+\defn{Binary tree}{a tree data structure where each 
+element has at least two children. See fig. \ref{fig:bintree}.}
+\begin{figure}
+   \center 
+   \caption{Binary tree}
+   \label{fig:bintree}
+   \includegraphics{images/Binary_tree_v2.svg.png}
+\end{figure}
+As we discuss binary trees, it will be useful to have descriptive
+terminology. Table \ref{table:bintree} contains terms used in reference
+to binary trees, along with their definitions. 
+\begin{figure}
+   \caption{Binary tree terms}
+   \label{table:bintree}
+   \begin{tabular}{| c | c |}
+      \hline 
+      Term & Definition \\
+      \hline 
+      Root & Topmost node in the tree \\
+      Child & Node descended from parent \\
+      Parent & Node with descendant children  \\ 
+      Siblings & Nodes with same level and parent \\
+      Leaf node & Node with no children \\
+      Subtree & Consists of a node and all descendants \\
+      Distance & \# of edges between nodes \\ 
+      Height & $max(distance) + 1$ \\
+      Full binary tree & Each node has two or no children \\
+      Balanced binary tree & left subtree height -
+      right subtree height $\leq 1$. \\
+      Degenerate binary tree & Nodes have at most one child \\
+      \hline
+   \end{tabular}
+\end{figure}
+\newpage
+In C, we can define a binary tree like so. 
+\begin{lstlisting}[language=C, caption=Binary tree]
+   typedef struct treenode {
+      int value;
+      struct treenode * left;
+      struct treenode * right;
+   } TreeNode;
+
+   TreeNode * tree_insert (TreeNode * tn, int val) {
+      if ( tn == NULL ) {
+         return treenode_construct (val);
+      } 
+      if ( val == (tn -> value) ) {
+         return tn;
+      } 
+      if ( val < (tn -> value) ) {
+         tn -> left = tree_insert (tn -> left, val);
+      } else {
+         tn -> right = tree_insert (tn -> right, val);
+      }
+   }
+
+   TreeNode * root = NULL;
+   root = malloc (sizeof(TreeNode));
+   root -> left = NULL;
+   root -> right = NULL;
+   root -> value = 10;
+
+   TreeNode * tn = malloc (sizeof(TreeNode));
+   tn -> left = NULL;
+   tn -> right = NULL;
+   tn -> value = 3;
+   root -> left = tn;
+
+   void tree_destroy (TreeNode * tn) {
+      if (tn == NULL) {
+         return;
+      }
+      tree_destroy (tn -> left);
+      tree_destroy (tn -> right);
+      free (tn);
+   }
+\end{lstlisting}
+A special kind of binary tree, the \emph{binary search tree}, 
+meets the following conditions. 
+\begin{enumerate}
+   \item Binary search tree is a binary tree that satisfies the conditions:
+   \item The data attribute in each node is distinct.
+   \item The data attribute are totally ordered.
+   \item For every node $p$, $p$'s value is larger than any node's value in $p$'s left subtree
+   and $p$'s value is smaller than any node's value in $p$'s right subtree
+\end{enumerate}
+If this conditions are met, 
+we can perform binary search 
+on the tree with the 
+following code:
+\begin{lstlisting}[language=C, caption={Binary search with binary tree}]
+   TreeNode * tree_search (TreeNode * tn, int val) {
+      if (tn == NULL) {
+         return NULL;
+      }
+      if (val == tn -> value) {
+         return tn;
+      }
+      if (val < tn -> value) {
+         return tree_search (tn -> left, val);
+      }
+      if (val > tn -> value) {
+         return tree_search (tn -> right, val);
+      }
+   }
+\end{lstlisting}
+
 \end{document}
