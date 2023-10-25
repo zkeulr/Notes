@@ -1677,4 +1677,100 @@ Ergo,
 Which has a maximum when $X_{load} = -X_{th}$ and gives us a maximum possible 
 value of 
 \[P_{load,max} = \frac{|\tilde{V}_{th}|^2}{8R_{th}}\]
+
+\section{Magnetically coupled circuits}
+
+Say we have a current-carrying loop, as in fig. \ref{fig:loop}. 
+\begin{figure}
+    \center 
+    \caption{Flux}
+    \label{fig:loop}
+    \includegraphics{images/Screenshot 2023-10-25 113639.png}
+\end{figure}
+The magnetic flux $\Phi$ is mathematically defined as 
+\[\Phi = \int_{S} \vec{B} \cdot d\vec{S}.\]
+Intuitively, flux is a measure of the total magnetic 
+field which passes through a given area. 
+We can also define the electromotive force (emf) as 
+\[\epsilon = -\frac{d \Phi}{dt}\]
+and the self-inductance as 
+\[L = \frac{\Phi}{I}.\]
+We can also have two loops near each other, as in fig. \ref{fig:mutual}.
+\begin{figure}
+    \center 
+    \caption{Mutual inductance}
+    \label{fig:mutual}
+    \includegraphics{images/mutualinductance.png}
+\end{figure}
+In this case, the flux through the second loop 
+due to the current in the first is 
+\[\Phi_{12} = \int_{S_2} \vec{B}_1 \cdot d\vec{S}_2.\]
+Similarly as in the case where we had one loop, the 
+\emph{mutual} inductance is defined as 
+\[L_{12} = \frac{\Phi_{12}}{I_1}.\]
+We can represent magnetically coupled coils as 
+in fig. \ref{fig:coupled}. 
+\begin{figure}
+    \center 
+    \caption{Coupled loops}
+    \label{fig:coupled}
+    \includegraphics{images/coupledloops.png}
+\end{figure}
+and this system has a \emph{coupling coefficient} 
+of $k = \frac{L_{12}}{\sqrt{L_1 L_2}}$.
+Things can get messy when dealing with inductors, 
+so to keep it straight, let's introduce the dot convention. 
+The dot convention places a dot above an inductor and tells us 
+that the current entering the dotted terminal of one
+coil (inductor) induces a positive voltage oriented
+towards the dotted terminal of the other coil.
+We know that 
+\begin{align*}
+    v_{1}(t) &= L_1 \frac{di_1(t)}{dt} + L_{12}\frac{di_2(t)}{dt} \\
+    v_{2}(t) &= L_1 \frac{di_2(t)}{dt} + L_{12}\frac{di_1(t)}{dt}
+\end{align*}
+and we can find the direction of the induced voltage using 
+fig. \ref{fig:voltdir}
+\begin{figure}
+    \center 
+    \caption{Voltage direction}
+    \label{fig:voltdir}
+    \includegraphics[width=\textwidth/2]{images/directionofinducedvoltage.png}
+\end{figure}
+The transformer is a component that uses magnetic coupling,
+and is shown in fig. \ref{fig:transformer}. 
+\begin{figure}
+    \center 
+    \caption{Transformer}
+    \label{fig:transformer}
+    \includegraphics[width=\textwidth/2]{images/Transformer3d_col3.svg.png}
+\end{figure}
+The circuit diagram is shown in fig. \ref{fig:transschem}. 
+\begin{figure}
+    \center 
+    \caption{Transformer schematic}
+    \label{fig:transschem}
+    \includegraphics[width=\textwidth/2]{images/Ideal_transformer.svg.png}
+\end{figure}
+Interestingly, for transformers, the ratio of the voltages 
+is equal to the ratio of the number of turns in each 
+coil. That is, 
+\[\frac{v_2(t)}{v_1(t)} = \frac{N_2}{N_1}.\]
+We can also have a terminated transformer circuit, 
+as shown in fig. \ref{fig:termtrans}. 
+\begin{figure}
+    \center 
+    \caption{Terminated transformer}
+    \label{fig:termtrans}
+    \includegraphics[width=\textwidth/2]{images/termtrans.png}
+\end{figure}
+In this case, we have that 
+\begin{align*}
+    \tilde{V}_{in} &= Z_{in} \tilde{I}_{in} + \tilde{V}_1 \\
+    \tilde{V}_{2} &= Z_{out}\frac{\tilde{I}_{in}}{n} \\
+    \frac{\tilde{V}_{in}}{\tilde{I}_{in}} &= Z_{in} + \frac{Z_[out]}{n^2}
+\end{align*}
+This final expression is the 
+input impedance of a terminated 
+ideal transformer. 
 \end{document}
