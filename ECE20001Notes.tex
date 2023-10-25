@@ -11,7 +11,7 @@
 \usepackage{marginfix}
 
 \usepackage{pgfplots}
-\usepackage{circuitikz}
+\usepackage[americancurrents, americaninductors, americanvoltages, americanresistors]{circuitikz}
 \usepackage{siunitx}
 \usepackage{amsmath,amsthm}
 \usetikzlibrary{shapes}
@@ -1768,9 +1768,48 @@ In this case, we have that
 \begin{align*}
     \tilde{V}_{in} &= Z_{in} \tilde{I}_{in} + \tilde{V}_1 \\
     \tilde{V}_{2} &= Z_{out}\frac{\tilde{I}_{in}}{n} \\
-    \frac{\tilde{V}_{in}}{\tilde{I}_{in}} &= Z_{in} + \frac{Z_[out]}{n^2}
+    \frac{\tilde{V}_{in}}{\tilde{I}_{in}} &= Z_{in} + \frac{Z_{out}}{n^2}
 \end{align*}
 This final expression is the 
 input impedance of a terminated 
 ideal transformer. 
+
+This is a lot of new information 
+presented very briefly, so to cement it, 
+let's practice with a few problems. Say we have the 
+circuit in fig. \ref{fig:hw10.1}. 
+\begin{figure}
+    \caption{Problem 1}
+    \label{fig:hw10.1}
+    \begin{circuitikz}
+        % Transformer 1
+        \draw (0,0) to[V, l=$\tilde{V}_s$, invert] (0,3)
+        to[R, l=$6 \Omega$] (3,3)
+        to[C, l=$-j8\Omega$] (6,3)
+        to[L, l=$j10\Omega$] (6,0)
+        to[short] (0,0)
+        ;
+
+        % Transformer 2
+        \draw (8,3) to[L, l=$j14\Omega$] (8,0)
+        to[short] (11,0)
+        to[L, l=$j6\Omega$, v<=$\tilde{V}_L$] (11,3)
+        to[R, l=$10\Omega$] (8,3)
+        ;
+
+        % Dots for current 
+        \node[circ] at (5.5,2.5) {};
+        \node[circ] at (8.5,2.5) {};
+    \end{circuitikz}
+\end{figure}
+We know that $\tilde{V}_s = 10 V_{rms}$ and that 
+the mutual inductance is $j5\Omega$. 
+We wish to find $\tilde{V}_L$.
+Recall that
+\begin{align*}
+    \frac{\tilde{V}_{in}}{\tilde{I}_{in}} &= Z_{in} + \frac{Z_{out}}{n^2} \\
+    \tilde{V}_{2} &= Z_{out}\frac{\tilde{I}_{in}}{n}
+\end{align*}
+Finding $\tilde{V}_{2}$ will be instrumental in determing 
+$\tilde{V}_L$, so let us focus on that. 
 \end{document}
