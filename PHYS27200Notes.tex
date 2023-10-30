@@ -117,7 +117,13 @@ solving by computer are employed throughout. For more information, consult the s
     \item Magnetic field due to a coil of length $L$ with $N$ loops: $\frac{\mu_0 nI}{2} \frac{L}{\sqrt{(L/2)^2 + R^2}}$
     \item Approximate magnetic field due to a coil: $\frac{\mu_0 N}{LI}$
     \item Magnetic dipole moment: $\mu = IA$
-    \item Charge on capacitor in an RC circuit: $Q(t) = V_{emf} C (1-e^{-t/RC})$
+    \item Charge on charging capacitor in an RC circuit: $Q(t) = V_{emf} C (1-e^{-t/RC})$
+    \item Charge on discharging capacitor in an RC circuit: $Q(t) = V_{emf} C e^{-t/RC}$
+    \item Current through capacitor in an RC circuit: $I(t) = \frac{V_{emf}}{R}e^{-\frac{t}{RC}}$
+    \item Equivalent resistance for resistors in series: $R_{eq} = R_1 + R_2 + \dots + R_n$. 
+    \item Equivalent resistance for resistors in parallel: $\frac{1}{R_{eq}} =frac{1}{R_1} + \frac{1}{R_2} + \dots + \frac{1}{R_n}$
+    \item Equivalent capacitance for capacitors in series: $\frac{1}{C_{eq}} =frac{1}{C_1} + \frac{1}{C_2} + \dots + \frac{1}{C_n}$
+    \item Equivalent capacitance for capacitors in parallel: $C_{eq} = C_1 + C_2 + \dots + C_n$
 \end{enumerate}
 
 \pagebreak
@@ -1407,4 +1413,106 @@ The solution of which is
 \[Q(t) = V_{emf} C e^{-t/RC}.\]
 Again, differentiating yields 
 \[I(t) = \frac{V_{emf}}{R} e^{-t/RC}.\]
+
+Now, let's examine how to find the equivalent
+resistance of resistors in series and parallel.
+First, let's define each of these terms. 
+\begin{itemize}
+    \item[Series] One after the other. 
+    \item[Parallel] Share two nodes, i.e. next to each other. 
+\end{itemize} 
+If resistors are in series, the current 
+through each is the same. If they are in 
+parallel, the voltage across each is the same. 
+Here is how we find the combined resistance if 
+resistors $R_1, R_2, \dots R_n$ are in series: 
+\[R_{eq} = R_1 + R_2 + \dots R_N.\]
+If they are in parallel, the equivalent 
+resistance is given by 
+\[\frac{1}{R_{eq}} = \frac{1}{R_1} + \frac{1}{R_2} + \dots + \frac{1}{R_n}.\]
+
+If we have a circuit with $N$ nodes and $B$ branches, 
+then the number of independent nodes is $N-1$ and 
+the number of independent loops is $B-N+1$. 
+In fig. \ref{fig:numn} there are two nodes (intersections of wires)
+and three branches (wires between two nodes). 
+\begin{figure}
+    \center 
+    \caption{Nodes and branches}
+    \label{fig:numn}
+    \begin{circuitikz}
+        \draw (0,0) to[short, i=$I_1$] (0,3)
+        to[R, l=$R_1$] (3,3)
+        to[R, i = $I_2$, l = $R_2$] (3,0)
+        to[V, l=$V_1$] (0,0)
+        ;
+        \draw (3,0) to[short] (6,0)
+        to[short, i=$I_3$] (6,3)
+        to[R, l=$R_3$] (3,3)
+        ;
+    \end{circuitikz}
+\end{figure}
+Ergo, we will have $2-1 = 1$ independent nodes 
+and $3-2+1 = 2$ independent loops. 
+This will give us a total of $1 + 2$ equations, 
+which will be enough to solve our circuit 
+(i.e. find all currents). These equations are 
+\begin{align*}
+    I_2 &= I_1 + I_3 \\
+    5 V - I_1 R_1 - I_2 R_2 &= 0 \\
+    I_2 R_2 - I_3 R_3 &= 0
+\end{align*}
+\marginnote{It is useful to know how 
+to solve systems of linear equations with 
+linear algebra.}
+
+Let's now consider capacitors in series and 
+parallel. For capacitors in parallel, 
+the equivalent capacitance is simply the sum 
+of the individual capacitances: 
+\[C_{eq} = C_1 + C_2 + \dots + C_n.\]
+If they are in series instead, 
+\[\frac{1}{C_{eq}} =frac{1}{C_1} + \frac{1}{C_2} + \dots + \frac{1}{C_n}.\]
+
+A term that often arises when discussing circuits is \emph{power}. 
+Power is defined as $P = I \Delta V$. For 
+resistors, $P = I \Delta V = I \times IR = I^2 R = \frac{V^2}{R}$. 
+That means that if you have lightbulbs in series 
+(so their current is the same). Then the 
+one that dissipates the most power 
+(and is therefore the brightest) will 
+be the one with the greatest resistance. 
+If you have lightbulbs in parallel and a voltage source $V$, 
+then the power dissipated by each will be 
+\begin{align*}
+    P_1 &= \frac{V^2}{R_1} \\
+    P_2 &= \frac{V^2}{R_2} \\
+    \dots \\\
+    P_n &= \frac{V}{R_n}.
+\end{align*}
+This means that the one with the smallest 
+resistance will dissipate the most power. 
+
+Let's now consider \emph{ammeters}, 
+\emph{voltmeters}, and \emph{ohmmeters}. 
+\begin{itemize}
+    \item[Ammeter] measures current (Amps)
+    \item[Voltmeter] measures voltage difference (Volts)
+    \item[Ohmmeter] measures resistance (Ohms)  
+\end{itemize}
+An ammeter is inserted into a circuit in series with the circuit
+element whose current you want to measure. It has a low resistance 
+so it doesn't impede the current. A voltmeter is connected 
+in parallel with the element. It has a very high 
+internal resistance so it doesn't affect the current much 
+(it still needs to take some current, since it 
+works by measuring the voltage drop across 
+the internal resistor). An ohmemter is connected 
+in series and contains a small voltage source. 
+It calculates the resistance by taking the 
+value of the voltage and dividing it by 
+the current observed in the contained ammeter. 
+\marginnote{All of these are ideal components, 
+but in reality, ammeters have internal resistance just 
+as batteries and wires do.}
 \end{document}
