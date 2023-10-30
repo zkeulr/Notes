@@ -100,15 +100,18 @@ for electrical and computer engineers as well as for engineers
     \item Energy stored in capacitor: $\frac{1}{2}CV^2$
     \item Energy stored in inductor: $\frac{1}{2}LI^2$
     \item Voltage in RC circuit: 
-    $v_c(\infty) +\left(v_c(t_0) - v_c(\infty)\right)e^{(\frac{-1}{RC})(t - t_0)} = x(t_0)e^{\lambda (t-t_0)}$
-    (if $v_c(\infty) = 0$)
+    $v_c(\infty) +\left(v_c(t_0) - v_c(\infty)\right)e^{(\frac{-1}{RC})(t - t_0)}$
     \item Current in RL circuit: $I_L(\infty) +\left(I_L(t_0) - I_L(\infty)\right)e^{(\frac{-R}{L})(t - t_0)}$
     \item Impedance of a capacitor: $\frac{-j}{\omega C}$
     \item Impedance of an inductor: $j \omega L$
     \item Equivalent impedance for impedances in series: $Z_{eq} = \sum_{i}^{n} Z_i$
     \item Equivalent impedance for impedances in parallel: $\frac{1}{Z_{eq}} = \sum_{i}^{n} \frac{1}{Z_i}$
+    \item RMS value of signal: $S_{rms} = \sqrt{\frac{1}{T}\int_{t_0}^{t_0+T} s^2(t) dt}$
     \item Maximum power extracted by a load in DC circuits: $\frac{V{th}^2}{4R_{th}}$
     \item Maximum power extracted by a load in AC circuits: $\frac{|\tilde{V}_{th}|^2}{8R_{th}}$
+    \item Average power: $P_{avg} = \frac{V_m I_m}{2}\cos{(\theta_v - \theta_i)}$
+    \item Reactive power: $V_{ar} = Im(\frac{1}{2}\tilde{V}\tilde{I}^*)$
+    \item Apparent power: $P_{app} = \frac{|V_{rms}|^2}{|z|}$
 \end{enumerate}
 
 \pagebreak 
@@ -1850,4 +1853,7 @@ Subtracting from both sides,
     &= (10V_{rms}) (\frac{687}{2210} + \frac{159}{2210}j)\\
     &\approx (10V_{rms}) (0.311 + 0.0719j)
 \end{align*}
+%I'll finish this example after the exam
+
+
 \end{document}
