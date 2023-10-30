@@ -97,6 +97,8 @@ for electrical and computer engineers as well as for engineers
     \item Parallel inductor: $\frac{1}{L_{total}} = \frac{1}{L_1} + \frac{1}{L_1} + \dots$
     \item $I_{cap} = C \frac{dV}{dt}$
     \item $V_{ind} = L \frac{dI}{dt}$
+    \item Energy stored in capacitor: $\frac{1}{2}CV^2$
+    \item Energy stored in inductor: $\frac{1}{2}LI^2$
     \item Voltage in RC circuit: 
     $v_c(\infty) +\left(v_c(t_0) - v_c(\infty)\right)e^{(\frac{-1}{RC})(t - t_0)} = x(t_0)e^{\lambda (t-t_0)}$
     (if $v_c(\infty) = 0$)
@@ -1810,6 +1812,42 @@ Recall that
     \frac{\tilde{V}_{in}}{\tilde{I}_{in}} &= Z_{in} + \frac{Z_{out}}{n^2} \\
     \tilde{V}_{2} &= Z_{out}\frac{\tilde{I}_{in}}{n}
 \end{align*}
-Finding $\tilde{V}_{2}$ will be instrumental in determing 
-$\tilde{V}_L$, so let us focus on that. 
+Finding $\tilde{V}_{2}$ will be instrumental, 
+since once $\tilde{V}_{2}$ is known, we can use 
+Kirchhoff's loop rule to find $\tilde{V}_L$.
+First, let us rearrange the first equation to 
+obtain 
+\[\tilde{I}_{in} = \frac{\tilde{V}_{in}}{Z_{in} + \frac{Z_{out}}{n^2}}.\]
+Substitution in the second equation yields 
+\begin{align*}
+    \tilde{V}_2 &= Z_{out} \frac{\frac{\tilde{V}_{in}}{Z_{in} + \frac{Z_{out}}{n^2}}}{n} \\
+    &= \frac{Z_{out}\tilde{V}_{in}}{Z_{in}n + \frac{Z_{out}}{n}}
+\end{align*}
+Let's find each of these terms. 
+\begin{enumerate}
+    \item $Z_{out} = 6 \Omega -j8\Omega$
+    \item $\tilde{V}_{in} = \tilde{V}_S = 10V_{rms}$
+    \item $Z_{in} = 10 \Omega + j6\Omega$
+    \item $n = 1$
+\end{enumerate}
+Ergo, we have that 
+\begin{align*}
+    \tilde{V}_2 &= \frac{Z_{out}\tilde{V}_{in}}{Z_{in}n + \frac{Z_{out}}{n}} \\
+    &= \frac{(6\Omega -j8\Omega)(10V_{rms})}{(10 \Omega + j6\Omega) + (6\Omega -j8\Omega)} \\
+    &= \frac{(6\Omega -j8\Omega)(10V_{rms})}{16\Omega - 2j\Omega} \\
+    &= (10V_{rms})(\frac{28}{65} - \frac{29}{65}j)
+\end{align*}
+Great! Now, applying Kirchhoff's loop rule, 
+we have 
+\begin{align*}
+    \tilde{V}_out &= \tilde{V}_2 \\
+    &= (10V_{rms})(\frac{28}{65} - \frac{29}{65}j) \\
+    &= \tilde{V}_L + (10V_{rms})(\frac{28}{65} - \frac{29}{65}j) \frac{10 \Omega}{10 \Omega + j6 \Omega}
+\end{align*}
+Subtracting from both sides, 
+\begin{align*}
+    \tilde{V}_L &= (10V_{rms})(\frac{28}{65} - \frac{29}{65}j) - (10V_{rms})(\frac{28}{65} - \frac{29}{65}j) \frac{10 \Omega}{10 \Omega + j6 \Omega} \\
+    &= (10V_{rms}) (\frac{687}{2210} + \frac{159}{2210}j)\\
+    &\approx (10V_{rms}) (0.311 + 0.0719j)
+\end{align*}
 \end{document}
