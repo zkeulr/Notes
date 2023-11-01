@@ -1515,4 +1515,100 @@ the current observed in the contained ammeter.
 \marginnote{All of these are ideal components, 
 but in reality, ammeters have internal resistance just 
 as batteries and wires do.}
+
+\section{Magnetic force}
+The force $F$ on a charge $q$ moving with velocity
+$\vec{v}$ through a region of space with electric field $\vec{E}$
+and magnetic field $B$ is given by
+\[\vec{F} = q\vec{E} + q\vec{v}\times\vec{B}.\]
+We can isolate the magnetic term and find that the 
+force of a magentic field on a moving charge is 
+\begin{align*}
+    \vec{F}_B &= q\vec{V} \times \vec{B} \\
+    |vec{F}_B| &= |q||\vec{V}||\vec{B}|\sin(\theta)
+\end{align*}
+Computing the cross product is tedious, so here's a \emph{handy} 
+shortcut to determining direction. 
+If you point your pointer finger in 
+the direction the positive charge is moving, and then your 
+middle finger in the direction of the magnetic field, your 
+thumb points in the direction of the magnetic force pushing 
+on the moving charge. This is known as the \emph{right hand rule}. 
+The right hand rule immediately gives you the direction if 
+the charge in question is positive. If the charge is negative, the direction 
+is opposite to the direction given by the right hand rule.
+\begin{figure}
+    \center 
+    \caption{Right hand rule}
+    \label{fig:rhr}
+    \includegraphics{images/1200px-Right_hand_rule_cross_product.svg.png}
+\end{figure}
+The magnetic force on a charged object that moves in a
+magnetic field does not do any work, because it's
+perpendicular to $\vec{v}$.
+Therefore the magnetic force cannot change the magnitude of the
+velocity of a charged object, but can change the direction
+of motion. 
+\marginnote{The magentic force is always perpindicular to velocity,
+and can only change the direction, not the magnitude. Sound familiar?
+This is what centrifugal force does. Indeed, magnetism causes a charge to 
+move in a circle if there is a constant magnetic field perpindicular to the velocity.}
+We can find the momentum of a moving particle in a magnetic field, which actually turns 
+out to be quite useful. If the particle moves in a circle of radius $R$, then 
+\begin{align*}
+    \vec{r} &= R\hat{r} \\
+    \vec{v} &= R\omega\hat{\theta} \\
+    \vec{p} &= \gamma m \vec{v}, \text{ where } \gamma = \frac{1}{\sqrt{1-\frac{v^2}{c^2}}} \\
+    \frac{d\vec{p}}{dt} &= -\gamma mR\omega^2\hat{r} \\
+    |\frac{d\vec{p}}{dt}| &= \gamma mR\omega^2 \\
+    &= p\omega \\
+    &= |q|vB \\
+    p &= |q|BR
+\end{align*}
+\marginnote{The Lorentz factor $\gamma$ is here 
+to ensure our equation for momentum is still 
+valid for relativistic speeds. If the speeds 
+are much lower than the speed of light ,
+$\gamma \approx 1$.}
+This is very useful for particle physicists, 
+since they can measure the strength of the 
+eletric field and the radius of the circle. 
+Cyclotrons, a type of particle accelerator, 
+take advantage of this behavior. Our equation for 
+momentum naturally leads to some useful 
+expressions for cyclotrons. 
+\begin{align*}
+    \omega &= \frac{|q|B}{m} \\
+    f &= \frac{|q|B}{2\pi m} \\
+    T &= 2\pi \frac{m}{|q|B}
+\end{align*}
+We can inject different particles into 
+a cyclotron, observe their frequency, and 
+draw conclusions about their mass. 
+This allows us to do things such as 
+determine isotopes, identify fundamental 
+particles, and impress the Nobel prize committee. 
+Chemists actually often need to seperate ions 
+by mass and measure the mass of each type of ion, 
+so we've made a specific instrument for them called 
+a \emph{mass spectrometer} (fig. \ref{fig:massspec}). 
+\begin{figure}
+    \center 
+    \caption{Mass spectrometer} 
+    \label{fig:massspec}
+    \includegraphics{images/massspec.png}
+\end{figure}
+We can do a little bit of work and find 
+that 
+\[\frac{m}{q} = \frac{B^2 R^2}{2|\Delta V|}.\]
+
+Recall the Biot-Savart law, which states 
+that for a current-carrying wire 
+\[\vec{B} = \frac{\mu_0}{4\pi} \frac{I \Delta \vec{l} \times \hat{r}}{|r|^2}.\]
+Since this wire creates a magnetic field, 
+it will exert a force on other wires. 
+If these wires have current $I_1$, $I_2$ and are 
+seperated by a distance $d$, this force 
+is given by 
+\[F = \frac{\mu_0}{4\pi} \frac{2I_1 I_2}{d} \Delta l.\]
 \end{document}
