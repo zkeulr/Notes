@@ -1330,4 +1330,50 @@ following code:
    }
 \end{lstlisting}
 
+In this class, we will have two homeworks over binary trees, homeworks 
+14 and 15. 
+Homework 14 is about reconstructing the binary tree from its post and pre
+order traversal. For instance, we may have \texttt{886 2777 9383} as the in-order 
+traversal, and \texttt{2777 886 9383} as the post-order traversal. We know the last number 
+in the post-order traversal is the root, so we can just look at that and then use the 
+in-order traversal to find the structure. We see that everything is to the left of the root, 
+so there is an empty right subtree. The steps are 
+\begin{enumerate}
+   \item Determine root with post-order traversal. 
+   \item Divide in-order traversal into left and right subtrees
+   based on the root, then reconstruct the binary tree. 
+\end{enumerate} 
+Homework 15 asks us to additionally find the path from a node 
+to the root. 
+
+\section{Huffman coding}
+\defn{Huffman coding}{a lossless data compression technique}. 
+Suppose we have the string \texttt{BCAADDDCCACACAC} and we wish 
+to send it over a network. Each character occupies 8 bits, and there 
+are a total of 15 characters in the above string. Ergo, 
+a total of $8 \times 15 = 120$ bits. 
+\marginnote{To the pedants readings who cry "what about the 
+null terminator?", I say to you: shut up.}
+Unfortunately, my data transmission protocol can only handle 
+messages of less then 120 bits. We will have to compress this message 
+for it to be transmitted. 
+In compression, we will assign common characters shorter names 
+(perhaps C will be represented by only 1 bit here). There 
+are two general types: lossless, and lossy. Lossless loses no 
+information, while lossy loses bits when it compresses. 
+Huffman coding does compression as follows: 
+\begin{enumerate}
+   \item Create a list of characters and their frequencies in the input message.
+   \item Create a priority queue (min-heap) based on the frequencies of the characters.
+   \item While there is more than one node in the queue:
+   \begin{enumerate}
+      \item Remove the two nodes with the lowest frequencies from the queue.
+      \item Create a new node with a frequency equal to the sum of the frequencies of the two nodes removed.
+      \item Insert the new node back into the queue.
+   \end{enumerate}
+   \item The remaining node in the queue is the root of the Huffman tree.
+   \item Assign binary codes to the characters based on the path from the root to each leaf node. Assign '0' for left branches and '1' for right branches.
+   \item Encode the input message using the assigned binary codes.
+\end{enumerate}
+
 \end{document}
