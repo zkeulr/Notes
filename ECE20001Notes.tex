@@ -112,6 +112,23 @@ for electrical and computer engineers as well as for engineers
     \item Average power: $P_{avg} = \frac{V_m I_m}{2}\cos{(\theta_v - \theta_i)}$
     \item Reactive power: $V_{ar} = Im(\frac{1}{2}\tilde{V}\tilde{I}^*)$
     \item Apparent power: $P_{app} = \frac{|V_{rms}|^2}{|z|}$
+    \item Voltage in magnetically coupled coils: 
+    \begin{align*}
+        v_{1}(t) &= L_1 \frac{di_1(t)}{dt} + L_{12}\frac{di_2(t)}{dt} \\
+        v_{2}(t) &= L_1 \frac{di_2(t)}{dt} + L_{12}\frac{di_1(t)}{dt} 
+    \end{align*}
+    \item Voltage in ideal transformer: 
+    \begin{align*}
+        \frac{v_2(t)}{v_1(t)} &= \frac{N_2}{N_1} \\
+        \frac{i_2(t)}{i_1(t)} &= -\frac{N_1}{N_2}   
+    \end{align*}
+    \item Terminated transformer circuit equations: 
+    \begin{align*}
+        \tilde{V}_1 &= \frac{\tilde{V}_2}{n} \\
+        \tilde{I}_{out} &= \frac{\tilde{I}_{in}}{n} \\
+        \frac{\tilde{V}_{in}}{\tilde{I}_{in}} &= Z_{in} + \frac{Z_{out}}{n^2}
+    \end{align*}
+
 \end{enumerate}
 
 \pagebreak 
@@ -1809,51 +1826,18 @@ circuit in fig. \ref{fig:hw10.1}.
 \end{figure}
 We know that $\tilde{V}_s = 10 V_{rms}$ and that 
 the mutual inductance is $j5\Omega$. 
-We wish to find $\tilde{V}_L$.
-Recall that
+We wish to find $\tilde{V}_L$ (since we are not told 
+$n_1$ and $n_2$, let's assume they're $1:1$).
+Recall that 
 \begin{align*}
-    \frac{\tilde{V}_{in}}{\tilde{I}_{in}} &= Z_{in} + \frac{Z_{out}}{n^2} \\
-    \tilde{V}_{2} &= Z_{out}\frac{\tilde{I}_{in}}{n}
+    v_{1}(t) &= L_1 \frac{di_1(t)}{dt} + L_{12}\frac{di_2(t)}{dt} \\
+    v_{2}(t) &= L_1 \frac{di_2(t)}{dt} + L_{12}\frac{di_1(t)}{dt}
 \end{align*}
-Finding $\tilde{V}_{2}$ will be instrumental, 
-since once $\tilde{V}_{2}$ is known, we can use 
-Kirchhoff's loop rule to find $\tilde{V}_L$.
-First, let us rearrange the first equation to 
-obtain 
-\[\tilde{I}_{in} = \frac{\tilde{V}_{in}}{Z_{in} + \frac{Z_{out}}{n^2}}.\]
-Substitution in the second equation yields 
+Where $v_1(t)$ is the voltage across the first inductor, and likewise for 
+$v_2(t)$. Ergo, 
 \begin{align*}
-    \tilde{V}_2 &= Z_{out} \frac{\frac{\tilde{V}_{in}}{Z_{in} + \frac{Z_{out}}{n^2}}}{n} \\
-    &= \frac{Z_{out}\tilde{V}_{in}}{Z_{in}n + \frac{Z_{out}}{n}}
+    10 V_{rms} - \frac{10 V_{rms} (6 - j8)}{6 + j2} &= 
 \end{align*}
-Let's find each of these terms. 
-\begin{enumerate}
-    \item $Z_{out} = 6 \Omega -j8\Omega$
-    \item $\tilde{V}_{in} = \tilde{V}_S = 10V_{rms}$
-    \item $Z_{in} = 10 \Omega + j6\Omega$
-    \item $n = 1$
-\end{enumerate}
-Ergo, we have that 
-\begin{align*}
-    \tilde{V}_2 &= \frac{Z_{out}\tilde{V}_{in}}{Z_{in}n + \frac{Z_{out}}{n}} \\
-    &= \frac{(6\Omega -j8\Omega)(10V_{rms})}{(10 \Omega + j6\Omega) + (6\Omega -j8\Omega)} \\
-    &= \frac{(6\Omega -j8\Omega)(10V_{rms})}{16\Omega - 2j\Omega} \\
-    &= (10V_{rms})(\frac{28}{65} - \frac{29}{65}j)
-\end{align*}
-Great! Now, applying Kirchhoff's loop rule, 
-we have 
-\begin{align*}
-    \tilde{V}_out &= \tilde{V}_2 \\
-    &= (10V_{rms})(\frac{28}{65} - \frac{29}{65}j) \\
-    &= \tilde{V}_L + (10V_{rms})(\frac{28}{65} - \frac{29}{65}j) \frac{10 \Omega}{10 \Omega + j6 \Omega}
-\end{align*}
-Subtracting from both sides, 
-\begin{align*}
-    \tilde{V}_L &= (10V_{rms})(\frac{28}{65} - \frac{29}{65}j) - (10V_{rms})(\frac{28}{65} - \frac{29}{65}j) \frac{10 \Omega}{10 \Omega + j6 \Omega} \\
-    &= (10V_{rms}) (\frac{687}{2210} + \frac{159}{2210}j)\\
-    &\approx (10V_{rms}) (0.311 + 0.0719j)
-\end{align*}
-%I'll finish this example after the exam
 
 \section{Atomic structure and semiconductors}
 All materials can be classified as insulators, semiconductors, 
