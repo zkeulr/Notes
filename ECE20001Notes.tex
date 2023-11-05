@@ -126,6 +126,9 @@ for electrical and computer engineers as well as for engineers
     \begin{align*}
         \tilde{V}_1 &= \frac{\tilde{V}_2}{n} \\
         \tilde{I}_{out} &= \frac{\tilde{I}_{in}}{n} \\
+        \tilde{V}_{in} &= Z_{in}\tilde{I}_{in} + \tilde{V}_1 \\
+        \tilde{V}_2 &= Z_{out}\tilde{I}_{out} \\
+        \tilde{V}_2 &= Z_{out}\frac{\tilde{I}_{in}}{n} \\
         \frac{\tilde{V}_{in}}{\tilde{I}_{in}} &= Z_{in} + \frac{Z_{out}}{n^2}
     \end{align*}
 
@@ -1835,7 +1838,39 @@ From comparison with fig. \ref{fig:termtrans}, we have that
     n &= 1 \\
     \tilde{V}_{in} &= 10 V_{rms}
 \end{align*}
-
+Recall the equations for a terminated transfer circuit like 
+this one. 
+\begin{align*}
+    \tilde{V}_1 &= \frac{\tilde{V}_2}{n} \\
+    \tilde{I}_{out} &= \frac{\tilde{I}_{in}}{n} \\
+    \tilde{V}_{in} &= Z_{in}\tilde{I}_{in} + \tilde{V}_1 \\
+    \tilde{V}_2 &= Z_{out}\tilde{I}_{out} \\
+    \tilde{V}_2 &= Z_{out}\frac{\tilde{I}_{in}}{n} \\
+    \frac{\tilde{V}_{in}}{\tilde{I}_{in}} &= Z_{in} + \frac{Z_{out}}{n^2}
+\end{align*}
+We can solve for $\tilde{I}_{in}$, and find that 
+\begin{align*}
+    \tilde{I}_{in} &= \frac{10 V_{RMS}}{6\Omega - j8\Omega + \frac{10\Omega + j6\Omega}{1^2}} \\
+    &= \frac{10 V_{RMS}}{16\Omega - 2j\Omega}
+\end{align*}
+Does that help us? Sure! We can use that information to find 
+$\tilde{I}_{out}$. 
+\begin{align*}
+    \tilde{I}_{out} &= \frac{\tilde{I}_{in}}{1} \\
+    &= \tilde{I}_{in} \\
+    &= \frac{10 V_{RMS}}{16\Omega - 2j\Omega}
+\end{align*}
+Now, we know $\tilde{V}_{in} = Z_{in}\tilde{I}_{in} + \tilde{V}_1$. 
+Thus, 
+\begin{align*}
+    \tilde{V}_1 &= 10V_{RMS} - Z_{in}\tilde{I}_{in} \\
+    &= 10V_{RMS} - (6\Omega-j8\Omega) \frac{10 V_{RMS}}{16\Omega - 2j\Omega}
+\end{align*}
+And since $\tilde{V}_2 = n\tilde{V}_1$, 
+\begin{align*}
+    \tilde{V}_2 &= 1 \times \left(10V_{RMS} - (6\Omega-j8\Omega) \frac{10 V_{RMS}}{16\Omega - 2j\Omega}\right)\\
+    &= 10V_{RMS} - (6\Omega-j8\Omega) \frac{10 V_{RMS}}{16\Omega - 2j\Omega}
+\end{align*}
 \section{Atomic structure and semiconductors}
 All materials can be classified as insulators, semiconductors, 
 or condcutors. We are familiar with insulators and conductors: 
