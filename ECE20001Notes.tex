@@ -1828,15 +1828,12 @@ We know that $\tilde{V}_s = 10 V_{rms}$ and that
 the mutual inductance is $j5\Omega$. 
 We wish to find $\tilde{V}_L$ (since we are not told 
 $n_1$ and $n_2$, let's assume they're $1:1$).
-Recall that 
+From comparison with fig. \ref{fig:termtrans}, we have that 
 \begin{align*}
-    v_{1}(t) &= L_1 \frac{di_1(t)}{dt} + L_{12}\frac{di_2(t)}{dt} \\
-    v_{2}(t) &= L_1 \frac{di_2(t)}{dt} + L_{12}\frac{di_1(t)}{dt}
-\end{align*}
-Where $v_1(t)$ is the voltage across the first inductor, and likewise for 
-$v_2(t)$. Ergo, 
-\begin{align*}
-    10 V_{rms} - \frac{10 V_{rms} (6 - j8)}{6 + j2} &= 
+    Z_{in} &= 6\Omega -j8\Omega \\
+    Z_{out} &= 10\Omega + j6\Omega \\
+    n = 1 \\
+    \tilde{V}_{in} &= 10 V_{rms}
 \end{align*}
 
 \section{Atomic structure and semiconductors}
