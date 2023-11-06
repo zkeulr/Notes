@@ -116,7 +116,7 @@ solving by computer are employed throughout. For more information, consult the s
     \item Magnetic field far from a loop: $\frac{\mu_0}{4 \pi}\frac{2 \mu}{z^3}$
     \item Magnetic field due to a coil of length $L$ with $N$ loops: $\frac{\mu_0 nI}{2} \frac{L}{\sqrt{(L/2)^2 + R^2}}$
     \item Approximate magnetic field due to a coil: $\frac{\mu_0 N}{LI}$
-    \item Cyclotron frequency: $\omega &= \frac{|q|B}{m}$
+    \item Cyclotron frequency: $\omega = \frac{|q|B}{m}$
     \item Magnetic dipole moment: $\mu = IA$
     \item Radius of curvature in magnetic field: $r = \frac{mv}{qB}$
     \item Charge on charging capacitor in an RC circuit: $Q(t) = V_{emf} C (1-e^{-t/RC})$
@@ -1613,4 +1613,28 @@ If these wires have current $I_1$, $I_2$ and are
 seperated by a distance $d$, this force 
 is given by 
 \[F = \frac{\mu_0}{4\pi} \frac{2I_1 I_2}{d} \Delta l.\]
+\marginnote{If you have a wire twisted into a non-circular shape and run current through it, 
+the reflexive magnetic force will expand the wire into a circle.}
+
+\section{Hall Effect}
+\defn{Hall effect}{The Hall effect is the production of a potential 
+difference (the Hall voltage) across an electrical conductor that 
+is transverse to an electric current in the conductor and to an 
+applied magnetic field perpendicular to the current}. 
+\begin{figure}
+    \center 
+    \caption{Hall effect}
+    \label{fig:hall}
+    \includegraphics*{images/Hall_Effect_Measurement_Setup_for_Electrons.png}
+\end{figure}
+Since moving charges in a magnetic field experience a force perpindicular to their 
+direction of motion, positive charges will be forced to one side of the material and 
+negative charges to the other. This creates a potential difference across the material, 
+called the Hall voltage. In steady-state, the force of these accumulated charges 
+will exactly cancel the magnetic force. 
+By measuring current, voltage across the material in the direction of current, 
+and voltage across the transverse, you can figure out if the charge carriers 
+in a material are positive or negative. 
+
+
 \end{document}
