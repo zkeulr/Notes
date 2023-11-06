@@ -1800,44 +1800,6 @@ This final expression is the
 input impedance of a terminated 
 ideal transformer. 
 
-This is a lot of new information 
-presented very briefly, so to cement it, 
-let's practice with a few problems. Say we have the 
-circuit in fig. \ref{fig:hw10.1}. 
-\begin{figure}
-    \caption{Problem 1}
-    \label{fig:hw10.1}
-    \begin{circuitikz}
-        % Transformer 1
-        \draw (0,0) to[V, l=$\tilde{V}_s$, invert] (0,3)
-        to[R, l=$6 \Omega$] (3,3)
-        to[C, l=$-j8\Omega$] (6,3)
-        to[L, l=$j10\Omega$] (6,0)
-        to[short] (0,0)
-        ;
-
-        % Transformer 2
-        \draw (8,3) to[L, l=$j14\Omega$] (8,0)
-        to[short] (11,0)
-        to[L, l=$j6\Omega$, v<=$\tilde{V}_L$] (11,3)
-        to[R, l=$10\Omega$] (8,3)
-        ;
-
-        % Dots for current 
-        \node[circ] at (5.5,2.5) {};
-        \node[circ] at (8.5,2.5) {};
-    \end{circuitikz}
-\end{figure}
-We know that $\tilde{V}_s = 10 V_{rms}$ and that 
-the mutual inductance is $j5\Omega$. 
-We wish to find $\tilde{V}_L$. 
-Let's recall the equations for magentically 
-coupled coils. 
-\begin{align*}
-    v_{1}(t) &= L_1 \frac{di_1(t)}{dt} + L_{12}\frac{di_2(t)}{dt} \\
-    v_{2}(t) &= L_1 \frac{di_2(t)}{dt} + L_{12}\frac{di_1(t)}{dt} 
-\end{align*}
-
 \section{Atomic structure and semiconductors}
 All materials can be classified as insulators, semiconductors, 
 or condcutors. We are familiar with insulators and conductors: 
