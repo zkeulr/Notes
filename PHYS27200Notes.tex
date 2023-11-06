@@ -1616,6 +1616,30 @@ is given by
 \marginnote{If you have a wire twisted into a non-circular shape and run current through it, 
 the reflexive magnetic force will expand the wire into a circle.}
 
+We can use the fact that a magnetic field exerts a force 
+on a wire with current to create machines that turn electrical energy into 
+physical energy. Consider fig. \ref{fig:magtorque}. 
+\begin{figure}
+    \center 
+    \caption{Torque}
+    \label{fig:magtorque}
+    \includegraphics{images/Screenshot 2023-11-06 100829.png}
+\end{figure}
+In this example, 
+\begin{align*}
+    \vec{F} &= I\Delta \vec{l} \times \vec{B} \\
+    |F| &= IwB \\
+    |F_{\perp}| &= IwB\sin(\theta) \\
+    \mu &= IA \\
+    &= Iwh \\
+    \tau &= IwhB\sin(\theta) \\
+    &= \mu B \sin(\theta) \\
+    &= \vec{\mu} \times \vec{B}
+\end{align*}
+This equation, $\vec{\mu} \times \vec{B}$, is valid for a loop of any shape. 
+
+Consider a moving bar in an applied magnetic field. The work done on the bar 
+is $ W= ILB \Delta x$.
 \section{Hall Effect}
 \defn{Hall effect}{The Hall effect is the production of a potential 
 difference (the Hall voltage) across an electrical conductor that 
@@ -1635,6 +1659,11 @@ will exactly cancel the magnetic force.
 By measuring current, voltage across the material in the direction of current, 
 and voltage across the transverse, you can figure out if the charge carriers 
 in a material are positive or negative. 
-
+The steps to do so are easy: 
+\begin{enumerate}
+    \item Apply a magentic field.
+    \item Apply a current across the material. 
+    \item Measure the Hall voltage. 
+\end{enumerate}
 
 \end{document}
