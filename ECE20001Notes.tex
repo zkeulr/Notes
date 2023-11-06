@@ -112,6 +112,7 @@ for electrical and computer engineers as well as for engineers
     \item Average power: $P_{avg} = \frac{V_m I_m}{2}\cos{(\theta_v - \theta_i)}$
     \item Reactive power: $V_{ar} = Im(\frac{1}{2}\tilde{V}\tilde{I}^*)$
     \item Apparent power: $P_{app} = \frac{|V_{rms}|^2}{|z|}$
+    \item Coupling coefficient in magnetically coupled circuit: $k = \frac{L_{12}}{\sqrt{L_1 L_2}}$
     \item Voltage in magnetically coupled coils: 
     \begin{align*}
         v_{1}(t) &= L_1 \frac{di_1(t)}{dt} + L_{12}\frac{di_2(t)}{dt} \\
@@ -1829,48 +1830,14 @@ circuit in fig. \ref{fig:hw10.1}.
 \end{figure}
 We know that $\tilde{V}_s = 10 V_{rms}$ and that 
 the mutual inductance is $j5\Omega$. 
-We wish to find $\tilde{V}_L$ (since we are not told 
-$n_1$ and $n_2$, let's assume they're $1:1$).
-From comparison with fig. \ref{fig:termtrans}, we have that 
+We wish to find $\tilde{V}_L$. 
+Let's recall the equations for magentically 
+coupled coils. 
 \begin{align*}
-    Z_{in} &= 6\Omega -j8\Omega \\
-    Z_{out} &= 10\Omega + j6\Omega \\
-    n &= 1 \\
-    \tilde{V}_{in} &= 10 V_{rms}
+    v_{1}(t) &= L_1 \frac{di_1(t)}{dt} + L_{12}\frac{di_2(t)}{dt} \\
+    v_{2}(t) &= L_1 \frac{di_2(t)}{dt} + L_{12}\frac{di_1(t)}{dt} 
 \end{align*}
-Recall the equations for a terminated transfer circuit like 
-this one. 
-\begin{align*}
-    \tilde{V}_1 &= \frac{\tilde{V}_2}{n} \\
-    \tilde{I}_{out} &= \frac{\tilde{I}_{in}}{n} \\
-    \tilde{V}_{in} &= Z_{in}\tilde{I}_{in} + \tilde{V}_1 \\
-    \tilde{V}_2 &= Z_{out}\tilde{I}_{out} \\
-    \tilde{V}_2 &= Z_{out}\frac{\tilde{I}_{in}}{n} \\
-    \frac{\tilde{V}_{in}}{\tilde{I}_{in}} &= Z_{in} + \frac{Z_{out}}{n^2}
-\end{align*}
-We can solve for $\tilde{I}_{in}$, and find that 
-\begin{align*}
-    \tilde{I}_{in} &= \frac{10 V_{RMS}}{6\Omega - j8\Omega + \frac{10\Omega + j6\Omega}{1^2}} \\
-    &= \frac{10 V_{RMS}}{16\Omega - 2j\Omega}
-\end{align*}
-Does that help us? Sure! We can use that information to find 
-$\tilde{I}_{out}$. 
-\begin{align*}
-    \tilde{I}_{out} &= \frac{\tilde{I}_{in}}{1} \\
-    &= \tilde{I}_{in} \\
-    &= \frac{10 V_{RMS}}{16\Omega - 2j\Omega}
-\end{align*}
-Now, we know $\tilde{V}_{in} = Z_{in}\tilde{I}_{in} + \tilde{V}_1$. 
-Thus, 
-\begin{align*}
-    \tilde{V}_1 &= 10V_{RMS} - Z_{in}\tilde{I}_{in} \\
-    &= 10V_{RMS} - (6\Omega-j8\Omega) \frac{10 V_{RMS}}{16\Omega - 2j\Omega}
-\end{align*}
-And since $\tilde{V}_2 = n\tilde{V}_1$, 
-\begin{align*}
-    \tilde{V}_2 &= 1 \times \left(10V_{RMS} - (6\Omega-j8\Omega) \frac{10 V_{RMS}}{16\Omega - 2j\Omega}\right)\\
-    &= 10V_{RMS} - (6\Omega-j8\Omega) \frac{10 V_{RMS}}{16\Omega - 2j\Omega}
-\end{align*}
+
 \section{Atomic structure and semiconductors}
 All materials can be classified as insulators, semiconductors, 
 or condcutors. We are familiar with insulators and conductors: 
