@@ -1307,5 +1307,71 @@ by itself.
     \end{tabular}
 \end{center}
 
+\section{Relations}
 
+The simplest form of mathematical relationship
+is the binary relation. 
+\marginnote{Sorry, poly folks.}
+Recall the Cartesian
+product of a set with itself is $S\times S = \{(x,x) | x \in S\}$. 
+A binary relation is just a subset of $S\times S$. For example, say 
+we have the set $S = \{1,2,3\}$ and we are interested in the equality 
+relation. 
+\marginnote{Because mathematicians love looking 
+impressive, Greek letters are often used for relations. 
+$\rho$ is common.}
+It's common to give the relation as a predicate instead of 
+enumerating all the elements in the set. As an example, 
+let the relation $\rho$ be that $x \rho y \leftrightarrow x = y$. 
+Then $\rho = \{(1,1), (2,2), (3,3)\}$. Notice that $\rho \subset S \times S$. 
+The size of $S \times S$ will be $n^2$, since you have $n$ choices for 
+the first element and $n$ for the second. The number of possible binary 
+relations is the number of subsets of $S\times S$, so the number 
+of possible binary relations is $2^{n^2}$. 
+
+If you have a binary relation $\rho$ that consists of 
+a set of ordered pairs $(s_1, s_2)$, then there
+are four possibilities.
+\begin{enumerate}
+    \item One-to-one relation: Each $s_1$ is paired with more than one $s_2$. 
+    \item One-to-many relation: At least one $s_1$ is paired with more than one $s_2$. 
+    \item Many-to-one relation: At least one $s_2$ is paired with more than one $s_1$. 
+    \item Many-to-many relation: At least one $s_1$ is paired with more than one $s_2$ and 
+    at least one $s_2$ is paired with more than one $s_1$. 
+\end{enumerate}
+Note that not all elements in the set need to appear in $\rho$. This 
+sets relations apart from functions. 
+
+In some situations, we may with to perform operations 
+on relations. Let ther be two binary relations 
+$\rho$ and $\sigma$ on a set $S$. Each is a subset 
+of $S\times S$ and we can perform set operations 
+on them to create new subsets, which represent new 
+binary relations. For example, say we have that 
+\begin{align*}
+    x \rho y &\leftrightarrow x = y \\
+    x \sigma y &\leftrightarrow x < y
+\end{align*}
+$\rho \cup \sigma$ is simply given by 
+\[ x (\rho \cup \sigma) y \leftrightarrow x \leq y.\]
+
+Relatiosn may have properties. For example, 
+$x \rho y \leftrightarrow x = y$ has these properties:
+\begin{enumerate}
+    \item $\forall x\in S, (x,x) \in \rho$. 
+    \item $\forall x, y \in S, (x,y) \in \rho \rightarrow (y,x) \in \rho$. 
+    \item $\forall x,y,z \in S, (x,y) \in \rho \land (y,z) \in \rho \rightarrow (x,z) \in \rho$.
+\end{enumerate}
+Each of these properties has a name, and 
+you are likely familar with at least some of them. 
+\begin{enumerate}
+    \item Reflexive: $(\forall x)(x \in S \rightarrow (x,x) \in \rho)$.
+    \item Symmetric: $(\forall x)(\forall y)(x \in S \land y \in S \land (x,y) \in \rho \rightarrow (y,x) \in \rho)$.
+    \item Transitive: $(\forall x)(\forall y)(\forall z)(x\in S) \land (y\in S) \land (z\in S) \land (x,y) \in \rho \land (y,z) \in rho \rightarrow (x,z) \in \rho$. 
+\end{enumerate}
+There is an opposite of the symmetric property, 
+called anti-symmetric. 
+Anti-symmetry means that 
+\[(\forall x)(\forall y)(x \in S \land y \in S \land (x,y)\in \rho \land (y,x) \in \rho \rightarrow x = y),\]
+or basically that for any $(x,y)$ where $x$ and $y$ are distinct, $\rho$ does not contain $(y,x)$. 
 \end{document}
