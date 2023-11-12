@@ -1939,18 +1939,36 @@ Now, let us consider the process of diffusion. The flux of
 a particle $a$ is equal to 
 \[F_a = -D_a \frac{da}{dx},\]
 where $D_a$ is $a$'s diffusion coefficient (which 
-is always positive) and $F_a$ is the flux of the particle. 
+is always positive), $a$ is the particle concentration, and $F_a$ is the flux. 
 The negative sign tells us that the flux is opposite the 
 side of highest concentration. Diffusion is relevant to semiconductors 
 because the electrons will diffuse through both n-doped and 
 p-doped materials when there is a gradient in dopant atoms. 
-The motion of these carriers cause a \emph{diffusion current}. 
+The motion of these carriers cause a \emph{diffusion current},
+given by 
+\begin{align*}
+    J_{N|diff} &= qD_n \frac{dn}{dx} \\
+    J_{P|diff} &= -qD_p \frac{dp}{dx}
+\end{align*}
 In equilibrium, there is no flow of current, since obviously that 
 would violate conservation of energy. If we join n and p doped 
 materials, the section where they meet is devoid of any carriers,
 and is called the depletion region. The concentration of charge 
 at either end of the region creates a net electric field through 
-the region. 
+the region. This also induces a current, the \emph{drift current}, 
+given by 
+\begin{align*}
+    J_{N|drift} &= q\mu_n n E_x \\
+    J_{P|drift} &= q\mu_p p E_x
+\end{align*}
+Thus, the total current due to these two 
+factors will be 
+\begin{align*}
+    J_N &= J_{N|drift} + J_{N|diff} \\
+    &= q\mu_n n E_x + qD_n \frac{dn}{dx} \\
+    J_P &= J_{P|drift} + J_{P|diff} \\
+    &= -qD_p \frac{dp}{dx} + q\mu_p p E_x
+\end{align*}
 
 % Those differential equations are probably a good thing to put in here
 
