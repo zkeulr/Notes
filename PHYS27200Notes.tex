@@ -1638,8 +1638,27 @@ In this example,
 \end{align*}
 This equation, $\vec{\mu} \times \vec{B}$, is valid for a loop of any shape. 
 
+We may also go in the opposite direction. By rotating a loop in a magnetic field, 
+we may convert mechanical energy to electrical energy. Working through the math, 
+we will find that 
+\[emf(t) = A\omega B \sin(\omega t,\]
+where $\omega$ is the rotational speed, $A$ is the area, and $B$ is the strength of 
+the magnetic field. At any time during the rotation, the loop has potential given by 
+\[U_m = =-\vec{\mu} \cdot \vec{B},\]
+which is true for a general magnetic dipole. The force on a magnetic dipole 
+is 
+\begin{align*}
+    F_x &= \mu \frac{dB_x}{dx} \\
+    &= -\frac{\mu_0}{4 \pi} \frac{6 \mu_1 \mu_2}{x^4} \text{ (in the case of two dipoles)}
+\end{align*}
+
 Consider a moving bar in an applied magnetic field. The work done on the bar 
-is $ W= ILB \Delta x$.
+is $ W= ILB \Delta x$. Moving the bar through the field exerts a force on 
+the electrons within the bar, causing a current to flow throughout the bar. 
+If the bar has a wire hooked up, the current can flow through the wire and be 
+used to deliver power to a load. If there is no wire, charge will just pile 
+up at each end. 
+
 \section{Hall Effect}
 \defn{Hall effect}{The Hall effect is the production of a potential 
 difference (the Hall voltage) across an electrical conductor that 
@@ -1665,5 +1684,54 @@ The steps to do so are easy:
     \item Apply a current across the material. 
     \item Measure the Hall voltage. 
 \end{enumerate}
+
+\section{Special Relativity}
+Special relativity is based on two
+postulates:
+\begin{itemize}
+    \item Laws of physics are invariant in all
+    inertial frames of reference (with constant $v$).
+    \item The speed of light in the vacuum is the same
+    for all observers.
+\end{itemize}
+
+Special relativity predicts how magnetic and eletric 
+fields transform when you change from one inertial frame of 
+reference to another.
+
+Imagine you have a current $I$ flowing in a wire, and an electron 
+travelling next to it. From the viewpoint of a stationary observer, 
+we would observe that the electron moves down due to the force from 
+the wire. However, imagine you are travelling with the electron. Then 
+its velocity relative to you is zero, and so the force it experiences is 
+zero. How can we resolve this conundrum? The answer is with relativity. 
+In classical physics, we would desribe this system as 
+\marginnote{The apostrophe "'" indicates that we are transforming from 
+one frame of reference to another.}
+\begin{align*}
+    t' &= t \\
+    x' &= x - vt \\
+    y' &= y \\
+    z' &= z
+\end{align*}
+In relativity, a corrective factor arises and we have that
+\begin{align*}
+    \gamma &= \frac{1}{\sqrt{1 - \frac{v^2}{c^2}}} \\
+    t' &= \gamma \left(t - \frac{vx}{c^2}\right) \\
+    x' &= \gamma (x - vt) \\
+    y' &= y \\
+    z' &= z
+\end{align*}
+What we find is that the electron still experiences a force, 
+but now, there is an eletric field from the wire, and this is 
+what repels the electron. We can find expressions for the electric 
+and magnetic fields incorporating relativity as well. 
+
+Space and time warp to keep the speed of light constant 
+for all observers! Namely, 
+\begin{align}
+    L_{obs} &= \frac{L}{\gamma} \\
+    t_{obs} &= \gamma \times t 
+\end{align}
 
 \end{document}
