@@ -1347,7 +1347,8 @@ Homework 15 asks us to additionally find the path from a node
 to the root. 
 
 \section{Huffman coding}
-\defn{Huffman coding}{a lossless data compression technique}. 
+\defn{Huffman coding}{the most efficient lossless data compression technique}. 
+
 Suppose we have the string \texttt{BCAADDDCCACACAC} and we wish 
 to send it over a network. Each character occupies 8 bits, and there 
 are a total of 15 characters in the above string. Ergo, 
@@ -1375,5 +1376,7 @@ Huffman coding does compression as follows:
    \item Assign binary codes to the characters based on the path from the root to each leaf node. Assign '0' for left branches and '1' for right branches.
    \item Encode the input message using the assigned binary codes.
 \end{enumerate}
+\marginnote{No Huffman code may be the prefix of another code, to 
+eliminate ambiguity.}
 
 \end{document}
