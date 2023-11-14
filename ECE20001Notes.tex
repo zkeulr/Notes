@@ -1969,13 +1969,96 @@ factors will be
     J_P &= J_{P|drift} + J_{P|diff} \\
     &= -qD_p \frac{dp}{dx} + q\mu_p p E_x
 \end{align*}
+In equilibrium, the electron diffusion current is 
+balanced by the electron drift current and the hole diffusion
+current is balanced by the hole drift current, and we have 
+\begin{align*}
+    J_N &= J_{N|drift} + J_{N|diff} \\
+    &= 0 \\
+    J_P &= J_{P|drift} + J_{P|diff} \\
+    &= 0
+\end{align*}
+This is shown in fig. \ref{fig:pnjunction}. 
+\begin{figure}
+    \begin{center}
+        \caption{pn junction}
+        \label{fig:pnjunction}
+        \includegraphics{images/pnjunction.png}
+    \end{center}
+\end{figure}
 
-% Those differential equations are probably a good thing to put in here
-
-The potential difference across the device 
-caused by this eletric field is called 
+The width of the depletion region is given by 
+\[W = \left[\frac{2\epsilon_r \epsilon_0}{q} \left(\frac{N_A + N_D}{N_A N_D}\right) V_{bi}\right]^{1/2}.\]
+The potential difference across the depletion region 
+in steady state is known as
 the \emph{built-in potential}. 
 The equation for built-in potential is 
 \[V_{bi} = \frac{kT}{q}\ln{\left(\frac{N_AN_D}{n_i^2}\right)}.\]
+
+\section{Diodes}
+pn junctions function like diodes. 
+
+\defn{Diode}{a device that limits current flowing in one
+direction while allowing it to flow easily in the other.}
+
+When a positive voltage is applied to the
+p-side of the junction the device is said to be \emph{forward biased}.
+The excess holes diffusing to the right and the excess electrons diffusing to the
+left both contribute to a net positive current flowing to the right through the
+device. If we instead \emph{reverse bias} the junction by applying a negative voltage, the height of
+the energy barrier in the depletion region is increased. 
+
+The i-v characteristic curve of an ideal pn junction diode is given by
+\[I = I_0 (e^{qV_A / kT} - 1).\]
+
+Diodes are of special interest to computer engineers, 
+since they may be used to create logic gates such as the OR gate shown 
+in fig. \ref{fig:orgate}. 
+\begin{figure}
+    \begin{center}
+        \caption{OR gate}
+        \label{fig:orgate}
+        \begin{circuitikz}
+            \draw (0,0) to[V, l=$V_A$, invert] (0,4)
+            to[D, l=$D_A$] (4,4)
+            to[short] (4,2)
+            to[short, -*] (5,2) 
+            ;
+
+            \draw (2,0) to[V, l=$V_B$, invert] (2,2)
+            to[D, l=$D_B$] (4,2)
+            to[R, l=$1 k\Omega$] (4,0)
+            to[short, -*] (5,0) 
+            ;
+
+            \draw (0,0) to[short] (4,0);
+        \end{circuitikz}
+    \end{center}
+\end{figure}
+Including this whole figure would quickly clutter up diagrams 
+with more complicated combinations of logic gates, so the symbol for 
+OR gate (fig. \ref{fig:orsymbol}) is used instead. 
+\begin{figure}
+    \begin{center}
+        \caption{OR gate symbol}
+        \label{fig:orsymbol}
+        \begin{circuitikz}
+            \node[or port] at (0,-4){};
+        \end{circuitikz}
+    \end{center}
+\end{figure}
+The truth table for the OR gate is given below. 
+\begin{center}
+    \begin{tabular}{|c|c|c|}
+      \hline
+      $A$ & $B$ & $A \lor B$ \\
+      \hline
+      0 & 0 & 0 \\
+      0 & 1 & 1 \\
+      1 & 0 & 1 \\
+      1 & 1 & 1 \\
+      \hline
+    \end{tabular}
+    \end{center}
 
 \end{document}
