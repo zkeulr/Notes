@@ -2059,6 +2059,63 @@ The truth table for the OR gate is given below.
       1 & 1 & 1 \\
       \hline
     \end{tabular}
-    \end{center}
+\end{center}
 
+Say we have the diode circuit given in fig. \ref{fig:diodecircuit}
+\begin{figure}
+    \caption{Diode problem}
+    \label{fig:diodecircuit}
+    \begin{center}
+        \begin{circuitikz}
+            \draw
+            (0,0) node[above] {$5V$}
+            to[R, l=$5 \Omega$, i=$I_d$] (0,-2)
+            to[D, v=$V_d$] (0,-4)
+            node[ground] {}; 
+        \end{circuitikz}
+    \end{center}
+\end{figure}
+The reverse bias saturation current for the diode in the circuit below is $I_0 = 50$, and
+the temperature is $T = 300 K$. Determine the current $I_d$ and the voltage $V_d$. 
+An ideal diode, when forward biased, acts as a short. 
+We should use the diode equation 
+\[I_d = I_0(e^{qV_d/kT} - 1).\]
+In the case where the diode is forward biased, 
+the current $I_d = \frac{5 V}{5 \Omega}$ and the voltage 
+$V_d = 0 V$. We plug in values for $q$, $k$, and $T$ to find that 
+\begin{align*}
+    \frac{q}{kT} &= \frac{1.6 \times 10^{-19} C}{(1.38 \times 10^{-23} J/K)(300 K)} \\
+    &- 38.7 V^{-1}
+\end{align*}
+We can then solve for $V_d$ for the case when 
+the diode is reverse biased, and use its value to find $I_d$ 
+via the equation 
+\[I_d = \frac{5 V - V_d}{5 \Omega}.\]
+Therefore we have that $V_d = 0.79 V$ and $I_d = 842 mA$. 
+
+Here are the general steps for solving a diode problem: 
+\begin{enumerate}
+    \item Make an initial guess of the bias for each diode.
+    \item A foward-bias diode is equivalent to a short, 
+    while a reverse-bias diode is equivalent to an open. 
+    \item Solve the circuit. 
+    \item Check for consistency. If the result is 
+    inconsistent, the intial guess was incorrect. 
+    \marginnote{Or more likely, an error was made in the process 
+    of solving the circuit.}
+\end{enumerate}
+
+Any student of ECE 20007 is familiar with the different kinds of diodes, but 
+I will list them here for completeness. 
+\begin{itemize}
+    \item Standard diode: our normal one-way switch for current. 
+    It allows current to flow easily in one direction, 
+    but severely restricts current from flowing in the opposite direction
+    \item Zener diode: permits current to flow in either a forward or 
+    reverse direction. The diode consists of a special, heavily doped 
+    pn junction, designed to conduct in the reverse direction when a 
+    certain specified voltage is reached.
+    \item Schottky diode: has a low forward voltage drop and a very fast switching action. 
+    \item Light emitting diode (LED): emits light when current flows through it.
+\end{itemize}
 \end{document}
