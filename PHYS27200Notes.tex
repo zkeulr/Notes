@@ -1733,5 +1733,71 @@ for all observers! Namely,
     L_{obs} &= \frac{L}{\gamma} \\
     t_{obs} &= \gamma \times t 
 \end{align}
+It is possible to deduce the Boit-Savart law from special 
+relativity alone! Consider a frame where a charged particle is still. 
+The eletric field is given by 
+\[\vec{E} = \frac{1}{4 \pi \epsilon_0} \frac{q}{r^2} \hat{r},\]
+while the magentic field $B$ is zero. Say you have another frame, 
+the \emph{primed} frame, what is moving to the right with speed $v$. 
+Then we observe that 
+\[B_z' = \gamma (B_z - \frac{v E_y}{c^2}).\]
+Substituting in and assuming $v << c$, we find that 
+\[B_z' =  -\frac{\mu_0}{4 \pi} \frac{qv}{r^2}.\]
+So we find that the magnetic force is just the electric force under 
+a relativistic transformation! That hints at a relation between the mangetnic 
+and eletric fields, which we shall soon see are intertwined. 
+
+\section{Gauss's Law}
+To get into Gauss's law, it will first be useful to understand \emph{flux}. 
+\defn{Flux}{a measure of the number of electric or magnetic field lines 
+passing through a surface.} 
+It may be useful to imagine flux as the flow of water through an area. 
+Just as with water flowing, there must be a source. In the case of electric field 
+the source is a charge. Suppose you have water flowing through a loop of area $A$. 
+The flux is the volume of water per time, so we have that 
+\begin{align*}
+    \phi &= \frac{V}{\Delta t} \\
+    &= \frac{v \Delta t A}{\Delta t} \\
+    &= vA
+\end{align*}
+However, the amount of water flowing through depends on the angle between the 
+velocity and the loop. If the loop just cuts the water in half (if it is perpindicular)
+then there is no water flow through the loop. The effective area in that case becomes 
+$A \cos(\theta)$, and our equation becomes 
+\[\phi = vA\cos(\theta).\]
+In the case of the electric field, the flux is defined as
+\begin{align*}
+    \phi &= \sum (\vec{E} \cdot \hat{n}) dA \\
+    &= \sum E\cos(\theta) dA \\
+    &= \int \vec{E} \cdot d\vec{A} \\
+    &= \oint \vec{E} \cdot d\vec{A}
+\end{align*}
+\marginnote{Don't let the symbol 
+$\oint$ scare you. It simply means 
+that this is an integral on a 
+closed surface, such as a sphere, a cube, etc.
+We will usually not even need to compute 
+the integral if we can exploit the symmetry 
+of a problem.}
+Now, here is Gauss's law: 
+If you have a charge $Q$ enclosed in a surface $S$, 
+then 
+\begin{align*}
+    \phi &= \oint_S \vec{E} \cdot d\vec{A} \\
+    &= \frac{Q}{\epsilon_0}
+\end{align*}
+Not so bad! To get a little intuition, consider
+the case where you have a closed surface with 
+no charge within, but the surface is still in an
+electric field. Then any eletric field lines that 
+flow in must pass out again, so the net flux is 
+zero, just as $\frac{0}{\epsilon_0}$ is zero!
+Note that the law works for any closed surface, so 
+the flux through a sphere, cube, cylinder, etc. 
+will all be the same if the same charge in enclosed. 
+The size doesn't matter, either!
+
+There exists a comparable law for the magnetic field, stating
+\[\oint_S \vec{B} \cdot d \vec{A} = 0.\]
 
 \end{document}
