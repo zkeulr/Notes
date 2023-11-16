@@ -1367,11 +1367,37 @@ you are likely familar with at least some of them.
 \begin{enumerate}
     \item Reflexive: $(\forall x)(x \in S \rightarrow (x,x) \in \rho)$.
     \item Symmetric: $(\forall x)(\forall y)(x \in S \land y \in S \land (x,y) \in \rho \rightarrow (y,x) \in \rho)$.
-    \item Transitive: $(\forall x)(\forall y)(\forall z)(x\in S) \land (y\in S) \land (z\in S) \land (x,y) \in \rho \land (y,z) \in rho \rightarrow (x,z) \in \rho$. 
+    \item Transitive: $(\forall x)(\forall y)(\forall z)(x\in S) \land (y\in S) \land (z\in S) \land (x,y) \in \rho \land (y,z) \in \rho \rightarrow (x,z) \in \rho$. 
 \end{enumerate}
 There is an opposite of the symmetric property, 
 called anti-symmetric. 
 Anti-symmetry means that 
 \[(\forall x)(\forall y)(x \in S \land y \in S \land (x,y)\in \rho \land (y,x) \in \rho \rightarrow x = y),\]
 or basically that for any $(x,y)$ where $x$ and $y$ are distinct, $\rho$ does not contain $(y,x)$. 
+
+Consider the relation $\leq$. What properties does this relation have? Let's 
+go through the properties. 
+\begin{enumerate}
+    \item Reflexive: yes, since $x \leq x$. 
+    \item Symmetric: no, since it is not true that if $y \leq x$ then $x \leq y$. 
+    \item Transitive: yes, since if $x \leq y$ and $y \leq z$ then $x \leq z$. 
+    \item Anti-symmetric: yes, since if $(y,x) \in \rho$ and $(x,y) \in \rho$ then $x=y$. 
+\end{enumerate}
+
+If a relation fails to have a property, for example reflexivity, then 
+finding the closure means finding the smallest number of elements to 
+add to the relationship set such that it holds the desired property. 
+For instance, say you have $\rho = \{(1,2)\}$ and want to find the symmetric 
+closure. The smallest number of elements we can add to this to close it 
+is one, to get $\rho^* = \{(1,2), (2,1)\}$.
+
+There is an algorithmic process for finding closure, but such things can 
+be done by intuition in most cases. For instance, say we wish to find the closure 
+of $\rho = \{(9,3), (5, 11), (5, 12), (5, 3), (3, 4)\}$ under transitivity. 
+We can see that anytime we have an element $(a,b)$, then we need to 
+look and see if there is any $(b,c)$, and if there is, ensure that $(a,c)$ 
+is also in $\rho$. Doing it for the $\rho$ in this case, we have that 
+\[\rho^* = \{(9,3), (5, 11), (5, 12), (5, 3), (3, 4), (9,4), (5,4)\}.\]
+Simple enough. 
+
 \end{document}
