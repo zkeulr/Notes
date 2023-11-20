@@ -2118,4 +2118,92 @@ I will list them here for completeness.
     \item Schottky diode: has a low forward voltage drop and a very fast switching action. 
     \item Light emitting diode (LED): emits light when current flows through it.
 \end{itemize}
+
+Let's tackle a diode problem together. Say we have the circuit in 
+fig. \ref{fig:diode1}. 
+
+\begin{figure}
+    \caption{Diode problem}
+    \label{fig:diode1}
+    \begin{center}
+        \begin{circuitikz}
+            \draw 
+            (0,0) to[V, l=$5 V$, invert] (0,3)
+            to[R, l=$4 k\Omega$] (3,3)
+            to[R, l=$16 k\Omega$] (3,0)
+            to[short] (0,0)
+
+            (3,3) to[R, l=$5k\Omega$] (6,3)
+            to[D] (9,3) 
+            to[R, l=$11k\Omega$, v = $V_0$] (9,0)
+            to[short] (3,0)
+
+            (9,3) to[short] (12,3)
+            to[V, l=$9V$] (12,0)
+            to[short] (9,0) 
+            ;
+        \end{circuitikz}
+    \end{center}
+\end{figure}
+Let's see if we can find $V_0$. It looks like 
+the diode might be reverse biased, so let's proceed as though 
+it was an open and test our guess. 
+\begin{figure}
+    \caption{Diode problem}
+    \begin{center}
+        \begin{circuitikz}
+            \draw 
+            (0,0) to[V, l=$5 V$, invert] (0,3)
+            to[R, l=$4 k\Omega$] (3,3)
+            to[R, l=$16 k\Omega$] (3,0)
+            to[short] (0,0)
+
+            (3,3) to[R, l=$5k\Omega$, -*] (6,3)
+            (9,3) to[R, l=$11k\Omega$, v = $V_0$, *-] (9,0)
+            to[short] (3,0)
+
+            (9,3) to[short] (12,3)
+            to[V, l=$9V$] (12,0)
+            to[short] (9,0) 
+            ;
+        \end{circuitikz}
+    \end{center}
+\end{figure}
+Thus $V_0 = 9 V$. At the other end, Ohm's law tells us 
+that the voltage at the right side of the $4k\Omega$ resistor 
+is $5 V \times \frac{16 }{20} = 4 V$. Well, we see that the voltage at 
+the cathode end of a diode is higher, so the diode is reverse-biased and 
+our original guess was correct. 
+
+\section{Transistors}
+\defn{Transistor}{a semiconductor device used to amplify or switch 
+electrical signals and power}. Transistors are arguably the most imprtant 
+eletronic component ever invented. They are fundemental to modern computers 
+and are the subject of Moore's law, of which many readers are no doubt familiar. 
+\marginnote{For those who need a refresher, Moore's law states that the number of transistors
+in integrated chips doubles appoximately every two years. This law has held remarkably steady 
+for decades, although we are now bumping up against atomic limits.}
+A transistor has a voltage or current applied to one pair of its terminals, 
+which controls the current through another pair of terminals. 
+Because the controlled (output) power can be higher than the controlling 
+(input) power, a transistor can amplify a signal. The most common type, 
+and the type we will be studying in this class, is the metal-oxide-semiconductor 
+field-effect transistor (MOSFET). To start our study of this fundemental component, 
+let us examine the metal-oxide-semiconductor-capacitor pictured in fig. \ref{fig:MOSC}. 
+\begin{figure}
+    \caption{MOS-C}
+    \label{fig:MOSC}
+    \begin{center}
+        \includegraphics{images/MOSC.png}
+    \end{center}
+\end{figure}
+The metal is a great conductor, the oxide is a very poor conductor (or stated more nicely, a good insulator), and the semiconductor 
+is, well, somewhere between them. We choose our materials such that when a voltage is applied, 
+we end up with the same number of holes on top (in the metal) as electrons on bottom (in the semiconductor). 
+When we apply a strong enough field, we can change a p-type semiconductor to an n-type semiconductor. 
+That's huge! We love negativity at Purdue, so the more of it we can get, the better. 
+\marginnote{It is huge, but for different reasons. If we have two n-type butting against 
+a p-type, then we have essentially two diodes facing opposite directions. Ideally, no current 
+would be able to flow across these. But if the center p-type semiconductor changes to an n-type, 
+charge flows freely!}
 \end{document}
