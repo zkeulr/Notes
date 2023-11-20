@@ -1799,9 +1799,93 @@ zero, just as $\frac{0}{\epsilon_0}$ is zero!
 Note that the law works for any closed surface, so 
 the flux through a sphere, cube, cylinder, etc. 
 will all be the same if the same charge in enclosed. 
-The size doesn't matter, either!
+The size doesn't matter, either! Gauss's law often
+allows us to solve complicated system simply, if we 
+exploit symmetry. Here, let's work through an example together. 
+Say we have a uniformly charged sphere with charge $Q$. Gauss's law 
+tells us that 
+\begin{align*}
+    \oint \vec{E} \cdot d\vec{A} &= \frac{Q}{\epsilon_0} \\
+    &= \oint E \hat{r}\cdot \hat{r} dA \\
+    &= \oint EdA
+\end{align*}
+Here is an example of where we may exploit symmetry. Since the 
+surface in question is spherical and uniform, the eletric field 
+will be radially uniform. Therefore we 
+may take it out of the integral. 
+\begin{align*}
+    \oint EdA \\
+    &= E \oint dA \\
+    &= E(4 \pi r^2) \\
+    &= \frac{Q}{\epsilon_0}
+\end{align*}
+Rearranging to solve for $E$, we find that 
+\[E = \frac{Q}{4\pi \epsilon_0 r^2},\]
+which we already know as Coulomb's law. 
 
-There exists a comparable law for the magnetic field, stating
-\[\oint_S \vec{B} \cdot d \vec{A} = 0.\]
+Gauss's law works for magnetism as well, stating that 
+\[\oint \vec{B} \cdot \hat{n} dA = \frac{1}{\epsilon_0} \sum q_i.\]
+However, since no experiment has ever found 
+a magnetic charge (a.k.a. magnetic monopole), 
+this simplifies to 
+\[\oint \vec{B} \cdot \hat{n} dA = 0.\]
 
+\section{Ampere's Law}
+There exists a comparable law for the magnetic field, which states 
+the path integral of the magnetic field over a
+closed curve $C$ is proportional to the current
+passing through any surface bounded by $C$. 
+Mathematically, this is expressed as
+\[\int_C \vec{B} \cdot d\vec{L} = \mu_0 I_{enc}. \]
+This is known as \emph{Ampere's law} and can make 
+complex problems very easy. Let's see if we can use it 
+to find the magnetic field at a distance $r$ from a current-carrying wire. 
+If we draw a circle around the wire, 
+we have that 
+\begin{align*}
+    \int_C \vec{B} \cdot d\vec{l} &= \mu_0 I_{enc} \\
+    &= B \int_{0}^{2\pi r} dl \\
+    &= \mu_0 I \\
+    &= 2 \pi rB.
+\end{align*}
+Which implies that 
+\[B = \frac{\mu_0 I}{2 \pi r}.\]
+We already know this is the formula for the magnetic field 
+due to a wire! Let's try to find something 
+new: the magnetic field \emph{inside} 
+a wire. Once more, draw a circle around the 
+center of the wire and you have that 
+\begin{align*}
+    \int_C \vec{B} \cdot d\vec{l} &= \mu_0 I_{enc} \\
+    &= \mu_0 \frac{\pi r^2}{\pi R^2} I \\
+    &= \mu_0 \frac{r^2}{R^2} I \\
+    &= B \int_{0}^{2\pi r} dl \\
+    &= B 2\pi r 
+\end{align*}
+Taking all of this together, 
+we find that 
+\[B = \frac{\mu_0 I r}{2\pi R^2}.\]
+
+\section{Maxwell's Equations}
+Taking Coulomb's law, Gauss's law for eletric/magnetic charge, and Ampere's laws 
+together, we get four equations, known 
+as \emph{Maxwell's equations}: 
+\begin{align*}
+    \oint_S \vec{E} \cdot \hat{n} dA &= \frac{1}{\epsilon_0} q_{enc} \\
+    \oint_S \vec{B} \cdot \hat{n} dA &= 0 \\
+    \int_C \vec{B} \cdot d\vec{L} &= \mu_0 I_{enc} \\
+    \oint_C \vec{E} \cdot d\vec{l} &= 0
+\end{align*}
+However, this is not the full form 
+of even the equations we have. Here 
+are Maxwell's equations in all their glory: 
+\begin{align*}
+    \oint_S \vec{E} \cdot \hat{n} dA &= \frac{1}{\epsilon_0} q_{enc} \\
+    \oint_S \vec{B} \cdot \hat{n} dA &= 0 \\
+    \int_C \vec{B} \cdot d\vec{L} &= \mu_0 \left(I_{enc} + \epsilon_0 \frac{d}{dt} \int_S \vec{E} \cdot \hat{n} dA \right) \\
+    \oint_C \vec{E} \cdot d\vec{l} &= -\frac{d}{dt} \int_S \vec{B} \cdot \hat{n} dA 
+\end{align*}
+We have not yet seen where all these extra 
+terms come from, but fear not, for 
+time uncovers all secrets. 
 \end{document}
