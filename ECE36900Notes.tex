@@ -1391,13 +1391,56 @@ For instance, say you have $\rho = \{(1,2)\}$ and want to find the symmetric
 closure. The smallest number of elements we can add to this to close it 
 is one, to get $\rho^* = \{(1,2), (2,1)\}$.
 
-There is an algorithmic process for finding closure, but such things can 
+There is an algorithmic process for finding the transitive closure, but such things can 
 be done by intuition in most cases. For instance, say we wish to find the closure 
+\marginnote{If you really wish to find it via algorithm, 
+the usual method is to write out a matrix $A$ where $(i,j) \in \rho \rightarrow A[i,j] = 1$.
+Then write out $A^(2)$, which has a 1 if $j$ can be reached in 
+two steps from $i$. Now $A^(3)$, $A^(4)$, and so on, then $\land$ 
+all the matrices together. This will give us a matrix representing 
+what elements can be reached from other elements in any number of steps.
+The final thing to do is transform the matrix back into a relation.}
 of $\rho = \{(9,3), (5, 11), (5, 12), (5, 3), (3, 4)\}$ under transitivity. 
 We can see that anytime we have an element $(a,b)$, then we need to 
 look and see if there is any $(b,c)$, and if there is, ensure that $(a,c)$ 
 is also in $\rho$. Doing it for the $\rho$ in this case, we have that 
 \[\rho^* = \{(9,3), (5, 11), (5, 12), (5, 3), (3, 4), (9,4), (5,4)\}.\]
-Simple enough. 
+Simple enough.
 
+Let's now look at \emph{partial} and \emph{total orderings}. 
+
+\defn{Partial ordering}{a binary relation on $S$ which 
+is reflexive, anti-symmetric, and transitive}. Some examples 
+of partial orderings on $\mathbb{N}$ are $x \leq y$ and $x|y$. 
+
+\defn{Predecessor of $y$}{if $x\rho y \land x \neq y$, $x$ is the 
+predecessor of $y$ (denoted $x<y$)}.
+
+\defn{Immediate predecessor of $y$}{if $x\rho y \land x \neq y \land \neg (\exists z, x < z< y)$, then $x$ is the 
+immediate predecessor of $y$ (denoted $x<y$)}. 
+
+$(S, \rho)$ is called the partially ordered set, or \emph{poset}. 
+
+\defn{Total ordering}{A partial ordering in which every element is related to 
+every other element}. For example, the relation $\leq$ on the set of reals. 
+
+There are some special elements in the poset. There is the greatest element, 
+the least element, the maximal element, and the minimal element. 
+
+\defn{Greatest element}{if $y \in S \land (\forall x \in S, x<y)$
+then $y$ is the greatest element.}
+
+\defn{Maximal element}{$y\in S$ is maximal if there does not exist any 
+element $x \in S$ such that $y < x$.}
+
+\defn{Least element}{if $y \in S \land (\forall x \in S, x>y)$
+then $y$ is the least element.}
+
+\defn{Minimal element}{$y\in S$ is minimal if there does not exist any 
+element $x \in S$ such that $y > x$.}
+
+\marginnote{Here is a joke: 
+There are 10 kinds of people in the world:
+those who understand binary, those who don't,
+and those who understand ternary.}
 \end{document}
