@@ -135,6 +135,23 @@ for electrical and computer engineers as well as for engineers
     \item Energy stored in magnetically coupled circuit: 
     $E = \frac{1}{2}L_1i_1^2 + \frac{1}{2}L_2i_2^2 + L_{12}i_1i_2$.
     \item Coupling coefficient: $k = \frac{L_{12}}{\sqrt{L_2L_2}}$
+    \item Equilibrium in pn junction: $pn = n_i^2$
+    \item Current in pn junction: 
+    \begin{align*}
+        J_N &= q\mu_n n E_x + qD_n \frac{dn}{dx} \\
+        J_P &= -qD_p \frac{dp}{dx} + q\mu_p p E_x
+    \end{align*}
+    \item Width of depletion region: $W = \left[\frac{2\epsilon_r \epsilon_0}{q} \left(\frac{N_A + N_D}{N_A N_D}\right) V_{bi}\right]^{1/2}$
+    \item Built-in potential: $V_{bi} = \frac{kT}{q}\ln{\left(\frac{N_AN_D}{n_i^2}\right)}$
+    \item Current through an ideal diode: $I = I_0(e^{qV_A / kT} - 1)$
+    \item Current through a MOSFET: 
+    \begin{align*}
+        I_D &= \mu_n C_{ox} \left(\frac{W}{L}\right) \left[(V_{GS} - V_T)V_{DS} - \frac{1}{2} V_{DS}^2\right] \\
+        &= k\left[(V_{GS} - V_T)V_{DS} - \frac{1}{2} V_{DS}^2\right], V_{DS} \leq V_{GS} - V_T, V_D \leq V_G - V_T \\
+        I_D &= \mu_n C_{ox} \left(\frac{W}{L}\right) \left[\frac{1}{2} (V_{GS}-V_T)^2\right] \\
+        &= k \left[\frac{1}{2} (V_{GS}-V_T)^2\right], V_DS \geq V_{GS} - V_T, V_D \geq V_G - V_T
+    \end{align*}
+    
 \end{enumerate}
 
 \pagebreak 
