@@ -146,13 +146,13 @@ for electrical and computer engineers as well as for engineers
     \item Current through an ideal diode: $I = I_0(e^{qV_A / kT} - 1)$
     \item Current through a MOSFET: 
     \begin{align*}
-        V_{DS} = V_D -V_S\\
+        V_{DS} &= V_D -V_S\\
         V_{GS} &= V_G - V_S \\
         V_T &= V_G - V_D \\
         I_D &= \mu_n C_{ox} \left(\frac{W}{L}\right) \left[(V_{GS} - V_T)V_{DS} - \frac{1}{2} V_{DS}^2\right] \\
         &= k\left[(V_{GS} - V_T)V_{DS} - \frac{1}{2} V_{DS}^2\right], V_{DS} \leq V_{GS} - V_T, V_D \leq V_G - V_T \\
         I_D &= \mu_n C_{ox} \left(\frac{W}{L}\right) \left[\frac{1}{2} (V_{GS}-V_T)^2\right] \\
-        &= k \left[\frac{1}{2} (V_{GS}-V_T)^2\right], V_DS \geq V_{GS} - V_T, V_D \geq V_G - V_T
+        &= k \left[\frac{1}{2} (V_{GS}-V_T)^2\right], V_{DS} \geq V_{GS} - V_T, V_D \geq V_G - V_T
     \end{align*}
     
 \end{enumerate}
@@ -2209,7 +2209,7 @@ Because the controlled (output) power can be higher than the controlling
 (input) power, a transistor can amplify a signal. The most common type, 
 and the type we will be studying in this class, is the metal-oxide-semiconductor 
 field-effect transistor (MOSFET). To start our study of this fundemental component, 
-let us examine the metal-oxide-semiconductor-capacitor pictured in fig. \ref{fig:MOSC}. 
+let us examine the metal-oxide-semiconductor-capacitor (MOS-C) pictured in fig. \ref{fig:MOSC}. 
 \begin{figure}
     \caption{MOS-C}
     \label{fig:MOSC}
@@ -2217,13 +2217,53 @@ let us examine the metal-oxide-semiconductor-capacitor pictured in fig. \ref{fig
         \includegraphics{images/MOSC.png}
     \end{center}
 \end{figure}
+We see the circuitry of a n-type MOSFET in fig. \ref{fig:ntypeschem}. 
+\begin{figure}
+    \caption{Schematic of n-type MOSFET}
+    \label{fig:ntypeschem}
+    \begin{center}
+        \begin{circuitikz}
+            \draw (0,0) node[nmos] (mosfet) {};
+            \draw (mosfet.D) -- ++(0,-0.5) node[vdd] {$V_{D}$};
+            \draw (mosfet.S) -- ++(0,0.5) node[right] {$V_S$};
+            \draw (mosfet.G) -- ++(-0.5,0) node[left] {$V_{GS}$};
+        \end{circuitikz}
+    \end{center}
+\end{figure}
 The metal is a great conductor, the oxide is a very poor conductor (or stated more nicely, a good insulator), and the semiconductor 
 is, well, somewhere between them. We choose our materials such that when a voltage is applied, 
 we end up with the same number of holes on top (in the metal) as electrons on bottom (in the semiconductor). 
 When we apply a strong enough field, we can change a p-type semiconductor to an n-type semiconductor. 
 That's huge! We love negativity at Purdue, so the more of it we can get, the better. 
-\marginnote{It is huge, but for different reasons. If we have two n-type butting against 
+It is actually huge, but for different reasons. If we have two n-types butting against 
 a p-type, then we have essentially two diodes facing opposite directions. Ideally, no current 
 would be able to flow across these. But if the center p-type semiconductor changes to an n-type, 
-charge flows freely!}
+charge flows freely! As we increase the voltage across the gate ($V_G$) then the current across the transistor
+will increase, up to a point. After this point the current will increase no farther: this is 
+the \emph{saturation point}. 
+
+Mathematically, we can describe the current across the transistor with a couple of cases. 
+\begin{align*}
+    I_D &= \mu_n C_{ox} \left(\frac{W}{L}\right) \left[(V_{GS} - V_T)V_{DS} - \frac{1}{2} V_{DS}^2\right] \\
+    &= k\left[(V_{GS} - V_T)V_{DS} - \frac{1}{2} V_{DS}^2\right], V_{DS} \leq V_{GS} - V_T, V_D \leq V_G - V_T \\
+    I_D &= \mu_n C_{ox} \left(\frac{W}{L}\right) \left[\frac{1}{2} (V_{GS}-V_T)^2\right] \\
+    &= k \left[\frac{1}{2} (V_{GS}-V_T)^2\right], V_{DS} \geq V_{GS} - V_T, V_D \geq V_G - V_T
+\end{align*}
+Here, $C_{ox}$ is oxide capacitance per unit area, $W$ is the width of the inversion layer, 
+and $L$ is the length of the inversion layer. $k$ combines all of these into the 
+transconductance parameter. 
+We see that as soon as $V_{DS} = V_{GS} - V_T$, we switch from the equation 
+that governs the triode region to the equation that governs the saturation region.
+We also have that
+\begin{align*}
+    V_{DS} &= V_D -V_S\\
+    V_{GS} &= V_G - V_S \\
+    V_T &= V_G - V_D.
+\end{align*}
+
+Let's see some examples. An NMOS transistor is operating at the edge of 
+saturation, with $V_{GS} - V_T = 0.5 V$ and $I_D = 0.8 mA$. 
+Let's see if we can find $V_{DS}$. We know that, since this is at the 
+saturation point, $V_D = V_G$. Therefore, since $V_{DS} = V_{GS} - V_T$, 
+we have that $V_{DS} = 0.5 V$. 
 \end{document}
