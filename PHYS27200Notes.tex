@@ -123,6 +123,7 @@ solving by computer are employed throughout. For more information, consult the s
     \item Magnetic dipole moment: $\mu = IA$
     \item Radius of curvature in magnetic field: $r = \frac{mv}{qB}$
     \item Ampere's Law: $\oint \vec{B} \cdot d\vec{l} = \mu_0 NI$
+    \item Faraday's Law: $\oint \vec{E} \cdot d\vec{l} = -\frac{d}{dt} \int \vec{B} \cdot \hat{n} dA$
     \item Charge on charging capacitor in an RC circuit: $Q(t) = V_{emf} C (1-e^{-t/RC})$
     \item Charge on discharging capacitor in an RC circuit: $Q(t) = V_{emf} C e^{-t/RC}$
     \item Current through capacitor in an RC circuit: $I(t) = \frac{V_{emf}}{R}e^{-\frac{t}{RC}}$
@@ -1179,9 +1180,9 @@ constant current.
 Now, as you are familiar with voltage and the general
 concept of potential, this next part should be no surprise to you.
 We are now going to discuss \emph{Kirchhoff's loop rule}. 
-The rule states that the total change in eletric potential 
+The rule states that the total change in electric potential 
 as you move around a circuit is zero. That is sensible, 
-since no matter where you go in an eletric field, if you return 
+since no matter where you go in an electric field, if you return 
 to the same point you will have the same potential 
 regardless of what you did between leaving and coming back. 
 \marginnote{This is analogous to gravitational potential and height. 
@@ -1294,12 +1295,12 @@ that accumulates on one plate will push away charge on the other plate, so curre
 entering one plate of a capacitor equals current leaving the other plate. 
 }
 In these cases we have been assuming a vacuum between the plates of the capacitor. 
-If instead there is some insulating medium, the eletric field within 
+If instead there is some insulating medium, the electric field within 
 the plates of the capacitor will be 
 \[E = \frac{Q}{KA\epsilon_0}.\]
 That implies 
 \[C = K\frac{\epsilon_0 A}{s},\]
-which tells us that the higher $K$ (the dieletric constant) is 
+which tells us that the higher $K$ (the dielectric constant) is 
 between the plates of a capacitor, the higher the capacitance. 
 Manufacturers use this fact in making capacitors by putting
 a highly insulating material between the plates, which are then rolled together
@@ -1578,7 +1579,7 @@ are much lower than the speed of light ,
 $\gamma \approx 1$.}
 This is very useful for particle physicists, 
 since they can measure the strength of the 
-eletric field and the radius of the circle. 
+electric field and the radius of the circle. 
 Cyclotrons, a type of particle accelerator, 
 take advantage of this behavior. Our equation for 
 momentum naturally leads to some useful 
@@ -1699,7 +1700,7 @@ postulates:
     for all observers.
 \end{itemize}
 
-Special relativity predicts how magnetic and eletric 
+Special relativity predicts how magnetic and electric 
 fields transform when you change from one inertial frame of 
 reference to another.
 
@@ -1727,7 +1728,7 @@ In relativity, a corrective factor arises and we have that
     z' &= z
 \end{align*}
 What we find is that the electron still experiences a force, 
-but now, there is an eletric field from the wire, and this is 
+but now, there is an electric field from the wire, and this is 
 what repels the electron. We can find expressions for the electric 
 and magnetic fields incorporating relativity as well. 
 
@@ -1739,7 +1740,7 @@ for all observers! Namely,
 \end{align}
 It is possible to deduce the Boit-Savart law from special 
 relativity alone! Consider a frame where a charged particle is still. 
-The eletric field is given by 
+The electric field is given by 
 \[\vec{E} = \frac{1}{4 \pi \epsilon_0} \frac{q}{r^2} \hat{r},\]
 while the magentic field $B$ is zero. Say you have another frame, 
 the \emph{primed} frame, what is moving to the right with speed $v$. 
@@ -1749,7 +1750,7 @@ Substituting in and assuming $v << c$, we find that
 \[B_z' =  -\frac{\mu_0}{4 \pi} \frac{qv}{r^2}.\]
 So we find that the magnetic force is just the electric force under 
 a relativistic transformation! That hints at a relation between the mangetnic 
-and eletric fields, which we shall soon see are intertwined. 
+and electric fields, which we shall soon see are intertwined. 
 
 \section{Gauss's Law}
 To get into Gauss's law, it will first be useful to understand \emph{flux}. 
@@ -1793,7 +1794,7 @@ then
 Not so bad! To get a little intuition, consider
 the case where you have a closed surface with 
 no charge within, but the surface is still in an
-electric field. Then any eletric field lines that 
+electric field. Then any electric field lines that 
 flow in must pass out again, so the net flux is 
 zero, just as $\frac{0}{\epsilon_0}$ is zero!
 Note that the law works for any closed surface, so 
@@ -1810,7 +1811,7 @@ tells us that
     &= \oint EdA
 \end{align*}
 Here is an example of where we may exploit symmetry. Since the 
-surface in question is spherical and uniform, the eletric field 
+surface in question is spherical and uniform, the electric field 
 will be radially uniform. Therefore we 
 may take it out of the integral. 
 \begin{align*}
@@ -1867,7 +1868,7 @@ we find that
 \[B = \frac{\mu_0 I r}{2\pi R^2}.\]
 
 \section{Maxwell's Equations}
-Taking Coulomb's law, Gauss's law for eletric/magnetic charge, and Ampere's laws 
+Taking Coulomb's law, Gauss's law for electric/magnetic charge, and Ampere's laws 
 together, we get four equations, known 
 as \emph{Maxwell's equations}: 
 \begin{align*}
@@ -1888,4 +1889,84 @@ are Maxwell's equations in all their glory:
 We have not yet seen where all these extra 
 terms come from, but fear not, for 
 time uncovers all secrets. 
+
+\section{Faraday's Law}
+Recall that magnetic fields must always be "curly", since there may 
+be no magnetic monopoles. 
+\begin{figure}
+    \caption{Curly force field}
+    \begin{center}
+        \includegraphics{images/curly.png}
+    \end{center}
+\end{figure}
+However, electric fields can be either "curly" or radial, 
+as is the case with a point charge. Here is an interesting 
+empirical observation: just as moving charges induce a 
+magnetic field, a changing magnetic field creates an electric 
+field! The electric field produced by this phenomenon is curly. 
+Say we have a region with a changing magnetic field and we place
+a conductive ring within it. The curly electric field will drive current 
+through the ring.
+\marginnote{The current within the ring in a changing magnetic field 
+is unconventional and has no surface charge gradient, since there is 
+no battery.}
+This electric field is fundementally different from the standard, Coulomb 
+electric field produced by charges, which is radially outward. 
+While the latter is governed by Coulomb's law, the former curly electric field 
+is given by 
+\[emf = -\frac{d \phi_{mag}}{dt}\]
+where 
+\[\phi_{mag} = \int \vec{B} \cdot \hat{n} dA.\]
+This is \emph{Faraday's law}. It tells us that a changing magnetic flux 
+induces an eletric field and thus a current in a wire. Faraday's law is 
+typically written as 
+\[\oint \vec{E} \cdot d\vec{l} = -\frac{d}{dt} \int \vec{B} \cdot \hat{n} dA.\]
+With this curly electric field comes a new right hand rule: 
+if you place your thumb in the direction of $-\frac{dB}{dt}$, your fingers 
+will curl in the direction of $E$. When dealing with current, it can be easier 
+to remember Lenz's Law: an induced current has a direction such that the
+magnetic field due to the induced current opposes the
+change in the magnetic flux that induces the current.
+We can calculate the current induced in a ring by a changing magnetic flux. 
+We know that 
+\begin{align*}
+    emf &= -\frac{d\phi_{mag}}{dt} \\
+    &= -\frac{d}{dt} \int \vec{B} \cdot \hat{n}dA \\
+    &= -\frac{d}{dt} (B\int dA).
+\end{align*}
+For a circular ring, 
+\begin{align*}
+    -\frac{d}{dt} (B\int dA) &= -\frac{dB}{dt} \pi r^2
+\end{align*}
+Just to give us something to work with, let's say that 
+the magnetic field is due to a solenoid and therefore that 
+$B = \frac{\mu_0 N I}{L}$. 
+\begin{align*}
+    -\frac{dB}{dt} \pi r^2 &= -\frac{d}{dt}\left(\frac{\mu_0 N I}{L}\right) \pi r^2\\
+    &= -\frac{dI}{dt}\left(\frac{\mu_0 N}{L}\right) \pi r^2
+    &= emf
+\end{align*}
+Now, let's use Ohm's law to finally obtain 
+\begin{align*}
+    I &= \frac{emf}{R} \\
+    &= -\frac{dI}{dt}\left(\frac{\mu_0 N}{LR}\right) \pi r^2
+\end{align*}
+The astute reader will notice that it is not required that we change the magnitude of the 
+magnetic field, merely the magnetic flux, which is a function of both area and the 
+magnetic field. Therefore, changing the area of the surface in consideration will 
+induce an eletric field. 
+\marginnote{If we recall a previous problem of moving a bar along two 
+conducting rods through a magnetic field, the area was changing there. 
+Can you use Faraday's law to find the current induced?}
+
+With Faraday's law now in our toolbox, we can finally assemble all of 
+Maxwell's equations: 
+\marginnote{Technically we have yet to cover the final equation, 
+the Ampere-Maxwell law, but I am impatient.}
+\begin{align*}
+    &\text{Gauss's law: } \oint \vec{E} \cdot \hat{n} dA = \frac{1}{\epsilon_0} \sum Q_{enc} \\
+    &\text{Gauss's law (magnetism): } \oint \vec{EB} \cdot \hat{n} dA = 0 \\
+    &\text{Faraday's law: } \oint \vec{E} \cdot d\vec{l} = -\frac{d}{dt} \int \vec{B} \cdot \hat{n} dA \\
+    &\text{Ampere-Maxwell law: } \oint \vec{B} \cdot d\vec{l} = \mu_0 \left[\sum I_{enc} + \epsilon_0 \frac{d}{dt} \int \vec{E} \hat{n}dA\right]
+\end{align*}
 \end{document}
