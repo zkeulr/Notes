@@ -1428,19 +1428,48 @@ There are some special elements in the poset. There is the greatest element,
 the least element, the maximal element, and the minimal element. 
 
 \defn{Greatest element}{if $y \in S \land (\forall x \in S, x<y)$
-then $y$ is the greatest element.}
+then $y$ is the greatest element}. Basically, $y$ must be greater 
+than all other elements. 
 
 \defn{Maximal element}{$y\in S$ is maximal if there does not exist any 
 element $x \in S$ such that $y < x$.}
 
 \defn{Least element}{if $y \in S \land (\forall x \in S, x>y)$
-then $y$ is the least element.}
+then $y$ is the least element}. That is, $y$ must be lesser 
+than all other elements. 
 
 \defn{Minimal element}{$y\in S$ is minimal if there does not exist any 
 element $x \in S$ such that $y > x$.}
-
 \marginnote{Here is a joke: 
 There are 10 kinds of people in the world:
 those who understand binary, those who don't,
 and those who understand ternary.}
+
+There's another special kind of relation to add to partial and total 
+orderings, the \emph{equivalence relation}. 
+
+\defn{Equivalence relation}{a binary relation on $S$ which is 
+reflexive, symmetric, and transitive}. For example, $\mathbf{N}, \rho = x + y = 2n, n \in \mathbf{Z}$
+(all natural numbers $x$ and $y$ such that $x+y$ is even.)
+We can make a subset of $S$ where all the members are equivalent to one another, 
+called an equivalence class. In the previous example, the two equivalence 
+classes would be all evens or all odds, since any two numbers of the same 
+parity summed will be even. 
+
+A special equivalence relation is congruence modulo $n$ ($x \mod n$). 
+Let's first show why this is an equivalence relation. We require it to be 
+reflexive, symmetric, and transitive. It is certainly reflexive: $x \mod n \cong x \mod n$. 
+For symmetry, if $x \mod n \cong y \mod n$ then $y \mod n \cong x$, so it is symmetric. 
+The transitive case is left as an exercise to the reader. The equivalence classes would be 
+$a \in \mathbf{Z}, {x | x = na}, {x | x = na + 1}, \dots, {x | x = na + (n-1)}$, since each 
+of these is equivalent under modulo congruence. 
+
+We can also define a \emph{function} between two sets $S$ and $T$, where 
+every element $S$ maps to one and only one element in $T$. We call $S$ the domain, 
+and $T$ the co-domain. If $(s, t)$ belongs to the function, $t$ is the
+image of $s$, and $s$ is the pre-image of $t$. The \emph{range} of $f$ is the set $R$
+of images of all members of $S$.
+If the range of $f$ is identical to the co-
+domain, then it is an onto function. If a function is both one-to-one 
+and onto, then it is \emph{bijective}. Bijective functions have inverses. 
 \end{document}
