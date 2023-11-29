@@ -2266,4 +2266,38 @@ saturation, with $V_{GS} - V_T = 0.5 V$ and $I_D = 0.8 mA$.
 Let's see if we can find $V_{DS}$. We know that, since this is at the 
 saturation point, $V_D = V_G$. Therefore, since $V_{DS} = V_{GS} - V_T$, 
 we have that $V_{DS} = 0.5 V$. 
+
+Let's take a look at another example. For the transistor in fig. \ref{fig:transprob2}
+we know that $V_T = 0.6 V$ and $k=5 \frac{mA}{V^2}$. Find $R$ such that $V_D = 0.9 V$. 
+\begin{figure}
+    \caption{Transistor problem}
+    \label{fig:transprob2}
+    \begin{center}
+        \begin{circuitikz}
+            \draw (0,0) node[nmos] (mosfet) {}
+            (mosfet.D) to[R, l=$R$] ++(0,1.5) 
+            node[above] {$9.9V$}
+            (mosfet.S) -- ++(0,0.5) 
+            to[short] ++(0,-1)
+            node[ground] {}
+            (mosfet.G) to[short] ++(-0.5, 0) 
+            to[short] ++(0,0.5)
+            to[short] ++(2,0)
+            node[right] {$V_D$};
+        \end{circuitikz}
+    \end{center}
+\end{figure}
+We can see since $V_D = V_G$, the transistor will be in saturation (since it must be true 
+that $V_D > V_G - V_T$). Ergo, 
+\begin{align*}
+    I_D &= \frac{k}{2}(V_{GS}-V_T)^2 \\
+    &= \frac{5}{2}(0.9-0.6)^2 \\
+    &= 0.225 mA
+\end{align*}
+Ergo, 
+\begin{align*}
+    R &= \frac{9.9V - 0.9V}{0.225 mA} \\
+    &= 40k\Omega
+\end{align*}
+
 \end{document}
