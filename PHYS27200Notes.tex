@@ -1969,4 +1969,37 @@ the Ampere-Maxwell law, but I am impatient.}
     &\text{Faraday's law: } \oint \vec{E} \cdot d\vec{l} = -\frac{d}{dt} \int \vec{B} \cdot \hat{n} dA \\
     &\text{Ampere-Maxwell law: } \oint \vec{B} \cdot d\vec{l} = \mu_0 \left[\sum I_{enc} + \epsilon_0 \frac{d}{dt} \int \vec{E} \hat{n}dA\right]
 \end{align*}
+
+\section{Conduction and induction}
+We love metals! They're shiny, conduct well, and malleable. We make wires out of them, and 
+as the non-ideal components they are, they have some resistance and therefore dissipate some 
+power. As metal heats up, the resistance increases (Ohm's law only holds up to a point!). There 
+are some materials where the converse is taken to an extreme. If they are cooled below a certain 
+point, the resistance drops to zero! Not just an infinitesimally small amount, but actually zero. 
+There are the so-called \emph{superconductors}, and have some interesting properties. For starters, 
+the eletric field inside one of these must be zero, or else there would be an infinite current. 
+What's more, the magnetic flux through a superconducting ring cannot change! Superconductors carry 
+current perfectly and lose no energy. Another interesting thing is that superconductors expel 
+magnetic fields via the Meissner effect. These expelled fields will exactly cancel out any applied 
+magnetic field. The first material discovered to be superconductive was mercury, with a critical temperature
+below 5 K. 
+
+Now, on to inductors. Thinking about a solenoid, $B= \mu_0 n I$. Now, if the current changes
+the emf in each loop will change as well. It can be shown that the inductance of a solenoid is
+\[L=\frac{\mu_0 N^2}{d} \pi r^2.\]
+A solenoid will tend to oppose a change in current. Inductors are instrumental in transformers, 
+which can change the voltage across two coils. Notably, if there are two coils with $N_1$ and $N_2$ loops, 
+\[\frac{emf_{2}}{emf_{1}} = \frac{N_2}{N_1}.\]
+
+Let's now consider an RL circuit, a circuit with a resistor and inductor in series. The voltage 
+across the inductor is given by $V_L = L \frac{dI}{dt}$. The current is given by 
+\[I = \frac{V}{R}\left[1-e^{-Rt/L}\right].\]
+The voltage is given by 
+\[V = L\frac{dI}{dt}.\]
+The energy stored in an inductor is given by 
+\[U_L = \frac{1}{2}LI^2.\]
+Energy density is given by 
+\[\frac{U_L}{volume} = \frac{1}{2\mu_0} B^2.\]
+For a general electromagnetic field, energy density is given by 
+\[u = \frac{1}{2}\epsilon_0 E^2 + \frac{B^2}{2 \mu_0}.\]
 \end{document}
