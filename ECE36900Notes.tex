@@ -1470,6 +1470,32 @@ and $T$ the co-domain. If $(s, t)$ belongs to the function, $t$ is the
 image of $s$, and $s$ is the pre-image of $t$. The \emph{range} of $f$ is the set $R$
 of images of all members of $S$.
 If the range of $f$ is identical to the co-
-domain, then it is an onto function. If a function is both one-to-one 
-and onto, then it is \emph{bijective}. Bijective functions have inverses. 
+domain, then it is an \emph{onto} function. If a function is both one-to-one 
+and onto, then it is \emph{bijective}. 
+\marginnote{Bijective functions have inverses. In fact, if the inverse of $f$ 
+exists, then $f$ is a bijection.}
+
+Functions can be composed. If you have a function $f$ from $S$ to $T$ and another 
+function $g$ from $T$ to $U$, then for any $s\in S$, $f(s) \in T$. Threfore, 
+$g(f(s)) \in U$. In other words, $g(f(s))$ is a new function from $S$ to $U$. $g(f(x))$ 
+is called the composition function. For composing, the domains and ranges have to 
+be compatible. That means that you can't commute $f$ and $g$ willy-nilly;
+$f(g(s)) \neq g(f(s))$. $s$ might not even be in the domain of $g$. Order matters!
+Actually, the only time when $f(g(x)) = g(f(x))$ is when $f$ and $g$ are inverses. 
+Then, $f(g(x)) = x$ and $f(g(x))$ is the \emph{identity function}. 
+    
+Say we have $f$ such that $f$ maps from $S$ to $T$. If $|S| = m$ and $|T| = n$, 
+then there are $n^m$ possible functions (not necessarily one-to-one). If the function 
+must be one-to-one, then $m \leq n$ and the number of functions is $\frac{n!}{(n-m)!}$.
+The number of onto functions is the total number of functions minus the number of non-onto functions, 
+or
+\[n^m - [{n \choose 1}(n-1)^m - {n \choose 2}(n-2)^m - \dots - {n \choose n-1}(1)^m].\]
+
+For a given set $A$, consider bijective functions from $A$ to $A$. These functions 
+are called permutations of $A$. For example, if $A = \{1, 2, 3, 4\}$, then a function might map 
+1 to 2, or to 3, or to 4. Then 2 could map to any of the three remaining, and so on 
+for a total of $n!$ possible permutations. 
+\marginnote{Less commonly seen are \emph{derangements}. Derangements
+are permutations such that no element is mapped onto itself.}
+
 \end{document}
