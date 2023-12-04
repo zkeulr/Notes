@@ -2300,4 +2300,27 @@ Ergo,
     &= 40k\Omega
 \end{align*}
 
+\section{MOSFET amplifiers}
+\marginnote{The MOSFET amplifier will appear as the final problem on the exam, so it's 
+worth taking time to study and understand. There will be two or three problems on ideal transformers.
+There is a problem on built-in voltage of a pn junction, and another on the width of the 
+depletion zone. }
+We can use the common source amplifier to 
+amplify an input signal. We want the gain to be both high and linear. For that, we 
+want the MOSFET to be operating in saturation mode. If you want to find the 
+point at which the amplifier goes from triode to saturation, we must solve
+\begin{align*}
+    \frac{V_{DD}-V_D}{R_D} &= k \left[\frac{1}{2} (V_{GS}-V_T)^2\right] \\
+    &= \frac{k}{2} V_D^2 \\
+    \frac{1}{2} V_D^2 + \frac{1}{kR_D}V_D - \frac{V_{DD}}{kR_D} &= 0 \\
+    V_D &= -\frac{1}{kR_D} + \sqrt{\left(\frac{1}{kR_D}\right)^2 + \frac{2V_DD}{kR_D}}
+\end{align*}
+
+We can get clipping when the input signal $V_G$ exceeds $V_DD$. To avoid 
+distortion, we require that $V_G << 2(V_G-V_T)$. This is the small-signal 
+condition. If we require distortion to be less than 10\% of the signal, 
+then we need $V_G < 0.2(V_G-V_T)$. 
+
+The small-signal gain of a MOSFET common source amplfier is 
+\[A = -R_Dk(V_G-V_T)=-g_m R_D.\]
 \end{document}
