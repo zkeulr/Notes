@@ -45,6 +45,23 @@
 % Small sections of multiple columns
 \usepackage{multicol}
 
+% For finite state machines 
+\usetikzlibrary{automata} % Import library for drawing automata
+\usetikzlibrary{positioning} % ...positioning nodes
+\usetikzlibrary{arrows} % ...customizing arrows
+\tikzset{node distance=2.5cm, % Minimum distance between two nodes. Change if necessary.
+    every state/.style={ % Sets the properties for each state
+    semithick,
+    fill=gray!10},
+    initial text={}, % No label on start arrow
+    double distance=2pt, % Adjust appearance of accept states
+    every edge/.style={ % Sets the properties for each transition
+    draw,
+    ->,>=stealth', % Makes edges directed with bold arrowheads
+    auto,
+    semithick}}
+\let\epsilon\varepsilon
+
 % These commands are used to pretty-print LaTeX commands
 \newcommand{\doccmd}[1]{\texttt{\textbackslash#1}}% command name -- adds backslash automatically
 \newcommand{\docopt}[1]{\ensuremath{\langle}\textrm{\textit{#1}}\ensuremath{\rangle}}% optional command argument
@@ -1464,6 +1481,8 @@ The transitive case is left as an exercise to the reader. The equivalence classe
 $a \in \mathbf{Z}, {x | x = na}, {x | x = na + 1}, \dots, {x | x = na + (n-1)}$, since each 
 of these is equivalent under modulo congruence. 
 
+\section{Functions}
+
 We can also define a \emph{function} between two sets $S$ and $T$, where 
 every element $S$ maps to one and only one element in $T$. We call $S$ the domain, 
 and $T$ the co-domain. If $(s, t)$ belongs to the function, $t$ is the
@@ -1497,5 +1516,67 @@ are called permutations of $A$. For example, if $A = \{1, 2, 3, 4\}$, then a fun
 for a total of $n!$ possible permutations. 
 \marginnote{Less commonly seen are \emph{derangements}. Derangements
 are permutations such that no element is mapped onto itself.}
+A useful thing to know is the \emph{order} $\Theta$ of a function, 
+which can tell you roughly how fast it executes. We say functions $f$ and $g$ 
+are of the same order if 
+\[c_1g(x) \leq f(x) \leq c_2g(x), \forall x\geq n_0.\]
+If that is the case, we would say $f=\Theta(g)$. 
+We say that $f$ is \emph{big O} of another function $g$ if 
+\[f(x) \leq c g(x), \forall x\geq n_0.\]
+If that is the case, we would say $f=O(g)$. 
 
+To prove either $O$ or $\Theta$, we simply need to choose $c_{(i)}$
+to satisfy the requirements. 
+\marginnote{If $f=\Theta(g)$ then they are in the same equivalence class
+with respect to runtime.}
+
+\section{Finite state machines}
+A \emph{finite state machine} (FSM) is a model 
+of a computer. It has the following characteristics: 
+\begin{itemize}
+    \item Has a discrete clock
+    \item Deterministic
+    \item Takes inputs from a given alphabet 
+    \item Generates outputs from given alphabet 
+    \item In one of a finite number of states 
+    \item Next state is determined by current state and input 
+\end{itemize}
+Say we have $M = \left[S,I,O,f_s,f_o\right]$ as the FSM. 
+$S$ is a finite set of states, with a given start state $s_0$. 
+$I$ and $O$ are input and output alphabets respectively. 
+$f_s: S\times I \rightarrow O$, and % INCOMPLETE. 
+
+Finite state machines are commonly represented using state graphs, 
+such as fig. \ref{fig:stategraph}. 
+\begin{figure}
+    \caption{State graph}
+    \label{fig:stategraph}
+    \begin{center}
+        \begin{tikzpicture}
+            \node[state, initial] (q1) {$S_0$};
+            \node[state, right of=q1] (q2) {$S_1$};
+            \node[state, right of=q2] (q3) {$S_2$};
+            \draw (q1) edge[loop above] node {\tt 1} (q1);
+            \draw (q1) edge node {\tt 0} (q2);
+            \draw (q2) edge[loop above] node {\tt 1} (q2);
+            \draw (q2) edge node {\tt 0} (q3);
+            \draw (q3) edge[loop above] node {\tt 0} (q3);
+            \draw (q3) edge[bend left] node {{\tt 1}} (q1);
+            \end{tikzpicture}
+    \end{center}
+\end{figure}
+We can represent this using a state table.
+\begin{tabular}{c | c c | c}
+    \toprule 
+    Output state & Input = 0 & Input = 1 & Output \\
+    \hline 
+    $S_0$ & $S_1$ & $S_0$ & 0 \\
+    $S_1$ & $S_2$ & $S_1$ & 1 \\
+    $S_2$ & $S_2$ & $S_0$ & 0 \\
+    \bottomrule
+\end{tabular}
+
+FSMs can be used as a \emph{recognizer}, a machine 
+that outputs a 1 when the input string matches a 
+certain description. 
 \end{document}
