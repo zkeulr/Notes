@@ -2113,6 +2113,36 @@ more about the nature of these waves:
     \item $\vec{E}$ and $\vec{B}$ are in phase.
     \item $|B| = \frac{|E|}{c}$.  
 \end{itemize}
+We can kick off an eletromagnetic wave by moving a charge. 
+If you have an observation point at $\vec{r}$ and the charge is 
+moved from the origin to $\vec{a}$, then the magnitude of the 
+electric field radiating out is 
+\[\vec{E} = \frac{1}{4\pi \epsilon_0} \frac{-q \vec{a}_{\perp}}{c^2|r|}.\]
+Here, $\vec{a}_{\perp}$ is the vector you get if you drop 
+a perpendicular from $\vec{a}$ to $\vec{r}$, as shown in fig. \ref{fig:aperp}. 
+We can use the fact that $B = \frac{E}{c}$ to show also that 
+\[\vec{B} = \frac{\mu_0}{4\pi} \frac{q}{cr}(\vec{a}_{\perp} \times \hat{r}).\]
+\begin{figure}
+    \caption{$\vec{a}_{\perp}$}
+    \label{fig:aperp}
+    \begin{center}
+        \begin{tikzpicture}
+            \draw[->]
+            (0,0) -- (0,-2)
+            node[below] {$\vec{a}$}
+            ;
+            \draw[->]
+            (0,0) -- (2,-2)
+            node[right] {$\vec{r}$}
+            ;
+            \draw[->]
+            (0,-2) -- (1,-1)
+            node at (1.3,-0.8) {$\vec{a}_{\perp}$}
+            ;
+        \end{tikzpicture}
+    \end{center}
+\end{figure}
+
 Electromagnetic waves have energy. We can use 
 the expressions for the energy stored in 
 the electric and magnetic fields and the fact 
@@ -2136,8 +2166,42 @@ Not only does this vector tell us the direction of travel of the electromagnetic
 but its magnitude is directly related to the amount of energy being transported by the wave. 
 The energy transported, or \emph{intensity}, is given by 
 \[I = \frac{E^2}{\mu_0 c}.\]
+Since an eletromagnetic wave has a nonzero energy, it must have nonzero 
+momentum in both quantum and classical physics. In the case of the former 
+the momentum is given by 
+\begin{align*}
+    E^2 &= (\rho c)^2 + (mc^2)^2 \\
+    &= (\rho c)^2 + (0\times c^2)^2 \\
+    &= (\rho c)^2 \\
+    \rho &= \frac{E}{c}.
+\end{align*}
+In the case 
+of the latter it is given by $\rho = \frac{E}{v}$. Both expressions 
+are equivalent, and lead to the definition of \emph{momentum flux}
+\[\frac{\vec{S}}{c} = \frac{1}{\mu_0 c} \vec{E} \times \vec{B}.\]
+It's a small momentum, but if you have a lot of electromagnetic waves 
+over a long time it can impart a good amount of energy. Take the 
+example of a solar sail. Say the sail has an area of $1 km^2$ and we want 
+to find the force due to sunlight on the sail in near-Earth orbit. 
+If the sail is totally absorbant then the pressure is given by 
+$\rho = \frac{F}{A}$, while if it is totally reflective then 
+$\rho = 2\frac{F}{A}$. Say the sun exerts a power per square meter of 
+$1400 \frac{W}{m^2}$ and that the sail is totally reflective. Then, 
+\begin{align*}
+    \rho &= 2\frac{1400}{c} \\
+    &= 9.34\times 10^{-6} \\
+    F &= 2\frac{1400}{c} \times (10^3 m)^2 \\
+    &= 9.34 N 
+\end{align*}
+
+Waves produced by common light sources (sun, light bulb, etc.) are randomly
+polarized (unpolarized). We can produce polarized electromagnetic waves from unpolarized ones by:
+absorption, reflection, scattering, and double-refraction. Absorption 
+just blocks any orientation of light other than the one it's designed to 
+permit. 
 
 \marginnote{If you need a break from studying, take a moment to fill out our 
 quiz! We'll bake the cookie with the most votes and bring enough for all the students 
 to the final exam. Here's the link: \href{https://github.com/ezekielulrich/Notes/discussions/3}{github.com/ezekielulrich/Notes/discussions/3}}
+
 \end{document}
