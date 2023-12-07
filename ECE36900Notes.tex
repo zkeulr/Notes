@@ -1544,7 +1544,7 @@ of a computer. It has the following characteristics:
 Say we have $M = \left[S,I,O,f_s,f_o\right]$ as the FSM. 
 $S$ is a finite set of states, with a given start state $s_0$. 
 $I$ and $O$ are input and output alphabets respectively. 
-$f_s: S\times I \rightarrow O$, and % INCOMPLETE. 
+$f_s: S\times I \rightarrow O$, and $f_o: S\rightarrow O$. 
 
 Finite state machines are commonly represented using state graphs, 
 such as fig. \ref{fig:stategraph}. 
@@ -1578,5 +1578,8 @@ We can represent this using a state table.
 
 FSMs can be used as a \emph{recognizer}, a machine 
 that outputs a 1 when the input string matches a 
-certain description. 
+certain description. Formally, there is one starting state. 
+You feed it an input $\sigma$ which is a subset of 
+all the possible strings you can create from the input alphabet. 
+Then, the FSM outputs a 1 and we say it accepts the string. 
 \end{document}
