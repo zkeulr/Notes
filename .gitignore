@@ -6,4 +6,8 @@
 *.fdb_latexmk
 *.aux
 *.synctex(busy)
+*.bbl
+*.bcf
+*.blg
+*.run.xml
 .vscode/
