@@ -1412,8 +1412,8 @@ There is an algorithmic process for finding the transitive closure, but such thi
 be done by intuition in most cases. For instance, say we wish to find the closure 
 \marginnote{If you really wish to find it via algorithm, 
 the usual method is to write out a matrix $A$ where $(i,j) \in \rho \rightarrow A[i,j] = 1$.
-Then write out $A^(2)$, which has a 1 if $j$ can be reached in 
-two steps from $i$. Now $A^(3)$, $A^(4)$, and so on, then $\land$ 
+Then write out $A^{(2)}$, which has a 1 if $j$ can be reached in 
+two steps from $i$. Now $A^{(3)}$, $A^{(4)}$, and so on, then $\land$ 
 all the matrices together. This will give us a matrix representing 
 what elements can be reached from other elements in any number of steps.
 The final thing to do is transform the matrix back into a relation.}
