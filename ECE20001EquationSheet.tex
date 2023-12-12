@@ -10,6 +10,11 @@
 \pagestyle{empty}
 
 \begin{enumerate}
+    \item Constants:
+    \begin{align*}
+        \epsilon_0&=8.85*10^{-14} \frac{F}{cm} \\
+        k&=1.386*10^{-23}
+    \end{align*}
     \item $P = \frac{dW}{dt} = IV$
     \item $I = \frac{dq}{dt}$
     \item $V = \frac{W}{q}$
@@ -75,11 +80,10 @@
     \item Width of depletion region: 
     \[W = \left[\frac{2\epsilon_r \epsilon_0}{q} \left(\frac{N_A + N_D}{N_A N_D}\right) V_{bi}\right]^{1/2}\]
     \item Built-in potential: $V_{bi} = \frac{kT}{q}\ln{\left(\frac{N_AN_D}{n_i^2}\right)}$
-    \item Constants: \\
-    $\epsilon_0=8.85*10^{-14} F/cm$\\
-    $k=1.386*10^{-23}$\\
-    $n_i$ can be found through the following table:
-    \includegraphics[width=6cm]{images/ni_T_graph.png}
+    
+    \newpage
+    \item Intrinsic carrier density at given temperature:\\
+        \includegraphics[width=6cm]{images/ni_T_graph.png}
     \item Current through an ideal diode: $I = I_0(e^{qV_A / kT} - 1)$
     \item $I_D-V_D$ characteristic graph: \\
         \includegraphics[width=6cm]{images/idvdcharacteristics.png}
@@ -94,7 +98,7 @@
     \end{align*}
     \item Condition for CSA distortion less than 10\%: $V_G < 0.2(V_G-V_T)$
     \item Gain of a CSA: $A = -R_Dk(V_G-V_T)=-g_m R_D$
-    \newpage
+    \\\\\\\\\\\\\\\\
     \item Schematic of a MOSFET: \\
     \includegraphics[width=6cm]{images/mosfet.png}
 \end{enumerate}
