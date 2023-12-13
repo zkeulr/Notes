@@ -3,6 +3,7 @@
 \usepackage{graphicx}
 \usepackage[a4paper, margin=0.5in]{geometry}
 \usepackage{amsmath}
+\usepackage{circuitikz}
 
 \begin{document}
 
@@ -38,11 +39,12 @@
     \[Z_{eq} = \sum_{i}^{n} Z_i\]
     \item Equivalent impedance for impedances in parallel: 
     \[\frac{1}{Z_{eq}} = \sum_{i}^{n} \frac{1}{Z_i}\]
-    \item RMS value of signal: $S_{rms} = \sqrt{\frac{1}{T}\int_{t_0}^{t_0+T} s^2(t) dt}$
+    \item RMS value of signal: $S_{rms} = \sqrt{\frac{1}{T}\int_{t_0}^{t_0+T} s^2(t) dt}$\\as opposed to: \hspace{1cm}$S_{avg}=\frac{1}{T}\int_{t_0}^{t_0+T} s(t) dt$
     \item Maximum power extracted in DC circuits: $\frac{V{th}^2}{4R_{th}}$
     \item Maximum power extracted in AC circuits: $\frac{|\tilde{V}_{th}|^2}{8R_{th}}$
+    \item Resonant Frequency: $\omega_R = \frac{1}{\sqrt{LC}}$ with $Z_{eq}=\text{Re}(Z_{eq})$
     \item Average power: $P_{avg} = \frac{V_m I_m}{2}\cos{(\theta_v - \theta_i)}$
-    \item Reactive power: $V_{ar} = Im(\frac{1}{2}\tilde{V}\tilde{I}^*)$
+    \item Reactive power: $V_{ar} = \text{Im}(\frac{1}{2}\tilde{V}\tilde{I}^*)$
     \item Apparent power: $P_{app} = \frac{|V_{rms}|^2}{|z|}$
     \item Coupling coefficient in coupled circuit: $k = \frac{L_{12}}{\sqrt{L_1 L_2}}$
     \item Voltage in magnetically coupled coils: 
@@ -50,6 +52,9 @@
         v_{1}(t) &= L_1 \frac{di_1(t)}{dt} + L_{12}\frac{di_2(t)}{dt} \\
         v_{2}(t) &= L_1 \frac{di_2(t)}{dt} + L_{12}\frac{di_1(t)}{dt} 
     \end{align*}
+    \begin{center}
+    \includegraphics[width=6cm]{images/transformer_transform.png}
+    \end{center}
     \item Voltage in ideal transformer: 
     \begin{align*}
         \frac{v_2(t)}{v_1(t)} &= \frac{N_2}{N_1} \\
@@ -57,16 +62,23 @@
     \end{align*}
     \item Terminated transformer circuit equations: 
     \begin{align*}
-        \tilde{V}_1 &= \frac{\tilde{V}_2}{n} \\
+        \tilde{V}_1 &= \tilde{V}_2\frac{1}{n}\equiv\tilde{V}_2\frac{n_1}{n_2}  \\
         \tilde{I}_{out} &= \frac{\tilde{I}_{in}}{n} \\
         \tilde{V}_{in} &= Z_{in}\tilde{I}_{in} + \tilde{V}_1 \\
         \tilde{V}_2 &= Z_{out}\tilde{I}_{out} \\
         \tilde{V}_2 &= Z_{out}\frac{\tilde{I}_{in}}{n} \\
-        \frac{\tilde{V}_{in}}{\tilde{I}_{in}} &= Z_{in} + \frac{Z_{out}}{n^2}
+        \frac{\tilde{V}_{in}}{\tilde{I}_{in}} &= Z_{in} + \frac{Z_{out}}{n^2}\\
+        Z_{1}&=\frac{Z_{out}}{n^2}
     \end{align*}
     \item Energy stored in magnetically coupled circuit: 
     \[E = \frac{1}{2}L_1i_1^2 + \frac{1}{2}L_2i_2^2 + L_{12}i_1i_2\]
-    \item Equilibrium in pn junction: $pn = n_i^2$
+    \newpage
+    \item Kinetic energy of electron in conductance band:
+    \begin{center}
+    $K=E_{photon}-E_{gap}=\frac{hc}{\lambda}-E_{gap}$
+    \end{center}
+    \item Equilibrium in pn junction: $pn = n_i^2$\\ \hspace{1cm}$p\approx N_A = \rho_{h^+}\rightarrow III \text{ and } n\approx N_D = \rho_{e^-} \rightarrow IV$
+    \includegraphics[width=6cm]{images/periodic_table.png}
     \item Current in pn junction: 
     \begin{align*}
         J_N &= q\mu_n n E_x + qD_n \frac{dn}{dx} \\
@@ -75,29 +87,52 @@
     \item Width of depletion region: 
     \[W = \left[\frac{2\epsilon_r \epsilon_0}{q} \left(\frac{N_A + N_D}{N_A N_D}\right) V_{bi}\right]^{1/2}\]
     \item Built-in potential: $V_{bi} = \frac{kT}{q}\ln{\left(\frac{N_AN_D}{n_i^2}\right)}$
-    \item Constants: \\
+    \item Charge on each side of depletion region: \\$Q=q*\frac{N_A N_D}{N_A+N_D}*WA_{cross sec.}$
+    \item Depletion region width: $N_Dx_n=N_Ax_p$
+    \item Constants relevant to semiconductors: \\
     $\epsilon_0=8.85*10^{-14} F/cm$\\
     $k=1.386*10^{-23}$\\
-    $n_i$ can be found through the following table:
+    $hc=1240eV*nm$\\
+    $q=1.6*10^{-19}C$\\
+    $n_i$ can be found through the following table:\\
     \includegraphics[width=6cm]{images/ni_T_graph.png}
-    \item Current through an ideal diode: $I = I_0(e^{qV_A / kT} - 1)$
+    \item Current through non-ideal diode: $I = I_0(e^{qV_A / kT} - 1)$
     \item $I_D-V_D$ characteristic graph: \\
         \includegraphics[width=6cm]{images/idvdcharacteristics.png}
     \item Transistor equations: 
-    \begin{align*}
-        V_{DS} &= V_D -V_S\\
-        V_{GS} &= V_G - V_S \\
-        I_D &= \mu_n C_{ox} \left(\frac{W}{L}\right) \left[(V_{GS} - V_T)V_{DS} - \frac{1}{2} V_{DS}^2\right] \\
-        &= k\left[(V_{GS} - V_T)V_{DS} - \frac{1}{2} V_{DS}^2\right], V_{DS} \leq V_{GS} - V_T, V_D \leq V_G - V_T \\
-        I_D &= \mu_n C_{ox} \left(\frac{W}{L}\right) \left[\frac{1}{2} (V_{GS}-V_T)^2\right] \\
-        &= k \left[\frac{1}{2} (V_{GS}-V_T)^2\right], V_{DS} \geq V_{GS} - V_T, V_D \geq V_G - V_T
-    \end{align*}
-    \item Condition for CSA distortion less than 10\%: $V_G < 0.2(V_G-V_T)$
+    \begin{equation*}
+        V_{DS} = V_D -V_S\\
+    \end{equation*}
+    \begin{equation*}
+        V_{GS} = V_G - V_S \\
+    \end{equation*}
+    \begin{equation*}
+         k = \mu_n C_{ox} \left(\frac{W}{L}\right)\\
+    \end{equation*}
+    \begin{equation*}
+        I_D = k\left[(V_{GS} - V_T)V_{DS} - \frac{1}{2} V_{DS}^2\right]
+        \left\{
+            \begin{array}{l}
+                V_{DS} \leq V_{GS} - V_T \\
+                V_D \leq V_G - V_T \\
+            \end{array}
+        \right.\\ 
+    \end{equation*}
+    \begin{equation*}
+         I_D = k \left[\frac{1}{2} (V_{GS}-V_T)^2\right]
+        \left\{
+            \begin{array}{l}
+                V_{DS} \geq V_{GS} - V_T \\
+                V_D \geq V_G - V_T \\
+            \end{array}
+        \right.\\ 
+    \end{equation*}  
+    \item Condition for CSA distortion less than 10\% (Small Signal Amplification) : $v_{g\hat{}} < 0.2(V_G-V_T)$
     \item Gain of a CSA: $A = -R_Dk(V_G-V_T)=-g_m R_D$
-    \newpage
     \item Schematic of a MOSFET: \\
     \includegraphics[width=6cm]{images/mosfet.png}
 \end{enumerate}
+\hrulefill\\\\
 To find Thevenin voltage and Norton current:
 \begin{itemize}
     \item[($R_{eq}$)] Turn off all independent sources (dependent
