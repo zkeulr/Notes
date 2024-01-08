@@ -1,0 +1,163 @@
+\documentclass[nobib]{tufte-handout}
+
+%\\geometry{showframe}% for debugging purposes -- displays the margins
+
+\newcommand{\bra}[1]{\left(#1\right)}
+\usepackage{amssymb}
+\usepackage{hyperref}
+\usepackage[activate={true,nocompatibility},final,tracking=true,kerning=true,spacing=true,factor=1100,stretch=10,shrink=10]{microtype}
+\usepackage{color}
+\usepackage{steinmetz}
+% Fixes captions and images being cut off
+\usepackage{marginfix}
+\usepackage{array}
+\usepackage{tikz}
+\usepackage{amsmath,amsthm}
+\usetikzlibrary{shapes}
+\usetikzlibrary{positioning}
+\usepackage{listings}
+\usepackage{caption}
+\DeclareCaptionFont{white}{\color{white}}
+\DeclareCaptionFormat{listing}{\colorbox{gray}{\parbox{\textwidth}{#1#2#3}}}
+\captionsetup[lstlisting]{format=listing,labelfont=white,textfont=white}
+
+% Set up the images/graphics package
+\usepackage{graphicx}
+\setkeys{Gin}{width=\linewidth,totalheight=\textheight,keepaspectratio}
+\graphicspath{{.}}
+
+\title{Notes for ECE 20002 - Electrical Engineering Fundamentals II}
+\author[Shubham Saluja Kumar Agarwal]{Shubham Saluja Kumar Agarwal}
+\date{\today}  % if the \date{} command is left out, the current date will be used
+
+% The following package makes prettier tables.  We're all about the bling!
+\usepackage{booktabs}
+
+% The units package provides nice, non-stacked fractions and better spacing
+% for units.
+\usepackage{units}
+
+% The fancyvrb package lets us customize the formatting of verbatim
+% environments.  We use a slightly smaller font.
+\usepackage{fancyvrb}
+\fvset{fontsize=\normalsize}
+
+% Small sections of multiple columns
+\usepackage{multicol}
+
+% For finite state machines 
+\usetikzlibrary{automata} % Import library for drawing automata
+\usetikzlibrary{positioning} % ...positioning nodes
+\usetikzlibrary{arrows} % ...customizing arrows
+\tikzset{node distance=2.5cm, % Minimum distance between two nodes. Change if necessary.
+    every state/.style={ % Sets the properties for each state
+    semithick,
+    fill=gray!10},
+    initial text={}, % No label on start arrow
+    double distance=2pt, % Adjust appearance of accept states
+    every edge/.style={ % Sets the properties for each transition
+    draw,
+    ->,>=stealth', % Makes edges directed with bold arrowheads
+    auto,
+    semithick}}
+\let\epsilon\varepsilon
+
+% These commands are used to pretty-print LaTeX commands
+\newcommand{\doccmd}[1]{\texttt{\textbackslash#1}}% command name -- adds backslash automatically
+\newcommand{\docopt}[1]{\ensuremath{\langle}\textrm{\textit{#1}}\ensuremath{\rangle}}% optional command argument
+\newcommand{\docarg}[1]{\textrm{\textit{#1}}}% (required) command argument
+\newenvironment{docspec}{\begin{quote}\noindent}{\end{quote}}% command specification environment
+\newcommand{\docenv}[1]{\textsf{#1}}% environment name
+\newcommand{\docpkg}[1]{\texttt{#1}}% package name
+\newcommand{\doccls}[1]{\texttt{#1}}% document class name
+\newcommand{\docclsopt}[1]{\texttt{#1}}% document class option name
+
+% Define a custom command for definitions and biconditional
+\newcommand{\defn}[2]{\noindent\textbf{#1}:\ #2}
+\let\biconditional\leftrightarrow
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+These are lecture notes for spring 2024 ECE 20002 at Purdue. Modify, use, and distribute as you please.
+\end{abstract}
+
+\tableofcontents
+
+\section{Course Introduction}
+
+Continuation of Electrical and Computer Engineering Fundamentals I. The course addresses
+mathematical and computational foundations of circuit analysis (differential equations, Laplace Transform techniques) with a focus on application to linear circuits having variable behavior as a function of frequency, with emphasis on filtering. Variable frequency behavior is considered for applications of electronic components through single-transistor and operational amplifiers. The course ends with a consideration of how circuits behave and may be modeled for analysis at high frequencies.\\
+Learning Objectives:
+\begin{enumerate}
+    \item Analyze 2nd order linear circuits with sources and/or passive elements
+    \item Compute responses of linear circuits with and without initial conditions via one-sided Laplace transform techniques
+    \item Compute responses to linear circuits using transfer function and convolution techniques
+    \item Analyze and design transistor amplifiers at low, mid and high frequencies
+\end{enumerate}
+
+\pagebreak 
+
+\section{ECE 20001 Review}
+Sinusoidal Signal (voltage and current) involve phasors, which bring complex numbers to the forefront. When in Sinusoidal Steady State (SSS):\\
+\begin{equation*}
+    Z_R=R
+\end{equation*}
+\begin{equation*}
+    Z_L=j\omega L
+\end{equation*}
+\begin{equation*}
+    Z_C=\frac{1}{j\omega C}
+\end{equation*}
+This can in turn be represented as as the following function:\\
+\begin{equation*}
+    x(t)=K_0 cos(\omega t + \theta_0)
+\end{equation*}
+Which can be transformed into the following form:\\
+\begin{equation*}
+    K_0 e^{j(\omega t + \Theta_0)} = K_0 e^{j \theta_0} = K_0 (cos(\theta_0) + j sin(Theta_0)) = K_0\phase{\theta_0}
+\end{equation*}
+This can be represented as the following in the cartesian plane:\\
+\begin{center}
+    \includegraphics[width = 100px]{images/Screenshot 2024-01-08 155954.png}
+\end{center}
+Thus, these forms can be summed as following:\\
+\begin{table}
+ \centering
+    \begin{tabular}{c|c}
+    x(t) & $\mathbf{X}$\\
+    \hline
+    $K cos(\omega t)$ & K\\
+    $K sin(\omega t) = K cos(\omega t)$ & $-Kj$\\
+    $cos(\omega t) - sin(wt)$ & $1+j$\\
+    $a cos(\omega t) + b sin(\omega t)$ & $a-bj$
+    \end{tabular}
+\end{table}
+This is especially useful for circuit analysis methods such as KCL and KVL.
+The methods of conversion between polar and phasor are:\\
+\begin{equation*}
+    z=a+bj
+\end{equation*}
+\begin{equation*}
+    z=\rho \phase{\theta}
+\end{equation*}
+\begin{equation*}
+    \rho = |z| = \sqrt{a^2 + b^2}
+\end{equation*}
+\begin{equation*}
+    \theta = \text{phase(}z\text{)}=tan^{-1}(\frac{b}{a})
+\end{equation*}
+These conversions and operations alongside KCL and KVL, can allow us to create a system of differential equations that will allow us to solve almost any circuit. However, we don't like ODEs, so we have developed methods to get around this.\\
+We know that at SSS, the following equations are valid.\\
+\begin{center}
+    $v_R = RI_R$\\
+    $V_L = j\omega LI_L$\\
+    $V_C = \frac{1}{J \omega C}I_C$\\
+    $i_L(t) = i_L(0) + \frac{1}{L} \int v_L \,dt$\\
+    $v_C(t) = v_C(0) + \frac{1}{C} \int i_C \,dt$\\
+\end{center}
+This can be used to solve most SSS circuits, using the aforementioned strategies, alongside current and voltage division.
+\pagebreak
+\end{document}
