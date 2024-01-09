@@ -188,4 +188,85 @@ Example:
     I_R=\frac{Z_R}{Z_R+Z_L}*I=\frac{R}{R+j \omega L}*I
 \end{align*}
 \pagebreak
+\section{Using Ordinary Differential Equations to solve RL and RC circuits}
+This section will provide a brief explanation of nonhomogenous differential equations and their applications to circuits.
+\subsection{Ordinary Differential Equations (ODE) Overview}
+Differential equations rely a lot on two properties. The invariablity of the exponential function across derivatives, and the ability to express any function in terms of the exponential function itself. That is,\\
+\begin{equation*}
+    e^t=\frac{d}{dt}e^t=\frac{d^2}{dt^2}e^t \cdots
+\end{equation*}
+Let us take the following differential equation as an example:
+\begin{equation*}
+    y(t)=6x(t)+3\frac{d}{dt}x(t)
+\end{equation*}
+We assume $x_h(t)=Ae^{\lambda t}$, and try to solve the homogenous equation $0=6x(t)+3x'(t)$.
+\begin{align*}
+    0 &= 6x+3x'\\
+    0 &= 6Ae^{\lambda t} + 3A \lambda e^{\lambda t}\\
+    0 &= 6+3\lambda\\
+    \lambda &= -2\\
+    \implies x_h(t) &= e^{-2t}
+\end{align*}
+At this point, we will consider two different cases: $y(t) = 4e^{3t}$ and $y(t) = 3e^{-2t}$.
+We will find the particular solution $x_p(t)$ for each of these cases, as they have different methods of resolution.
+\begin{align*}
+    4e^{3t} &= 6x+3x'\\
+    \text{Assume } x_p(t) &= Be^{3t}\\
+    4e^{3t} &= 6Be^{3t} + 9Be^{3t}\\
+    4 &= 15B\\
+    B &= \frac{15}{4}\\
+    \implies x_p(t) &= \frac{15}{4}e^{3t}\\
+    \implies x(t) &= x_h(t)+x_p(t)=Ae^{-2t}+\frac{15}{4}e^{3t}
+\end{align*}
+Let us assume $y(0) = 4$
+\begin{align*}
+    \implies 4 &= A + \frac{15}{4}\\
+    \implies A &= \frac{1}{4}\\
+    \implies x(t) &= \frac{1}{4}e^{-2t}+\frac{15}{4}e^{3t}
+\end{align*}
+On the other hand, if $y(t) = 3e^{-2t}$, since $x_p(t)$ and $x_h(t)$ cannot have the same form, we will need to make a few changes:
+\begin{align*}
+    3e^{-2t} &= 6x+3x'\\
+    \text{Assume } x_p(t) &= Bte^{-2t}\\
+    3e^{-2t} &= 6Bte^{-2t} + 3Be^{-2t} - 6Bte^{-2t}\\
+    \implies 3 &= 3B\\
+    \implies B&=1\\
+    \implies x_p(t) &= te^{-2t}
+\end{align*}
+Which can then be substituted into $x(t)$, allowing the differential equation to be fully solved by using the initial conditions.
+\subsection{Using ODEs in circuits}
+We will be solving the following two circuits:
+\begin{center}
+    \begin{circuitikz}[american voltages]
+    \draw (0,2)
+    to[V, l=$V_{in}$] (0,0);
+    \draw (0,2)
+    to [R, l=$R$] (2,2)
+    to [L, l=$L$] (2,0)
+    to [short, -] (0,0);
+    \end{circuitikz}
+    \begin{circuitikz}[american voltages]
+    \draw (0,2)
+    to[V, l=$V_{in}$] (0,0);
+    \draw (0,2)
+    to [R, l=$R$] (2,2)
+    to [C, l=$C$] (2,0)
+    to [short, -] (0,0);
+    \end{circuitikz}
+\end{center}
+In the inductor circuit, if $i_L(0)=0$, we know:
+\begin{align*}
+    v_L &= L\frac{di_L(t)}{dt}\\
+    v_L(t) &= v_{in}(t) - Ri_L(t)\\
+    v_{in}(t) &= L\frac{di_L(t)}{dt} - Ri_L(t)
+\end{align*}
+By solving this equation as shown previously, we will find that $\lambda = -\frac{R}{L}$ which is in fact the inverse of the time constant for an RL circuit.
+Under the assumption of $V_{in}$ being a constant, the particular solution will in fact be $i_p(t)=\frac{V_{in}}{R}=i_L(\infty)$. This results in the familiar equation:
+\begin{equation*}
+    i_L(t) = i_L(\infty) + (i_L(t_0)-i_L(\infty))e^{-\frac{R}{L}(t-t_0)}
+\end{equation*} 
+The same is done for the capacitor circuit, which ends up resulting in the once again familiar equation:
+\begin{equation*}
+    v_C(t) = v_C(\infty) + (v_C(t_0)-v_C(\infty))e^{-\frac{t-t_0}{RC}}
+\end{equation*}
 \end{document}
