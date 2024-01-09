@@ -17,6 +17,7 @@
 \usetikzlibrary{positioning}
 \usepackage{listings}
 \usepackage{caption}
+\usepackage{circuitikz}
 \DeclareCaptionFont{white}{\color{white}}
 \DeclareCaptionFormat{listing}{\colorbox{gray}{\parbox{\textwidth}{#1#2#3}}}
 \captionsetup[lstlisting]{format=listing,labelfont=white,textfont=white}
@@ -116,12 +117,14 @@ This can in turn be represented as as the following function:\\
     x(t)=K_0 cos(\omega t + \theta_0)
 \end{equation*}
 Which can be transformed into the following form:\\
-\begin{equation*}
-    K_0 e^{j(\omega t + \Theta_0)} = K_0 e^{j \theta_0} = K_0 (cos(\theta_0) + j sin(Theta_0)) = K_0\phase{\theta_0}
-\end{equation*}
+\begin{align*}
+    K_0 e^{j(\omega t + \theta_0)} &= K_0 e^{j \theta_0}\\ 
+    &= K_0 (cos(\theta_0) + j sin(\theta_0))\\ 
+    &= K_0\phase{\theta_0}
+\end{align*}
 This can be represented as the following in the cartesian plane:\\
 \begin{center}
-    \includegraphics[width = 100px]{images/Screenshot 2024-01-08 155954.png}
+    \includegraphics[width = 150px]{images/Screenshot 2024-01-08 155954.png}
 \end{center}
 Thus, these forms can be summed as following:\\
 \begin{table}
@@ -152,12 +155,37 @@ The methods of conversion between polar and phasor are:\\
 These conversions and operations alongside KCL and KVL, can allow us to create a system of differential equations that will allow us to solve almost any circuit. However, we don't like ODEs, so we have developed methods to get around this.\\
 We know that at SSS, the following equations are valid.\\
 \begin{center}
-    $v_R = RI_R$\\
-    $V_L = j\omega LI_L$\\
-    $V_C = \frac{1}{J \omega C}I_C$\\
-    $i_L(t) = i_L(0) + \frac{1}{L} \int v_L \,dt$\\
-    $v_C(t) = v_C(0) + \frac{1}{C} \int i_C \,dt$\\
+\begin{align*}
+    V_R &= RI_R\\
+    V_L &= j\omega LI_L\\
+    V_C &= \frac{1}{j \omega C}I_C\\
+    i_L(t) &= i_L(0) + \frac{1}{L} \int v_L \,dt\\
+    V_C(t) &= V_C(0) + \frac{1}{C} \int i_C \,dt\\
+\end{align*}
+
 \end{center}
-This can be used to solve most SSS circuits, using the aforementioned strategies, alongside current and voltage division.
+This can be used to solve most SSS circuits, using the aforementioned strategies, alongside strategies like current and voltage division.
+Example:
+\begin{center}
+        \begin{circuitikz}[american currents]
+        \draw (0,0)
+        to[I, l=$I$] (0,2)
+        to [short, -*] (1,2)
+        to [L, l=$L$] (1,0)
+        to [short, -] (0,0);
+        \draw (1,2)
+        to [short, -*] (2,2)
+        to [R, l=$R$] (2,0)
+        to [short, *-*] (1,0);
+        \draw (2,2)
+        to [short, -] (2.5,2);
+        \draw (2,0)
+        to [short, -] (2.5,0);
+        \end{circuitikz}
+\end{center}
+\begin{align*}
+    I_L=\frac{Z_L}{Z_R+Z_L}*I=\frac{j \omega L}{R+j \omega L}*I\\
+    I_R=\frac{Z_R}{Z_R+Z_L}*I=\frac{R}{R+j \omega L}*I
+\end{align*}
 \pagebreak
 \end{document}
