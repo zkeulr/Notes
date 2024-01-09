@@ -17,7 +17,7 @@ Currently being added are:
 - [ECE 29595PD](ECE29595PD/ECE29595PDNotes.pdf)
 - [ECE 36800](ECE36800/ECE36800Notes.pdf)
 - [ECON 25100](ECON25100/ECE25100Notes.pdf)
-- [MA26500](MA26500/MA26500Notes.pdf)
+- [MA 26500](MA26500/MA26500Notes.pdf)
 
 ## Contributing
 
