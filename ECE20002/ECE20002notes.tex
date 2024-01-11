@@ -90,7 +90,7 @@ These are lecture notes for spring 2024 ECE 20002 at Purdue. Modify, use, and di
 \section{Course Introduction}
 
 Continuation of Electrical and Computer Engineering Fundamentals I. The course addresses
-mathematical and computational foundations of circuit analysis (differential equations, Laplace Transform techniques) with a focus on application to linear circuits having variable behavior as a function of frequency, with emphasis on filtering. Variable frequency behavior is considered for applications of electronic components through single-transistor and operational amplifiers. The course ends with a consideration of how circuits behave and may be modeled for analysis at high frequencies.\\
+mathematical and computational foundations of circuit analysis (differential equations, Laplace Transform techniques) with a focus on application to linear circuits having variable behavior as a function of frequency, with emphasis on filtering. Variable frequency behavior is considered for applications of electronic components through single-transistor and operational amplifiers. The course ends with a consideration of how circuits behave and may be modeled for analysis at high frequencies.\\~\\
 Learning Objectives:
 \begin{enumerate}
     \item Analyze 2nd order linear circuits with sources and/or passive elements
@@ -153,18 +153,19 @@ The methods of conversion between polar and phasor are:\\
     \theta = \text{phase(}z\text{)}=tan^{-1}(\frac{b}{a})
 \end{equation*}
 These conversions and operations alongside KCL and KVL, can allow us to create a system of differential equations that will allow us to solve almost any circuit. However, we don't like ODEs, so we have developed methods to get around this.\\
-We know that at SSS, the following equations are valid.\\
+We know that at SSS, the following equations are valid.
 \begin{center}
 \begin{align*}
     V_R &= RI_R\\
     V_L &= j\omega LI_L\\
     V_C &= \frac{1}{j \omega C}I_C\\
-    i_L(t) &= i_L(0) + \frac{1}{L} \int v_L \,dt\\
-    V_C(t) &= V_C(0) + \frac{1}{C} \int i_C \,dt\\
+    V_L(t) &= L\frac{di_L}{dt} &\implies
+    i_L(t) = i_L(0) + \frac{1}{L} \int v_L \,dt\\
+    i_C(t) &= C\frac{dV_C}{dt} &\implies
+    V_C(t) = V_C(0) + \frac{1}{C} \int i_C \,dt\\
 \end{align*}
-
 \end{center}
-This can be used to solve most SSS circuits, using the aforementioned strategies, alongside strategies like current and voltage division.
+This can be used to solve most (to the knowledge of the student till this point) SSS circuits. Strategies have been developed to simplify these calculations. Some examples of this are current and voltage division, with the impedance $Z$ replacing the linear $R$. Strategies like these allow the resolution of circuits like these while avoiding higher order differential equations.\\
 Example:
 \begin{center}
         \begin{circuitikz}[american currents]
@@ -184,14 +185,20 @@ Example:
         \end{circuitikz}
 \end{center}
 \begin{align*}
-    I_L=\frac{Z_L}{Z_R+Z_L}*I=\frac{j \omega L}{R+j \omega L}*I\\
-    I_R=\frac{Z_R}{Z_R+Z_L}*I=\frac{R}{R+j \omega L}*I
+    I_R=\frac{Z_L}{Z_R+Z_L}*I=\frac{j \omega L}{R+j \omega L}*I\\
+    I_L=\frac{Z_R}{Z_R+Z_L}*I=\frac{R}{R+j \omega L}*I
 \end{align*}
+If this circuit had a third component, the complexity of current division does not increase by a lot, but the differential equation would go from being a second-order differential equation to a third-order differential equation. The complexity of this would be much higher than that of the second-order differential equation.
+\\Note: All of this is based on the assumption of \textbf{Sinusoidal Steady State}.
+\\~\\
+\begin{center}
+    "We don't like differential equations." -Prof. Byunghoo Jung
+\end{center}
 \pagebreak
 \section{Using Ordinary Differential Equations to solve RL and RC circuits}
-This section will provide a brief explanation of nonhomogenous differential equations and their applications to circuits.
+This section will provide a brief explanation of nonhomogenous differential equations and their applications to circuits (Completely ignoring the fact that we in fact do not like them, as repeatedly stated in the previous section).
 \subsection{Ordinary Differential Equations (ODE) Overview}
-Differential equations rely a lot on two properties. The invariablity of the exponential function across derivatives, and the ability to express any function in terms of the exponential function itself. That is,\\
+Differential equations rely a lot on two properties. The invariability of the exponential function across derivatives, and the ability to express any function in terms of the exponential function itself. That is,\\
 \begin{equation*}
     e^t=\frac{d}{dt}e^t=\frac{d^2}{dt^2}e^t \cdots
 \end{equation*}
@@ -199,7 +206,7 @@ Let us take the following differential equation as an example:
 \begin{equation*}
     y(t)=6x(t)+3\frac{d}{dt}x(t)
 \end{equation*}
-We assume $x_h(t)=Ae^{\lambda t}$, and try to solve the homogenous equation $0=6x(t)+3x'(t)$.
+Because of the beauty (invariability) of the exponential function, we assume $x_h(t)=Ae^{\lambda t}$, and try to solve the homogenous equation $0=6x(t)+3x'(t)$.
 \begin{align*}
     0 &= 6x+3x'\\
     0 &= 6Ae^{\lambda t} + 3A \lambda e^{\lambda t}\\

@@ -92,7 +92,7 @@ This course serves as an introduction to the fundamental concepts and applicatio
 
 \pagebreak 
 
-\section{Linear Equations in Linear Algebra}
+\section{Systems of Equations in Linear Algebra}
 A linear equation is an equation of the form:
 \begin{equation*}
     a_1x_1+a_2x_2+...+a_nx_n=b
@@ -236,7 +236,7 @@ By using these three rules, one can reduce it to the following form:
     0 & 0 & 1 & c_4
  \end{bmatrix}  
 \end{equation*}
-This will result in a trivially solvable one-solution system of equations. This is also known as a consistent system of equations. We can substitute the value of $x_3$, which is $c_4$, into the equation in the row above, and solve it, as it willnow be a single equation with a single variable. This can be done sequentially until all values are found.\\~\\
+This will result in a trivially solvable unique-solution system of equations. This is also known as a \textbf{consistent} system of equations. We can substitute the value of $x_3$, which is $c_4$, into the equation in the row above, and solve it, as it willnow be a single equation with a single variable. This can be done sequentially until all values are found.\\~\\
 Note: If the resulting form is instead
 \begin{equation*}
   \begin{bmatrix}
@@ -245,8 +245,62 @@ Note: If the resulting form is instead
     0 & 0 & 0 & c_4
  \end{bmatrix}  
 \end{equation*}
-with $c_4 \neq 0$, there would be no solutions. On the other hand, if $c_4 = 0$, there will be infinitely many solutions.
+with $c_4 \neq 0$, there would be no solutions, also known as an \textbf{inconsistent} system. On the other hand, if $c_4 = 0$, there will be infinitely many solutions, but it will still be considered a \textbf{consistent} system.
 Another point to note is that if the augmented matrices of two systems of equations are equivalent,
 that is, if you can transform one matrix into the other through elementary row operations, the systems of equations will have the same solutions.
 \pagebreak
+\section{Row Reduction and Echelon Forms}
+The leading entry of a row refers to the left-most non zero element in a row. Thus, the leading entries in the following matrix are:
+\begin{equation*}
+    \begin{bmatrix}
+      \textbf{1}& 2 & 3 & 4\\
+      0 & \textbf{6} & 9 & 6 \\
+      0 & 0 & \textbf{8} & 7
+   \end{bmatrix}  
+  \end{equation*}
+  A matrix is in reduced echelon form (REF) if it has the following three properties:
+  \begin{enumerate}
+    \item All non-zero rows are above any rows of all zeros.
+    \item Each leading entry in a row is in a column to the right of the leading entry in the column above it.
+    \item All entries below a leading entry are zeros.\\~\\
+    If it has the following two properties, it will be a row reduced echelon form (RREF):
+    \item The leading entry in each non-zero row is 1.
+    \item Each leading 1 is the only non-zero element in its column.
+  \end{enumerate}
+  Example of echelon form:
+  \begin{equation*}
+  \begin{bmatrix}
+    1& 2 & 5 & 8\\
+    0 & 3 & 9 & 6 \\
+    0 & 0 & 9 & 7 \\
+    0 & 0 & 0 & 0
+ \end{bmatrix}  
+\end{equation*}
+Example of REF:
+\begin{equation*}
+    \begin{bmatrix}
+      1& 0 & 0 & 8\\
+      0 & 1 & 0 & 6 \\
+      0 & 0 & 1 & 7 \\
+      0 & 0 & 0 & 0
+   \end{bmatrix}
+  \end{equation*}
+\vspace{0.2cm}\\
+\textbf{Theorem:} Each matrix is equivalent to one and only one RREF.\\
+\quad A pivot position is a location in a matrix that corresponds to a leading 1 in the RREF of a matrix.\\
+\quad A pivot column is a column that contains a pivot position.\\~\\
+\textit{Tip:} if there is a 1 in the first positions of a row, when the matrix is first "observed", it should be moved to the top of the matrix, as it will most probably make all subsequent computations much easier. \\~\\
+\begin{minipage}{\textwidth}
+    Row reduction algorithm:
+    \begin{enumerate}
+        \item Begin with the leftmost non-zero position, and make it the first pivot position.
+        \item Make all positions under the selected pivot position 0.
+        \item Interchange columns to make sure that the rows with the most leading zeros are closest to the bottom
+        \item Cover the first column and row, and repeat steps 1 to 3 on the resulting matrix.
+        \item Beginning with the rightmost pivot and working upward and to the left, create zeros above each pivot.
+    \end{enumerate}   
+\end{minipage}
+\vspace{0.2cm}\\
+The solution of the RREF is the solution of the system of equations that has an augmented matrix with the aforementioned RREF.\\
+\quad Another thing we can note is that all pivot positions refer to basic variables. If there are any non-pivot columns, the variable referring to these columns will be free.
 \end{document}
