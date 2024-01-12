@@ -257,9 +257,9 @@ The leading entry of a row refers to the left-most non zero element in a row.
 Thus, the leading entries in the following matrix are:
 \begin{equation*}
     \begin{bmatrix}
-        \textbf{1} & 2          & 3          & 4 \\
-        0          & \textbf{6} & 9          & 6 \\
-        0          & 0          & \textbf{8} & 7
+        \mathbf{1} & 2          & 3          & 4 \\
+        0          & \mathbf{6} & 9          & 6 \\
+        0          & 0          & \mathbf{8} & 7
     \end{bmatrix}
 \end{equation*}
 A matrix is in reduced echelon form (REF) if it has the following three properties:
@@ -311,5 +311,91 @@ Example of REF:
 \end{minipage}
 \vspace{0.2cm}\\
 The solution of the RREF is the solution of the system of equations that has an augmented matrix with the aforementioned RREF.\\
-\quad Another thing we can note is that all pivot positions refer to basic variables. If there are any non-pivot columns, the variable referring to these columns will be free, as it will imply that all elements within the column are 0.
+\quad Another thing we can note is that all pivot positions refer to basic variables. If there are any non-pivot columns, the variable referring to these columns will be free.\\
+\quad For example a 4x7 matrix is underconstrained and with free variables. \\
+\section{Vector Equations}
+A matrix with only one column is called a column vector or vector. For example:
+\begin{equation*}
+    u =
+    \begin{bmatrix}
+        3 \\
+        8 \\
+        12
+    \end{bmatrix}
+    \text{ or } w =
+    \begin{bmatrix}
+        w_1 \\
+        w_2 \\
+    \end{bmatrix}
+\end{equation*}
+Two vectors are equal if and only if their corresponding terms are equal.
+There are some basic operations that can be conducted with them.\\
+Addition between two vectors of the same size:
+\begin{equation*}
+    u =
+    \begin{bmatrix}
+        3 \\
+        8 \\
+        12
+    \end{bmatrix}
+    +
+    \begin{bmatrix}
+        9 \\
+        4 \\
+        5
+    \end{bmatrix}
+    =
+    \begin{bmatrix}
+        3+9 \\
+        8+4 \\
+        12+5
+    \end{bmatrix} =
+    \begin{bmatrix}
+        12 \\
+        12 \\
+        17
+    \end{bmatrix}
+\end{equation*}
+Scalar Multiplication:
+\begin{equation*}
+    u = 3*
+    \begin{bmatrix}
+        3 \\
+        8 \\
+        12
+    \end{bmatrix}
+    =
+    \begin{bmatrix}
+        3*3 \\
+        8*3 \\
+        12*3
+    \end{bmatrix} =
+    \begin{bmatrix}
+        9  \\
+        24 \\
+        36
+    \end{bmatrix}
+\end{equation*}
+Note: these operations both have graphical representations. Addition is addition of two vectors, as is done by the parallelogram method, and scalar multiplication is equivalent to proportionally scaling a vector.\\
+A line can be defined as the set of all scalar multiples of a vector.\\
+Algebraic properties of a vector in $\mathbb{R}^n$:
+\begin{enumerate}
+    \item $\mathbf{u}+\mathbf{v} = \mathbf{v}+\mathbf{u}$
+    \item $\mathbf{u} + (\mathbf{v}+\mathbf{w}) = (\mathbf{u}+\mathbf{v})+\mathbf{w}$
+    \item $\mathbf{u}+\mathbf{0} = \mathbf{u}$
+    \item $\mathbf{u}+(-\mathbf{u})=\mathbf{0}$
+    \item $c(\mathbf{u}+\mathbf{v}) = c\mathbf{u}+c\mathbf{v}$
+    \item $(c+d)\mathbf{u} = c\mathbf{u}+d\mathbf{u}$
+    \item  $c(d\mathbf{u}) = cd(\mathbf{u})$
+    \item $1\mathbf{u} = \mathbf{u}$
+\end{enumerate}
+\section{Linear Combinations}
+A vector is a linear combination of other vectors if:
+\begin{equation*}
+    c_1\mathbf{u_1}+c_2\mathbf{u_2}+c_3\mathbf{u_3} \ldots c_n\mathbf{u_n} = \mathbf{v}
+\end{equation*}
+For any set of vectors, there is an infinite amount of linear combinations, as the values of the constants they are multiplied with are not restrained by anything and they cound be a part of any domain, be it $\mathbb{R}, \mathbb{I}, \text{or } \mathbb{C}$.\\
+To find if a vector is a linear combination of other matrices, we can create an augmented matrix with the desired vector as the constant column, and all relevant vectors, as the elements of the coeffiecient matrix part of the augmented matrix.\\
+Should there be a free variable in the resolution of teh augmented matrix, there will be infinitely many linear combinations that fulfill the condition we desire.\\
+The $span(\mathbf{v_1}, \mathbf{v_2}, \mathbf{v_3}, \ldots, \mathbf{v_n})$ is the set of all linear combinations of these vectors. So , if asked whether a vector is in the span of other vectors, it is equivalent ot asking if there exists a linear combination of vectors that results in the desired vector.\\
 \end{document}

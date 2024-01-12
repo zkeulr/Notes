@@ -140,8 +140,53 @@ Core Principles of Economics:
           principle aims to maximize the economic surplus.\\ It also relates to framing
           effects, which is when a decision is affected by the method in which the
           situation or object is framed.
-    \item Opportunity Cost Principle:
-    \item Marginal Principle:
+    \item Opportunity Cost Principle: The allocation of resources imply decisions and
+          choices. For every choice we make, there are other choices we do not, and the
+          next best alternative has a cost, which is known as the opportunity cost. \\
+          This principle focuses on the tradeoffs of particular options.\\ The
+          opportunity cost is not the sum of all lost options, only the next best one.\\
+          All choices involve tradeoffs due to scarcity. The usage of resources on one
+          choice limits the amount available for other choices.\\ \textit{Note: a sunk
+              cost is a cost that cannot be recouped, and should be ignored. They should not
+              be included into the current decision.}\\
+    \item Marginal Principle: Decisions about quantities are best made incrementally.
+          Instead of analyzing how many, one should analyze whether smaller increases are
+          viable and resonable.\\ \quad Marginal Benefit: Benefit on an extra unit.\\
+          \quad Marginal Cost: Cost of an extra unit.\\ While the marginal benefit of an
+          additional unit exceeds it costs, it should be acquired.\\ Anything that asks
+          how many can be analyzed marginally.\\ Economic surplus is maximized when the
+          marginal cost equals the marginal benefit.
     \item Interdependence Principle:
 \end{itemize}
+As a subtopic of Opportunity Cost Principle is the Production Possibilities Frontier, which analyzes the different set of attainable gains based on different allocations. Under the assumption that the costs and benefits are constant, the graph will look something like this:
+\begin{center}
+    \begin{tikzpicture}[scale = 0.7]
+        \begin{axis}[
+                axis lines = left,
+                xlabel = Choice 1,
+                ylabel = Choice 2,
+                ymax = 20,
+                xmax = 6,
+            ]
+            \addplot [
+                domain=0:5,
+                samples=100,
+                color=red,
+            ]
+            {-3*x + 15};
+        \end{axis}
+    \end{tikzpicture}
+\end{center}
+Any allocation of time below the PPF is an inefficient use of resources.\\ Points above it are unreachable unless new productivity increases are found.
+%\begin{center}
+%    \begin{tikzpicture}[scale=.9]
+%        \begin{axis}[
+%                xlabel=Choice 1,
+%                ylabel=Choice 2,
+%                ymax=4, ymin=0, xmin=0, xmax=4, ] \addplot [blue] coordinates {
+%                    (1,1) (2,2) (3,4) };
+%        \end{axis}
+%    \end{tikzpicture}
+%\end{center}
+
 \end{document}
