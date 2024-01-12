@@ -9,6 +9,7 @@
 \usepackage[activate={true,nocompatibility},final,tracking=true,kerning=true,spacing=true,factor=1100,stretch=10,shrink=10]{microtype}
 \usepackage{color}
 \usepackage{steinmetz}
+\usepackage{placeins}
 % Fixes captions and images being cut off
 \usepackage{marginfix}
 \usepackage{array}
@@ -136,7 +137,7 @@ Let us take the following algorithm to add the numbers form 1 to n:
         total = total + i;
     return total
 \end{lstlisting}
-The cost will be:
+The cost will be:\\
 \begin{table}
     \centering
     \begin{tabular}{c|c|c}
@@ -148,7 +149,8 @@ The cost will be:
         $C_4$ & 1         & Return value                 \\
     \end{tabular}
 \end{table}
-The total is then:
+\FloatBarrier
+The total is then:\\
 \begin{align*}
     C_1*1+C_2(n+1)+C_3(n)+C_4(1) & = (C_2+C_3)n+ (C_1+C_2)+C_4
 \end{align*}
@@ -170,7 +172,7 @@ Another example of a simple algorithm is
             total = total+i*i;
     return total;
 \end{lstlisting}
-Which has a cost table that looks like the following:
+Which has a cost table that looks like the following:\\
 \begin{table}
     \centering
     \begin{tabular}{c|c|c}
