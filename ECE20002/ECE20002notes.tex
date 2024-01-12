@@ -82,27 +82,36 @@
 \maketitle
 
 \begin{abstract}
-These are lecture notes for spring 2024 ECE 20002 at Purdue. Modify, use, and distribute as you please.
+    These are lecture notes for spring 2024 ECE 20002 at Purdue. Modify, use, and distribute as you please.
 \end{abstract}
 
 \tableofcontents
 
 \section{Course Introduction}
 
-Continuation of Electrical and Computer Engineering Fundamentals I. The course addresses
-mathematical and computational foundations of circuit analysis (differential equations, Laplace Transform techniques) with a focus on application to linear circuits having variable behavior as a function of frequency, with emphasis on filtering. Variable frequency behavior is considered for applications of electronic components through single-transistor and operational amplifiers. The course ends with a consideration of how circuits behave and may be modeled for analysis at high frequencies.\\~\\
+Continuation of Electrical Engineering Fundamentals I. The course
+addresses mathematical and computational foundations of circuit analysis
+(differential equations, Laplace Transform techniques) with a focus on
+application to linear circuits having variable behavior as a function of
+frequency, with emphasis on filtering. Variable frequency behavior is
+considered for applications of electronic components through single-transistor
+and operational amplifiers. The course ends with a consideration of how
+circuits behave and may be modeled for analysis at high frequencies.\\~\\
 Learning Objectives:
 \begin{enumerate}
     \item Analyze 2nd order linear circuits with sources and/or passive elements
-    \item Compute responses of linear circuits with and without initial conditions via one-sided Laplace transform techniques
-    \item Compute responses to linear circuits using transfer function and convolution techniques
+    \item Compute responses of linear circuits with and without initial conditions via
+          one-sided Laplace transform techniques
+    \item Compute responses to linear circuits using transfer function and convolution
+          techniques
     \item Analyze and design transistor amplifiers at low, mid and high frequencies
 \end{enumerate}
 
-\pagebreak 
+\pagebreak
 
 \section{ECE 20001 Review}
-Sinusoidal Signal (voltage and current) involve phasors, which bring complex numbers to the forefront. When in Sinusoidal Steady State (SSS):\\
+Sinusoidal Signal (voltage and current) involve phasors, which bring complex
+numbers to the forefront. When in Sinusoidal Steady State (SSS):\\
 \begin{equation*}
     Z_R=R
 \end{equation*}
@@ -118,9 +127,9 @@ This can in turn be represented as as the following function:\\
 \end{equation*}
 Which can be transformed into the following form:\\
 \begin{align*}
-    K_0 e^{j(\omega t + \theta_0)} &= K_0 e^{j \theta_0}\\ 
-    &= K_0 (cos(\theta_0) + j sin(\theta_0))\\ 
-    &= K_0\phase{\theta_0}
+    K_0 e^{j(\omega t + \theta_0)} & = K_0 e^{j \theta_0}                    \\
+                                   & = K_0 (cos(\theta_0) + j sin(\theta_0)) \\
+                                   & = K_0\phase{\theta_0}
 \end{align*}
 This can be represented as the following in the cartesian plane:\\
 \begin{center}
@@ -128,14 +137,14 @@ This can be represented as the following in the cartesian plane:\\
 \end{center}
 Thus, these forms can be summed as following:\\
 \begin{table}
- \centering
+    \centering
     \begin{tabular}{c|c}
-    x(t) & $\mathbf{X}$\\
-    \hline
-    $K cos(\omega t)$ & K\\
-    $K sin(\omega t) = K cos(\omega t)$ & $-Kj$\\
-    $cos(\omega t) - sin(wt)$ & $1+j$\\
-    $a cos(\omega t) + b sin(\omega t)$ & $a-bj$
+        x(t)                                & $\mathbf{X}$ \\
+        \hline
+        $K cos(\omega t)$                   & K            \\
+        $K sin(\omega t) = K cos(\omega t)$ & $-Kj$        \\
+        $cos(\omega t) - sin(wt)$           & $1+j$        \\
+        $a cos(\omega t) + b sin(\omega t)$ & $a-bj$
     \end{tabular}
 \end{table}
 This is especially useful for circuit analysis methods such as KCL and KVL.
@@ -155,20 +164,20 @@ The methods of conversion between polar and phasor are:\\
 These conversions and operations alongside KCL and KVL, can allow us to create a system of differential equations that will allow us to solve almost any circuit. However, we don't like ODEs, so we have developed methods to get around this.\\
 We know that at SSS, the following equations are valid.
 \begin{center}
-\begin{align*}
-    V_R &= RI_R\\
-    V_L &= j\omega LI_L\\
-    V_C &= \frac{1}{j \omega C}I_C\\
-    V_L(t) &= L\frac{di_L}{dt} &\implies
-    i_L(t) = i_L(0) + \frac{1}{L} \int v_L \,dt\\
-    i_C(t) &= C\frac{dV_C}{dt} &\implies
-    V_C(t) = V_C(0) + \frac{1}{C} \int i_C \,dt\\
-\end{align*}
+    \begin{align*}
+        V_R    & = RI_R                               \\
+        V_L    & = j\omega LI_L                       \\
+        V_C    & = \frac{1}{j \omega C}I_C            \\
+        V_L(t) & = L\frac{di_L}{dt}        & \implies
+        i_L(t) = i_L(0) + \frac{1}{L} \int v_L \,dt   \\
+        i_C(t) & = C\frac{dV_C}{dt}        & \implies
+        V_C(t) = V_C(0) + \frac{1}{C} \int i_C \,dt   \\
+    \end{align*}
 \end{center}
 This can be used to solve most (to the knowledge of the student till this point) SSS circuits. Strategies have been developed to simplify these calculations. Some examples of this are current and voltage division, with the impedance $Z$ replacing the linear $R$. Strategies like these allow the resolution of circuits like these while avoiding higher order differential equations.\\
 Example:
 \begin{center}
-        \begin{circuitikz}[american currents]
+    \begin{circuitikz}[american currents]
         \draw (0,0)
         to[I, l=$I$] (0,2)
         to [short, -*] (1,2)
@@ -182,23 +191,32 @@ Example:
         to [short, -] (2.5,2);
         \draw (2,0)
         to [short, -] (2.5,0);
-        \end{circuitikz}
+    \end{circuitikz}
 \end{center}
 \begin{align*}
-    I_R=\frac{Z_L}{Z_R+Z_L}*I=\frac{j \omega L}{R+j \omega L}*I\\
+    I_R=\frac{Z_L}{Z_R+Z_L}*I=\frac{j \omega L}{R+j \omega L}*I \\
     I_L=\frac{Z_R}{Z_R+Z_L}*I=\frac{R}{R+j \omega L}*I
 \end{align*}
-If this circuit had a third component, the complexity of current division does not increase by a lot, but the differential equation would go from being a second-order differential equation to a third-order differential equation. The complexity of this would be much higher than that of the second-order differential equation.
-\\Note: All of this is based on the assumption of \textbf{Sinusoidal Steady State}.
+If this circuit had an additional energy storing component, such as a capacitor 
+or an additional inductor, the complexity of current division does not increase 
+by a lot, but the differential equation would go from being a first-order differential
+equation to a second-order differential equation. The complexity of this would be much
+higher than that of the first-order differential equation, and would continue increasing
+for each energy storing component that is added to the circuit.\\
+Note: All of this is based on the assumption of \textbf{Sinusoidal Steady State}.
 \\~\\
 \begin{center}
     "We don't like differential equations." -Prof. Byunghoo Jung
 \end{center}
 \pagebreak
 \section{Using Ordinary Differential Equations to solve RL and RC circuits}
-This section will provide a brief explanation of nonhomogenous differential equations and their applications to circuits (Completely ignoring the fact that we in fact do not like them, as repeatedly stated in the previous section).
+This section will provide a brief explanation of nonhomogenous differential
+equations and their applications to circuits (Completely ignoring the fact that
+we in fact do not like them, as repeatedly stated in the previous section).
 \subsection{Ordinary Differential Equations (ODE) Overview}
-Differential equations rely a lot on two properties. The invariability of the exponential function across derivatives, and the ability to express any function in terms of the exponential function itself. That is,\\
+Differential equations rely a lot on two properties. The invariability of the
+exponential function across derivatives, and the ability to express any
+function in terms of the exponential function itself. That is,\\
 \begin{equation*}
     e^t=\frac{d}{dt}e^t=\frac{d^2}{dt^2}e^t \cdots
 \end{equation*}
@@ -208,70 +226,70 @@ Let us take the following differential equation as an example:
 \end{equation*}
 Because of the beauty (invariability) of the exponential function, we assume $x_h(t)=Ae^{\lambda t}$, and try to solve the homogenous equation $0=6x(t)+3x'(t)$.
 \begin{align*}
-    0 &= 6x+3x'\\
-    0 &= 6Ae^{\lambda t} + 3A \lambda e^{\lambda t}\\
-    0 &= 6+3\lambda\\
-    \lambda &= -2\\
-    \implies x_h(t) &= e^{-2t}
+    0               & = 6x+3x'                                     \\
+    0               & = 6Ae^{\lambda t} + 3A \lambda e^{\lambda t} \\
+    0               & = 6+3\lambda                                 \\
+    \lambda         & = -2                                         \\
+    \implies x_h(t) & = e^{-2t}
 \end{align*}
 At this point, we will consider two different cases: $y(t) = 4e^{3t}$ and $y(t) = 3e^{-2t}$.
 We will find the particular solution $x_p(t)$ for each of these cases, as they have different methods of resolution.
 \begin{align*}
-    4e^{3t} &= 6x+3x'\\
-    \text{Assume } x_p(t) &= Be^{3t}\\
-    4e^{3t} &= 6Be^{3t} + 9Be^{3t}\\
-    4 &= 15B\\
-    B &= \frac{15}{4}\\
-    \implies x_p(t) &= \frac{15}{4}e^{3t}\\
-    \implies x(t) &= x_h(t)+x_p(t)=Ae^{-2t}+\frac{15}{4}e^{3t}
+    4e^{3t}               & = 6x+3x'                                    \\
+    \text{Assume } x_p(t) & = Be^{3t}                                   \\
+    4e^{3t}               & = 6Be^{3t} + 9Be^{3t}                       \\
+    4                     & = 15B                                       \\
+    B                     & = \frac{15}{4}                              \\
+    \implies x_p(t)       & = \frac{15}{4}e^{3t}                        \\
+    \implies x(t)         & = x_h(t)+x_p(t)=Ae^{-2t}+\frac{15}{4}e^{3t}
 \end{align*}
 Let us assume $y(0) = 4$
 \begin{align*}
-    \implies 4 &= A + \frac{15}{4}\\
-    \implies A &= \frac{1}{4}\\
-    \implies x(t) &= \frac{1}{4}e^{-2t}+\frac{15}{4}e^{3t}
+    \implies 4    & = A + \frac{15}{4}                      \\
+    \implies A    & = \frac{1}{4}                           \\
+    \implies x(t) & = \frac{1}{4}e^{-2t}+\frac{15}{4}e^{3t}
 \end{align*}
 On the other hand, if $y(t) = 3e^{-2t}$, since $x_p(t)$ and $x_h(t)$ cannot have the same form, we will need to make a few changes:
 \begin{align*}
-    3e^{-2t} &= 6x+3x'\\
-    \text{Assume } x_p(t) &= Bte^{-2t}\\
-    3e^{-2t} &= 6Bte^{-2t} + 3Be^{-2t} - 6Bte^{-2t}\\
-    \implies 3 &= 3B\\
-    \implies B&=1\\
-    \implies x_p(t) &= te^{-2t}
+    3e^{-2t}              & = 6x+3x'                              \\
+    \text{Assume } x_p(t) & = Bte^{-2t}                           \\
+    3e^{-2t}              & = 6Bte^{-2t} + 3Be^{-2t} - 6Bte^{-2t} \\
+    \implies 3            & = 3B                                  \\
+    \implies B            & =1                                    \\
+    \implies x_p(t)       & = te^{-2t}
 \end{align*}
 Which can then be substituted into $x(t)$, allowing the differential equation to be fully solved by using the initial conditions.
 \subsection{Using ODEs in circuits}
 We will be solving the following two circuits:
 \begin{center}
     \begin{circuitikz}[american voltages]
-    \draw (0,2)
-    to[V, l=$V_{in}$] (0,0);
-    \draw (0,2)
-    to [R, l=$R$] (2,2)
-    to [L, l=$L$] (2,0)
-    to [short, -] (0,0);
+        \draw (0,2)
+        to[V, l=$V_{in}$] (0,0);
+        \draw (0,2)
+        to [R, l=$R$] (2,2)
+        to [L, l=$L$] (2,0)
+        to [short, -] (0,0);
     \end{circuitikz}
     \begin{circuitikz}[american voltages]
-    \draw (0,2)
-    to[V, l=$V_{in}$] (0,0);
-    \draw (0,2)
-    to [R, l=$R$] (2,2)
-    to [C, l=$C$] (2,0)
-    to [short, -] (0,0);
+        \draw (0,2)
+        to[V, l=$V_{in}$] (0,0);
+        \draw (0,2)
+        to [R, l=$R$] (2,2)
+        to [C, l=$C$] (2,0)
+        to [short, -] (0,0);
     \end{circuitikz}
 \end{center}
 In the inductor circuit, if $i_L(0)=0$, we know:
 \begin{align*}
-    v_L &= L\frac{di_L(t)}{dt}\\
-    v_L(t) &= v_{in}(t) - Ri_L(t)\\
-    v_{in}(t) &= L\frac{di_L(t)}{dt} - Ri_L(t)
+    v_L       & = L\frac{di_L(t)}{dt}           \\
+    v_L(t)    & = v_{in}(t) - Ri_L(t)           \\
+    v_{in}(t) & = L\frac{di_L(t)}{dt} - Ri_L(t)
 \end{align*}
 By solving this equation as shown previously, we will find that $\lambda = -\frac{R}{L}$ which is in fact the inverse of the time constant for an RL circuit.
 Under the assumption of $V_{in}$ being a constant, the particular solution will in fact be $i_p(t)=\frac{V_{in}}{R}=i_L(\infty)$. This results in the familiar equation:
 \begin{equation*}
     i_L(t) = i_L(\infty) + (i_L(t_0)-i_L(\infty))e^{-\frac{R}{L}(t-t_0)}
-\end{equation*} 
+\end{equation*}
 The same is done for the capacitor circuit, which ends up resulting in the once again familiar equation:
 \begin{equation*}
     v_C(t) = v_C(\infty) + (v_C(t_0)-v_C(\infty))e^{-\frac{t-t_0}{RC}}
