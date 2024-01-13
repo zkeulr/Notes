@@ -329,10 +329,41 @@ We will now analyze the following circuits, which resemble the previous ones, bu
 \end{center}
 The only solution we will analyze in this document, is the RC circuit, but the RL circuit can be similarly solved.
 \begin{align*}
-    i_{in}(t) &= \frac{L}{R}\frac{di_L(t)}{dt}+i_L(t)\\
-    &\text{We will first observe the homogenous equation:}\\
-    0 &= \frac{L}{R}\lambda^1+\lambda^0\\
-    i_{L,h} &= Ae^{\lambda t}\\
-    \implies \lambda &= -\frac{R}{L} = -\frac{1}{\tau}
+    i_{in}(t) &= C\frac{dv_C(t)}{dt}+\frac{1}{R}v_C(t)\\
+    &\text{To solve this, we need to analyze the homogenous solution first,}\\ &\text{which is equivalent to there being no source in the circuit.}\\
+    0 &= C\frac{dv_C(t)}{dt}+\frac{1}{R}v_C(t)\\
+    0 &= RC\frac{dv_C(t)}{dt}+v_C(t)\\
+    &\text{Assuming that $v_{C,h}(t) = Ae^{\lambda t}$, which results in:}\\
+    0 &= RC \lambda^1 + \lambda^0 = RC \lambda +1\\
+    \lambda &= -\frac{1}{RC} = -\frac{1}{\tau}\\
+    \implies v_{C,h} &= Ae^{\frac{-t}{\tau}}
 \end{align*}
+All signals in a circuit of this form will also decay exponentially, just like in the previous cases.\\
+Now we can solve for the particular solution of the ODE.\\
+\begin{align*}
+    i_{in}(t) &= C\frac{dv_C(t)}{dt}+\frac{1}{R}v_C(t)\\
+    &\text{With a particular solution of the form $v_{C,p}=m$}\\
+    k &= C\frac{d(m)}{dt}+\frac{1}{R}m=\frac{1}{R}m\\
+    \implies m&=kR
+\end{align*}
+We can solve for inputs of constant, exponential, and sinusoidal inputs quite easily.
+If $i_{in}(t) = 5e^{-3t}$, and thus $v_{C,p}=me^{-3t}$ and $v_C(0^-)=3$
+\begin{align*}
+    i_{in}(t)&= C\frac{dv_C}{dt}+\frac{1}{R}v_C\\
+    5e^{-3t} &= -3Cme^{-3t}+\frac{1}{R}me^{-3t}\\
+    5 &= \left(-3C+\frac{1}{R}\right)m\\
+    \implies m &= \frac{5R}{-3RC+1}
+\end{align*}
+Substituting into the equation and using the initial value leads to the following final form:
+\begin{align*}
+    v_C(t) &= v_{C,h}(t) + v_{C,p}(t)\\
+    &= Ae^{-\frac{t}{\tau}}+\frac{5R}{-3RC+1}e^{-3t}\\
+    3&=A+\frac{5R}{-3RC+1}\\
+    \implies A&=3-\frac{5R}{-3RC+1}
+\end{align*}
+and the final form will be:
+\begin{equation*}
+    v_C(t) = \left(3-\frac{5R}{-3RC+1}\right)e^{\frac{-t}{RC}}+\frac{5R}{-3RC+1}e^{-3t}
+\end{equation*}
+Similar solutions can be found for different inputs, and for RL circuits as well.
 \end{document}
