@@ -283,8 +283,8 @@ easy):
 In the inductor circuit, if $i_L(0)=0$, we know:
 \begin{align*}
     v_L       & = L\frac{di_L(t)}{dt}                                  \\
-    v_L(t)    & = v_{in}(t) - Ri_L(t)\text{ because of KVL}            \\
-    v_{in}(t) & = L\frac{di_L(t)}{dt} - Ri_L(t)\text{ by substituting}
+    v_L(t)    & = v_{in}(t) + Ri_L(t)\text{ because of KVL}            \\
+    v_{in}(t) & = L\frac{di_L(t)}{dt} + Ri_L(t)\text{ by substituting}
 \end{align*}
 By dividing the timeline into two sections, $(-\infty, 0) \text{ and } (0,\infty)$, and solving for the second one we can find our desired values for anytime in the future. However, for this to be a viable option, we need to solve for a continuous variable, which is $i$ for an inductor, and $v$ for a capacitor.\\
 By solving this equation as shown previously, and looking for $i_L$, we will find that $\lambda = -\frac{R}{L}$ which is in fact the inverse of the time constant for an RL circuit.
