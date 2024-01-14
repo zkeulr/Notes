@@ -216,22 +216,72 @@ This can be done for more inputs, by combining multiple gates.\\ There are two m
             x & y & {$\lnot(x\land y)$} \\
             \hline
             0 & 0 & 1                   \\
-            0 & 1 & 0                   \\
-            1 & 0 & 0                   \\
+            0 & 1 & 1                   \\
+            1 & 0 & 1                   \\
             1 & 1 & 0
         \end{tabular}                &
         \begin{tabular}{c c|c}
             x & y & {$\lnot(x\lor y)$} \\
             \hline
             0 & 0 & 1                  \\
-            0 & 1 & 1                  \\
-            1 & 0 & 1                  \\
+            0 & 1 & 0                  \\
+            1 & 0 & 0                  \\
             1 & 1 & 0
         \end{tabular}
     \end{tabular}
 \end{table}
-It is a good exercise to see how two of the basic gates (AND, NOT or OR, NOT) can be used to create the rest.\\
-It is possible to connect gates to form complex circuits and thus, complex functions. By convention, signal flows from left to right. Thus, output comes out the right and input goes in at left.
-
-\pagebreak
+It is a good exercise to see how two of the basic gates (AND, NOT or OR, NOT) can be used to create the rest.
+It is possible to connect gates to form complex circuits and thus, complex functions.\\
+By convention, signal flows from left to right. Thus, output comes out the right and input goes in at left.
+\subsection{Timing}
+When the values of an input changes, it takes time for the outputs to change as
+well, which is known as \textit{propagation delay}, which can be represented in
+a timing diagram. However, for most cases, it is possible ot ignore these, as
+the behavior is well defined regardless of delay.\\ The following is a timing
+diagram:\\
+\begin{center}
+    \includegraphics[width= 200px]{images/timing_table.png}
+\end{center}
+Propagation delay, represented by pd in the timing diagram, is irrelevant if there are no changes, regardless of the fact that there is a new set of inputs. The values at the bottom of the diagram are the values taht each of the elements hold after all teh necessary transitions have happened for that set of inputs.\\
+Transition time is the time it takes for a signal to change from 0 to 1, and is represented by "rt".
+\subsection{Software Aspects of Digital Design}
+\subsection{Integrated Circuits}
+\subsection{Logic Families}
+There are many different ways of implementing logic circuits. Connectable logic
+circuits are of the same logic family. So, the technology controlling them is
+different. Chips need to be from the same family to be connected to each other.
+If they are from different families, they cannot be connected to each other.\\
+For example TTL (Transistor-Transistor Logic) is a logic family based on bipolar junction transistors.\\
+CMOS(Complementary Metal-Oxide Semiconductor) is based on MOSFETs (MOS Field-Effect Transistors). These are more commonly used, and the ones we will be analyzing in this class.\\
+\subsection{CMOS Logic Circuits}
+A MOS transistor is modellable as a voltage controlled resistor. This means that the input voltage controls the resistance of the MOSFET, allowing it to act as a kind of switch. This is because it has only two effective states: very high resistance and very low resistance.\\
+This is an n-channel (NMOS) transistor:
+\begin{center}
+    \includegraphics[width= 100px]{images/nmos.png}
+\end{center}
+When $V_{gs} = 0$, the resistance is very high.\\
+When $V_{gs}$ is increased, the resistance is very low.\\
+On the other hand, this is the PMOS transistor:\\
+\begin{center}
+    \includegraphics[width= 100px]{images/pmos.png}
+\end{center}
+When $V_{sg} = 0$, the resistance is very high.\\
+When $V_{sg}$ is increased, the resistance is very low.\\ 
+NMOS and PMOS together allow us to form CMOS logic.
+For example, this is a CMOS inverter, in which the output will be the opposite of the input.\\
+\begin{center}
+    \includegraphics[width= 100px]{images/cmosinverter.png}
+\end{center}
+If $V_{in} = 3.3V$, or high, the PMOS transistor be off, and the NMOS would be on. This would mean that the output and ground are shorted, causing the output to be low.\\
+If $V_{in} = 0V$, or low, the PMOS transistor be on, and the NMOS would be off. This would mean that the output and $V_{DD}$ are shorted, causing the output to be high.\\
+This allows this to be act as an inverter.\\
+Now we will observe the CMOS arrangement of a NAND gate. 
+\begin{center}
+    \includegraphics[width= 150px]{images/cmosnand.png}
+\end{center}
+If A and B are both HIGH, both PMOS are HIGH, and thus $V_{DD}$ is shorted to Z.\\
+If they are both LOW, the exact opposite happens, with Z shorting to ground.\\
+If A or B are HIGH, than one of the PMOS will be high, and one of the NMOS will be LOW, causing the output to be HIGH.\\
+The NOR gate can be constructed easily from the same thought process, but NMOS in parallel, and PMOS in series.\\
+These can be expanded to more inputs by adding more transistors.
 \end{document}
