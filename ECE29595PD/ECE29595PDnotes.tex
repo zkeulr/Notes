@@ -111,7 +111,7 @@ This hardware can add two numbers, that is, conduct the operation $c=a+b$. It co
 The creation of systems like these is based on the fact that voltage and current are time-varying and can assume any value in a continuous range of real numbers, but are mapped to only two values.
 
 \subsection{Digital Logic Signals}
-A digital signal is modeled as assuming, at anytime, only one of two discrete
+A digital signal is modeled assuming that at anytime, it can have only one of two discrete
 values, which represent:\\
 \begin{table}
     \centering
@@ -122,7 +122,7 @@ values, which represent:\\
     \end{tabular}
 \end{table}
 This is called positive logic.
-This maps the infinite values of voltage and current to the two values.
+It maps the infinite values of voltage and current to these two values.
 An example of this is CMOS 2-Volt logic:\\
 \begin{table}
     \centering
@@ -133,7 +133,7 @@ An example of this is CMOS 2-Volt logic:\\
     \end{tabular}
 \end{table}
 These completely separated ranges of values allow for 0 and 1 to be completely separate, with noise and other possible errors being ignored. In this way, all physical values can be partitioned into the two values, though, for intents and purposes of digital system design, voltage is the most relevant.\\
-Additionally, circuits known as buffer circuits can be used to restore logic values. That is, if a voltage is not sufficiently close to the values of 0 or 2 (in the case of the CMOS), they can push these values far closer to the desired values, reducing teh possibility of error.\\
+Additionally, circuits known as buffer circuits can be used to restore logic values. That is, if a voltage is not sufficiently close to the values of 0 or 2 (in the case of the CMOS), they can push these values far closer to the desired values, reducing the possibility of error.\\
 Digital circuits have replaced analog circuits becuse they are far easier to design. They can be made using Hardware Description Languages (HDLs), softwares that are similar to programming languages.\\
 A logic value is called a binary digit, or bit. A set of $n$ bits, represent $2^n$ values. For example:
 \begin{table}
@@ -144,7 +144,7 @@ A logic value is called a binary digit, or bit. A set of $n$ bits, represent $2^
         0     \\
         1     \\
     \end{tabular}
-    \\
+    \quad
     \begin{tabular}{c c}
         $b_0$ & $b_1$ \\
         \hline
@@ -155,7 +155,7 @@ A logic value is called a binary digit, or bit. A set of $n$ bits, represent $2^
     \end{tabular}
 \end{table}
 \subsection{Logic Circuits}
-At the highest level, a logic circuit is a \textit{black box} with $n$ input
+At the highest level, a logic circuit is a \textit{black box} with $n$ inputs
 and $m$ outputs. Only zeros and ones are required to represent inputs and
 outputs. \\ Combinational circuits are circuits that have outputs that solely
 depend on the inputs. It can be represented by a truth table.\\ An adder can be
@@ -230,9 +230,8 @@ This can be done for more inputs, by combining multiple gates.\\ There are two m
         \end{tabular}
     \end{tabular}
 \end{table}
-It is a good exercise to see how two of the basic gates (AND, NOT or OR, NOT) can be used to create the rest.
-It is possible to connect gates to form complex circuits and thus, complex functions.\\
-By convention, signal flows from left to right. Thus, output comes out the right and input goes in at left.
+It is a good exercise to see how two of the basic gates (AND, NOT or OR, NOT) can be used to create the rest, as it is possible to connect gates to form complex circuits and thus, complex functions.\\
+\textit{Note: By convention, signal flows from left to right. Thus, output comes out the right and input goes in at left.}
 \subsection{Timing}
 When the values of an input changes, it takes time for the outputs to change as
 well, which is known as \textit{propagation delay}, which can be represented in
@@ -242,7 +241,7 @@ diagram:\\
 \begin{center}
     \includegraphics[width= 200px]{images/timing_table.png}
 \end{center}
-Propagation delay, represented by pd in the timing diagram, is irrelevant if there are no changes, regardless of the fact that there is a new set of inputs. The values at the bottom of the diagram are the values taht each of the elements hold after all teh necessary transitions have happened for that set of inputs.\\
+Propagation delay, represented by pd in the timing diagram, is irrelevant if there are no changes, regardless of the fact that there is a new set of inputs. The values at the bottom of the diagram are the values that each of the elements hold after all the necessary transitions have happened for that set of inputs.\\
 Transition time is the time it takes for a signal to change from 0 to 1, and is represented by "rt".
 \subsection{Software Aspects of Digital Design}
 \subsection{Integrated Circuits}
