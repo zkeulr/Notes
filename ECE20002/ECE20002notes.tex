@@ -329,41 +329,131 @@ We will now analyze the following circuits, which resemble the previous ones, bu
 \end{center}
 The only solution we will analyze in this document, is the RC circuit, but the RL circuit can be similarly solved.
 \begin{align*}
-    i_{in}(t) &= C\frac{dv_C(t)}{dt}+\frac{1}{R}v_C(t)\\
-    &\text{To solve this, we need to analyze the homogenous solution first,}\\ &\text{which is equivalent to there being no source in the circuit.}\\
-    0 &= C\frac{dv_C(t)}{dt}+\frac{1}{R}v_C(t)\\
-    0 &= RC\frac{dv_C(t)}{dt}+v_C(t)\\
-    &\text{Assuming that $v_{C,h}(t) = Ae^{\lambda t}$, which results in:}\\
-    0 &= RC \lambda^1 + \lambda^0 = RC \lambda +1\\
-    \lambda &= -\frac{1}{RC} = -\frac{1}{\tau}\\
-    \implies v_{C,h} &= Ae^{\frac{-t}{\tau}}
+    i_{in}(t)        & = C\frac{dv_C(t)}{dt}+\frac{1}{R}v_C(t)                                 \\
+                     & \text{To solve this, we need to analyze the homogenous solution first,} \\ &\text{which is equivalent to there being no source in the circuit.}\\
+    0                & = C\frac{dv_C(t)}{dt}+\frac{1}{R}v_C(t)                                 \\
+    0                & = RC\frac{dv_C(t)}{dt}+v_C(t)                                           \\
+                     & \text{Assuming that $v_{C,h}(t) = Ae^{\lambda t}$, which results in:}   \\
+    0                & = RC \lambda^1 + \lambda^0 = RC \lambda +1                              \\
+    \lambda          & = -\frac{1}{RC} = -\frac{1}{\tau}                                       \\
+    \implies v_{C,h} & = Ae^{\frac{-t}{\tau}}
 \end{align*}
 All signals in a circuit of this form will also decay exponentially, just like in the previous cases.\\
 Now we can solve for the particular solution of the ODE.\\
 \begin{align*}
-    i_{in}(t) &= C\frac{dv_C(t)}{dt}+\frac{1}{R}v_C(t)\\
-    &\text{With a particular solution of the form $v_{C,p}=m$}\\
-    k &= C\frac{d(m)}{dt}+\frac{1}{R}m=\frac{1}{R}m\\
-    \implies m&=kR
+    i_{in}(t)  & = C\frac{dv_C(t)}{dt}+\frac{1}{R}v_C(t)                   \\
+               & \text{With a particular solution of the form $v_{C,p}=m$} \\
+    k          & = C\frac{d(m)}{dt}+\frac{1}{R}m=\frac{1}{R}m              \\
+    \implies m & =kR
 \end{align*}
 We can solve for inputs of constant, exponential, and sinusoidal inputs quite easily.
 If $i_{in}(t) = 5e^{-3t}$, and thus $v_{C,p}=me^{-3t}$ and $v_C(0^-)=3$
 \begin{align*}
-    i_{in}(t)&= C\frac{dv_C}{dt}+\frac{1}{R}v_C\\
-    5e^{-3t} &= -3Cme^{-3t}+\frac{1}{R}me^{-3t}\\
-    5 &= \left(-3C+\frac{1}{R}\right)m\\
-    \implies m &= \frac{5R}{-3RC+1}
+    i_{in}(t)  & = C\frac{dv_C}{dt}+\frac{1}{R}v_C \\
+    5e^{-3t}   & = -3Cme^{-3t}+\frac{1}{R}me^{-3t} \\
+    5          & = \left(-3C+\frac{1}{R}\right)m   \\
+    \implies m & = \frac{5R}{-3RC+1}
 \end{align*}
 Substituting into the equation and using the initial value leads to the following final form:
 \begin{align*}
-    v_C(t) &= v_{C,h}(t) + v_{C,p}(t)\\
-    &= Ae^{-\frac{t}{\tau}}+\frac{5R}{-3RC+1}e^{-3t}\\
-    3&=A+\frac{5R}{-3RC+1}\\
-    \implies A&=3-\frac{5R}{-3RC+1}
+    v_C(t)     & = v_{C,h}(t) + v_{C,p}(t)                       \\
+               & = Ae^{-\frac{t}{\tau}}+\frac{5R}{-3RC+1}e^{-3t} \\
+    3          & =A+\frac{5R}{-3RC+1}                            \\
+    \implies A & =3-\frac{5R}{-3RC+1}
 \end{align*}
 and the final form will be:
 \begin{equation*}
     v_C(t) = \left(3-\frac{5R}{-3RC+1}\right)e^{\frac{-t}{RC}}+\frac{5R}{-3RC+1}e^{-3t}
 \end{equation*}
 Similar solutions can be found for different inputs, and for RL circuits as well.
+
+\section{Using ODEs for LC circuits}
+\subsection{Solving Second Order ODEs}
+We can start this by understanding the method of resolution of second order
+ODEs. For example:
+\begin{align*}
+    3e^{-3t} & = 2x(t)+3\frac{dx(t)}{dt}+\frac{d^2x(t)}{dt^2} \\
+    x(0)     & = 2                                            \\
+    x'(0)    & = 1
+\end{align*}
+Which leads to the following resolution of the homogenous equation:
+\begin{align*}
+    0                & = \lambda^2+3\lambda+2   \\
+    0                & = (\lambda+1)(\lambda+2) \\
+    \implies \lambda & = -1, -2                 \\
+    \implies x_h(t)  & = A_1e^{-t}+A_2e^{-2t}
+\end{align*}
+Now we solve the particular equation under the assumption $x_p(t)=ke^{-3t}$:
+\begin{align*}
+    3e^{-3t}        & = 2ke^{-3t}+-9ke^{-3t}+9ke^{-3t} \\
+    3               & = 2k-9k+9k                       \\
+    \implies k      & = \frac{3}{2}                    \\
+    \implies x_p(t) & = \frac{3}{2}e^{-3t}
+\end{align*}
+Now, using $x(t)=x_p(t)+x_h(t)$:
+\begin{align*}
+    x(t)          & = A_1e^{-t}+A_2e^{-2t} + \frac{3}{2}e^{-3t}       \\
+    x(0)          & = 2                                               \\
+    x'(0)         & = 1                                               \\
+    2             & = A_1+A_2+\frac{3}{2}                             \\
+    1             & = -A_1-2A_2-\frac{9}{2}                           \\
+    \implies A_2  & = -6                                              \\
+    \implies A_1  & = \frac{13}{2}                                    \\
+    \implies x(t) & = -6e^{-t}+\frac{13}{2}e^{-2t}+\frac{3}{2}e^{-3t}
+\end{align*}
+Had the forcing function $3e^{-3t}$ instead been of the form $B_1e^{-4t}+B_2e^{-3t}$, the particular solution would have needed to be of the form $k_1e^{-4t}+k_2e^{-3t}$.
+\subsection{Solving LC circuits}
+We will begin by solving the following circuit:
+\begin{center}
+    \begin{circuitikz}[american voltages]
+        \draw (0,2)
+        to[V, l=$V_{in}$] (0,0);
+        \draw (0,2)
+        to [L, l=$L$] (2,2)
+        to [C, l=$C$] (2,0)
+        to [short, -] (0,0);
+    \end{circuitikz}
+\end{center}
+Which has a behavior defined by:
+\begin{align*}
+    v_{in}(t)       & = v_L(t)+v_C(t)            \\
+    i_L(t)          & = i_C(t)                   \\
+    v_L(t)          & = L\frac{di_L(t)}{dt}      \\
+    i_C(t)          & = C\frac{dv_C(t)}{dt}      \\
+    \implies v_L(t) & = LC\frac{d^2v_C(t)}{dt^2}
+\end{align*}
+This will now allow us to solve for $v_C(t)$.
+\begin{align*}
+    v_{in}(t)           & = v_C(t)+LCv_C''(t)                                                              \\
+                        & \text{Solving the homogenous equation:}                                          \\
+    0                   & = v_C(t)+LCv_C''(t)                                                              \\
+    \implies 0          & = 1+LC\lambda^2                                                                  \\
+    \implies \lambda    & = \sqrt{\frac{-1}{LC}} = \pm j\sqrt{\frac{1}{LC}}                                \\
+    \text{if } \omega_0 & = \sqrt{\frac{1}{LC}}                                                            \\
+    v_{C,h}             & = A_1e^{j\omega_0t}+A_2e^{-j\omega_0t}                                           \\
+                        & = A_1(\cos(\omega_0t)+j\sin(\omega_0t)) +A_2(\cos(-\omega_0t)+j\sin(-\omega_0t)) \\
+                        & = (A_1+A_2)\cos(\omega_0t)+j(A_1-A_2)\sin(\omega_0t)                             \\
+                        & = B_1\cos(\omega_0t)+B_2\sin(\omega_0t)
+\end{align*}
+Now we will search for the particular solution with an exponential forcing function, $V_{in} = Fe^{-\omega t}$
+\begin{align*}
+    Fe^-{\omega t}                                            & = v_C(t)+LCv_C''(t)                                                           \\
+    \text{With the particular solution of the form }  v_{C,p} & = Ae^{-\omega t}                                                              \\
+    Fe^{-\omega t}                                            & = LC\omega^2Ae^{-\omega t}+ Ae^{-\omega t}                                    \\
+    F                                                         & = LC\omega^2A+A                                                               \\
+    \implies A                                                & = \frac{F}{LC \omega^2+1}                                                     \\
+    \implies v_{C,p}                                          & = \frac{F}{LC\omega^2+1}e^{-\omega t}                                         \\
+    \implies v_C                                              & = B_1\cos(\omega_0t)+B_2\sin(\omega_0t) + \frac{F}{LC\omega^2+1}e^{-\omega t}
+\end{align*}
+We can now solve for the complete equation if we have the initial conditions.\\
+We could also have solved this for a forcing equation of the form $v_{in}(t) = F_1\cos(\omega t)+F_2\sin(\omega t)$
+\begin{align*}
+    F_1\cos(\omega t)+F_2\sin(\omega t) & = v_C(t)+LCv_C''(t)                                                                                \\
+    v_{C,p}                             & = A_1\cos(\omega t)+ A_2\sin(\omega t)                                                             \\
+    F_1\cos(\omega t)+F_2\sin(\omega t) & = -LC\omega^2A_1\cos(\omega t)-LC\omega^2A_2\sin(\omega t) + A_1\cos(\omega t)+ A_2 \sin(\omega t) \\
+                                        & = (-LC\omega^2+1)(A_1 \cos(\omega t)+A_2\sin(\omega t))                                            \\
+    \implies A_1                        & = \frac{F_1}{1-LC\omega^2}                                                                         \\
+    A_2                                 & = \frac{F_2}{1-LC\omega^2}
+\end{align*}
+These values can then be subtituted into the complete form and $B_1$ and $B_2$ can be found using the initial conditions.
 \end{document}

@@ -187,10 +187,10 @@ Which has a cost table that looks like the following:\\
     \end{tabular}
 \end{table}
 It can be noted that $O(n) = n$ for this function, despite all the other complexities in the algorithm. However, it is important to know how to calculate $T(n)$ as well.\\
-Now, let us look at something more complicated, matrix multiplication.
+Now, let us look at something more complicated, matrix multiplication of two lower triangular matrices.
 \begin{lstlisting}
     for (i=1:n):
-        for (j=1:n):
+        for (j=1:i):
             C_ij = 0;
             for (k=j:i):
                 C_ij = C_ij+A_ik*B_kj
