@@ -6,18 +6,18 @@ This repository contains lecture notes for several classes at Purdue University.
 
 Here are the courses currently available:
 
-- [ECE 20001](ECE20001/ECE20001Notes.pdf)
-- [ECE 26400](ECE26400/ECE26400Notes.pdf)
-- [ECE 36900](ECE36900/ECE36900Notes.pdf)
-- [PHYS 27200](PHYS27200/PHYS27200Notes.pdf)
+- [ECE 20001](ECE20001/ECE20001Notes.pdf) - Fundamentals of Electronics I
+- [ECE 26400](ECE26400/ECE26400Notes.pdf) - Advanced C Programming
+- [ECE 36900](ECE36900/ECE36900Notes.pdf) - Discrete Mathematics for Computer Engineers
+- [PHYS 27200](PHYS27200/PHYS27200Notes.pdf) - Electric and Magnetic Interactions
 
 Currently being added are:
 
-- [ECE 20002](ECE20002/ECE20002Notes.pdf)
-- [ECE 29595PD](ECE29595PD/ECE29595PDNotes.pdf)
-- [ECE 36800](ECE36800/ECE36800Notes.pdf)
-- [ECON 25100](ECON25100/ECE25100Notes.pdf)
-- [MA 26500](MA26500/MA26500Notes.pdf)
+- [ECE 20002](ECE20002/ECE20002Notes.pdf) - Fundamentals of Electronics II
+- [ECE 29595PD](ECE29595PD/ECE29595PDNotes.pdf) - Digital System Design (Honors)
+- [ECE 36800](ECE36800/ECE36800Notes.pdf) - Data Structures and Algorithms
+- [ECON 25100](ECON25100/ECE25100Notes.pdf) - Microeconomics
+- [MA 26500](MA26500/MA26500Notes.pdf) - Linear Algebra
 
 ## Contributing
 

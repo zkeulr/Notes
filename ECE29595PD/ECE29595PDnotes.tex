@@ -111,8 +111,8 @@ This hardware can add two numbers, that is, conduct the operation $c=a+b$. It co
 The creation of systems like these is based on the fact that voltage and current are time-varying and can assume any value in a continuous range of real numbers, but are mapped to only two values.
 
 \subsection{Digital Logic Signals}
-A digital signal is modeled assuming that at anytime, it can have only one of two discrete
-values, which represent:\\
+A digital signal is modeled assuming that at anytime, it can have only one of
+two discrete values, which represent:\\
 \begin{table}
     \centering
     \begin{tabular}{c|c}
@@ -244,17 +244,58 @@ diagram:\\
 Propagation delay, represented by pd in the timing diagram, is irrelevant if there are no changes, regardless of the fact that there is a new set of inputs. The values at the bottom of the diagram are the values that each of the elements hold after all the necessary transitions have happened for that set of inputs.\\
 Transition time is the time it takes for a signal to change from 0 to 1, and is represented by "rt".
 \subsection{Software Aspects of Digital Design}
+Software is not technically essential to digital system design. People used to
+draw symbold by hand, and could make technically equivalent systems. However,
+the availability, utility, and ease of use of HDLs has made the use of software
+prevalent in the current technological landscape.\\ Electronic Design
+Automation tools are useful in improving designer productivity. The following
+are examples of these:
+\begin{itemize}
+    \item Schematic entry: Allows for fully detailed digital diagrams to be created
+          digitally.
+    \item HDLs: Can be used to design anythong from individual function modules to
+          multichip digital systems. This course will involve extensive use of VHDL.
+    \item HDL text editors, compilers, synthesizers: text editor to define, compiler to
+          debug syntax, synthesizer to create corresponding circuit or chip.
+    \item Simulator: It is virtually impossible to debug a synthesized chip, so
+          simulators are used before synthesis. They allow for verification of
+          functionality prior to the actual tedious process of synthesis. Among
+          simulators, there are also PCB simulators, and FPGAs, which are like
+          programmable chips. They are very important.
+    \item Test benches: Designs are simulated and tested using these. They run a series
+          of checks to ensure that nothing stopped working due to changes.
+    \item Timing analyzers and verifiers: Correct timing of inputs and reactiosn are
+          paramount in digital systems. This facet of simulation allows for the
+          automation of timing functionality verification.
+    \item Word Processors: Allow for pretty documentation to be created.
+\end{itemize}
+Software is important, but the understanding of what it actually does is even more so.
 \subsection{Integrated Circuits}
+A collection of gates on a single silicon chip is called an integrated circuit
+or IC.\\ An IC originates from a wafer, which is segmented into many identical
+ICs. The wafer is divided into rectangles, called \textit{dies} which in turn
+have \textit{pads} which allow for wire connections. Microscopic probes are
+used to debug the wafers, and defects are discarded, and the succeses, cut
+out.\\ For this class, an IC, is a packaged die.\\ ICs were divided by size,
+small SSIs with 1 to 20 gates, medium MSIs with 20 to 200, large LSIs with upto
+1000, and vely large VLSIs fro everything above that. The largest VLSIs now
+have over 10 billion transistors.\\ An IC process is the steps taken to create
+an IC, and are categorized by the transistor density within the chip.
 \subsection{Logic Families}
 There are many different ways of implementing logic circuits. Connectable logic
 circuits are of the same logic family. So, the technology controlling them is
 different. Chips need to be from the same family to be connected to each other.
 If they are from different families, they cannot be connected to each other.\\
-For example TTL (Transistor-Transistor Logic) is a logic family based on bipolar junction transistors.\\
-CMOS(Complementary Metal-Oxide Semiconductor) is based on MOSFETs (MOS Field-Effect Transistors). These are more commonly used, and the ones we will be analyzing in this class.\\
+For example TTL (Transistor-Transistor Logic) is a logic family based on
+bipolar junction transistors.\\ CMOS (Complementary Metal-Oxide Semiconductor)
+is based on MOSFETs (MOS Field-Effect Transistors). These are more commonly
+used, and the ones we will be analyzing in this class.\\
 \subsection{CMOS Logic Circuits}
-A MOS transistor is modellable as a voltage controlled resistor. This means that the input voltage controls the resistance of the MOSFET, allowing it to act as a kind of switch. This is because it has only two effective states: very high resistance and very low resistance.\\
-This is an n-channel (NMOS) transistor:
+A MOS transistor is modellable as a voltage controlled resistor. This means
+that the input voltage controls the resistance of the MOSFET, allowing it to
+act as a kind of switch. This is because it has only two effective states: very
+high resistance and very low resistance.\\ This is an n-channel (NMOS)
+transistor:
 \begin{center}
     \includegraphics[width= 100px]{images/nmos.png}
 \end{center}
@@ -265,7 +306,7 @@ On the other hand, this is the PMOS transistor:\\
     \includegraphics[width= 100px]{images/pmos.png}
 \end{center}
 When $V_{sg} = 0$, the resistance is very high.\\
-When $V_{sg}$ is increased, the resistance is very low.\\ 
+When $V_{sg}$ is increased, the resistance is very low.\\
 NMOS and PMOS together allow us to form CMOS logic.
 For example, this is a CMOS inverter, in which the output will be the opposite of the input.\\
 \begin{center}
@@ -274,7 +315,7 @@ For example, this is a CMOS inverter, in which the output will be the opposite o
 If $V_{in} = 3.3V$, or high, the PMOS transistor be off, and the NMOS would be on. This would mean that the output and ground are shorted, causing the output to be low.\\
 If $V_{in} = 0V$, or low, the PMOS transistor be on, and the NMOS would be off. This would mean that the output and $V_{DD}$ are shorted, causing the output to be high.\\
 This allows this to be act as an inverter.\\
-Now we will observe the CMOS arrangement of a NAND gate. 
+Now we will observe the CMOS arrangement of a NAND gate.
 \begin{center}
     \includegraphics[width= 150px]{images/cmosnand.png}
 \end{center}
