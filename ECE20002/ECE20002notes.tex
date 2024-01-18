@@ -302,6 +302,14 @@ Since $P = I^2R = \frac{V^2}{R}$, it makes sense for the time constant to be $\t
 Note: the particular solution of the ODE is a scaled version of the input.\\
 The homogenous solution will be the same for all inputs, and of the form $Ae^{\frac{-t}{\tau}}$.\\
 The particular solution represents the behavior of the analyzed parameter when everything has settled down, or, at infinity.\\
+Let us look at the particular resolution with a forcing equation of the form $v_{in}(t) = A\sin(\omega t)u(t)$.
+\begin{align*}
+    v_{C,p} & = \frac{Z_C}{Z_R+Z_C}V_{in}                              \\
+            & = \frac{\frac{1}{j\omega C}}{R+\frac{1}{j\omega C}}(-Aj) \\
+            & = \frac{1}{j\omega RC+1}(-Aj)
+\end{align*}
+Deveoping and simifying that equation can lead to the form $A_1\cos(\omega t)+A_2\sin(\omega t)$.\\
+These can then be substituted into teh complete form, and, using the initial conditions, completely define the reactions.
 We will now analyze the following circuits, which resemble the previous ones, but use voltage instead, and have teh components in parallel instead of series.
 \begin{center}
     \begin{circuitikz}[american voltages, american currents]
@@ -366,7 +374,7 @@ and the final form will be:
     v_C(t) = \left(3-\frac{5R}{-3RC+1}\right)e^{\frac{-t}{RC}}+\frac{5R}{-3RC+1}e^{-3t}
 \end{equation*}
 Similar solutions can be found for different inputs, and for RL circuits as well.
-
+\newpage
 \section{Using ODEs for LC circuits}
 \subsection{Solving Second Order ODEs}
 We can start this by understanding the method of resolution of second order
@@ -401,7 +409,21 @@ Now, using $x(t)=x_p(t)+x_h(t)$:
     \implies A_1  & = \frac{13}{2}                                    \\
     \implies x(t) & = -6e^{-t}+\frac{13}{2}e^{-2t}+\frac{3}{2}e^{-3t}
 \end{align*}
-Had the forcing function $3e^{-3t}$ instead been of the form $B_1e^{-4t}+B_2e^{-3t}$, the particular solution would have needed to be of the form $k_1e^{-4t}+k_2e^{-3t}$.
+Had the forcing function $3e^{-3t}$ instead been of the form $B_1e^{-4t}+B_2e^{-3t}$, the particular solution would have needed to be of the form $k_1e^{-4t}+k_2e^{-3t}$.\\
+\subsection{Concept}
+Let us observe the following circuit:
+\begin{center}
+    \begin{circuitikz}[american voltages]
+        \draw (0,2)
+        to[L, l=$L$] (0,0);
+        \draw (0,2)
+        to [short, -] (2,2)
+        to [C, l=$C$] (2,0)
+        to [short, -] (0,0);
+    \end{circuitikz}
+\end{center}
+Both the inductor and the capacitor can store energy, and "send" energy to each other, creating oscillations, but maintain the total energy in the circuit continuous. Circuits of this form are called LC tanks.\\
+Thus, the solution, as does the ideal pendulum, can be defined by sinusoidals.
 \subsection{Solving LC circuits}
 We will begin by solving the following circuit:
 \begin{center}
@@ -416,11 +438,12 @@ We will begin by solving the following circuit:
 \end{center}
 Which has a behavior defined by:
 \begin{align*}
-    v_{in}(t)       & = v_L(t)+v_C(t)            \\
-    i_L(t)          & = i_C(t)                   \\
-    v_L(t)          & = L\frac{di_L(t)}{dt}      \\
-    i_C(t)          & = C\frac{dv_C(t)}{dt}      \\
-    \implies v_L(t) & = LC\frac{d^2v_C(t)}{dt^2}
+    v_{in}(t)          & = v_L(t)+v_C(t)                     \\
+    i_L(t)             & = i_C(t)                            \\
+    v_L(t)             & = L\frac{di_L(t)}{dt}               \\
+    i_C(t)             & = C\frac{dv_C(t)}{dt}               \\
+    \implies v_L(t)    & = LC\frac{d^2v_C(t)}{dt^2}          \\
+    \implies v_{in}(t) & = LC\frac{d^2v_C(t)}{dt^2} + v_C(t) \\
 \end{align*}
 This will now allow us to solve for $v_C(t)$.
 \begin{align*}
@@ -455,5 +478,39 @@ We could also have solved this for a forcing equation of the form $v_{in}(t) = F
     \implies A_1                        & = \frac{F_1}{1-LC\omega^2}                                                                         \\
     A_2                                 & = \frac{F_2}{1-LC\omega^2}
 \end{align*}
-These values can then be subtituted into the complete form and $B_1$ and $B_2$ can be found using the initial conditions.
+These values can then be subtituted into the complete form and $B_1$ and $B_2$ can be found using the initial conditions.\\
+We will now solve the following circuit:\\
+\begin{center}
+    \begin{circuitikz}[american voltages, american currents]
+        \draw (0,0)
+        to[I, l=$I_{in}$] (0,2);
+        \draw (0,2)
+        to [short, -] (1,2)
+        to [L, l^=$L$] (1,0)
+        to [short, -] (2,0)
+        to [C, l_=$C$] (2,2);
+        \draw (0,0) to [short, -] (1,0);
+        \draw (1,2) to [short, -] (2,2);
+    \end{circuitikz}
+\end{center}
+In the same way as the last one, we get the differential equation, which in this case is defined by:
+\begin{align*}
+    i_{in} &= LC\frac{d^2i_L(t)}{dt^2}+i_L(t)
+\end{align*}
+However, we can observe that the equation is of the same form as the previous one, but with $i$ replacing $v$. The solution will be of the exact same form, and thus needs no additional resolution.\\
+What is important to remember from this is the following:
+\begin{align*}
+    v_{C,h}(t) &= A_1\cos(\omega_0t)+A_2\sin(\omega_0 t)\\
+    &= K\cos(\omega t +\theta)\\
+    i_{L,h}(t) &= B_1\cos(\omega_0t)+B_2\sin(\omega_0 t)\\
+    &= K\cos(\omega t +\theta)\\
+    \omega &= \frac{1}{\sqrt{LC}}
+\end{align*}
+If they were to give initial conditions of  the form $v_C(0) = k_1, i_L(0) = k_2$ instead of $v_C(0)=k_1, v_C'(0)=k_2$, we can use:
+\begin{align*}
+    i_L(t) = i_C(t) &= C\frac{dv_C(t)}{dt}\\
+    &\text{or}\\
+    v_C(t) = v_L(t) &= L\frac{di_L(t)}{dt}
+\end{align*}
+to succesfully derive the values of the missing constants.
 \end{document}

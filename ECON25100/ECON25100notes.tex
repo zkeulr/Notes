@@ -148,7 +148,31 @@ Core Principles of Economics:
           All choices involve tradeoffs due to scarcity. The usage of resources on one
           choice limits the amount available for other choices.\\ \textit{Note: a sunk
               cost is a cost that cannot be recouped, and should be ignored. They should not
-              be included into the current decision.}\\
+              be included into the current decision.}\\ As a subtopic of Opportunity Cost
+          Principle is the Production Possibilities Frontier, which analyzes the
+          different set of attainable gains based on different allocations. Under the
+          assumption that the costs and benefits are constant, the graph will look
+          something like this:
+          \begin{center}
+              \begin{tikzpicture}[scale = 0.7]
+                  \begin{axis}[
+                          axis lines = left,
+                          xlabel = Choice 1,
+                          ylabel = Choice 2,
+                          ymax = 20,
+                          xmax = 6,
+                      ]
+                      \addplot [
+                          domain=0:5,
+                          samples=100,
+                          color=red,
+                      ]
+                      {-3*x + 15};
+                      \addplot [color=black, only marks] coordinates {(1,1) (2,2)};
+                  \end{axis}
+              \end{tikzpicture}
+          \end{center}
+          Any allocation of time below the PPF is an inefficient use of resources.\\ Points above it are unreachable unless new productivity increase methods are found.\\
     \item Marginal Principle: Decisions about quantities are best made incrementally.
           Instead of analyzing how many, one should analyze whether smaller increases are
           viable and resonable.\\ \quad Marginal Benefit: Benefit on an extra unit.\\
@@ -156,28 +180,71 @@ Core Principles of Economics:
           additional unit exceeds it costs, it should be acquired.\\ Anything that asks
           how many can be analyzed marginally.\\ Economic surplus is maximized when the
           marginal cost equals the marginal benefit.
-    \item Interdependence Principle:
+    \item Interdependence Principle: Your best choiice depend on your other choices, the
+          choices others make, development of markets, expectations of the future. When
+          these factors change, the best choice might change as well. \\\quad Because you
+          have limited resources, all the choices you make, affect others. \\\quad The
+          choices made by other economic actors shape the choices available to you.
+          \\\quad Changes in price and opportunities in one market affect your ability to
+          make choices in others.\\\quad There is also a dependence through time, as
+          choices you make now wil have an effect on what you can ddo in the future.\\
 \end{itemize}
-As a subtopic of Opportunity Cost Principle is the Production Possibilities Frontier, which analyzes the different set of attainable gains based on different allocations. Under the assumption that the costs and benefits are constant, the graph will look something like this:
+\section{Demand \& Supply}
+A demand curve is a function that shows the quantity demanded at different
+price.\\ Quantity demanded is what buyers want to buy and are able to buy at
+the given price.\\ Demand refers to the entire curve, while quantity demanded
+is a point on the curve.\\
 \begin{center}
     \begin{tikzpicture}[scale = 0.7]
         \begin{axis}[
                 axis lines = left,
-                xlabel = Choice 1,
-                ylabel = Choice 2,
-                ymax = 20,
+                xlabel = Quantity,
+                ylabel = Price,
+                ymax = 40,
                 xmax = 6,
+                ymin = 0,
+                xmin = 0,
             ]
             \addplot [
-                domain=0:5,
+                domain=1:5,
                 samples=100,
                 color=red,
             ]
-            {-3*x + 15};
+            {-7*x + 38};
         \end{axis}
     \end{tikzpicture}
 \end{center}
-Any allocation of time below the PPF is an inefficient use of resources.\\ Points above it are unreachable unless new productivity increases are found.\\
+The Demand Schedule and Curve are the tabular and graphical representations of the supply and demand curve.\\
+The Law of Demand states that a demand curve will have a negative slope.\\
+Utility: the happiness from the consumption of goods.\\
+Marginal Utility: the change in utility derived from the consumption of one more unit of the good.\\
+The demand curves show the marginal benefit. Thus, the demand curve is also the marginal benefits curve.\\
+Diminishing Marginal Utlity: the utility derived from consuming one more good is less than the one before. This ends up in a lower willingness to pay for the additional unit.\\
+IMPORTANT: Keep buying until \textbf{price = marginal benefit}.\\
+A demand function is typically written as $Q_d=f(P)$, but we prefer to plot the inverse demand function $P = f^{-1}(Q_d)$.\\
+The Market Demand shows the aggregate of all individual demand curves, which we were discussing prior to this.
+The change in price causes movement along the demand curve, as the change is indogenous (from inside the system).\\
+So, if the price increases, the quantity demanded will decrease.\\
+However, the exogenous changes, caused the curve to shift:
+\begin{itemize}
+    \item Population
+    \item Expectations
+    \item Seasons
+    \item Tastes (fashion)
+    \item Income:
+          \begin{itemize}
+              \item Normal Goods: good for which demand increases alongside increase of income.
+              \item Inferior Goods: good for which demand decreases with income increases.
+          \end{itemize}
+    \item Prices of related goods:
+          \begin{itemize}
+              \item Substitutes-in-consumption: if two things can be replaced, the decrease in the
+                    price leads to the increase of the other.
+              \item Complements-in-consumption: it two things are used together, the increase in
+                    the price of one leads to a decrease in the demand of the other.
+          \end{itemize}
+\end{itemize}
+
 %\begin{center}
 %    \begin{tikzpicture}[scale=.9]
 %        \begin{axis}[
