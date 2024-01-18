@@ -323,5 +323,83 @@ If A and B are both HIGH, both PMOS are HIGH, and thus $V_{DD}$ is shorted to Z.
 If they are both LOW, the exact opposite happens, with Z shorting to ground.\\
 If A or B are HIGH, than one of the PMOS will be high, and one of the NMOS will be LOW, causing the output to be HIGH.\\
 The NOR gate can be constructed easily from the same thought process, but NMOS in parallel, and PMOS in series.\\
-These can be expanded to more inputs by adding more transistors.
+These can be expanded to more inputs by adding more transistors.\\
+\subsection{Preview of future topics}
+%Fan-in is the number of inputs that a gate has. As it increases, the resistances of the transistors increase, and thus, the delay.
+The following is a multiplexer:
+\begin{center}
+    \includegraphics[width= 100px]{images/multiplexer.png}
+\end{center}
+It outputs A when S is 0, and B when S is 1. It allows us to select between different functions, such as adding and subtracting.\\
+Truth tables are another form of representation of a digital system. We will later learn how to analyze and derive equations from truth tables, as well as the gate implementation.\\
+\textit{Note: CMOS logic doesn't have AND, OR gates, so the actual implementation of these two is NAND, NOR gates with an inverter.}\\
+Gates require 4 transistors, and inverters need two transistors.
+Verilog Structural model:
+\begin{lstlisting}
+    module Ch1mux_s(A,B,S,Z);
+        input A,B,S;
+        output Z;
+        wire SN,ASN,SB;
+        not U1(SN,S);
+        and U2(ASN,A,SN);
+        and U3(SB,B,S);
+        or U4(Z,ASN,SB);
+    endmodule
+\end{lstlisting}
+Which is equivalent to:
+\begin{center}
+    \includegraphics[width= 150px]{images/verilog_implementation.png}
+\end{center}
+\textit{Note: the order of these statements is irrelevant, they will result in the same digital system.}
+Verilog Behavioral Model:
+\begin{lstlisting}
+    module Ch1mux_b(A,B,S,Z);
+        input A,B,S; \\input declaration
+        output reg Z; \\output declaration
+        always @(A,B,S) \\if input changes, recompute
+        if (S==1) Z=B; 
+        else Z=A; \\this is saying what the multiplexer above did
+    endmodule
+\end{lstlisting}
+\section{Number Systems and Codes}
+A digital circuit processes binary digits in the form of bits.\\ It is
+impoortant to see how these relate to real life values.\\ Numbers in the
+decimal system:
+\begin{equation*}
+    abcd = 1000a+100b+10c+d = 10^3a+10^2b+10^1c+10^0d
+\end{equation*}
+The base, or radix is 10.
+For a general radix $r$, it would be:
+\begin{equation*}
+    abcd = r^3a+r^2b+r^1c+r^0d
+\end{equation*}
+For this course, we care about binary, or radix 2.\\
+Occasionally, base 8 (octal) and base 16 (hexadecimal) are also relevant.
+\begin{table}
+    \centering
+    \begin{tabular}{c|c|c}
+        base 2 & base 8 & base 16 \\
+        \hline
+        0      & 0      & 0       \\
+        1      & 1      & 1       \\
+        10     & 2      & 2       \\
+        11     & 3      & 3       \\
+        100    & 4      & 4       \\
+        101    & 5      & 5       \\
+        110    & 6      & 6       \\
+        111    & 7      & 7       \\
+        1000   & 10     & 8       \\
+        1001   & 11     & 9       \\
+        1010   & 12     & A       \\
+        1011   & 13     & B       \\
+        1100   & 14     & C       \\
+        1101   & 15     & D       \\
+        1110   & 16     & E       \\
+        1111   & 17     & F       \\
+    \end{tabular}
+\end{table}
+To convert from octal to binary, replace every octal with three bits starting from the least significant bit.  For hexadecimal, replace each digit with 4 bits.\\
+The least significant bit(LSB) is the last bit, and the first is the most significant bit (MSB).\\
+To convert from decimal to binary by dividing the number by 2, and assigning the remainder to the least siginificant unassigned bit. Do this continuously to the quotient until done.\\
+
 \end{document}
