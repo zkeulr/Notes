@@ -401,5 +401,61 @@ Occasionally, base 8 (octal) and base 16 (hexadecimal) are also relevant.
 To convert from octal to binary, replace every octal with three bits starting from the least significant bit.  For hexadecimal, replace each digit with 4 bits.\\
 The least significant bit(LSB) is the last bit, and the first is the most significant bit (MSB).\\
 To convert from decimal to binary by dividing the number by 2, and assigning the remainder to the least siginificant unassigned bit. Do this continuously to the quotient until done.\\
+\subsection{Adding and Subtracting}
+To add and subtract in binary:\\
+\begin{table}
+    \centering
+    \begin{tabular}{c c c c c c}
+          & 1 & 0 & 1 & 1 & + \\
+          & 1 & 0 & 1 & 0 &   \\
+        \hline
+        1 & 0 & 1 & 0 & 1
+    \end{tabular}
+    \quad\quad
+    \begin{tabular}{c c c c c c}
+        1 & 1 & 0 & 1 & 1 & - \\
+          & 1 & 0 & 1 & 0 &   \\
+        \hline
+        1 & 0 & 0 & 0 & 1 &
+    \end{tabular}
+\end{table}
+To add signs to numbers, it has been standardized that the first bit defines the sign. If the leftmost bit is 0, the number is posititve. and if it is 1, the number is negative. \\This allows an n-bit signed integer to be from the range $-2^{n-1}+1 \text{ to } 2^{n-1}-1.$\\
+To actually add and subtract numbers, we first check if the sign is the same, if it is, we add directly, and append the sign bit. If they have opposing signs, we find the larger number, subtract the smaller, and use the sign of the larger.\\
+\subsection{Using the complement to conduct operations}
+In the complement number system, we can add or subtract directly, the
+operations can be done directly. The complementation process is more
+complicated than sign checking, but it simplifies addition.\\ The 2-complement
+system is the difference between $2^n$ and the n-bit integer. To compute $-B$,
+we first need to calculate $2^n-B$, which we can compute as $(2^n-1)-B+1$,
+which is essentially inverting each bit, and adding 1 to the result. (Carries
+outside the bit length are ignored.)\\ The most significant bit of the
+complement acts as a sign bit. This can be seen in the following table:
+\begin{table}
+    \centering
+    \begin{tabular}{c c|c}
+        number & binary & complement \\
+        \hline
+        0      & 0000   & -0         \\
+        1      & 0001   & -1         \\
+        2      & 0010   & -2         \\
+        3      & 0011   & -3         \\
+        4      & 0100   & -4         \\
+        5      & 0101   & -5         \\
+        6      & 0110   & -6         \\
+        7      & 0111   & -7         \\
+        -      & -      & -8         \\
 
+    \end{tabular}
+\end{table}
+The magnitude of a number can be computed as for an unsigned number, except that the weight of the MSB is $-2^{n-1}$ instead of $2^{n-1}$. So, to subtract $2^n$, replace the weight of the MSB with $-2^{n-1}$.\\
+To add a bit to a complement number, we can simply duplicate the MSB at the beginning of the MSB.
+As proof of this actually working, we can calculate the complement of both the complement and the modified complement as uncomplemented numbers, and we can observe that they will be the same.\\
+That is, the complement of 11001 and 111001 is the same number, the same happens for 011 and 0011.\\
+We can also reverse this process if the digits corresponding to the removed bits of the given complement are all the same.\\
+Now we will analyze how the complement can be used to add and subtract.\\
+\begin{center}
+    \includegraphics[width = 100px]{images/add_complement.png}
+\end{center}
+This process may not work if overflow occurs. That is, if the number of necessary bits to represent the result of an operation are more than the available bits.
+To subtract two numbers, we instead use the following property: $X-Y = X+(-Y) = X+Y'+1$ where $Y'$ is the complement of $Y$.
 \end{document}
