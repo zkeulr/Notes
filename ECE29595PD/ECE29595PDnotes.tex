@@ -461,4 +461,96 @@ To subtract two numbers, we instead use the following property: $X-Y = X+(-Y) = 
 \begin{center}
     \includegraphics[width = 100px]{images/complement_subtraction.png}
 \end{center}
+\subsection{Binary Codes for Decimal Numbers}
+A set of \textit{n}-bit strings in which differnt bit strings represent
+diffferent elements of a set is called a code. A combination on these is a code
+word.\\ 0 through 9 requires at least 4 bits, but there are many methods of
+doing so.\\
+\begin{center}
+    \includegraphics[width = \textwidth]{images/decimal_codes.png}
+\end{center}
+Another very important representation is the gray code.\\
+By partitioning a disk into eight regions, with n bits with sensors in each, any number between 0 and $2^n -1$ can be represented.\\
+\begin{center}
+    \includegraphics[width = 200px]{images/gray_code.png}
+\end{center}
+\textit{Note: if the disk stops between two sections, there is a possibility of error. Using standard binary representation will cause the error to be very large, as it can stop between 000 and 111, which would imply that any of the bits can have error, and thus any of the numbers between 0 and 7 can be represented.}
+This is where the gray code comes in:\\
+\begin{table}
+    \centering
+    \begin{tabular}{c|c}
+        number & gray code \\
+        \hline
+        0      & 000       \\
+        1      & 001       \\
+        2      & 011       \\
+        3      & 010       \\
+        4      & 110       \\
+        5      & 111       \\
+        6      & 101       \\
+        7      & 100       \\
+    \end{tabular}
+\end{table}
+This encoding allows there to be only one bit of change between any two consecutive digits, allowing us to reduce the margin of error.\\
+Codes can also be used to represent text, as the ASCII does, which uses a 7-bit code word.\\
+The selection of code and code words is very important, as it can drastically change the complexity of the designed circuit:
+\begin{center}
+    \centering
+    \includegraphics[width = 100px]{images/code_ex1.png} \quad
+    \includegraphics[width = 100px]{images/code_ex2.png}
+\end{center}
+\section{Switching Algebra and Combinational Logic}
+A combinational circuit depends only on the inputs. We will begin by
+considering single ouptut combinational circuits.\\ Switching algebra is a
+mathematical tool used for circuit design. It is a subset of boolean algebra. A
+variable is used to represent a signal.\\
+\subsection{Axioms}
+\begin{itemize}
+    \item (A1) $X=0$ if $X \neq 1$
+    \item (A1D) $X=1$ if $X \neq 0$
+\end{itemize}
+There is a principle of duality in this axiom, as do most properties of switching algebra.\\
+\begin{itemize}
+    \item (A2) $X=0 \implies X' = 1$
+    \item (A2D) $X=1 \implies X'=0$
+    \item (A3) $0 \land 0 = 0$
+    \item (A4) $1 \land 1 = 1$
+    \item (A5) $0\land 1 = 1\land 0 = 0$
+    \item (A6) $ 1 \lor 1=1$
+    \item (A7) $0\lor 0 = 0$
+    \item (A8) $1\lor 0 = 0\lor 1 = 1$
+\end{itemize}
+AND has a higher precedence than OR in logical expressions"
+\begin{equation*}
+    W\land Y \lor Y\land Z = (W\land X) \lor (Y\land Z)
+\end{equation*}
+There are 5 theorems that can be easily be proven through this:
+\begin{enumerate}
+    \item $X\lor 0=X$
+    \item $X \lor 1 = 1$
+    \item $X \lor X = X$
+    \item $(X')'=X$
+    \item $X\lor X' = 1$
+\end{enumerate}
+Which have the following dualities:
+\begin{enumerate}
+    \item $X\land 1 =X$
+    \item $X\land 0 = 0$
+    \item $X \land X = X$
+    \item No duality
+    \item $X\land X' = 0$
+\end{enumerate}
+There are also two variable theorems:
+\begin{itemize}
+    \item Commutativity:
+    \begin{enumerate}
+        \item $X\lor Y=Y\lor X$
+        \item $X\land Y = Y\land X$
+    \end{enumerate}
+    \item Associativity: \begin{enumerate}
+        \item $(X\lor Y)\lor Z=X\lor (Y\lor Z)$
+        \item $(X\land Y)\land Z=X\land (Y\land Z)$
+    \end{enumerate}
+    This allows for the representation of three or more input gates with ease.
+\end{itemize}
 \end{document}

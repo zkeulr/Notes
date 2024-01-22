@@ -645,27 +645,44 @@ This divides the solution into three different cases:
 \begin{center}
     \includegraphics[width=\textwidth]{images/dampings.png}
 \end{center}
+Let us look at some examples:\\
+\begin{align*}
+    \lambda_1 & = -1 ,   & \lambda_2 & =-3    & \implies V_{C,h} & = A_1e^{-t}+A_2e^{-3t}            \\
+    \lambda_1 & =-1 ,    & \lambda_2 & =-1    & \implies V_{C,h} & = A_1e^{-t}+A_2te^{-t}            \\
+    \lambda_1 & = -1+2j, & \lambda_2 & =-1-2j & \implies V_{C,h} & = e^{-t}(A_1\sin(2t)+A_2\cos(2t))
+\end{align*}
+To find the particular solution one could substitute into the ODE and use the same method as previous circuits.\\
+However, there are some short cuts:
+\begin{itemize}
+    \item Constant input: the particular solution will be the input.
+    \item Sinusiodal input: one can use SSS properties, and strategies like voltage
+          division.
+    \item Exponential input: no short cut, use ODE.
+\end{itemize}
 \section{Non-Ideal Elements}
-The non-ideal inductor, also known as a parasitic inductor, the non-ideal
-inductor representation takes into account the resistance of the inductor wire
-$R_s$, the capacitance between adjactent wires, and finally, the Ferrite Core
-Loss, $R_p$, which consists of Eddy Current Loss and hysteresis loss.\\ Thus, a
-full representation of an inductor, in terms of ideal elements, would be:
+While we have been representing components as perfect inductors or capacitors,
+but these do not exist. If that were the case, inductors or capacitors would be
+used to store energy instead of batteries.\\ The non-ideal inductor, also known
+as a parasitic inductor, has a representation that takes into account the
+resistance of the inductor wire $R_s$, the capacitance between adjactent wires,
+and finally, the Ferrite Core loss, $R_p$, which consists of Eddy current loss
+and hysteresis loss.\\ Thus, a full representation of an inductor, in terms of
+ideal elements, would be:
 \begin{center}
     \begin{circuitikz}[american voltages, american currents]
         \draw (0,0)
-        to[R, l=$R_s$] (0,2)
-        to[L,l=$L$](0,4);
-        \draw (0,4)
-        to [short, -] (1,4)
+        to[R, l=$R_s$] (0,1.5)
+        to[L,l=$L$](0,3);
+        \draw (0,3)
+        to [short, -] (1,3)
         to [C, l^=$C_p$] (1,0)
         to [short, -] (2.5,0)
-        to [R, l_=$R_p$] (2.5,4);
+        to [R, l_=$R_p$] (2.5,3);
         \draw (0,0) to [short, -] (1,0);
-        \draw (1,4) to [short, -] (2.5,4);
+        \draw (1,3) to [short, -] (2.5,3);
     \end{circuitikz}
 \end{center}
-However, for this course, the effect of the capacitor and the ferrite core loss are negligible, allowing us to ignore them.\\
+However, for this course, the effect of the capacitor and the ferrite core loss are negligible, allowing us to ignore them. If the frequency were closer to the self resonant frequencies of the inductor, $C_p$ would become relevant.\\
 The non-ideal capacitor has a wire inductance $L_s$, a wire resistance $R_s$, and a leakage, $R_p$, which allow us to model the capacitor as the following:
 \begin{center}
     \begin{circuitikz}[american voltages, american currents]
@@ -683,15 +700,15 @@ The non-ideal capacitor has a wire inductance $L_s$, a wire resistance $R_s$, an
 However, $L_s$ and $R_s$ are both negligible for this courses considerations, as they both have very small values.\\
 These new representations of these components allow us to introduce a new topic, which is quality factor (Q).
 \begin{align*}
-    Q(j\omega)   & = \left\lvert\frac{Reactance}{Resistance}\right\rvert \\
+    Q(j\omega)   & = \left\lvert\frac{\text{Reactance}}{\text{Resistance}}\right\rvert = \left\lvert\frac{\text{Im}(Z)}{\text{Re}(z)}\right\rvert \\
     \implies Q_L & = \frac{\omega L}{R_s},\quad Q_C = \omega R_p C
 \end{align*}
 By using non-ideal representaions of these elements within circuits, such as the RLC circuit, circuits are modified to result in resonant properties distinct to those found with ideal components.\\
 \begin{center}
     \includegraphics[width = 200px]{images/nonideal_rlc.png}
 \end{center}
-We will now learn to transform these configurations into more manageabeble and solveable configurations. \\
-So, what we will try to do is to convert a series impedance and resistance configuration into a parallel one and vice-versa.\\
+We will now learn to transform these configurations into more manageable and solveable configurations. \\
+So, what we will try to do is to convert a series impedance and resistance configuration into a parallel one and vice-versa. That is, we want the parallel or series configuration with certain components to have the same impedance as the series or parallel configuration with the same components, but with different values.\\
 \begin{align*}
     Z(j\omega)            & = R_s+jX_s                     & Y(j\omega)            & = G_p+jB_p                    \\
                           & = \frac{1}{G_p+jB_p}           &                       & =\frac{1}{R_s+jX_s}           \\
@@ -710,7 +727,7 @@ Now, through a few operations, we van find the values of $L_p$ and $R_p$ that wo
     R_p & \approx R_s Q_L^2
 \end{align*}
 This essentially means that at high Q, the inductor resembles an ideal inductor, as we would expect.\\
-The same porcess is conducted for capacitors:\\
+The same porcess can be conducted for capacitors:\\
 \begin{align*}
     C_s & = C_p\left(1+\frac{1}{Q_c^2}\right) \\
     R_s & = \frac{R_p}{1+Q_c^2}               \\
@@ -719,4 +736,5 @@ The same porcess is conducted for capacitors:\\
     R_s & \approx \frac{R_p}{Q_c^2}
 \end{align*}
 These transformations should allow us to transform any non-ideal circuit into an equivalent circuit with ideal components, which we will be able to solve as shown in previous sections.\\
+\textit{Note: unlike the original components, their transformations are frequency dependent.}
 \end{document}
