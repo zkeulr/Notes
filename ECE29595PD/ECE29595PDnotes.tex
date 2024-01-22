@@ -432,18 +432,18 @@ outside the bit length are ignored.)\\ The most significant bit of the
 complement acts as a sign bit. This can be seen in the following table:
 \begin{table}
     \centering
-    \begin{tabular}{c c|c}
-        number & binary & complement \\
+    \begin{tabular}{c c|c c}
+        number & binary & negative & binary \\
         \hline
-        0      & 0000   & -0         \\
-        1      & 0001   & -1         \\
-        2      & 0010   & -2         \\
-        3      & 0011   & -3         \\
-        4      & 0100   & -4         \\
-        5      & 0101   & -5         \\
-        6      & 0110   & -6         \\
-        7      & 0111   & -7         \\
-        -      & -      & -8         \\
+        0      & 0000   & -0       & 0000   \\
+        1      & 0001   & -1       & 1111   \\
+        2      & 0010   & -2       & 1110   \\
+        3      & 0011   & -3       & 1101   \\
+        4      & 0100   & -4       & 1100   \\
+        5      & 0101   & -5       & 1011   \\
+        6      & 0110   & -6       & 1010   \\
+        7      & 0111   & -7       & 1001   \\
+        -      & -      & -8       & 1000   \\
 
     \end{tabular}
 \end{table}
@@ -456,6 +456,9 @@ Now we will analyze how the complement can be used to add and subtract.\\
 \begin{center}
     \includegraphics[width = 100px]{images/add_complement.png}
 \end{center}
-This process may not work if overflow occurs. That is, if the number of necessary bits to represent the result of an operation are more than the available bits.
+This process may not work if overflow occurs. That is, if the number of necessary bits to represent the result of an operation are more than the available bits. This can only occur if the numbers being operated on have the same sign.\\
 To subtract two numbers, we instead use the following property: $X-Y = X+(-Y) = X+Y'+1$ where $Y'$ is the complement of $Y$.
+\begin{center}
+    \includegraphics[width = 100px]{images/complement_subtraction.png}
+\end{center}
 \end{document}

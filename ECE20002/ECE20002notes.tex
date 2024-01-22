@@ -599,7 +599,10 @@ So, in general, we can make a function that describes them in the following mann
     \centering
     F = \frac{d^2x(t)}{dt^2}+\frac{1}{\tau}\frac{dx(t)}{dt}+\frac{x(t)}{LC}
 \end{equation*}
-where $\tau = RC$ for parallel, and $\tau = \frac{L}{R}$ for the series configuration.
+where $\tau = RC$ for parallel, and $\tau = \frac{L}{R}$ for the series configuration.\\
+\begin{center}
+    \textit{NOTE: $\frac{1}{\tau} = B_w$, or the bandwidth of the circuit.}\\
+\end{center}
 So, we now solve the homogenous equation:
 \begin{align*}
     0                           & = \frac{d^2x_h(t)}{dt^2}+\frac{1}{\tau}\frac{dx_h(t)}{dt}+\frac{x_h(t)}{LC} \\
@@ -643,8 +646,11 @@ This divides the solution into three different cases:
     \includegraphics[width=\textwidth]{images/dampings.png}
 \end{center}
 \section{Non-Ideal Elements}
-The non-ideal inductor, also known as a parasitic inductor, the non-ideal inductor representation takes into account the resistance of the inductor wire $R_s$, the capacitance between adjactent wires, and finally, the Ferrite Core Loss, $R_p$, which consists of Eddy Current Loss and hysteresis loss.\\
-Thus, a full representation of an inductor, in terms of ideal elements, would be:
+The non-ideal inductor, also known as a parasitic inductor, the non-ideal
+inductor representation takes into account the resistance of the inductor wire
+$R_s$, the capacitance between adjactent wires, and finally, the Ferrite Core
+Loss, $R_p$, which consists of Eddy Current Loss and hysteresis loss.\\ Thus, a
+full representation of an inductor, in terms of ideal elements, would be:
 \begin{center}
     \begin{circuitikz}[american voltages, american currents]
         \draw (0,0)
@@ -675,24 +681,42 @@ The non-ideal capacitor has a wire inductance $L_s$, a wire resistance $R_s$, an
     \end{circuitikz}
 \end{center}
 However, $L_s$ and $R_s$ are both negligible for this courses considerations, as they both have very small values.\\
-These new representations of these components allow us to introduce a new topic, which is quality factor (Q). 
+These new representations of these components allow us to introduce a new topic, which is quality factor (Q).
 \begin{align*}
-    Q(j\omega) &= \left\lvert\frac{Reactance}{Resistance}\right\rvert\\
-    \implies Q_L &= \frac{\omega L}{R_s},\quad Q_C = \omega R_p C
+    Q(j\omega)   & = \left\lvert\frac{Reactance}{Resistance}\right\rvert \\
+    \implies Q_L & = \frac{\omega L}{R_s},\quad Q_C = \omega R_p C
 \end{align*}
 By using non-ideal representaions of these elements within circuits, such as the RLC circuit, circuits are modified to result in resonant properties distinct to those found with ideal components.\\
 \begin{center}
     \includegraphics[width = 200px]{images/nonideal_rlc.png}
-\end{center} 
+\end{center}
 We will now learn to transform these configurations into more manageabeble and solveable configurations. \\
 So, what we will try to do is to convert a series impedance and resistance configuration into a parallel one and vice-versa.\\
 \begin{align*}
-    Z(j\omega) &= R_s+jX_s & Y(j\omega) &= G_p+jB_p\\
-    &= \frac{1}{G_p+jB_p} & &=\frac{1}{R_s+jX_s}\\
-    G_p+jB_p &= \frac{1}{R_s+jX_s} &  R_s+jX_s &=\frac{1}{G_p+jB_p}\\
-    &= \frac{R_s-jX_s}{R_s^2+X_s^2} & &=\frac{G_p-jB_p}{G_p^2+B_p^2}\\
-    \implies G_p(j\omega) &= \frac{R_s}{R_s^2+X_s^2}, & \implies R_s(j\omega) &= \frac{G_p}{G_p^2+B_p^2},\\
-    B_p &= \frac{-X_s}{R_s^2+X_s^2} & X_s(j\omega) &= \frac{-B_p}{G_p^2+B_p^2}\\
+    Z(j\omega)            & = R_s+jX_s                     & Y(j\omega)            & = G_p+jB_p                    \\
+                          & = \frac{1}{G_p+jB_p}           &                       & =\frac{1}{R_s+jX_s}           \\
+    G_p+jB_p              & = \frac{1}{R_s+jX_s}           & R_s+jX_s              & =\frac{1}{G_p+jB_p}           \\
+                          & = \frac{R_s-jX_s}{R_s^2+X_s^2} &                       & =\frac{G_p-jB_p}{G_p^2+B_p^2} \\
+    \implies G_p(j\omega) & = \frac{R_s}{R_s^2+X_s^2},     & \implies R_s(j\omega) & = \frac{G_p}{G_p^2+B_p^2},    \\
+    B_p                   & = \frac{-X_s}{R_s^2+X_s^2}     & X_s(j\omega)          & = \frac{-B_p}{G_p^2+B_p^2}    \\
 \end{align*}
-With $Z$ being the impedance and $Y$ being the admittance.
+With $Z$ being the impedance and $Y$ being the admittance.\\
+Now, through a few operations, we van find the values of $L_p$ and $R_p$ that would be equivalent to what we want.\\
+\begin{align*}
+    L_p & =L_s\left(1+\left(\frac{R_s}{\omega L_s}\right)^2\right)=L_s\left(1+\frac{1}{Q_L^2}\right) \\
+    R_p & =R_s\left(1+\left(\frac{\omega L_s}{R_s}\right)^2\right)=R_s(1+Q_L^2)                      \\
+        & \text{At high Q:}                                                                          \\
+    L_p & \approx L_s                                                                                \\
+    R_p & \approx R_s Q_L^2
+\end{align*}
+This essentially means that at high Q, the inductor resembles an ideal inductor, as we would expect.\\
+The same porcess is conducted for capacitors:\\
+\begin{align*}
+    C_s & = C_p\left(1+\frac{1}{Q_c^2}\right) \\
+    R_s & = \frac{R_p}{1+Q_c^2}               \\
+        & \text{At high Q:}                   \\
+    C_s & \approx C_p                         \\
+    R_s & \approx \frac{R_p}{Q_c^2}
+\end{align*}
+These transformations should allow us to transform any non-ideal circuit into an equivalent circuit with ideal components, which we will be able to solve as shown in previous sections.\\
 \end{document}
