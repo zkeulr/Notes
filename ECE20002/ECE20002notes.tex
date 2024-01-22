@@ -642,4 +642,57 @@ This divides the solution into three different cases:
 \begin{center}
     \includegraphics[width=\textwidth]{images/dampings.png}
 \end{center}
+\section{Non-Ideal Elements}
+The non-ideal inductor, also known as a parasitic inductor, the non-ideal inductor representation takes into account the resistance of the inductor wire $R_s$, the capacitance between adjactent wires, and finally, the Ferrite Core Loss, $R_p$, which consists of Eddy Current Loss and hysteresis loss.\\
+Thus, a full representation of an inductor, in terms of ideal elements, would be:
+\begin{center}
+    \begin{circuitikz}[american voltages, american currents]
+        \draw (0,0)
+        to[R, l=$R_s$] (0,2)
+        to[L,l=$L$](0,4);
+        \draw (0,4)
+        to [short, -] (1,4)
+        to [C, l^=$C_p$] (1,0)
+        to [short, -] (2.5,0)
+        to [R, l_=$R_p$] (2.5,4);
+        \draw (0,0) to [short, -] (1,0);
+        \draw (1,4) to [short, -] (2.5,4);
+    \end{circuitikz}
+\end{center}
+However, for this course, the effect of the capacitor and the ferrite core loss are negligible, allowing us to ignore them.\\
+The non-ideal capacitor has a wire inductance $L_s$, a wire resistance $R_s$, and a leakage, $R_p$, which allow us to model the capacitor as the following:
+\begin{center}
+    \begin{circuitikz}[american voltages, american currents]
+        \draw (0,0)
+        to[R, l=$R_s$] (0,1.5)
+        to[L,l=$L_s$](0,3);
+        \draw (0,0)
+        to [short, -] (-1,0)
+        to [C, l^=$C$] (-1,-1.5)
+        to [short, -] (1,-1.5)
+        to [R, l_=$R_p$] (1,0);
+        \draw (0,0) to [short, -] (1,0);
+    \end{circuitikz}
+\end{center}
+However, $L_s$ and $R_s$ are both negligible for this courses considerations, as they both have very small values.\\
+These new representations of these components allow us to introduce a new topic, which is quality factor (Q). 
+\begin{align*}
+    Q(j\omega) &= \left\lvert\frac{Reactance}{Resistance}\right\rvert\\
+    \implies Q_L &= \frac{\omega L}{R_s},\quad Q_C = \omega R_p C
+\end{align*}
+By using non-ideal representaions of these elements within circuits, such as the RLC circuit, circuits are modified to result in resonant properties distinct to those found with ideal components.\\
+\begin{center}
+    \includegraphics[width = 200px]{images/nonideal_rlc.png}
+\end{center} 
+We will now learn to transform these configurations into more manageabeble and solveable configurations. \\
+So, what we will try to do is to convert a series impedance and resistance configuration into a parallel one and vice-versa.\\
+\begin{align*}
+    Z(j\omega) &= R_s+jX_s & Y(j\omega) &= G_p+jB_p\\
+    &= \frac{1}{G_p+jB_p} & &=\frac{1}{R_s+jX_s}\\
+    G_p+jB_p &= \frac{1}{R_s+jX_s} &  R_s+jX_s &=\frac{1}{G_p+jB_p}\\
+    &= \frac{R_s-jX_s}{R_s^2+X_s^2} & &=\frac{G_p-jB_p}{G_p^2+B_p^2}\\
+    \implies G_p(j\omega) &= \frac{R_s}{R_s^2+X_s^2}, & \implies R_s(j\omega) &= \frac{G_p}{G_p^2+B_p^2},\\
+    B_p &= \frac{-X_s}{R_s^2+X_s^2} & X_s(j\omega) &= \frac{-B_p}{G_p^2+B_p^2}\\
+\end{align*}
+With $Z$ being the impedance and $Y$ being the admittance.
 \end{document}
