@@ -98,14 +98,14 @@ individual economic decision-making and the interactions within markets.
 Economics is the study of allocation of scarce resources to meet the unlimited
 human wants.
 \begin{itemize}
-    \item Microeconomics: decision making by individual economic agents such as firms and
+    \item Microeconomics: decision-making by individual economic agents such as firms and
           consumers.
     \item Macroeconomics: aggregate performance of the entire economic system.
-    \item Emipirical economics: facts to present a description of economic activity.
+    \item Empirical economics: facts to present a description of economic activity.
     \item Economic theory: relies upon principles to analyze behavior of economic agents.
 \end{itemize}
 Economy has slowly transitioned from mainly theoretical to mainly empirical.\\
-Assumptions are made consistently, sos as to more rigurously create a methodology to analyze the world without overly complicating things.\\
+Assumptions are made consistently, to more rigurously create a methodology to analyze the world without overly complicating things.\\
 Model building is the creation of abstractions from reality.\\
 \quad Occam's razor: The best model is that which describes reality and is the simplest.\\
 \quad "Ceteris Paribus": All other things equal. (changing only certain parameters and leaving everything else the same)\\
@@ -133,19 +133,19 @@ Economic Resources:\\
 Core Principles of Economics:
 \begin{itemize}
     \item Cost-Benefit Principle: cost and benefits are the incentives. Do something if
-          the benefits outweight the costs. (Convert everything to money, and then
+          the benefits outweigh the costs. (Convert everything to money, and then
           calculate).\\ The cost-benefit principle is directly related to the willingness
           to pay, which is precisely, the conversion of benefits to money.\\ If the
           benefit is greater than the cost, one has achieved an economic surplus. This
           principle aims to maximize the economic surplus.\\ It also relates to framing
           effects, which is when a decision is affected by the method in which the
           situation or object is framed.
-    \item Opportunity Cost Principle: The allocation of resources imply decisions and
+    \item Opportunity Cost Principle: The allocation of resources implies decisions and
           choices. For every choice we make, there are other choices we do not, and the
           next best alternative has a cost, which is known as the opportunity cost. \\
-          This principle focuses on the tradeoffs of particular options.\\ The
+          This principle focuses on the trade-offs of particular options.\\ The
           opportunity cost is not the sum of all lost options, only the next best one.\\
-          All choices involve tradeoffs due to scarcity. The usage of resources on one
+          All choices involve trade-offs due to scarcity. The usage of resources on one
           choice limits the amount available for other choices.\\ \textit{Note: a sunk
               cost is a cost that cannot be recouped, and should be ignored. They should not
               be included into the current decision.}\\ As a subtopic of Opportunity Cost
@@ -168,28 +168,28 @@ Core Principles of Economics:
                           color=red,
                       ]
                       {-3*x + 15};
-                      \addplot [color=black, only marks] coordinates {(1,1) (2,2)};
                   \end{axis}
               \end{tikzpicture}
           \end{center}
           Any allocation of time below the PPF is an inefficient use of resources.\\ Points above it are unreachable unless new productivity increase methods are found.\\
     \item Marginal Principle: Decisions about quantities are best made incrementally.
           Instead of analyzing how many, one should analyze whether smaller increases are
-          viable and resonable.\\ \quad Marginal Benefit: Benefit on an extra unit.\\
+          viable and reasonable.\\ \quad Marginal Benefit: Benefit on an extra unit.\\
           \quad Marginal Cost: Cost of an extra unit.\\ While the marginal benefit of an
           additional unit exceeds it costs, it should be acquired.\\ Anything that asks
           how many can be analyzed marginally.\\ Economic surplus is maximized when the
           marginal cost equals the marginal benefit.
-    \item Interdependence Principle: Your best choiice depend on your other choices, the
+    \item Interdependence Principle: Your best choice depend on your other choices, the
           choices others make, development of markets, expectations of the future. When
           these factors change, the best choice might change as well. \\\quad Because you
           have limited resources, all the choices you make, affect others. \\\quad The
           choices made by other economic actors shape the choices available to you.
           \\\quad Changes in price and opportunities in one market affect your ability to
           make choices in others.\\\quad There is also a dependence through time, as
-          choices you make now wil have an effect on what you can ddo in the future.\\
+          choices you make now will have an effect on what you can do in the future.\\
 \end{itemize}
 \section{Demand \& Supply}
+\subsection{Demand}
 A demand curve is a function that shows the quantity demanded at different
 price.\\ Quantity demanded is what buyers want to buy and are able to buy at
 the given price.\\ Demand refers to the entire curve, while quantity demanded
@@ -204,10 +204,11 @@ is a point on the curve.\\
                 xmax = 6,
                 ymin = 0,
                 xmin = 0,
+                legend entries = {demand}
             ]
             \addplot [
                 domain=1:5,
-                samples=100,
+                samples=10,
                 color=red,
             ]
             {-7*x + 38};
@@ -219,11 +220,11 @@ The Law of Demand states that a demand curve will have a negative slope.\\
 Utility: the happiness from the consumption of goods.\\
 Marginal Utility: the change in utility derived from the consumption of one more unit of the good.\\
 The demand curves show the marginal benefit. Thus, the demand curve is also the marginal benefits curve.\\
-Diminishing Marginal Utlity: the utility derived from consuming one more good is less than the one before. This ends up in a lower willingness to pay for the additional unit.\\
+Diminishing Marginal Utility: the utility derived from consuming one more good is less than the one before. This ends up in a lower willingness to pay for the additional unit.\\
 IMPORTANT: Keep buying until \textbf{price = marginal benefit}.\\
 A demand function is typically written as $Q_d=f(P)$, but we prefer to plot the inverse demand function $P = f^{-1}(Q_d)$.\\
 The Market Demand shows the aggregate of all individual demand curves, which we were discussing prior to this.
-The change in price causes movement along the demand curve, as the change is indogenous (from inside the system).\\
+The change in price causes movement along the demand curve, as the change is endogenous (from inside the system).\\
 So, if the price increases, the quantity demanded will decrease.\\
 However, the exogenous changes, caused the curve to shift:
 \begin{itemize}
@@ -244,6 +245,225 @@ However, the exogenous changes, caused the curve to shift:
                     the price of one leads to a decrease in the demand of the other.
           \end{itemize}
 \end{itemize}
+When external factors change, that is, not the price, the demand shifts as well.
+\begin{center}
+    \begin{tikzpicture}[scale = 0.7]
+        \begin{axis}[
+                axis lines = left,
+                xlabel = Quantity,
+                ylabel = Price,
+                ymax = 40,
+                xmax = 6,
+                ymin = 0,
+                xmin = 0,
+                legend entries = {original, decrease, increase}
+            ]
+            \addplot [
+                domain=1:5,
+                samples=10,
+                color=red,
+            ]
+            {-7*x + 38};
+            \addplot [
+                domain=0:4,
+                samples=10,
+                color=blue,
+            ]
+            {-7*x + 31};
+            \addplot [
+                domain=2:6,
+                samples=10,
+                color=green,
+            ]
+            {-7*x + 45};
+        \end{axis}
+    \end{tikzpicture}
+\end{center}
+So, price changes quantity demanded, everything else shifts the demand, either positively or negatively.
+\subsection{Supply}
+The supply curve is a function that shows the quantity supplied at different
+prices. Quantity supplied is the amount that suppliers are willing and able to
+supply at a price. \\ NOTE: supply is the curve, quantity supplied is a
+point.\\
+\begin{center}
+    \begin{tikzpicture}[scale = 0.7]
+        \begin{axis}[
+                axis lines = left,
+                xlabel = Quantity,
+                ylabel = Price,
+                ymax = 40,
+                xmax = 6,
+                ymin = 0,
+                xmin = 0,
+                legend entries = {supply}
+            ]
+            \addplot [
+                domain=1:5,
+                samples=10,
+                color=blue,
+            ]
+            {6*x + 2};
+        \end{axis}
+    \end{tikzpicture}
+\end{center}
+The supply curve, unlike the demand curve has a positive slope.\\
+More price means more supply.\\
+The marginal cost for selling one more unit is the focus of this curve.\\
+The opportunity cost from producing the additional good minus the additional production costs.\\
+Variable costs are costs that vary with quantity, while fixed remain constant.\\
+NOTE: the supply curve is also your marginal cost curve.\\
+Marginal product is the increase in output from an additional labor unit.\\
+It diminishes with each additional labor unit. It can occur when some of your inputs are fixed.\\
+Marginal costs of production rise, which causes the positive slope of the supply curve.\\
+More input costs lead to rising marginal costs, as the production requirements increase.\\
+The marginal benefit is the gain from the additional unit.\\
+As price increases, producers will be more willing to produce more.\\
+Once again, continue producing until $\mathbf{MC=MB}$, or until price and marginal costs are equal.\\
+The supply function is $Q_s=f(P)$, but the plot is the inverse, $P=f^{-1}(Q)$.\\
+Individual Supply shows a firm's willingness to produce and sell at different prices. Market supply is the sum of all individual price curves.\\
+The market one is in influences the decisions made. The supply depends on the market price. This class will start by analyzing a perfectly competitive market, in which everyone sells the exact same product, and there are many suppliers and buyers.\\
+This does not usually exist in real life, which would cause sellers to not be price-takers.\\
+A change in price causes movement along the supply curve, changing quantity supplied.\\
+Supply curves are shifted by
+\begin{itemize}
+    \item Input Prices
+    \item Productivity and Technology
+    \item Prices of related items:
+          \begin{itemize}
+              \item Substitutes-in-production: Alternate use of resources, goods that can be made
+                    with the same resources.
+              \item Complements-in-production: Goods made together, like byproducts, or scrap
+                    usage.
+          \end{itemize}
+    \item Expectation of the future
+    \item Type and number of sellers
+\end{itemize}
+A supply shift looks like the following:
+\begin{center}
+    \begin{tikzpicture}[scale = 0.7]
+        \begin{axis}[
+                axis lines = left,
+                xlabel = Quantity,
+                ylabel = Price,
+                ymax = 40,
+                xmax = 6,
+                ymin = 0,
+                xmin = 0,
+                legend entries = {decrease, original, increase}
+            ]
+            \addplot [
+                domain=1:4,
+                samples=10,
+                color=red,
+            ]
+            {7*x };
+            \addplot [
+                domain=2:5,
+                samples=10,
+                color=blue,
+            ]
+            {7*x - 7};
+            \addplot [
+                domain=3:6,
+                samples=10,
+                color=green,
+            ]
+            {7*x - 14};
+        \end{axis}
+    \end{tikzpicture}
+\end{center}
+\section{Markets and Equilibrium}
+Markets are organized by what is produced, who produces it, how they are
+produced, and who gets the product.]] There are two kinds of economies:
+\begin{itemize}
+    \item Planned economies: These decisions are made by a central power
+    \item Market economies: Each person makes their own decisions
+\end{itemize}
+A market is what connects buyer and sellers through goods or services.\\
+They can be places or websites. There are several types, such as monopolies, oligopolies, etc.\\
+Equilibrium is the point at which the market ceases to change. It is when quantity supplied and quantity demanded are equal,
+This defines equilibrium quantity as the quantity demanded in equilibrium and the equilibrium price as the price of a product at equilibrium.\\
+Every seller finds a buyer, and every buyer finds a seller. The balance created by this allows there to be no changes.\\
+There is no shortage or surplus, which are Q. demanded> Q. supplied and the opposite respectively.\\
+This looks like the following when represented graphically:
+\begin{center}
+    \begin{tikzpicture}[scale = 0.5]
+        \begin{axis}[
+                axis lines = left,
+                xlabel = Quantity,
+                ylabel = Price,
+                ymax = 40,
+                xmax = 6,
+                ymin = 0,
+                xmin = 0,
+                legend entries = {supply, demand}
+            ]
+            \addplot [
+                domain=1:5,
+                samples=10,
+                color=blue,
+            ]
+            {6*x + 2};
+            \addplot [
+                domain=1:5,
+                samples=10,
+                color=red,
+            ]
+            {-6*x + 38};
+        \end{axis}
+    \end{tikzpicture}
+\end{center}
+
+The system of equations to solve is:
+\begin{align*}
+    Q_d & = -a_1P+c_1 \\
+    Q_s & = a_2P-c_2 \\
+    Q_s & =Q_d
+\end{align*}
+Where the searched for, and relevant variables are $P$ and $Q$ (not $Q_s$ and $Q_d$ separately, as they are equal).\\
+If the market is not in equilibrium, that is, it is in disequilibrium, which are marked by :
+\begin{itemize}
+    \item Queuing: People trying to get stuff and not succeeding.
+    \item Bundling of extras: promotions, 2 for 1, etc.
+    \item Secondary Markets: people buying and reselling.
+\end{itemize}
+If market price > equilibrium price, surplus will occur, and thus market forces will force the price to reach equiibrium.
+Surplus is $Q_s(P_H)-Q_d(P_H)$ with $P_H$ being the high price.
+\begin{center}
+    \begin{tikzpicture}[scale = 0.7]
+        \begin{axis}[
+                axis lines = left,
+                xlabel = Quantity,
+                ylabel = Price,
+                ymax = 40,
+                xmax = 6,
+                ymin = 0,
+                xmin = 0,
+                legend entries = {supply, demand, surplus}
+            ]
+            \addplot [
+                domain=1:5,
+                samples=10,
+                color=blue,
+            ]
+            {6*x + 2};
+            \addplot [
+                domain=1:5,
+                samples=10,
+                color=red,
+            ]
+            {-6*x + 38};
+            \addplot [
+                domain=2:4,
+                samples=10,
+                color=black,
+            ]
+            {0*x+25};
+        \end{axis}
+    \end{tikzpicture}
+\end{center}
+
+\end{document}
 
 %\begin{center}
 %    \begin{tikzpicture}[scale=.9]
@@ -255,5 +475,3 @@ However, the exogenous changes, caused the curve to shift:
 %        \end{axis}
 %    \end{tikzpicture}
 %\end{center}
-
-\end{document}

@@ -401,5 +401,156 @@ Occasionally, base 8 (octal) and base 16 (hexadecimal) are also relevant.
 To convert from octal to binary, replace every octal with three bits starting from the least significant bit.  For hexadecimal, replace each digit with 4 bits.\\
 The least significant bit(LSB) is the last bit, and the first is the most significant bit (MSB).\\
 To convert from decimal to binary by dividing the number by 2, and assigning the remainder to the least siginificant unassigned bit. Do this continuously to the quotient until done.\\
+\subsection{Adding and Subtracting}
+To add and subtract in binary:\\
+\begin{table}
+    \centering
+    \begin{tabular}{c c c c c c}
+          & 1 & 0 & 1 & 1 & + \\
+          & 1 & 0 & 1 & 0 &   \\
+        \hline
+        1 & 0 & 1 & 0 & 1
+    \end{tabular}
+    \quad\quad
+    \begin{tabular}{c c c c c c}
+        1 & 1 & 0 & 1 & 1 & - \\
+          & 1 & 0 & 1 & 0 &   \\
+        \hline
+        1 & 0 & 0 & 0 & 1 &
+    \end{tabular}
+\end{table}
+To add signs to numbers, it has been standardized that the first bit defines the sign. If the leftmost bit is 0, the number is posititve. and if it is 1, the number is negative. \\This allows an n-bit signed integer to be from the range $-2^{n-1}+1 \text{ to } 2^{n-1}-1.$\\
+To actually add and subtract numbers, we first check if the sign is the same, if it is, we add directly, and append the sign bit. If they have opposing signs, we find the larger number, subtract the smaller, and use the sign of the larger.\\
+\subsection{Using the complement to conduct operations}
+In the complement number system, we can add or subtract directly, the
+operations can be done directly. The complementation process is more
+complicated than sign checking, but it simplifies addition.\\ The 2-complement
+system is the difference between $2^n$ and the n-bit integer. To compute $-B$,
+we first need to calculate $2^n-B$, which we can compute as $(2^n-1)-B+1$,
+which is essentially inverting each bit, and adding 1 to the result. (Carries
+outside the bit length are ignored.)\\ The most significant bit of the
+complement acts as a sign bit. This can be seen in the following table:
+\begin{table}
+    \centering
+    \begin{tabular}{c c|c c}
+        number & binary & negative & binary \\
+        \hline
+        0      & 0000   & -0       & 0000   \\
+        1      & 0001   & -1       & 1111   \\
+        2      & 0010   & -2       & 1110   \\
+        3      & 0011   & -3       & 1101   \\
+        4      & 0100   & -4       & 1100   \\
+        5      & 0101   & -5       & 1011   \\
+        6      & 0110   & -6       & 1010   \\
+        7      & 0111   & -7       & 1001   \\
+        -      & -      & -8       & 1000   \\
 
+    \end{tabular}
+\end{table}
+The magnitude of a number can be computed as for an unsigned number, except that the weight of the MSB is $-2^{n-1}$ instead of $2^{n-1}$. So, to subtract $2^n$, replace the weight of the MSB with $-2^{n-1}$.\\
+To add a bit to a complement number, we can simply duplicate the MSB at the beginning of the MSB.
+As proof of this actually working, we can calculate the complement of both the complement and the modified complement as uncomplemented numbers, and we can observe that they will be the same.\\
+That is, the complement of 11001 and 111001 is the same number, the same happens for 011 and 0011.\\
+We can also reverse this process if the digits corresponding to the removed bits of the given complement are all the same.\\
+Now we will analyze how the complement can be used to add and subtract.\\
+\begin{center}
+    \includegraphics[width = 100px]{images/add_complement.png}
+\end{center}
+This process may not work if overflow occurs. That is, if the number of necessary bits to represent the result of an operation are more than the available bits. This can only occur if the numbers being operated on have the same sign.\\
+To subtract two numbers, we instead use the following property: $X-Y = X+(-Y) = X+Y'+1$ where $Y'$ is the complement of $Y$.
+\begin{center}
+    \includegraphics[width = 100px]{images/complement_subtraction.png}
+\end{center}
+\subsection{Binary Codes for Decimal Numbers}
+A set of \textit{n}-bit strings in which differnt bit strings represent
+diffferent elements of a set is called a code. A combination on these is a code
+word.\\ 0 through 9 requires at least 4 bits, but there are many methods of
+doing so.\\
+\begin{center}
+    \includegraphics[width = \textwidth]{images/decimal_codes.png}
+\end{center}
+Another very important representation is the gray code.\\
+By partitioning a disk into eight regions, with n bits with sensors in each, any number between 0 and $2^n -1$ can be represented.\\
+\begin{center}
+    \includegraphics[width = 200px]{images/gray_code.png}
+\end{center}
+\textit{Note: if the disk stops between two sections, there is a possibility of error. Using standard binary representation will cause the error to be very large, as it can stop between 000 and 111, which would imply that any of the bits can have error, and thus any of the numbers between 0 and 7 can be represented.}
+This is where the gray code comes in:\\
+\begin{table}
+    \centering
+    \begin{tabular}{c|c}
+        number & gray code \\
+        \hline
+        0      & 000       \\
+        1      & 001       \\
+        2      & 011       \\
+        3      & 010       \\
+        4      & 110       \\
+        5      & 111       \\
+        6      & 101       \\
+        7      & 100       \\
+    \end{tabular}
+\end{table}
+This encoding allows there to be only one bit of change between any two consecutive digits, allowing us to reduce the margin of error.\\
+Codes can also be used to represent text, as the ASCII does, which uses a 7-bit code word.\\
+The selection of code and code words is very important, as it can drastically change the complexity of the designed circuit:
+\begin{center}
+    \centering
+    \includegraphics[width = 100px]{images/code_ex1.png} \quad
+    \includegraphics[width = 100px]{images/code_ex2.png}
+\end{center}
+\section{Switching Algebra and Combinational Logic}
+A combinational circuit depends only on the inputs. We will begin by
+considering single ouptut combinational circuits.\\ Switching algebra is a
+mathematical tool used for circuit design. It is a subset of boolean algebra. A
+variable is used to represent a signal.\\
+\subsection{Axioms}
+\begin{itemize}
+    \item (A1) $X=0$ if $X \neq 1$
+    \item (A1D) $X=1$ if $X \neq 0$
+\end{itemize}
+There is a principle of duality in this axiom, as do most properties of switching algebra.\\
+\begin{itemize}
+    \item (A2) $X=0 \implies X' = 1$
+    \item (A2D) $X=1 \implies X'=0$
+    \item (A3) $0 \land 0 = 0$
+    \item (A4) $1 \land 1 = 1$
+    \item (A5) $0\land 1 = 1\land 0 = 0$
+    \item (A6) $ 1 \lor 1=1$
+    \item (A7) $0\lor 0 = 0$
+    \item (A8) $1\lor 0 = 0\lor 1 = 1$
+\end{itemize}
+AND has a higher precedence than OR in logical expressions"
+\begin{equation*}
+    W\land Y \lor Y\land Z = (W\land X) \lor (Y\land Z)
+\end{equation*}
+There are 5 theorems that can be easily be proven through this:
+\begin{enumerate}
+    \item $X\lor 0=X$
+    \item $X \lor 1 = 1$
+    \item $X \lor X = X$
+    \item $(X')'=X$
+    \item $X\lor X' = 1$
+\end{enumerate}
+Which have the following dualities:
+\begin{enumerate}
+    \item $X\land 1 =X$
+    \item $X\land 0 = 0$
+    \item $X \land X = X$
+    \item No duality
+    \item $X\land X' = 0$
+\end{enumerate}
+There are also two variable theorems:
+\begin{itemize}
+    \item Commutativity:
+    \begin{enumerate}
+        \item $X\lor Y=Y\lor X$
+        \item $X\land Y = Y\land X$
+    \end{enumerate}
+    \item Associativity: \begin{enumerate}
+        \item $(X\lor Y)\lor Z=X\lor (Y\lor Z)$
+        \item $(X\land Y)\land Z=X\land (Y\land Z)$
+    \end{enumerate}
+    This allows for the representation of three or more input gates with ease.
+\end{itemize}
 \end{document}

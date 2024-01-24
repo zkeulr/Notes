@@ -97,7 +97,7 @@ outcomes are:
     \item Data structures and their abstractions: Stacks, lists, trees, and graphs
     \item Fundamentals of algorithms and their complexities: Sorting, searching, hashing,
           and graph algorithms
-    \item Problem Solving
+    \item Problem-Solving
 \end{itemize}
 \pagebreak
 
@@ -123,7 +123,7 @@ The topics of interest within them are:\\
     \item Correctness
     \item Efficiency in time and space
 \end{itemize}
-\section{Asymptotic Notation}
+\section{Time Complexity Analysis}
 The questions to be asked about an algorithm are the following:
 \begin{itemize}
     \item Is it correct?
@@ -229,7 +229,7 @@ Which has a cost table that looks like the following:\\
         $C_1$ & 1                                  & Assign i                        \\
         $C_2$ & 1                                  & Assign k                        \\
         $C_3$ & $\lceil \log_2(\log_2(n))\rceil+1$ & Number of while loop iterations \\
-        $C_4$ & $\lceil \log_2(\log_2(n))\rceil $  & number of i assigns             \\
+        $C_4$ & $\lceil \log_2(\log_2(n))\rceil $  & number of assigns of i          \\
         $C_5$ & $\lceil \log_2(\log_2(n))\rceil$   & Number of k assigns             \\
         $C_6$ & 1                                  & Returning value                 \\
     \end{tabular}
@@ -248,7 +248,7 @@ The table will instead be:\\
         $C_1$ & 1                                    & Assign i                        \\
         $C_2$ & 1                                    & Assign k                        \\
         $C_3$ & $\lceil \log_2(\log_2(n+1))\rceil+1$ & Number of while loop iterations \\
-        $C_4$ & $\lceil \log_2(\log_2(n+1))\rceil $  & number of i assigns             \\
+        $C_4$ & $\lceil \log_2(\log_2(n+1))\rceil $  & number of assigns of i          \\
         $C_5$ & $\lceil \log_2(\log_2(n+1))\rceil$   & Number of k assigns             \\
         $C_6$ & 1                                    & Returning value                 \\
     \end{tabular}
@@ -263,7 +263,7 @@ movement of structs have higher memory requirements.
 \subsection{Insertion Sort}
 Inserts an item into a sorted array. Compares the item with items in the sorted
 array, and if they are in the incorrect order, they are swapped. This is
-continued until everything has been succesfully sorted.\\ The code to sort $n$
+continued until everything has been successfully sorted.\\ The code to sort $n$
 integers in an array $r$ looks like this:
 \begin{lstlisting}
     for (j=1:n-1){
@@ -319,11 +319,11 @@ This has the following cost table in the best case:
         $C_3$ & n-1       & Assign i                         \\
         $C_4$ & n-1       & It is checked once per iteration \\
         $C_5$ & 0         & Number of r[i] exchanges         \\
-        $C_6$ & 0         & Number of i decreases            \\
+        $C_6$ & 0         & Number of decreases  of i        \\
         $C_7$ & n-1       & Assign r[i]                      \\
     \end{tabular}
 \end{table}
-Which hs a $O(n)=n$
+Which has a complexity $O(n)=n$
 And the following in the worst case:
 \begin{table}
     \centering
@@ -335,13 +335,90 @@ And the following in the worst case:
         $C_3$ & n-1                    & Assign i                                 \\
         $C_4$ & $\frac{(n+2)(n-1)}{2}$ & Number of time the while loop is checked \\
         $C_5$ & $\frac{(n)(n-1)}{2}$   & Number of r[i] exchanges                 \\
-        $C_6$ & $\frac{(n)(n-1)}{2}$   & Number of i decreases                    \\
+        $C_6$ & $\frac{(n)(n-1)}{2}$   & Number of decreases of i                 \\
         $C_7$ & n-1                    & Assign r[i]                              \\
     \end{tabular}
 \end{table}
 Now, we will learn how to calculate the average performance of an algorithm like insertion sort.\\
 Let us take a random $j^{th}$ item. The probability of it not needing to be moved is $\frac{1}{j+1}$. And it will need a certain some number between 0 and j exchanges to get to its rightful position if not.
 This leads the expected total number of exchanges to be $\sum_{i=0}^j\frac{i}{j+1} = \frac{j}{2}$. Once we reach the $(n-1)^{th}$ element, this is $\frac{1}{2}\frac{n(n-1)}{2}\approx\frac{n^2}{4}$.\\ Average performance is seldom calculated for the intents and purposes of this course.\\
+There are still some inefficiencies in insertion sort that can be improved by using sentinels.
+\begin{lstlisting}
+    for (j=n-1:1){
+        if (r[j]<r[j-1]){
+            swap(r[j], r[j-1]);
+        }
+    }
+    for (j=2:n-1){
+        temp=r[j];
+        i=j;
+        while (r[i-1]>temp){
+            r[i] = r[i-1];
+            i-=1;
+        }
+        r[i]=temp_r;
+    }
+\end{lstlisting}
+By moving the smallest item to the beginning, we can avoid the (i>0) condition,
+slightly increasing efficiency.\\
 \subsection{Shell Sort}
-This improves insertion sort by allowing for swaps along larger distances between elements.
+This improves insertion sort by allowing for swaps along larger distances
+between elements.\\ If we did 7-sorting and 3-sorting:\\ We would start with 7
+subarrays with at most $\lceil \frac{n}{7} \rceil$ elements. These subarrays
+would need to be sorted within themselves.\\ We would then go over to having 3
+subarrays with at most $\lceil \frac{n}{3} \rceil$ elements. These subarrays
+would once again need to be sorted within themselves.\\ Finally, we would
+conduct regular insertion sort. The complexity of shell sort changes based on
+the selected sequence.\\
+\begin{itemize}
+    \item $1,3,7,15, \ldots, 2^k-1, \ldots$ has a complexity of $O(n^{1.5})$
+    \item $1,4,13,\ldots, 3h(k-1), \ldots$ also has a complexity of $O(n^{1.5})$
+    \item $2^p3^q$ has a complexity $O(n(\log(n))^2)$
+\end{itemize}
+The algorithm of shell sort is the following:
+\begin{lstlisting}
+    for (j=k:n-1){
+        temp=r[j];
+        i=j;
+        while (i>=k and r[i-k]>temp){
+            r[i]=r[i-k];
+            i=i-k;
+        }
+        r[i]=temp;
+    }
+\end{lstlisting}
+To prove the complexity of the $2^p3^q$ complexity, we can visualize the
+following triangle:
+\begin{align*}
+     & 1             \\
+     & 2\;3          \\
+     & 4\;6\;\;9     \\
+     & 8\;12\;18\;27 \\
+\end{align*}
+which holds the values of k from the above algorithm the height and base of the triangle both have complexities of $\log(n)$, while the sorting of the subset make by each k has a complexity of $n$, which results in a total complexity of $n(\log(n))^2$.\\
+Let us consider a triangle of the following form:
+\begin{align*}
+     & a      \\
+     & 2a\;3a \\
+\end{align*}
+If one were to start with the largest and go to the smallest, that is, if one were to $3a$-sort, and then $2a$-sort, all numbers in the array would be at most $a$ positions away from their correct positions.\\
+This can be semi-trivially proven under the assumption that if an array is $3a$-sorted and then $2a$-sorted, it will still be $3a$-sorted. This will not be solved in this document as it is a homework assignment.\\
+\section{Asymptotic Notation}
+The number of instructions executed is dependent on the number of inputs. As it gets larger, the number of instructions increases too.\\
+This has been generalized and classified using asymptotic notation.
+\begin{equation*}
+    f(n) = O(g(n)) \iff \exists (c,n_0) \text{ such that }f(n)\leq cg(n) \quad \forall (n \geq n_0)
+\end{equation*}
+\textit{Note :If the space complexity is $O(g)$, the time complexity will be at least $O(g)$.\\}
+The graphical representation of the above definition $O(n)$ is :
+\begin{center}
+    \includegraphics[width = 200px]{images/complexity_graph.png}
+\end{center}
+The values of $c$ and $n_0$ can be variable, and have any value, as long as the condition is fulfilled.\\
+However, we are searching for $g(n)$ such that it refers to the smallest and simplest possible function of $n$ to allow for the existence of the values of $c$ and $n_0$ that will make the condition true.\\
+A good strategy to select $c$ is the sum of the absolute values of all the coefficients in $f(n)$.\\
+\textit{Note: $f(n)$ is equivalent to the $T(n)$ in the Time Complexity Analysis section.}\\
+Another proof of $f(n)=O(g(n))$ is $\lim_{n \rightarrow \infty}\frac{f(n)}{g(n)}\neq \infty$.\\
+For $g(n)$ to be useful, it should be simpler than $f(n)$ such as $1,n,n^2$, $n\log(n), 2^n, n!$.\\
+However, once we go to exponential functions or above, the algorithms cease to be useful.
 \end{document}

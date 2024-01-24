@@ -253,7 +253,7 @@ Another point to note is that if the augmented matrices of two systems of equati
 that is, if you can transform one matrix into the other through elementary row operations, the systems of equations will have the same solutions.
 \pagebreak
 \section{Row Reduction and Echelon Forms}
-The leading entry of a row refers to the left-most non zero element in a row.
+The leading entry of a row refers to the left-most non-zero element in a row.
 Thus, the leading entries in the following matrix are:
 \begin{equation*}
     \begin{bmatrix}
@@ -438,15 +438,15 @@ The valid product of two matrices is the sum of the linear combination of each r
         0 & 7 & 4 & 3
     \end{bmatrix}
     \begin{bmatrix}
-        x_1\\
-        x_2\\
-        x_3\\
+        x_1 \\
+        x_2 \\
+        x_3 \\
         x_4
-    \end{bmatrix} = 
+    \end{bmatrix} =
     \begin{bmatrix}
-        1x_1+3x_2+3x_3+8x_4\\
-        5x_1+1x_2+4x_3+6x_4\\
-        6x_1+9x_2+1x_3+7x_4\\
+        1x_1+3x_2+3x_3+8x_4 \\
+        5x_1+1x_2+4x_3+6x_4 \\
+        6x_1+9x_2+1x_3+7x_4 \\
         0x_1+7x_2+4x_3+3x_4
     \end{bmatrix}
 \end{equation*}
@@ -455,4 +455,78 @@ If \textbf{A} is an $m\times n$ matrix:\
     \item $\mathbf{A(u+v)=Au+Av}$
     \item $\mathbf{A}(\mathbf{u}c) = c(\mathbf{Au})$
 \end{itemize}
+\section{Solution Sets of Linear Systems}
+If a system can be written as $\mathbf{Ax}=0$, it is homogenous. This will
+always have the trivial solution of $\mathbf{x}=0$.\\ Thus, there is either a
+unique solution or infinitely many solutions. That is, if there is a non-zero
+solution, there are infinitely many solutions.\\ This happens because if
+$\mathbf{x}$ is a solution, then $c\mathbf{x}$ will also be a solution. The
+trivial solution will also need to exist, as anything multiplied by 0 is 0.\\
+\quad So, the homogenous equation $\mathbf{Ax}=0$, has a non-trivial solution
+if and only if there is a free variable.\\ \quad Suppose $\mathbf{Ax=b}$ is
+consistent with solution $\mathbf{p}$, the solution set of the system will be
+the set of all the vectors of the form $\mathbf{w=p+v}$ where \textbf{v} is the
+solution set of the homogenous equation.\\
+3 planes containing the origin could have three kinds of intersections:
+\begin{enumerate}
+    \item Point: origin --- 0 free variables
+    \item Line: through origin --- 1 free variable
+    \item Plane: same plane through origin --- 2 free variables
+\end{enumerate}
+This can allow us to express the solution set in terms of vectors scalarly multiplied by the free variables, should there be any.\\
+Let us say there are two free variables. All the other variables can be expressed in terms of these free variables.\\
+Let us take the following example:
+\begin{equation*}
+    \begin{bmatrix}
+        1 & 2 & 0 & -3 \\
+        3 & 6 & 0 & -9 \\
+    \end{bmatrix} = 0
+\end{equation*}
+Has three free variables, and is equivalent to $\begin{bmatrix}1 & 2 & 0 & -3\end{bmatrix} = 0$ with only $x_1$ being non-free.\\
+Thus, the solution set can be represented as:
+\begin{equation*}
+    \mathbf{x}=
+    x_2
+    \begin{bmatrix}
+        -2\\ 1 \\ 0 \\ 0
+    \end{bmatrix} +x_3
+    \begin{bmatrix}
+        0\\ 0 \\ 1 \\ 0
+    \end{bmatrix} + x_4
+    \begin{bmatrix}
+        3\\ 0 \\ 0 \\ 1
+    \end{bmatrix}
+\end{equation*}
+This can be done for any $\mathbb{R}^n$ homogenous matrix. 
+\begin{enumerate}
+    \item Make each free variable 1 for its corresponding $x_n$
+    \item Go to each row, and solve the 1 variable equation, with free variable we are solving for being 1.
+    \item Write the aforementioned solution in the corresponding position of the multiplied matrix to $x_n$ 
+\end{enumerate}
+\section{Linear Independence}
+A set of vectors is linearly independent if the vector equation $\mathbf{Ax=0}$ has only the trivial solution. It is linearly dependent if there exist solutions distinct to the trivial solution that fulfill the aforementioned property.\\
+The columns of matrix $\mathbf{A}$ are linearly independent if and only if $\mathbf{Ax=0}$ has only the trivial solution.\\
+If every column of A has a pivot position for $\mathbf{Ax=b}$, there is only one solution, and thus it is linearly independent.\\~\\
+So,
+\begin{itemize}
+    \item One vector is always linearly independent as long as it is non-zero.
+    \item Two vectors are linearly dependent if and only if one vector is a scalar multiple of the other.
+    \item For three or more vectors, if a vector is a linear combination of the others, it is linearly dependent.
+\end{itemize}
+If a set has more vectors than entries in each vector, then the set is linearly dependent. For example:
+\begin{equation*}
+    \left\{
+    \begin{bmatrix}
+        -2\\ 1 \\
+    \end{bmatrix},
+    \begin{bmatrix}
+        0\\ 1 \\
+    \end{bmatrix},
+    \begin{bmatrix}
+        3\\ 0 \\
+    \end{bmatrix}
+    \right\}
+\end{equation*}
+\textit{Note: If $\mathbf{A}$ is an $n \times p$ matrix, it has n rows and p unknowns}.\\
+If a set contains the $\mathbf{0}$ vector, it is linearly dependent.\\
 \end{document}

@@ -298,7 +298,7 @@ The same is done for the capacitor circuit, but this time looking for $v_C$, whi
 \end{equation*}
 Note: energy storing components (L \& C) have memory but cannot consume power. R can consume power but has no memory.\\
 Looking at this conceptually, the resistor is consuming energy at an exponential rate. This causes current, voltage, and all other signals to decay exponentially as well.\\
-Since $P = I^2R = \frac{V^2}{R}$, it makes sense for the time constant to be $\tau = \frac{L}{R} = RC$, for each of them, as a larger capacitoror inductor would store more energy, and the proportionality of the R to the power and current or voltage respectively. That is, if R is larger, the power consumption is larger for an RL and smaller for an RC.\\
+Since $P = I^2R = \frac{V^2}{R}$, it makes sense for the time constant to be $\tau = \frac{L}{R} = RC$, for each of them, as a larger capacitor or inductor would store more energy, and the proportionality of the R to the power and current or voltage respectively. That is, if R is larger, the power consumption is larger for an RL and smaller for an RC.\\
 Note: the particular solution of the ODE is a scaled version of the input.\\
 The homogenous solution will be the same for all inputs, and of the form $Ae^{\frac{-t}{\tau}}$.\\
 The particular solution represents the behavior of the analyzed parameter when everything has settled down, or, at infinity.\\
@@ -308,9 +308,9 @@ Let us look at the particular resolution with a forcing equation of the form $v_
             & = \frac{\frac{1}{j\omega C}}{R+\frac{1}{j\omega C}}(-Aj) \\
             & = \frac{1}{j\omega RC+1}(-Aj)
 \end{align*}
-Deveoping and simifying that equation can lead to the form $A_1\cos(\omega t)+A_2\sin(\omega t)$.\\
-These can then be substituted into teh complete form, and, using the initial conditions, completely define the reactions.
-We will now analyze the following circuits, which resemble the previous ones, but use voltage instead, and have teh components in parallel instead of series.
+Developing and simplifying that equation can lead to the form $A_1\cos(\omega t)+A_2\sin(\omega t)$.\\
+These can then be substituted into the complete form, and, using the initial conditions, completely define the reactions.
+We will now analyze the following circuits, which resemble the previous ones, but use voltage instead, and have the components in parallel instead of series.
 \begin{center}
     \begin{circuitikz}[american voltages, american currents]
         \draw (0,0)
@@ -478,7 +478,7 @@ We could also have solved this for a forcing equation of the form $v_{in}(t) = F
     \implies A_1                        & = \frac{F_1}{1-LC\omega^2}                                                                         \\
     A_2                                 & = \frac{F_2}{1-LC\omega^2}
 \end{align*}
-These values can then be subtituted into the complete form and $B_1$ and $B_2$ can be found using the initial conditions.\\
+These values can then be substituted into the complete form and $B_1$ and $B_2$ can be found using the initial conditions.\\
 We will now solve the following circuit:\\
 \begin{center}
     \begin{circuitikz}[american voltages, american currents]
@@ -495,22 +495,326 @@ We will now solve the following circuit:\\
 \end{center}
 In the same way as the last one, we get the differential equation, which in this case is defined by:
 \begin{align*}
-    i_{in} &= LC\frac{d^2i_L(t)}{dt^2}+i_L(t)
+    i_{in} & = LC\frac{d^2i_L(t)}{dt^2}+i_L(t)
 \end{align*}
 However, we can observe that the equation is of the same form as the previous one, but with $i$ replacing $v$. The solution will be of the exact same form, and thus needs no additional resolution.\\
 What is important to remember from this is the following:
 \begin{align*}
-    v_{C,h}(t) &= A_1\cos(\omega_0t)+A_2\sin(\omega_0 t)\\
-    &= K\cos(\omega t +\theta)\\
-    i_{L,h}(t) &= B_1\cos(\omega_0t)+B_2\sin(\omega_0 t)\\
-    &= K\cos(\omega t +\theta)\\
-    \omega &= \frac{1}{\sqrt{LC}}
+    v_{C,h}(t) & = A_1\cos(\omega_0t)+A_2\sin(\omega_0 t) \\
+               & = K\cos(\omega t +\theta)                \\
+    i_{L,h}(t) & = B_1\cos(\omega_0t)+B_2\sin(\omega_0 t) \\
+               & = K\cos(\omega t +\theta)                \\
+    \omega     & = \frac{1}{\sqrt{LC}}
 \end{align*}
-If they were to give initial conditions of  the form $v_C(0) = k_1, i_L(0) = k_2$ instead of $v_C(0)=k_1, v_C'(0)=k_2$, we can use:
+If we were given initial conditions of  the form $v_C(0) = k_1, i_L(0) = k_2$ instead of $v_C(0)=k_1, v_C'(0)=k_2$, we can use:
 \begin{align*}
-    i_L(t) = i_C(t) &= C\frac{dv_C(t)}{dt}\\
-    &\text{or}\\
-    v_C(t) = v_L(t) &= L\frac{di_L(t)}{dt}
+    i_L(t) = i_C(t) & = C\frac{dv_C(t)}{dt} \\
+                    & \text{or}             \\
+    v_C(t) = v_L(t) & = L\frac{di_L(t)}{dt}
 \end{align*}
-to succesfully derive the values of the missing constants.
+to successfully derive the values of the missing constants.
+
+\newpage
+\section{RLC Circuits}
+The first circuit to be analyzed for this case is the parallel RLC circuit
+\begin{center}
+    \begin{circuitikz}[american voltages, american currents]
+        \draw (0,0)
+        to[R, l=$R$] (0,2);
+        \draw (0,2)
+        to [short, -] (1,2)
+        to [L, l^=$L$] (1,0)
+        to [short, -] (2,0)
+        to [C, l_=$C$] (2,2);
+        \draw (0,0) to [short, -] (1,0);
+        \draw (1,2) to [short, -] (2,2);
+    \end{circuitikz}
+\end{center}
+in which we will be analyzing the behavior of our components assuming there was a power source that has now been turned off.\\
+It is important to note that as the value of the resistors' resistance increases, it's influence on the LC tank decreases, which will later help us visualize these circuits more conceptually.\\
+The other circuit to be analyzed is the series RLC circuit:
+\begin{center}
+    \begin{circuitikz}[american voltages]
+        \draw (0,2)
+        to[R, l=$R$] (0,0);
+        \draw (0,2)
+        to [L, l=$L$] (2,2)
+        to [C, l=$C$] (2,0)
+        to [short, -] (0,0);
+    \end{circuitikz}
+\end{center}
+In this case, as the resistance increases, its damping effect on the LC tank increases.\\
+Let us solve the series example, with a voltage source first.
+\begin{center}
+    \begin{circuitikz}[american voltages]
+        \draw (0,2)
+        to[V, l=$V_{in}$] (0,0);
+        \draw (0,2)
+        to [R, l=$R$] (2,2)
+        to [L, l=$L$] (4,2)
+        to [C, l=$C$] (4,0)
+        to [short, -] (0,0);
+    \end{circuitikz}
+\end{center}
+\begin{align*}
+    v_{in}(t)                     & =v_R(t)+v_L(t)+v_C(t)                                                    \\
+    i_R(t)                        & = i_L(t) = i_C(t)                                                        \\
+    v_{in}(t)                     & = Ri_C(t)+L\frac{di_C(t)}{dt}+v_C(t)                                     \\
+    \text{but, } i_C(t)           & = C\frac{dv_C(t)}{dt}                                                    \\
+    \implies v_{in}(t)            & = RC\frac{dv_C(t)}{dt}+LC\frac{d^2v_C(t)}{dt^2}+v_C(t)                   \\
+    \implies \frac{v_{in}(t)}{LC} & = \frac{R}{L}\frac{dv_C(t)}{dt}+\frac{d^2v_C(t)}{dt^2}+\frac{v_C(t)}{LC}
+\end{align*}
+This can also be solved, but instead from the perspective of the current flowing through the inductor.\\
+\begin{align*}
+    v_{in}(t)                                 & =v_R(t)+v_L(t)+v_C(t)                                                    \\
+    i_R(t)                                    & = i_L(t) = i_C(t)                                                        \\
+    v_{in}(t)                                 & = Ri_L(t)+L\frac{di_L(t)}{dt}+\frac{1}{C}\int i_L(t)dt                   \\
+    \frac{dv_{in}(t)}{dt}                     & = R\frac{di_L(t)}{dt}+L\frac{d^2i_L(t)}{dt^2}+\frac{i_L(t)}{C}           \\
+    \implies \frac{1}{L}\frac{dv_{in}(t)}{dt} & = \frac{R}{L}\frac{di_L(t)}{dt}+\frac{d^2i_L(t)}{dt^2}+\frac{i_L(t)}{LC}
+\end{align*}
+The same procedure can be followed for the parallel version, and the resulting ODEs are:
+\begin{align*}
+    \frac{1}{C}\frac{di_{in}(t)}{dt} & = \frac{d^2v_C(t)}{dt^2}+\frac{1}{RC}\frac{dv_C(t)}{dt}+\frac{v_C(t)}{LC} \\
+                                     & \text{and}                                                                \\
+    \frac{i_{in}(t)}{LC}             & = \frac{d^2i_L(t)}{dt^2}+\frac{1}{RC}\frac{di_L(t)}{dt}+\frac{i_L(c)}{LC}
+\end{align*}
+\begin{center}
+    \begin{circuitikz}[american voltages, american currents]
+        \draw (0,0)
+        to[I, l=$I_{in}$] (0,2);
+        \draw (0,2)
+        to [short, -] (1,2)
+        to [R, l^=$R$] (1,0)
+        to [short, -] (2,0)
+        to [L, l_=$L$] (2,2)
+        to [short, -] (3,2)
+        to [C, l=$C$] (3,0);
+        \draw (0,0) to [short, -] (3,0);
+        \draw (1,2) to [short, -] (2,2);
+    \end{circuitikz}
+\end{center}
+Notice how the damping component, that is, the first derivative, matches what we mentioned on the effect of the resistance on the LC tank, with it being inverse for parallel, and directly proportional for series.\\
+So, in general, we can make a function that describes them in the following manner:
+\begin{equation*}
+    \centering
+    F = \frac{d^2x(t)}{dt^2}+\frac{1}{\tau}\frac{dx(t)}{dt}+\frac{x(t)}{LC}
+\end{equation*}
+where $\tau = RC$ for parallel, and $\tau = \frac{L}{R}$ for the series configuration.\\
+\begin{center}
+    \textit{NOTE: $\frac{1}{\tau} = B_w$, or the bandwidth of the circuit.}\\
+\end{center}
+So, we now solve the homogenous equation:
+\begin{align*}
+    0                           & = \frac{d^2x_h(t)}{dt^2}+\frac{1}{\tau}\frac{dx_h(t)}{dt}+\frac{x_h(t)}{LC} \\
+    \text{As usual, } x_h(t)    & = Ae^{\lambda t}                                                            \\
+    0                           & = \lambda^2+\frac{\lambda}{\tau}+\frac{1}{LC}                               \\
+    \implies \lambda            & = \frac{-\frac{1}{\tau}\pm \sqrt{\frac{1}{\tau^2}-\frac{4}{LC}}}{2}         \\
+                                & = -\frac{1}{2\tau} \pm \sqrt{\frac{1}{4\tau^2}-\frac{1}{LC}}                \\
+    \implies \lambda_{parallel} & = -\frac{1}{2RC} \pm \sqrt{\frac{1}{4RC^2}-\frac{1}{LC}}\text{ and}         \\
+    \lambda_{series}            & = -\frac{R}{2L} \pm \sqrt{\frac{R^2}{4L^2}-\frac{1}{LC}}                    \\
+    \implies x_h(t)             & = A_1e^{\lambda_1t}+A_2e^{\lambda_2t}
+\end{align*}
+This divides the solution into three different cases:
+\begin{itemize}
+    \item Overdamping: natural frequencies are real and distinct. That is
+          $\frac{1}{4R^2C^2} > \frac{1}{LC}$ for parallel, and $\frac{R^2}{4L^2} >
+              \frac{1}{LC}$ for series.\\Since all the elements are positive, the roots will
+          both end up being negative. \\ For this,
+          \begin{equation*}
+              x_h(t)=A_1e^{\lambda_1t}+A_2e^{\lambda_2t}
+          \end{equation*}
+    \item Critical Damping: natural frequencies are real and equal. That is
+          $\frac{1}{4R^2C^2} = \frac{1}{LC}$ for parallel, and $\frac{R^2}{4L^2} =
+              \frac{1}{LC}$ for series.\\ Both roots will be either $-\frac{1}{2RC}$ or
+          $-\frac{R}{2L}$ depending on the configuration.\\This ends up behaving like
+          explanation decay.\\ In this case,
+          \begin{equation*}
+              x_h(t) = A_1e^{\lambda t}+A_2te^{\lambda t}
+          \end{equation*}
+    \item Underdamping: natural frequencies are complex conjugates. That is
+          $\frac{1}{4R^2C^2} < \frac{1}{LC}$ for parallel, and $\frac{R^2}{4L^2} <
+              \frac{1}{LC}$ for series.\\This leads to $\lambda$ being of the form $-\sigma_p
+              \pm j\omega_d$, with $\sigma_p = \frac{1}{2\tau}$ the attenuation factor and
+          $\omega_d$ the damped resonance frequency being the square root.\\ Through a
+          series of mathematical operations, and the use of Euler's equation, we can get
+          \begin{equation*}
+              x_h(t) = e^{-\sigma_p t}(B_1\cos(\omega_d t)+jB_2\sin(\omega_d t)) = K\cos(\omega_d t+\theta)
+          \end{equation*}
+          This ends up behaving like a slowly shrinking sinusoidal wave.
+\end{itemize}
+\begin{center}
+    \includegraphics[width=\textwidth]{images/dampings.png}
+\end{center}
+Let us look at some examples:\\
+\begin{align*}
+    \lambda_1 & = -1 ,   & \lambda_2 & =-3    & \implies V_{C,h} & = A_1e^{-t}+A_2e^{-3t}            \\
+    \lambda_1 & =-1 ,    & \lambda_2 & =-1    & \implies V_{C,h} & = A_1e^{-t}+A_2te^{-t}            \\
+    \lambda_1 & = -1+2j, & \lambda_2 & =-1-2j & \implies V_{C,h} & = e^{-t}(A_1\sin(2t)+A_2\cos(2t))
+\end{align*}
+To find the particular solution one could substitute into the ODE and use the same method as previous circuits.\\
+However, there are some shortcuts:
+\begin{itemize}
+    \item Constant input: the particular solution will be the input.
+    \item Sinusoidal input: one can use SSS properties, and strategies like voltage
+          division.
+    \item Exponential input: no shortcut, use ODE.
+\end{itemize}
+\section{Non-Ideal Elements}
+While we have been representing components as perfect inductors or capacitors,
+but these do not exist. If that were the case, inductors or capacitors would be
+used to store energy instead of batteries.\\ The non-ideal inductor, also known
+as a parasitic inductor, has a representation that takes into account the
+resistance of the inductor wire $R_s$, the capacitance between adjacent wires,
+and finally, the Ferrite Core loss, $R_p$, which consists of Eddy current loss
+and hysteresis loss.\\ Thus, a full representation of an inductor, in terms of
+ideal elements, would be:
+\begin{center}
+    \begin{circuitikz}[american voltages, american currents]
+        \draw (0,0)
+        to[R, l=$R_s$] (0,1.5)
+        to[L,l=$L$](0,3);
+        \draw (0,3)
+        to [short, -] (1,3)
+        to [C, l^=$C_p$] (1,0)
+        to [short, -] (2.5,0)
+        to [R, l_=$R_p$] (2.5,3);
+        \draw (0,0) to [short, -] (1,0);
+        \draw (1,3) to [short, -] (2.5,3);
+    \end{circuitikz}
+\end{center}
+However, for this course, the effect of the capacitor and the ferrite core loss are negligible, allowing us to ignore them. If the frequency were closer to the self resonant frequencies of the inductor, $C_p$ would become relevant.\\
+The non-ideal capacitor has a wire inductance $L_s$, a wire resistance $R_s$, and a leakage, $R_p$, which allow us to model the capacitor as the following:
+\begin{center}
+    \begin{circuitikz}[american voltages, american currents]
+        \draw (0,0)
+        to[R, l=$R_s$] (0,1.5)
+        to[L,l=$L_s$](0,3);
+        \draw (0,0)
+        to [short, -] (-1,0)
+        to [C, l^=$C$] (-1,-1.5)
+        to [short, -] (1,-1.5)
+        to [R, l_=$R_p$] (1,0);
+        \draw (0,0) to [short, -] (1,0);
+    \end{circuitikz}
+\end{center}
+However, $L_s$ and $R_s$ are both negligible for this course's considerations, as they both have very small values.\\
+These new representations of these components allow us to introduce a new topic, which is quality factor (Q).
+\begin{align*}
+    Q(j\omega)   & = \left\lvert\frac{\text{Reactance}}{\text{Resistance}}\right\rvert = \left\lvert\frac{\text{Im}(Z)}{\text{Re}(z)}\right\rvert \\
+    \implies Q_L & = \frac{\omega L}{R_s},\quad Q_C = \omega R_p C
+\end{align*}
+By using non-ideal representations of these elements within circuits, such as the RLC circuit, circuits are modified to result in resonant properties distinct to those found with ideal components.\\
+\begin{center}
+    \includegraphics[width = 200px]{images/nonideal_rlc.png}
+\end{center}
+We will now learn to transform these configurations into more manageable and solvable configurations. \\
+So, what we will try to do is to convert a series impedance and resistance configuration into a parallel one and vice-versa. That is, we want the parallel or series configuration with certain components to have the same impedance as the series or parallel configuration with the same components, but with different values.\\
+\begin{align*}
+    Z(j\omega)            & = R_s+jX_s                     & Y(j\omega)            & = G_p+jB_p                    \\
+                          & = \frac{1}{G_p+jB_p}           &                       & =\frac{1}{R_s+jX_s}           \\
+    G_p+jB_p              & = \frac{1}{R_s+jX_s}           & R_s+jX_s              & =\frac{1}{G_p+jB_p}           \\
+                          & = \frac{R_s-jX_s}{R_s^2+X_s^2} &                       & =\frac{G_p-jB_p}{G_p^2+B_p^2} \\
+    \implies G_p(j\omega) & = \frac{R_s}{R_s^2+X_s^2},     & \implies R_s(j\omega) & = \frac{G_p}{G_p^2+B_p^2},    \\
+    B_p                   & = \frac{-X_s}{R_s^2+X_s^2}     & X_s(j\omega)          & = \frac{-B_p}{G_p^2+B_p^2}    \\
+\end{align*}
+With $Z$ being the impedance and $Y$ being the admittance.\\
+Now, through a few operations, we van find the values of $L_p$ and $R_p$ that would be equivalent to what we want.\\
+\begin{align*}
+    L_p & =L_s\left(1+\left(\frac{R_s}{\omega L_s}\right)^2\right)=L_s\left(1+\frac{1}{Q_L^2}\right) \\
+    R_p & =R_s\left(1+\left(\frac{\omega L_s}{R_s}\right)^2\right)=R_s(1+Q_L^2)                      \\
+        & \text{At high Q:}                                                                          \\
+    L_p & \approx L_s                                                                                \\
+    R_p & \approx R_s Q_L^2
+\end{align*}
+This essentially means that at high Q, the inductor resembles an ideal inductor, as we would expect.\\
+The same process can be conducted for capacitors:\\
+\begin{align*}
+    C_s & = C_p\left(1+\frac{1}{Q_c^2}\right) \\
+    R_s & = \frac{R_p}{1+Q_c^2}               \\
+        & \text{At high Q:}                   \\
+    C_s & \approx C_p                         \\
+    R_s & \approx \frac{R_p}{Q_c^2}
+\end{align*}
+These transformations should allow us to transform any non-ideal circuit into an equivalent circuit with ideal components, which we will be able to solve as shown in previous sections.\\
+\textit{Note: unlike the original components, their transformations are frequency dependent.}
+\section{Switched Circuits}
+Remember:
+\begin{align*}
+    \lambda_{parallel} & = -\frac{1}{2RC} \pm \sqrt{\frac{1}{4RC^2}-\frac{1}{LC}}\text{ and} \\
+    \lambda_{series}   & = -\frac{R}{2L} \pm \sqrt{\frac{R^2}{4L^2}-\frac{1}{LC}}            \\
+\end{align*}
+Which results in three possibilities of Overdamping, Critical Damping, and Underdamping.
+\begin{center}
+    \includegraphics[width = 150px]{images/imaginary_rlc_rep.png}
+\end{center}
+The current through an inductor is and will be continuous regardless of whether the voltage across it is continuous. This is because of the property of the current through an inductor that defines it as:
+\begin{equation*}
+    i_L(t)=\int_{t_0}^t v_L(\tau)d\tau
+\end{equation*}
+The same happens for capacitors and voltage.\\
+This is relevant because it is important to know how long it takes for an RL or RC circuit to go from one state to another.\\
+We know that
+\begin{equation*}
+    x(t) = x(\infty) + (x(t_0^+)-x(\infty))e^{\frac{-(t-t_0)}{\tau}}
+\end{equation*} 
+What we want to discern is how long it will take for $x$ to go from the value $X_1$ to the value $X_2$.\\
+\begin{align*}
+    x(t_2) &= x(\infty) + (x(t_1)-x(\infty))e^{\frac{-(t_2-t_1)}{\tau}}\\
+    x(t_2) - x(\infty) &= (x(t_1)-x(\infty))e^{\frac{-(t_2-t_1)}{\tau}}\\
+    \frac{x(t_2)-x(\infty)}{x(t_1)-x(\infty)} &= e^{\frac{-(t_2-t_1)}{\tau}}\\
+    \ln\left(\frac{x(t_2)-x(\infty)}{x(t_1)-x(\infty)}\right) &= \frac{-(t_2-t_1)}{\tau}\\
+    \tau\ln\left(\frac{x(t_1)-x(\infty)}{x(t_2)-x(\infty)}\right) &= t_2-t_1\\
+    \tau\ln\left(\frac{X_1-x(\infty)}{X_2-x(\infty)}\right) &= t_2-t_1
+\end{align*} 
+If this is used on circuits in specific situations, we can discern at what times a solution is relevant or valid.\\
+\subsection{Important Functions and Function Transformations}
+\begin{itemize}
+    \item Unit Step Function:
+    \begin{equation*}
+        u(t) = \left\{
+            \begin{array}{l}
+                0 \quad t < 0 \\
+                1 \quad t \geq 0 \\
+            \end{array}
+        \right.
+    \end{equation*}
+    \item Unit Function Shifted:
+    \begin{equation*}
+        u(t-t_0) = \left\{
+            \begin{array}{l}
+                0 \quad t < t_0 \\
+                1 \quad t \geq t_0 \\
+            \end{array}
+        \right.
+    \end{equation*}
+    \item Rectangular Function:
+    \begin{equation*}
+        c(t) = u(t-t_1) - u(t-t_2) = \left\{
+            \begin{array}{l}
+                0 \quad t < t_1 \\
+                1 \quad t_1 \leq t < t_2 \\
+                0 \quad t \geq t_2\\
+            \end{array}
+        \right.
+    \end{equation*}
+    \item Dirac Function:
+    \begin{equation*}
+        \delta(x) = \left\{
+            \begin{array}{l}
+                +\infty \quad x = 0 \\
+                0 \quad x \neq 0 \\
+            \end{array}
+        \right.
+    \end{equation*}
+    \begin{equation*}
+        \int_{-\infty}^\infty \delta(\tau) d\tau = 1
+    \end{equation*}
+    \begin{equation*}
+        \frac{du(t)}{dt} = \delta(t)
+    \end{equation*}
+\end{itemize}
+If a function $f(t)$ changes to $f(t-b)$ it will shift to the right, and if it changes to $f(t+b)$ it will shift to the left.\\
+If a function $f(t)$ changes to $f(at)$ with $|a| > 0$, it will expand along the x-axis, and if $|a| < 0$, it will contract. If $a$ is negative, it will be reflected about the x-axis.\\
+If a function $f(t)$ changes to $cf(t)$, with $|c| > 1$, it will stretch along the y-axis, and if $|c| < 1$, it will contract. If $c$ is negative, it will be reflected about the y-axis.\\
+If a function $f(t)$ changes to $f(t)+d$, with $d > 0$, it will shift up, and if $d < 0$, it will shift down.\\
 \end{document}
