@@ -552,5 +552,53 @@ There are also two variable theorems:
         \item $(X\land Y)\land Z=X\land (Y\land Z)$
     \end{enumerate}
     This allows for the representation of three or more input gates with ease.
+    \item Distributivity:
+    \begin{enumerate}
+        \item $X\land Y \lor X\land Z = X\land(Y \lor Z)$
+        \item $(X\lor Y)\land (X\lor Z) = X\lor Y\land Z$
+    \end{enumerate}
+    \item Covering:
+    \begin{enumerate}
+        \item $X\lor X\land Y = X$
+        \item $X\land(X\lor Y) = X$
+    \end{enumerate}
+    \item Combining:
+    \begin{enumerate}
+        \item $X\land Y \lor X\land Y' = X$
+        \item $(X\lor Y)\land (X\lor Y')=X$
+    \end{enumerate}
+    \item Consensus:
+    \begin{enumerate}
+        \item $X \land Y \lor X' \land Z \lor Y \land Z = X \land Y \lor X' \land Z$
+        \item $(X \lor Y ) \land (X' \lor Z ) \land (Y \lor Z ) = (X \lor Y ) \land (X' \lor Z)$
+    \end{enumerate}
 \end{itemize}
+All these theorems can be proven using perfect induction, that is, through building the complete truth table for the inputs, and showing that the output is always true.\\
+Some of these can also be proven using the axioms and priorly proven theorems.
+\textit{Note: The proof of one theorem, can be applied to the dual, but using the duals of the theorems used in the proof of the first.}
+\begin{itemize}
+    \item Variable Theorems:
+    \begin{enumerate}
+        \item $X\lor X\lor X \ldots \lor X = X$
+        \item $X\land X\land X \ldots \land X = X$
+    \end{enumerate}
+    \item De Morgan's Theorems:
+    \begin{enumerate}
+        \item $(X_1\land X_2\land X_3 \ldots \land X_n)'=X_1'\lor X_2'\lor X_3' \ldots \lor X_n'$
+        \item $(X_1\lor X_2\lor X_3 \ldots \lor X_n)'=X_1'\land X_2'\land X_3' \ldots \land X_n'$
+    \end{enumerate}
+\end{itemize}
+Using De Morgan's Theorems allows us to change combinations of NANDs and NORs into more efficient NAND only or NOR only gate functions.\\
+\textbf{De Morgan's Theorem Generalization:}
+\begin{equation*}
+    [F(X_1, X_2, . . . , X_n, \lor, \land)]'= [F(X_1', X_2', . . . , X_n', \land, \lor)]
+\end{equation*}
+\begin{itemize}
+    \item Shannon's Expansion theorems:
+    \begin{enumerate}
+        \item $F(X_1, X_2, . . . , X_n) =X_1 \land F(1, X_2, . . . , X_n) \lor X_1' \land F(0, X_2, . . . , X_n)$
+        \item $F(X_1, X_2, . . . , X_n) =X_1 \lor F(1, X_2, . . . , X_n) \land X_1' \lor F(0, X_2, . . . , X_n)$
+    \end{enumerate}
+\end{itemize}
+These can be proven through finite induction.
 \end{document}

@@ -239,7 +239,7 @@ By using these three rules, one can reduce it to the following form:
         0 & 0   & 1   & c_4
     \end{bmatrix}
 \end{equation*}
-This will result in a trivially solvable unique-solution system of equations. This is also known as a \textbf{consistent} system of equations. We can substitute the value of $x_3$, which is $c_4$, into the equation in the row above, and solve it, as it willnow be a single equation with a single variable. This can be done sequentially until all values are found.\\~\\
+This will result in a trivially solvable unique-solution system of equations. This is also known as a \textbf{consistent} system of equations. We can substitute the value of $x_3$, which is $c_4$, into the equation in the row above, and solve it, as it will now be a single equation with a single variable. This can be done sequentially until all values are found.\\~\\
 Note: If the resulting form is instead
 \begin{equation*}
     \begin{bmatrix}
@@ -394,12 +394,12 @@ A vector is a linear combination of other vectors if:
 \begin{equation*}
     c_1\mathbf{u_1}+c_2\mathbf{u_2}+c_3\mathbf{u_3} \ldots c_n\mathbf{u_n} = \mathbf{v}
 \end{equation*}
-For any set of vectors, there is an infinite amount of linear combinations, as the values of the constants they are multiplied with are not restrained by anything and they cound be a part of any domain, be it $\mathbb{R}, \mathbb{I}, \text{or } \mathbb{C}$.\\
-To find if a vector is a linear combination of other matrices, we can create an augmented matrix with the desired vector as the constant column, and all relevant vectors, as the elements of the coeffiecient matrix part of the augmented matrix.\\
-Should there be a free variable in the resolution of teh augmented matrix, there will be infinitely many linear combinations that fulfill the condition we desire.\\
-The $span(\mathbf{v_1}, \mathbf{v_2}, \mathbf{v_3}, \ldots, \mathbf{v_n})$ is the set of all linear combinations of these vectors. So , if asked whether a vector is in the span of other vectors, it is equivalent ot asking if there exists a linear combination of vectors that results in the desired vector.\\
+For any set of vectors, there is an infinite amount of linear combinations, as the values of the constants they are multiplied with are not restrained by anything, and they could be a part of any domain, be it $\mathbb{R}, \mathbb{I}, \text{or } \mathbb{C}$.\\
+To find if a vector is a linear combination of other matrices, we can create an augmented matrix with the desired vector as the constant column, and all relevant vectors, as the elements of the coefficient matrix part of the augmented matrix.\\
+Should there be a free variable in the resolution of the augmented matrix, there will be infinitely many linear combinations that fulfill the condition we desire.\\
+The $span(\mathbf{v_1}, \mathbf{v_2}, \mathbf{v_3}, \ldots, \mathbf{v_n})$ is the set of all linear combinations of these vectors. So, if asked whether a vector is in the span of other vectors, it is equivalent to asking if there exists a linear combination of vectors that results in the desired vector.\\
 \section{Matrix Equation \textbf{Ax} = \textbf{b}}
-Let $\mathbf{A}$ be a $m\times n$ matrix. The product of $\mathbf{A}$ and $\mathbf{x}$ will be the linear combination of the columns of $\mathbf{A}$ using the entries of $\mathbf{x}$ as weights.
+Let $\mathbf{A}$ be an $m\times n$ matrix. The product of $\mathbf{A}$ and $\mathbf{x}$ will be the linear combination of the columns of $\mathbf{A}$ using the entries of $\mathbf{x}$ as weights.
 \begin{equation*}
     \mathbf{A}\mathbf{x} =
     \begin{bmatrix}
@@ -529,4 +529,36 @@ If a set has more vectors than entries in each vector, then the set is linearly 
 \end{equation*}
 \textit{Note: If $\mathbf{A}$ is an $n \times p$ matrix, it has n rows and p unknowns}.\\
 If a set contains the $\mathbf{0}$ vector, it is linearly dependent.\\
+\section{Introduction to Linear Transformations}
+A transformation or function $T$ from $\mathbb{R}^n$ to $\mathbb{R}^m$ is a rule that takes each vector in $\mathbb{R}^n$ and assigns to it a vector in $\mathbb{R}^m$.\\
+The set $\mathbb{R}^n$ is called the domain, and the set $\mathbb{R}^m$ is called the codomain of $T$.\\
+The notation is:
+\begin{equation*}
+    T: \mathbb{R}^n \rightarrow \mathbb{R}^m
+\end{equation*}
+so $\mathbf{x}\in\mathbb{R}^n$ and $T(\mathbf{x})\in\mathbb{R}^m$.\\
+A Matrix Transformation consists of a matrix $m\times n$ can define a transformation from $\mathbb{R}^n$ to $\mathbb{R}^m$.
+That is:
+\begin{equation*}
+    \mathbf{x \mapsto A_{n\rightarrow m}x}
+\end{equation*}
+or 
+\begin{equation*}
+    T(\mathbf{x})=\mathbf{Ax}
+\end{equation*}
+In essence, a matrix transformation is the multiplication of the matrix \textbf{x} with a matrix \textbf{A} that results in the final transformed matrix that we desire.\\
+So, when asked about the existence of $T(\mathbf{x})=\mathbf{b}$, all that is necessary is the creation and resolution of the augmented matrix of \textbf{A} and \textbf{b}.\\
+This allows for a multitude of geometric transformations such as:
+\begin{center}
+    \includegraphics[width = 200px]{images/transformation_use.png}
+\end{center}
+A linear transformation has the following properties:
+\begin{itemize}
+    \item $T(\mathbf{u+v})=T(\mathbf{u})+T(\mathbf{v})$
+    \item $T(c\mathbf{u})=cT(\mathbf{u})$
+    \item $T(\mathbf{0})=\mathbf{0}$ --- which is quite useful for an initial verification of linear transformations
+    \item $T(c\mathbf{u}+d\mathbf{v})= cT(\mathbf{u})+dT(\mathbf{v})$
+\end{itemize}
+\textit{Note: all matrix transformations are linear transformations, but not all linear transformations are matrix transformations.}\\
+If a matrix is in the range of $T$, it is a linear transformation of the columns of the matrix \textbf{A} that defines $T(x)$.
 \end{document}

@@ -736,23 +736,16 @@ The same process can be conducted for capacitors:\\
     R_s & \approx \frac{R_p}{Q_c^2}
 \end{align*}
 These transformations should allow us to transform any non-ideal circuit into an equivalent circuit with ideal components, which we will be able to solve as shown in previous sections.\\
-\textit{Note: unlike the original components, their transformations are frequency dependent.}
-\section{Switched Circuits}
-Remember:
-\begin{align*}
-    \lambda_{parallel} & = -\frac{1}{2RC} \pm \sqrt{\frac{1}{4RC^2}-\frac{1}{LC}}\text{ and} \\
-    \lambda_{series}   & = -\frac{R}{2L} \pm \sqrt{\frac{R^2}{4L^2}-\frac{1}{LC}}            \\
-\end{align*}
-Which results in three possibilities of Overdamping, Critical Damping, and Underdamping.
-\begin{center}
-    \includegraphics[width = 150px]{images/imaginary_rlc_rep.png}
-\end{center}
+\textit{Note: unlike the original components, their transformations are frequency dependent.}\\
+Another variable that may surge for non-ideal element questions is to find the self-resonant frequency of the circuit, which is $\omega_0=\frac{1}{\sqrt{LC_s}}$ or $\omega_0=\frac{1}{\sqrt{L_p C}}$ depending on the transformation.\\
+This value can then be substituted into the equations for $Q$ related terms, allowing for simplification, and thus the value of the transformed resistor.
+\section{Switched Circuits (Circuits with Switches)}
 The current through an inductor is and will be continuous regardless of whether the voltage across it is continuous. This is because of the property of the current through an inductor that defines it as:
 \begin{equation*}
     i_L(t)=\int_{t_0}^t v_L(\tau)d\tau
 \end{equation*}
 The same happens for capacitors and voltage.\\
-This is relevant because it is important to know how long it takes for an RL or RC circuit to go from one state to another.\\
+This is relevant because it is often important to know how long it takes for an RL or RC circuit to go from one state to another.\\
 We know that
 \begin{equation*}
     x(t) = x(\infty) + (x(t_0^+)-x(\infty))e^{\frac{-(t-t_0)}{\tau}}
@@ -768,16 +761,19 @@ What we want to discern is how long it will take for $x$ to go from the value $X
 \end{align*} 
 If this is used on circuits in specific situations, we can discern at what times a solution is relevant or valid.\\
 \subsection{Important Functions and Function Transformations}
+\textbf{Functions}\\
 \begin{itemize}
     \item Unit Step Function:
     \begin{equation*}
         u(t) = \left\{
             \begin{array}{l}
                 0 \quad t < 0 \\
-                1 \quad t \geq 0 \\
+                \text{undetermined} \quad t=0\\
+                1 \quad t > 0 \\
             \end{array}
         \right.
     \end{equation*}
+    \textit{Note: for most intents and purposes, $u(0)$ can be considered to be $1$ or irrelevant. However, non-continuous signals become undefined.\\~\\ Confused?\\ Different statements by different lecturers resulted in this statement.}
     \item Unit Function Shifted:
     \begin{equation*}
         u(t-t_0) = \left\{
@@ -813,8 +809,12 @@ If this is used on circuits in specific situations, we can discern at what times
         \frac{du(t)}{dt} = \delta(t)
     \end{equation*}
 \end{itemize}
-If a function $f(t)$ changes to $f(t-b)$ it will shift to the right, and if it changes to $f(t+b)$ it will shift to the left.\\
-If a function $f(t)$ changes to $f(at)$ with $|a| > 0$, it will expand along the x-axis, and if $|a| < 0$, it will contract. If $a$ is negative, it will be reflected about the x-axis.\\
-If a function $f(t)$ changes to $cf(t)$, with $|c| > 1$, it will stretch along the y-axis, and if $|c| < 1$, it will contract. If $c$ is negative, it will be reflected about the y-axis.\\
-If a function $f(t)$ changes to $f(t)+d$, with $d > 0$, it will shift up, and if $d < 0$, it will shift down.\\
+\textbf{Transformations}
+\begin{itemize}
+\item If a function $f(t)$ changes to $f(t-b)$ it will shift to the right, and if it changes to $f(t+b)$ it will shift to the left.\\
+\item If a function $f(t)$ changes to $f(at)$ with $|a| > 0$, it will expand along the x-axis, and if $|a| < 0$, it will contract. If $a$ is negative, it will be reflected about the x-axis.\\
+\item If a function $f(t)$ changes to $cf(t)$, with $|c| > 1$, it will stretch along the y-axis, and if $|c| < 1$, it will contract. If $c$ is negative, it will be reflected about the y-axis.\\
+\item If a function $f(t)$ changes to $f(t)+d$, with $d > 0$, it will shift up, and if $d < 0$, it will shift down.\\ Hello
+\end{itemize}
+
 \end{document}
