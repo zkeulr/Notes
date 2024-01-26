@@ -816,5 +816,29 @@ If this is used on circuits in specific situations, we can discern at what times
 \item If a function $f(t)$ changes to $cf(t)$, with $|c| > 1$, it will stretch along the y-axis, and if $|c| < 1$, it will contract. If $c$ is negative, it will be reflected about the y-axis.\\
 \item If a function $f(t)$ changes to $f(t)+d$, with $d > 0$, it will shift up, and if $d < 0$, it will shift down.\\ Hello
 \end{itemize}
-
+\section{Convolution}
+\subsection{Graphical Convolution}
+The convolution of two functions $f(t)$ and $g(t)$ is defined as:
+\begin{equation*}
+    f(t)*g(t) = \int_{-\infty}^{\infty} f(\tau)g(t-\tau)d\tau
+\end{equation*}
+Convolution can relate inputs to outputs using circuit models. That is, if we are given a highly complicated RLC circuit, we can relate the desired output to the input through convolution.\\
+We will be analyzing the following two functions:
+\begin{center}
+    \includegraphics[width = 150px]{images/concolution_funcs.png}
+\end{center}
+Both $f(t)$ and $g(t)$ are being analyzed respective to a  reference time $t$.\\
+We will also define handedness as the side of $t$ in which  a function has a larger magnitude, should it not be symmetric. So, in this case $g(t)$ would be left-handed.\\
+The values within the integral perform operations on the functions. That is, $f(t)$ becomes $f(\tau)$, while $g(t)$ becomes $g(-\tau)$ (changes handedness) and is moved along the $\tau$ axis from $-\infty$ to $\infty$. The convolution is the integral of the product of these two functions.\\
+So, while the two transformed functions do not overlap, the product is $0$, but once a time $t$ is analyzed at which they overlap, the integral begins to have values.\\ So, different predefined values of $t$ convolute to different values. However, the convolution will maximize at the time in which they have the maximum intersection.\\
+There is an important function within convolutions that we defined in a prior section. And it is important because it has the following properties:
+\begin{equation*}
+    f(t)*\delta(t) = \int_{-\infty}^{\infty} f(\tau)\delta(t-\tau)d\tau = x(t)
+\end{equation*}
+\begin{equation*}
+    f(t)*\delta(t_0) = \int_{-\infty}^{\infty} f(\tau)\delta(t_0-\tau)d\tau = x(t_0)
+\end{equation*}
+That is, the $\delta$ function is the identity function for convolution.\\
+\subsection{Actual Convolution}
+We will now look at the properties of the $\delta$ function stated previously. Since 
 \end{document}
