@@ -740,7 +740,9 @@ These transformations should allow us to transform any non-ideal circuit into an
 Another variable that may surge for non-ideal element questions is to find the self-resonant frequency of the circuit, which is $\omega_0=\frac{1}{\sqrt{LC_s}}$ or $\omega_0=\frac{1}{\sqrt{L_p C}}$ depending on the transformation.\\
 This value can then be substituted into the equations for $Q$ related terms, allowing for simplification, and thus the value of the transformed resistor.
 \section{Switched Circuits (Circuits with Switches)}
-The current through an inductor is and will be continuous regardless of whether the voltage across it is continuous. This is because of the property of the current through an inductor that defines it as:
+The current through an inductor is and will be continuous regardless of whether
+the voltage across it is continuous. This is because of the property of the
+current through an inductor that defines it as:
 \begin{equation*}
     i_L(t)=\int_{t_0}^t v_L(\tau)d\tau
 \end{equation*}
@@ -749,79 +751,97 @@ This is relevant because it is often important to know how long it takes for an 
 We know that
 \begin{equation*}
     x(t) = x(\infty) + (x(t_0^+)-x(\infty))e^{\frac{-(t-t_0)}{\tau}}
-\end{equation*} 
+\end{equation*}
 What we want to discern is how long it will take for $x$ to go from the value $X_1$ to the value $X_2$.\\
 \begin{align*}
-    x(t_2) &= x(\infty) + (x(t_1)-x(\infty))e^{\frac{-(t_2-t_1)}{\tau}}\\
-    x(t_2) - x(\infty) &= (x(t_1)-x(\infty))e^{\frac{-(t_2-t_1)}{\tau}}\\
-    \frac{x(t_2)-x(\infty)}{x(t_1)-x(\infty)} &= e^{\frac{-(t_2-t_1)}{\tau}}\\
-    \ln\left(\frac{x(t_2)-x(\infty)}{x(t_1)-x(\infty)}\right) &= \frac{-(t_2-t_1)}{\tau}\\
-    \tau\ln\left(\frac{x(t_1)-x(\infty)}{x(t_2)-x(\infty)}\right) &= t_2-t_1\\
-    \tau\ln\left(\frac{X_1-x(\infty)}{X_2-x(\infty)}\right) &= t_2-t_1
-\end{align*} 
+    x(t_2)                                                        & = x(\infty) + (x(t_1)-x(\infty))e^{\frac{-(t_2-t_1)}{\tau}} \\
+    x(t_2) - x(\infty)                                            & = (x(t_1)-x(\infty))e^{\frac{-(t_2-t_1)}{\tau}}             \\
+    \frac{x(t_2)-x(\infty)}{x(t_1)-x(\infty)}                     & = e^{\frac{-(t_2-t_1)}{\tau}}                               \\
+    \ln\left(\frac{x(t_2)-x(\infty)}{x(t_1)-x(\infty)}\right)     & = \frac{-(t_2-t_1)}{\tau}                                   \\
+    \tau\ln\left(\frac{x(t_1)-x(\infty)}{x(t_2)-x(\infty)}\right) & = t_2-t_1                                                   \\
+    \tau\ln\left(\frac{X_1-x(\infty)}{X_2-x(\infty)}\right)       & = t_2-t_1
+\end{align*}
 If this is used on circuits in specific situations, we can discern at what times a solution is relevant or valid.\\
+Another situation that might be faced is finding the equation describing a circuit that has had switches.\\
+To do so, we would solve the circuit for each situation, or each time interval, as if there were no other switches.\\
+To find the initial condition(s), one would need to find the equation for the previous time interval, find the value of $X$ at the end of the time of said interval, and use that as the initial condition of the next time interval.\\
+\section{Convolution}
+We will visualize this as a circuit with an input $x(t)$ that is sent into a
+circuit function $h(t)$ that results in the output $y(t)$. However, $h(t)$ does
+not exist. But, convolution does. And this follows the property $y(t) =
+    x(t)*h(t)$.\\ This method allows us to find the output of any-order circuits.\\
+\begin{center}
+    "We hate convolution as much as we hate differential equations" \\-Prof. Byunghoo Jung
+\end{center}
 \subsection{Important Functions and Function Transformations}
 \textbf{Functions}\\
 \begin{itemize}
     \item Unit Step Function:
-    \begin{equation*}
-        u(t) = \left\{
-            \begin{array}{l}
-                0 \quad t < 0 \\
-                \text{undetermined} \quad t=0\\
-                1 \quad t > 0 \\
-            \end{array}
-        \right.
-    \end{equation*}
-    \textit{Note: for most intents and purposes, $u(0)$ can be considered to be $1$ or irrelevant. However, non-continuous signals become undefined.\\~\\ Confused?\\ Different statements by different lecturers resulted in this statement.}
+          \begin{equation*}
+              u(t) = \left\{
+              \begin{array}{l}
+                  0 \quad t < 0                 \\
+                  \text{undetermined} \quad t=0 \\
+                  1 \quad t > 0                 \\
+              \end{array}
+              \right.
+          \end{equation*}
+          \textit{Note: for most intents and purposes, $u(0)$ can be considered to be $1$ or irrelevant. However, non-continuous signals become undefined.}
     \item Unit Function Shifted:
-    \begin{equation*}
-        u(t-t_0) = \left\{
-            \begin{array}{l}
-                0 \quad t < t_0 \\
-                1 \quad t \geq t_0 \\
-            \end{array}
-        \right.
-    \end{equation*}
+          \begin{equation*}
+              u(t-t_0) = \left\{
+              \begin{array}{l}
+                  0 \quad t < t_0    \\
+                  1 \quad t \geq t_0 \\
+              \end{array}
+              \right.
+          \end{equation*}
     \item Rectangular Function:
-    \begin{equation*}
-        c(t) = u(t-t_1) - u(t-t_2) = \left\{
-            \begin{array}{l}
-                0 \quad t < t_1 \\
-                1 \quad t_1 \leq t < t_2 \\
-                0 \quad t \geq t_2\\
-            \end{array}
-        \right.
-    \end{equation*}
+          \begin{equation*}
+              c(t) = u(t-t_1) - u(t-t_2) = \left\{
+              \begin{array}{l}
+                  0 \quad t < t_1          \\
+                  1 \quad t_1 \leq t < t_2 \\
+                  0 \quad t \geq t_2       \\
+              \end{array}
+              \right.
+          \end{equation*}
     \item Dirac Function:
-    \begin{equation*}
-        \delta(x) = \left\{
-            \begin{array}{l}
-                +\infty \quad x = 0 \\
-                0 \quad x \neq 0 \\
-            \end{array}
-        \right.
-    \end{equation*}
-    \begin{equation*}
-        \int_{-\infty}^\infty \delta(\tau) d\tau = 1
-    \end{equation*}
-    \begin{equation*}
-        \frac{du(t)}{dt} = \delta(t)
-    \end{equation*}
+          \begin{equation*}
+              \delta(x) = \left\{
+              \begin{array}{l}
+                  +\infty \quad x = 0 \\
+                  0 \quad x \neq 0    \\
+              \end{array}
+              \right.
+          \end{equation*}
+          \begin{equation*}
+              \int_{-\infty}^\infty \delta(\tau) d\tau = 1
+          \end{equation*}
+          \begin{equation*}
+              \frac{du(t)}{dt} = \delta(t)
+          \end{equation*}
 \end{itemize}
 \textbf{Transformations}
 \begin{itemize}
-\item If a function $f(t)$ changes to $f(t-b)$ it will shift to the right, and if it changes to $f(t+b)$ it will shift to the left.\\
-\item If a function $f(t)$ changes to $f(at)$ with $|a| > 0$, it will expand along the x-axis, and if $|a| < 0$, it will contract. If $a$ is negative, it will be reflected about the x-axis.\\
-\item If a function $f(t)$ changes to $cf(t)$, with $|c| > 1$, it will stretch along the y-axis, and if $|c| < 1$, it will contract. If $c$ is negative, it will be reflected about the y-axis.\\
-\item If a function $f(t)$ changes to $f(t)+d$, with $d > 0$, it will shift up, and if $d < 0$, it will shift down.\\ Hello
+    \item If a function $f(t)$ changes to $f(t-b)$ it will shift to the right, and if it
+          changes to $f(t+b)$ it will shift to the left.
+    \item If a function $f(t)$ changes to $f(at)$ with $|a| > 0$, it will expand along
+          the x-axis, and if $|a| < 0$, it will contract. If $a$ is negative, it will be
+          reflected about the x-axis.
+    \item If a function $f(t)$ changes to $cf(t)$, with $|c| > 1$, it will stretch along
+          the y-axis, and if $|c| < 1$, it will contract. If $c$ is negative, it will be
+          reflected about the y-axis.
+    \item If a function $f(t)$ changes to $f(t)+d$, with $d > 0$, it will shift up, and
+          if $d < 0$, it will shift down.
 \end{itemize}
-\section{Convolution}
+\textit{Note: if multiple transformations are applied to a function, the order usually does not matter.}
 \subsection{Graphical Convolution}
 The convolution of two functions $f(t)$ and $g(t)$ is defined as:
 \begin{equation*}
-    f(t)*g(t) = \int_{-\infty}^{\infty} f(\tau)g(t-\tau)d\tau
+    f(t)*g(t) = \int_{-\infty}^{\infty} f(\tau)g(t-\tau)d\tau = \int_{-\infty}^{\infty} f(t-\tau)g(\tau)d\tau
 \end{equation*}
+It has some other notations as well: $f(t)*g(t)=f*g(t)=(f*g)(t)$.\\
 Convolution can relate inputs to outputs using circuit models. That is, if we are given a highly complicated RLC circuit, we can relate the desired output to the input through convolution.\\
 We will be analyzing the following two functions:
 \begin{center}
@@ -829,9 +849,9 @@ We will be analyzing the following two functions:
 \end{center}
 Both $f(t)$ and $g(t)$ are being analyzed respective to a  reference time $t$.\\
 We will also define handedness as the side of $t$ in which  a function has a larger magnitude, should it not be symmetric. So, in this case $g(t)$ would be left-handed.\\
-The values within the integral perform operations on the functions. That is, $f(t)$ becomes $f(\tau)$, while $g(t)$ becomes $g(-\tau)$ (changes handedness) and is moved along the $\tau$ axis from $-\infty$ to $\infty$. The convolution is the integral of the product of these two functions.\\
+The values within the integral perform operations on the functions. That is, $f(t)$ becomes $f(\tau)$, while $g(t)$ becomes $g(-\tau)$ (changes handedness) and is moved along the $\tau$ axis from by some predefined value $t$ between $-\infty\rightarrow\infty$. The convolution is the integral of the product of these two functions.\\
 So, while the two transformed functions do not overlap, the product is $0$, but once a time $t$ is analyzed at which they overlap, the integral begins to have values.\\ So, different predefined values of $t$ convolute to different values. However, the convolution will maximize at the time in which they have the maximum intersection.\\
-There is an important function within convolutions that we defined in a prior section. And it is important because it has the following properties:
+There is an important function within convolutions that we defined earlier. And it is important because it has the following properties:
 \begin{equation*}
     f(t)*\delta(t) = \int_{-\infty}^{\infty} f(\tau)\delta(t-\tau)d\tau = x(t)
 \end{equation*}
@@ -840,5 +860,9 @@ There is an important function within convolutions that we defined in a prior se
 \end{equation*}
 That is, the $\delta$ function is the identity function for convolution.\\
 \subsection{Actual Convolution}
-We will now look at the properties of the $\delta$ function stated previously. Since 
+Looking at what happened above, we can observe that the output of convolution is a function of $t$, and has no effect of $\tau$. That is:
+\begin{equation*}
+    f(t)*g(t) = Fn(t)
+\end{equation*}
+
 \end{document}

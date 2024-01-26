@@ -417,7 +417,7 @@ This looks like the following when represented graphically:
 The system of equations to solve is:
 \begin{align*}
     Q_d & = -a_1P+c_1 \\
-    Q_s & = a_2P-c_2 \\
+    Q_s & = a_2P-c_2  \\
     Q_s & =Q_d
 \end{align*}
 Where the searched for, and relevant variables are $P$ and $Q$ (not $Q_s$ and $Q_d$ separately, as they are equal).\\
@@ -506,158 +506,319 @@ Which looks like this:
 \subsection{New Equilibrium}
 Equilibrium can vary with:
 \begin{itemize}
-    \item Shifts in demand: if one of the demand shifters occurs, the demand curve will shift. This will cause the equilibrium to shift as well.
-    \begin{itemize}
-        \item Decrease in demand: decrease in equilibrium price and a decrease in equilibrium quantity.
-        \begin{center}
-            \begin{tikzpicture}[scale = 0.5]
-                \begin{axis}[
-                        axis lines = left,
-                        xlabel = Quantity,
-                        ylabel = Price,
-                        ymax = 40,
-                        xmax = 6,
-                        ymin = 0,
-                        xmin = 0,
-                        legend entries = {supply, demand, new demand}
-                    ]
-                    \addplot [
-                        domain=1:5,
-                        samples=10,
-                        color=blue,
-                    ]
-                    {6*x + 2};
-                    \addplot [
-                        domain=1:5,
-                        samples=10,
-                        color=red,
-                    ]
-                    {-6*x + 38};
-                    \addplot [
-                        domain=0:4,
-                        samples=10,
-                        color=orange,
-                    ]
-                    {-6*x + 32};
-                \end{axis}
-            \end{tikzpicture}
-        \end{center}
-        \item Increase in demand: increase in equilibrium price and quantity.
-        \begin{center}
-            \begin{tikzpicture}[scale = 0.5]
-                \begin{axis}[
-                        axis lines = left,
-                        xlabel = Quantity,
-                        ylabel = Price,
-                        ymax = 40,
-                        xmax = 6,
-                        ymin = 0,
-                        xmin = 0,
-                        legend entries = {supply, demand, new demand}
-                    ]
-                    \addplot [
-                        domain=1:5,
-                        samples=10,
-                        color=blue,
-                    ]
-                    {6*x + 2};
-                    \addplot [
-                        domain=1:5,
-                        samples=10,
-                        color=red,
-                    ]
-                    {-6*x + 38};
-                    \addplot [
-                        domain=2:6,
-                        samples=10,
-                        color=orange,
-                    ]
-                    {-6*x + 44};
-                \end{axis}
-            \end{tikzpicture}
-        \end{center}
-    \end{itemize}
-\item Shift in Supply: occurs when one of the supply shifters occurs. Once again, the market moves to a new equilibrium.
-\begin{itemize}
-    \item Decrease in Supply: increase in equilibrium price and decrease in quantity.
-    \begin{center}
-        \begin{tikzpicture}[scale = 0.5]
-            \begin{axis}[
-                    axis lines = left,
-                    xlabel = Quantity,
-                    ylabel = Price,
-                    ymax = 40,
-                    xmax = 6,
-                    ymin = 0,
-                    xmin = 0,
-                    legend entries = {supply, demand, new supply}
-                ]
-                \addplot [
-                    domain=1:5,
-                    samples=10,
-                    color=blue,
-                ]
-                {6*x + 2};
-                \addplot [
-                    domain=1:5,
-                    samples=10,
-                    color=red,
-                ]
-                {-6*x + 38};
-                \addplot [
-                    domain=0:4,
-                    samples=10,
-                    color=cyan,
-                ]
-                {6*x + 8};
-            \end{axis}
-        \end{tikzpicture}
-    \end{center}
-    \item Increase in Supply: decrease in equilibrium price and increase in quantity.
-    \begin{center}
-        \begin{tikzpicture}[scale = 0.5]
-            \begin{axis}[
-                    axis lines = left,
-                    xlabel = Quantity,
-                    ylabel = Price,
-                    ymax = 40,
-                    xmax = 6,
-                    ymin = 0,
-                    xmin = 0,
-                    legend entries = {supply, demand, new supply}
-                ]
-                \addplot [
-                    domain=1:5,
-                    samples=10,
-                    color=blue,
-                ]
-                {6*x + 2};
-                \addplot [
-                    domain=1:5,
-                    samples=10,
-                    color=red,
-                ]
-                {-6*x + 38};
-                \addplot [
-                    domain=2:6,
-                    samples=10,
-                    color=cyan,
-                ]
-                {6*x -4};
-            \end{axis}
-        \end{tikzpicture}
-    \end{center}
-\end{itemize} 
+    \item Shifts in demand: if one of the demand shifters occurs, the demand curve will
+          shift. This will cause the equilibrium to shift as well.
+          \begin{itemize}
+              \item Decrease in demand: decrease in equilibrium price and a decrease in equilibrium
+                    quantity.
+                    \begin{center}
+                        \begin{tikzpicture}[scale = 0.5]
+                            \begin{axis}[
+                                    axis lines = left,
+                                    xlabel = Quantity,
+                                    ylabel = Price,
+                                    ymax = 40,
+                                    xmax = 6,
+                                    ymin = 0,
+                                    xmin = 0,
+                                    legend entries = {supply, demand, new demand}
+                                ]
+                                \addplot [
+                                    domain=1:5,
+                                    samples=10,
+                                    color=blue,
+                                ]
+                                {6*x + 2};
+                                \addplot [
+                                    domain=1:5,
+                                    samples=10,
+                                    color=red,
+                                ]
+                                {-6*x + 38};
+                                \addplot [
+                                    domain=0:4,
+                                    samples=10,
+                                    color=orange,
+                                ]
+                                {-6*x + 32};
+                            \end{axis}
+                        \end{tikzpicture}
+                    \end{center}
+              \item Increase in demand: increase in equilibrium price and quantity.
+                    \begin{center}
+                        \begin{tikzpicture}[scale = 0.5]
+                            \begin{axis}[
+                                    axis lines = left,
+                                    xlabel = Quantity,
+                                    ylabel = Price,
+                                    ymax = 40,
+                                    xmax = 6,
+                                    ymin = 0,
+                                    xmin = 0,
+                                    legend entries = {supply, demand, new demand}
+                                ]
+                                \addplot [
+                                    domain=1:5,
+                                    samples=10,
+                                    color=blue,
+                                ]
+                                {6*x + 2};
+                                \addplot [
+                                    domain=1:5,
+                                    samples=10,
+                                    color=red,
+                                ]
+                                {-6*x + 38};
+                                \addplot [
+                                    domain=2:6,
+                                    samples=10,
+                                    color=orange,
+                                ]
+                                {-6*x + 44};
+                            \end{axis}
+                        \end{tikzpicture}
+                    \end{center}
+          \end{itemize}
+    \item Shift in Supply: occurs when one of the supply shifters occurs. Once again, the
+          market moves to a new equilibrium.
+          \begin{itemize}
+              \item Decrease in Supply: increase in equilibrium price and decrease in quantity.
+                    \begin{center}
+                        \begin{tikzpicture}[scale = 0.5]
+                            \begin{axis}[
+                                    axis lines = left,
+                                    xlabel = Quantity,
+                                    ylabel = Price,
+                                    ymax = 40,
+                                    xmax = 6,
+                                    ymin = 0,
+                                    xmin = 0,
+                                    legend entries = {supply, demand, new supply}
+                                ]
+                                \addplot [
+                                    domain=1:5,
+                                    samples=10,
+                                    color=blue,
+                                ]
+                                {6*x + 2};
+                                \addplot [
+                                    domain=1:5,
+                                    samples=10,
+                                    color=red,
+                                ]
+                                {-6*x + 38};
+                                \addplot [
+                                    domain=0:4,
+                                    samples=10,
+                                    color=cyan,
+                                ]
+                                {6*x + 8};
+                            \end{axis}
+                        \end{tikzpicture}
+                    \end{center}
+              \item Increase in Supply: decrease in equilibrium price and increase in quantity.
+                    \begin{center}
+                        \begin{tikzpicture}[scale = 0.5]
+                            \begin{axis}[
+                                    axis lines = left,
+                                    xlabel = Quantity,
+                                    ylabel = Price,
+                                    ymax = 40,
+                                    xmax = 6,
+                                    ymin = 0,
+                                    xmin = 0,
+                                    legend entries = {supply, demand, new supply}
+                                ]
+                                \addplot [
+                                    domain=1:5,
+                                    samples=10,
+                                    color=blue,
+                                ]
+                                {6*x + 2};
+                                \addplot [
+                                    domain=1:5,
+                                    samples=10,
+                                    color=red,
+                                ]
+                                {-6*x + 38};
+                                \addplot [
+                                    domain=2:6,
+                                    samples=10,
+                                    color=cyan,
+                                ]
+                                {6*x -4};
+                            \end{axis}
+                        \end{tikzpicture}
+                    \end{center}
+          \end{itemize}
 \end{itemize}
+It is however, also possible for both demand and supply to shift. This may result in an ambiguous shift of equilibrium price and equilibrium quantity.\\
+\begin{itemize}
+    \item Demand $\uparrow$, Supply $\uparrow$: equilibrium price: (?), but equilibrium quantity: ($\uparrow$)
+          \begin{center}
+              \begin{tikzpicture}[scale = 0.5]
+                  \begin{axis}[
+                          axis lines = left,
+                          xlabel = Quantity,
+                          ylabel = Price,
+                          ymax = 40,
+                          xmax = 6,
+                          ymin = 0,
+                          xmin = 0,
+                          legend entries = {$S_0$, $D_0$, $S_n$, $D_n$}
+                      ]
+                      \addplot [
+                          domain=1:5,
+                          samples=10,
+                          color=blue,
+                      ]
+                      {6*x + 2};
+                      \addplot [
+                          domain=1:5,
+                          samples=10,
+                          color=red,
+                      ]
+                      {-6*x + 38};
+                      \addplot [
+                          domain=2:6,
+                          samples=10,
+                          color=cyan,
+                      ]
+                      {6*x -4};
+                      \addplot [
+                          domain=2:6,
+                          samples=10,
+                          color=orange,
+                      ]
+                      {-6*x + 44};
+                  \end{axis}
+              \end{tikzpicture}
+          \end{center}
+    \item Demand $\downarrow$, Supply $\downarrow$: equilibrium price: (?), but equilibrium quantity: ($\downarrow$)
+          \begin{center}
+              \begin{tikzpicture}[scale = 0.5]
+                  \begin{axis}[
+                          axis lines = left,
+                          xlabel = Quantity,
+                          ylabel = Price,
+                          ymax = 40,
+                          xmax = 6,
+                          ymin = 0,
+                          xmin = 0,
+                          legend entries = {$S_0$, $D_0$, $S_n$, $D_n$}
+                      ]
+                      \addplot [
+                          domain=1:5,
+                          samples=10,
+                          color=blue,
+                      ]
+                      {6*x + 2};
+                      \addplot [
+                          domain=1:5,
+                          samples=10,
+                          color=red,
+                      ]
+                      {-6*x + 38};
+                      \addplot [
+                          domain=0:4,
+                          samples=10,
+                          color=cyan,
+                      ]
+                      {6*x + 8};
+                      \addplot [
+                          domain=0:4,
+                          samples=10,
+                          color=orange,
+                      ]
+                      {-6*x + 32};
+                  \end{axis}
+              \end{tikzpicture}
+          \end{center}
+    \item Demand $\uparrow$, Supply $\downarrow$: equilibrium price: ($\uparrow$), but equilibrium quantity: (?)
+          \begin{center}
+              \begin{tikzpicture}[scale = 0.5]
+                  \begin{axis}[
+                          axis lines = left,
+                          xlabel = Quantity,
+                          ylabel = Price,
+                          ymax = 40,
+                          xmax = 6,
+                          ymin = 0,
+                          xmin = 0,
+                          legend entries = {$S_0$, $D_0$, $S_n$, $D_n$}
+                      ]
+                      \addplot [
+                          domain=1:5,
+                          samples=10,
+                          color=blue,
+                      ]
+                      {6*x + 2};
+                      \addplot [
+                          domain=1:5,
+                          samples=10,
+                          color=red,
+                      ]
+                      {-6*x + 38};
+                      \addplot [
+                          domain=0:4,
+                          samples=10,
+                          color=cyan,
+                      ]
+                      {6*x +8};
+                      \addplot [
+                          domain=2:6,
+                          samples=10,
+                          color=orange,
+                      ]
+                      {-6*x + 44};
+                  \end{axis}
+              \end{tikzpicture}
+          \end{center}
+    \item Demand $\downarrow$, Supply $\uparrow$: equilibrium price: ($\downarrow$), but equilibrium quantity: (?)
+          \begin{center}
+              \begin{tikzpicture}[scale = 0.5]
+                  \begin{axis}[
+                          axis lines = left,
+                          xlabel = Quantity,
+                          ylabel = Price,
+                          ymax = 40,
+                          xmax = 6,
+                          ymin = 0,
+                          xmin = 0,
+                          legend entries = {$S_0$, $D_0$, $S_n$, $D_n$}
+                      ]
+                      \addplot [
+                          domain=1:5,
+                          samples=10,
+                          color=blue,
+                      ]
+                      {6*x + 2};
+                      \addplot [
+                          domain=1:5,
+                          samples=10,
+                          color=red,
+                      ]
+                      {-6*x + 38};
+                      \addplot [
+                          domain=2:6,
+                          samples=10,
+                          color=cyan,
+                      ]
+                      {6*x -4};
+                      \addplot [
+                          domain=0:4,
+                          samples=10,
+                          color=orange,
+                      ]
+                      {-6*x + 32};
+                  \end{axis}
+              \end{tikzpicture}
+          \end{center}
+\end{itemize}
+Supply and demand can be used to predict and diagnose market outcomes.\\
+This leads to the following rules:
+\begin{enumerate}
+    \item If price and quantity moves in same direction, demand has shifted.
+    \item If price and quantity move in opposite directions, supply has shifted.
+\end{enumerate}
 \end{document}
-
-%\begin{center}
-%    \begin{tikzpicture}[scale=.9]
-%        \begin{axis}[
-%                xlabel=Choice 1,
-%                ylabel=Choice 2,
-%                ymax=4, ymin=0, xmin=0, xmax=4, ] \addplot [blue] coordinates {
-%                    (1,1) (2,2) (3,4) };
-%        \end{axis}
-%    \end{tikzpicture}
-%\end{center}

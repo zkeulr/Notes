@@ -524,6 +524,7 @@ AND has a higher precedence than OR in logical expressions"
 \begin{equation*}
     W\land Y \lor Y\land Z = (W\land X) \lor (Y\land Z)
 \end{equation*}
+\subsection{Theorems}
 There are 5 theorems that can be easily be proven through this:
 \begin{enumerate}
     \item $X\lor 0=X$
@@ -543,50 +544,50 @@ Which have the following dualities:
 There are also two variable theorems:
 \begin{itemize}
     \item Commutativity:
-    \begin{enumerate}
-        \item $X\lor Y=Y\lor X$
-        \item $X\land Y = Y\land X$
-    \end{enumerate}
+          \begin{enumerate}
+              \item $X\lor Y=Y\lor X$
+              \item $X\land Y = Y\land X$
+          \end{enumerate}
     \item Associativity: \begin{enumerate}
-        \item $(X\lor Y)\lor Z=X\lor (Y\lor Z)$
-        \item $(X\land Y)\land Z=X\land (Y\land Z)$
-    \end{enumerate}
-    This allows for the representation of three or more input gates with ease.
+              \item $(X\lor Y)\lor Z=X\lor (Y\lor Z)$
+              \item $(X\land Y)\land Z=X\land (Y\land Z)$
+          \end{enumerate}
+          This allows for the representation of three or more input gates with ease.
     \item Distributivity:
-    \begin{enumerate}
-        \item $X\land Y \lor X\land Z = X\land(Y \lor Z)$
-        \item $(X\lor Y)\land (X\lor Z) = X\lor Y\land Z$
-    \end{enumerate}
+          \begin{enumerate}
+              \item $X\land Y \lor X\land Z = X\land(Y \lor Z)$
+              \item $(X\lor Y)\land (X\lor Z) = X\lor Y\land Z$
+          \end{enumerate}
     \item Covering:
-    \begin{enumerate}
-        \item $X\lor X\land Y = X$
-        \item $X\land(X\lor Y) = X$
-    \end{enumerate}
+          \begin{enumerate}
+              \item $X\lor X\land Y = X$
+              \item $X\land(X\lor Y) = X$
+          \end{enumerate}
     \item Combining:
-    \begin{enumerate}
-        \item $X\land Y \lor X\land Y' = X$
-        \item $(X\lor Y)\land (X\lor Y')=X$
-    \end{enumerate}
+          \begin{enumerate}
+              \item $X\land Y \lor X\land Y' = X$
+              \item $(X\lor Y)\land (X\lor Y')=X$
+          \end{enumerate}
     \item Consensus:
-    \begin{enumerate}
-        \item $X \land Y \lor X' \land Z \lor Y \land Z = X \land Y \lor X' \land Z$
-        \item $(X \lor Y ) \land (X' \lor Z ) \land (Y \lor Z ) = (X \lor Y ) \land (X' \lor Z)$
-    \end{enumerate}
+          \begin{enumerate}
+              \item $X \land Y \lor X' \land Z \lor Y \land Z = X \land Y \lor X' \land Z$
+              \item $(X \lor Y ) \land (X' \lor Z ) \land (Y \lor Z ) = (X \lor Y ) \land (X' \lor Z)$
+          \end{enumerate}
 \end{itemize}
 All these theorems can be proven using perfect induction, that is, through building the complete truth table for the inputs, and showing that the output is always true.\\
 Some of these can also be proven using the axioms and priorly proven theorems.
 \textit{Note: The proof of one theorem, can be applied to the dual, but using the duals of the theorems used in the proof of the first.}
 \begin{itemize}
     \item Variable Theorems:
-    \begin{enumerate}
-        \item $X\lor X\lor X \ldots \lor X = X$
-        \item $X\land X\land X \ldots \land X = X$
-    \end{enumerate}
+          \begin{enumerate}
+              \item $X\lor X\lor X \ldots \lor X = X$
+              \item $X\land X\land X \ldots \land X = X$
+          \end{enumerate}
     \item De Morgan's Theorems:
-    \begin{enumerate}
-        \item $(X_1\land X_2\land X_3 \ldots \land X_n)'=X_1'\lor X_2'\lor X_3' \ldots \lor X_n'$
-        \item $(X_1\lor X_2\lor X_3 \ldots \lor X_n)'=X_1'\land X_2'\land X_3' \ldots \land X_n'$
-    \end{enumerate}
+          \begin{enumerate}
+              \item $(X_1\land X_2\land X_3 \ldots \land X_n)'=X_1'\lor X_2'\lor X_3' \ldots \lor X_n'$
+              \item $(X_1\lor X_2\lor X_3 \ldots \lor X_n)'=X_1'\land X_2'\land X_3' \ldots \land X_n'$
+          \end{enumerate}
 \end{itemize}
 Using De Morgan's Theorems allows us to change combinations of NANDs and NORs into more efficient NAND only or NOR only gate functions.\\
 \textbf{De Morgan's Theorem Generalization:}
@@ -595,10 +596,70 @@ Using De Morgan's Theorems allows us to change combinations of NANDs and NORs in
 \end{equation*}
 \begin{itemize}
     \item Shannon's Expansion theorems:
-    \begin{enumerate}
-        \item $F(X_1, X_2, . . . , X_n) =X_1 \land F(1, X_2, . . . , X_n) \lor X_1' \land F(0, X_2, . . . , X_n)$
-        \item $F(X_1, X_2, . . . , X_n) =X_1 \lor F(1, X_2, . . . , X_n) \land X_1' \lor F(0, X_2, . . . , X_n)$
-    \end{enumerate}
+          \begin{enumerate}
+              \item $F(X_1, X_2, . . . , X_n) =X_1 \land F(1, X_2, . . . , X_n) \lor X_1' \land F(0, X_2, . . . , X_n)$
+              \item $F(X_1, X_2, . . . , X_n) =X_1 \lor F(1, X_2, . . . , X_n) \land X_1' \lor F(0, X_2, . . . , X_n)$
+          \end{enumerate}
 \end{itemize}
 These can be proven through finite induction.
+\subsection{Connecting Switching Algebra and Combinational Logic}
+We will start by defining some things:\\
+\begin{itemize}
+    \item A \textit{literal} is a variable that can be complemented or uncomplemented,
+          for example $X,X',Y,Y'$
+    \item A \textit{product term} is a literal or a product (AND) of two or more
+          literals, for example $X,X',X\land Y'\land Z$
+    \item A \textit{sum-of-products} is a sum (OR) of multiple products.
+    \item A \textit{sum term} is a single literal or the sum (OR) of multiple literals.
+    \item A \textit{product-of-sums} is a product of multiple sum terms.
+    \item A \textit{normal term} is a product or sum in which no variable appears more
+          than once.
+    \item An \textit{n-variable minterm} is a normal product term with n literals. There
+          are $2^n$ such terms. That is, each variable appears exactly once in the term,
+          in either complemented or uncomplemented form. It is 1 in only one row of the
+          truth table.
+    \item An \textit{n-variable maxterm} is a normal sum term with n literals. Once
+          again, there are $2^n$ such terms. It is 0 in only one row of the truth table.
+    \item A \textit{canonical sum} of a function is the sum of the minterms corresponding
+          to the rows where the truth-table of the function is 1.
+          \begin{center}
+              \includegraphics[width = 150px]{images/minterm_maxterm_func.png}
+          \end{center}
+          This has another notation, in which each row that is true is added to the sum:
+          \begin{equation*}
+              F = (1,0,0,1,1,1,0,1)=\sum_{X,Y,X}(0,3,4,5,7)
+          \end{equation*}
+    \item A \textit{canonical product} of a function is the product of the maxterms
+          corresponding to the truth table rows where the function is 0.
+          \begin{center}
+              \includegraphics[width = 150px]{images/minterm_maxterm_func.png}
+          \end{center}
+          This also has another notation:
+          \begin{equation*}
+              F = (1,0,0,1,1,1,0,1)=\prod_{X,Y,X}(1,2,6)
+          \end{equation*}
+          \begin{center}
+              \textit{Note: the union of the terms of the canonical product and the canonical sum, is the full truth table, or the numbers from $0\rightarrow 2^n-1$}
+          \end{center}
+\end{itemize}
+A function can be written in Verilog by doing the following:
+\begin{lstlisting}
+    case{(X,Y,Z)}
+        0,3,4,5,7:F=1;
+        default:F=0;
+    endcase
+\end{lstlisting}
+Or it can be written like this:
+\begin{lstlisting}
+    case{(X,Y,Z)}
+        1,2,6:F=;
+        default:F=1;
+    endcase
+\end{lstlisting}
+Now that we have all the necessary definitions, we will go back to Shannon's
+Expansion Theorem.
+\begin{equation*}
+    F(X_1, X_2, . . . , X_n) =X_1 \land F(1, X_2, . . . , X_n) \lor X_1' \land F(0, X_2, . . . , X_n)
+\end{equation*}
+This theorem allows us to extract a variable from a function and divide it into two halves, in which the term is true or false, while the remains have a smaller minterm, maxterm truth table.
 \end{document}
