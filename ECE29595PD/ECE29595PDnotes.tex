@@ -661,5 +661,41 @@ Expansion Theorem.
 \begin{equation*}
     F(X_1, X_2, . . . , X_n) =X_1 \land F(1, X_2, . . . , X_n) \lor X_1' \land F(0, X_2, . . . , X_n)
 \end{equation*}
-This theorem allows us to extract a variable from a function and divide it into two halves, in which the term is true or false, while the remains have a smaller minterm, maxterm truth table.
+This theorem allows us to extract a variable from a function and divide it into two halves, in which the term is true or false, while the remains have a smaller minterm, maxterm truth table.\\
+\subsection{Combinational Circuit Analysis}
+Circuit analysis is defined as locating the logic function that defines it. It
+is the transition from a logic diagram to a truth table or an algebraic
+expression.\\ Once this function is available, it can be used to determine the
+behavior, or manipulate the circuit for more efficiency, or for different
+elements. For example, it may be necessary to modify a circuit to transition
+from PLA to FPGA.\\ To do so, all functions to be compared are reduced to the
+canonical form, as it is unique.\\ One method of running analysis on a logic
+circuit, we can analyze its output for each of the $2^n$ inputs it can get, and
+find the output. However, this is no longer viable for large values of $n$.\\
+The other method would be to find the output of each gate, starting from the
+left towards the right of the circuit, each output is joined to find the end
+function of the circuit. The function can then be minimized and made more
+efficient.\\ DeMorgan's theorem can be used to simplify circuits, for example,
+it can allow us to replace a NAND gate with an OR gate with inverted inputs, or
+NOR gates with AND with inverted inputs. This is usually done from right to
+left, replacing gates that we believe would allow us to simplify the circuit.
+In most cases, the goal would be to reduce the number of inverters within the
+circuit, as they may complicate the analysis once we have the function.\\
+\subsection{Combinational Synthesis}
+This is the process that goes form a truth table or function, and want to get
+the circuit that defines it.\\ The goal is to make a circuit as small as
+possible. This can be done through analyzing how many gates and gate inputs
+there are.\\ We also want to minimize delay (gate levels) and power
+dissipation.\\ In a design process, the software synthesizes a circuit.
+However, knowledge is required to make sure the synthesized circuit is
+efficient, or whether it can be improved.\\ The process starts from a
+specification, in words, and leads to a function. However, in this class, we
+will usually start from the function or truth table.\\ We want a minimal
+sum-of-products or product-of-sums. After which, the next goal would be to
+minimize the delay.\\ Canonical forms are usually larger than what we want.\\ If we want to find the canonical form, we conjoin each term of the function with the term that does not appear in both the original and negated form. For example, if we have X,Y,Z as inputs:
+\begin{equation*}
+    X\lor Y = X\lor Y \lor(Z\land Z')
+\end{equation*}
+This is done for each term, and then expanded, which will result in the canonical form.\\
+However, it is more complicated to go from the canonical form to the original expression.\\
 \end{document}

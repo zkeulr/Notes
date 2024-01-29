@@ -654,7 +654,7 @@ Equilibrium can vary with:
 \end{itemize}
 It is however, also possible for both demand and supply to shift. This may result in an ambiguous shift of equilibrium price and equilibrium quantity.\\
 \begin{itemize}
-    \item Demand $\uparrow$, Supply $\uparrow$: equilibrium price: (?), but equilibrium quantity: ($\uparrow$)
+    \item Demand $\uparrow$, Supply $\uparrow$ --- equilibrium price: (?), but equilibrium quantity: ($\uparrow$)
           \begin{center}
               \begin{tikzpicture}[scale = 0.5]
                   \begin{axis}[
@@ -694,7 +694,7 @@ It is however, also possible for both demand and supply to shift. This may resul
                   \end{axis}
               \end{tikzpicture}
           \end{center}
-    \item Demand $\downarrow$, Supply $\downarrow$: equilibrium price: (?), but equilibrium quantity: ($\downarrow$)
+    \item Demand $\downarrow$, Supply $\downarrow$ --- equilibrium price: (?), but equilibrium quantity: ($\downarrow$)
           \begin{center}
               \begin{tikzpicture}[scale = 0.5]
                   \begin{axis}[
@@ -734,7 +734,7 @@ It is however, also possible for both demand and supply to shift. This may resul
                   \end{axis}
               \end{tikzpicture}
           \end{center}
-    \item Demand $\uparrow$, Supply $\downarrow$: equilibrium price: ($\uparrow$), but equilibrium quantity: (?)
+    \item Demand $\uparrow$, Supply $\downarrow$ --- equilibrium price: ($\uparrow$), but equilibrium quantity: (?)
           \begin{center}
               \begin{tikzpicture}[scale = 0.5]
                   \begin{axis}[
@@ -774,7 +774,7 @@ It is however, also possible for both demand and supply to shift. This may resul
                   \end{axis}
               \end{tikzpicture}
           \end{center}
-    \item Demand $\downarrow$, Supply $\uparrow$: equilibrium price: ($\downarrow$), but equilibrium quantity: (?)
+    \item Demand $\downarrow$, Supply $\uparrow$ --- equilibrium price: ($\downarrow$), but equilibrium quantity: (?)
           \begin{center}
               \begin{tikzpicture}[scale = 0.5]
                   \begin{axis}[
@@ -816,9 +816,86 @@ It is however, also possible for both demand and supply to shift. This may resul
           \end{center}
 \end{itemize}
 Supply and demand can be used to predict and diagnose market outcomes.\\
-This leads to the following rules:
+All the previous analysis in this section leads to the following overall rules:
 \begin{enumerate}
-    \item If price and quantity moves in same direction, demand has shifted.
-    \item If price and quantity move in opposite directions, supply has shifted.
+    \item If price and quantity move in same direction, demand has shifted, but we don't know what has happened to the supply.
+    \item If price and quantity move in opposite directions, supply has shifted, but we don't know what has happened to the demand.
 \end{enumerate}
+\section{Elasticity}
+Elasticity is a measure of the responsiveness to the changes in other variables.
+\begin{equation*}
+    E_{x,y} = \frac{\%\Delta x}{\%\Delta y}
+\end{equation*}
+What is important about this are the sign and magnitude. It is positive if when $y$ increases, $x$ increases as well. The relationship is negative if when $y$ increases, $x$ decreases.\\
+\begin{align*}
+    |E_{x,y}&>1| \implies x \text{ is highly responsive to y, or the relationship is elastic}\\
+    |E_{x,y}&<1| \implies x \text{ is slightly responsive to y, or inelastic}\\
+    |E_{x,y}&=1| \implies x \text{ is proportionally responsive to y, or unitary elastic}
+\end{align*}
+\begin{itemize}
+    \item Price elasticity of demand:
+    A measure of how responsive buyers are to price changes. 
+    \begin{equation*}
+        |\text{Price Elasticity of Demand}| = \frac{|\%\text{ change in quantity demanded}|}{|\%\text{ change in prices}|}
+    \end{equation*}
+    The negative value would mean nothing, as it is already predefined, and so, only the magnitude (or absolute value) is relevant.\\
+    There are a few other methods:
+    \begin{equation*}
+        |E_D| = \left\vert \frac{100*\frac{Q_2-Q_1}{Q_1}}{100*\frac{P_2-P_1}{P_1}}\right\vert
+    \end{equation*}
+    which ignores direction, which is problematic, so you could use the midpoint formula method:
+    \begin{equation*}
+        |E_D| = \left\vert \frac{100*\frac{Q_2-Q_1}{(Q_2+Q_1)/2}}{100*\frac{P_2-P_1}{(P_2+P_1)/2}}\right\vert = \left\vert \frac{\frac{Q_2-Q_1}{(Q_2+Q_1)}}{\frac{P_2-P_1}{(P_2+P_1)}}\right\vert
+    \end{equation*}
+    Which is also referred to as "Arc Elasticity of Demand".\\~\\
+    Perfectly Elastic demand has $E_D = \infty$. That is, you can change price as much as you want, and the demand will not change.\\
+    Perfectly Inelastic demand has $E_D = 0$ which means the demand will shoot to 0 for any price change.\\
+    An elastic curve would look like the following:
+    \begin{center}
+        \begin{tikzpicture}[scale = 0.5]
+            \begin{axis}[
+                    axis lines = left,
+                    xlabel = Quantity,
+                    ylabel = Price,
+                    ymax = 40,
+                    xmax = 40,
+                    ymin = 0,
+                    xmin = 0,
+                    legend entries = {Demand}
+                ]
+                \addplot [
+                    domain=5:35,
+                    samples=10,
+                    color=red,
+                ]
+                {-0.5*x + 28};
+            \end{axis}
+        \end{tikzpicture}
+    \end{center}
+    While an inelastic curve would look more like the following:
+    \begin{center}
+        \begin{tikzpicture}[scale = 0.5]
+            \begin{axis}[
+                    axis lines = left,
+                    xlabel = Quantity,
+                    ylabel = Price,
+                    ymax = 40,
+                    xmax = 40,
+                    ymin = 0,
+                    xmin = 0,
+                    legend entries = {Demand}
+                ]
+                \addplot [
+                    domain=5:35,
+                    samples=10,
+                    color=red,
+                ]
+                {-1.5*x + 56};
+            \end{axis}
+        \end{tikzpicture}
+    \end{center}
+    \item Cross-price elasticity
+    \item Income elasticity
+    \item Price Elasticity of Supply
+\end{itemize}
 \end{document}

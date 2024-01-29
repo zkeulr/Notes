@@ -6,6 +6,7 @@
 \usepackage{amssymb}
 \usepackage{hyperref}
 \usepackage{pgfplots}
+\usepackage{centernot}
 \usepackage[activate={true,nocompatibility},final,tracking=true,kerning=true,spacing=true,factor=1100,stretch=10,shrink=10]{microtype}
 \usepackage{color}
 \usepackage{steinmetz}
@@ -601,5 +602,128 @@ A transformation is onto if for each point in $\mathbb{R}^n$, that is, the domai
     \item If $n>m$, the transformation cannot be one-to-one.
     \item If $m>n$, the transformation cannot be onto.
     \item If $m=n$, $T$ is onto $\iff$ $T$ is one-to-one.
+\end{itemize}
+\section{Matrix Operations}
+Sum:\\
+\begin{equation*}
+    u =
+    \begin{bmatrix}
+        3 \\
+        8 \\
+        12
+    \end{bmatrix}
+    +
+    \begin{bmatrix}
+        9 \\
+        4 \\
+        5
+    \end{bmatrix}
+    =
+    \begin{bmatrix}
+        3+9 \\
+        8+4 \\
+        12+5
+    \end{bmatrix} =
+    \begin{bmatrix}
+        12 \\
+        12 \\
+        17
+    \end{bmatrix}
+\end{equation*}
+Requires the matrices to be the same size.\\~\\
+Scalar multiplication:
+\begin{equation*}
+    u = 3*
+    \begin{bmatrix}
+        3 \\
+        8 \\
+        12
+    \end{bmatrix}
+    =
+    \begin{bmatrix}
+        3*3 \\
+        8*3 \\
+        12*3
+    \end{bmatrix} =
+    \begin{bmatrix}
+        9  \\
+        24 \\
+        36
+    \end{bmatrix}
+\end{equation*}
+If \textbf{A,B,C} are matrices of the same size:\
+\begin{itemize}
+    \item $\mathbf{A+B=B+A}$
+    \item $\mathbf{(A+B)+=A+(B+C)}$
+    \item $\mathbf{A+0=A}$
+    \item $r\mathbf{(A+B)=}r\mathbf{A}+r\mathbf{B}$
+    \item $(r+s)\mathbf{A=}r\mathbf{A}+s\mathbf{A}$
+    \item $r(s\mathbf{A}) = s(r\mathbf{A})$
+\end{itemize}
+Matrix Multiplication:\\
+Let \textbf{A} be an $m\times n$ matrix and \textbf{B} be an $n\times p$ matrix, and \textbf{B} has the columns $\mathbf{b_1,b_2,\ldots,b_n}$. \textbf{AB} is defined as the matrix with columns $\mathbf{Ab_1,Ab_2,\ldots,Ab_n}$.\\
+\textit{Note: the number of columns of \textbf{A}, is the same as the number of rows of \textbf{B}}.
+\begin{equation*}
+    \begin{bmatrix}
+        3 & 4\\
+        8 & 5\\
+        12 & 1
+    \end{bmatrix}
+    \begin{bmatrix}
+        2 & 1\\
+        1 & 3\\
+    \end{bmatrix}
+    =
+    \begin{bmatrix}
+        3(2)+4(1) & 3(1)+4(3)\\
+        8(2)+5(1) & 8(1)+5(3)\\
+        12(2)+1(1) & 12(1)+1(3)
+    \end{bmatrix} =
+    \begin{bmatrix}
+        10 & 15\\
+        21 & 23\\
+        25 & 15
+    \end{bmatrix}
+\end{equation*}
+Let $\mathbf{A}_{ij}$ be the entry in row $i$ and column $j$ of matrix \textbf{A}.
+\begin{equation*}
+    (\mathbf{AB})_{ij} = \mathbf{A}_{i1}\mathbf{B}_{1j}+\mathbf{A}_{i2}\mathbf{B}_{2j}+\mathbf{A}_{i3}\mathbf{B}_{3j}+\cdots+\mathbf{A}_{in}\mathbf{B}_{nj}
+\end{equation*}
+Matrix multiplication has the following properties:
+\begin{itemize}
+    \item $\mathbf{A(BC)=(AB)C}$
+    \item $\mathbf{A(B+C)=AB+AC}$
+    \item $\mathbf{(B+C)A=BA+CA}$
+    \item $r\mathbf{(AB)=(\textit{r}A)B = A(\textit{r}B)}$
+    \item $\mathbf{I_mA=A = AI_m}$
+\end{itemize}
+with $\mathbf{I_m}$ being the identity matrix.\\
+\textit{Note: $\mathbf{AB \neq BA}$} unless $\mathbf{B=I_n}\lor \mathbf{B=0}$\\
+\textit{Note: $\mathbf{AB=0} \centernot\implies \mathbf{A=0}\lor \mathbf{B=0} $}\\
+Powers of a matrix:\\
+If \textbf{A} is an $n\times n$ matrix, then $\mathbf{A}^k$ is the matrix that results from: 
+\begin{equation*}
+    \mathbf{A}^k = \underbrace{\mathbf{A} \times \mathbf{A} \times \cdots \times \mathbf{A}}_{\text{k times}}
+\end{equation*}
+Transpose of a Matrix:\\
+Given an $m\times n$ matrix, the transpose of this matrix is the $n\times m$ matrix, denoted by $\mathbf{A}^T$, whose columns are formed by the corresponding rows of \textbf{A}.
+\begin{equation*}
+    \begin{bmatrix}
+        a & b\\
+        c & d\\
+        e & f
+    \end{bmatrix}^T
+    =
+    \begin{bmatrix}
+        a & c & e\\
+        b & d & f\\
+    \end{bmatrix}
+\end{equation*}
+It has the following properties:
+\begin{itemize}
+    \item $(\mathbf{A}^{T})^T = \mathbf{A}$
+    \item $\mathbf{A+B}^{T} = \mathbf{A}^T+\mathbf{B}^T$
+    \item $(r\mathbf{A})^{T} = r\mathbf{A}^T$
+    \item $(\mathbf{AB})^{T} = \mathbf{A}^T\mathbf{B}^T$
 \end{itemize}
 \end{document}

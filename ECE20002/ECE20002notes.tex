@@ -848,25 +848,31 @@ Both $f(t)$ and $g(t)$ are being analyzed respective to a  reference time $t$.\\
 We will also define handedness as the side of $t$ in which  a function has a larger magnitude, should it not be symmetric. So, in this case $g(t)$ would be left-handed.\\
 The values within the integral perform operations on the functions. That is, $f(t)$ becomes $f(\tau)$, while $g(t)$ becomes $g(-\tau)$ (changes handedness) and is moved along the $\tau$ axis from by some predefined value $t$ between $-\infty\rightarrow\infty$. The convolution is the integral of the product of these two functions.\\
 So, while the two transformed functions do not overlap, the product is $0$, but once a time $t$ is analyzed at which they overlap, the integral begins to have values.\\ So, different predefined values of $t$ convolute to different values. However, the convolution will maximize at the time in which they have the maximum intersection.\\
-\subsection{Actual Convolution}
+\subsection{Actual Convolution (Mathematical and Continuous)}
 Looking at what happened above, we can observe that the output of convolution
 is a function of $t$, and has no effect of $\tau$. That is:
 \begin{equation*}
     f(t)*g(t) = Fn(t)
 \end{equation*}
-There is an important function within convolutions that we defined earlier. And it is important because it has the following properties:
+There is an important function within convolutions that we defined earlier. And it is important because it has the following property, also known as the sifting property:
 \begin{equation*}
-    f(t)*\delta(t) = \int_{-\infty}^{\infty} f(\tau)\delta(t-\tau)d\tau = x(t)
+    f(t)*\delta(t) = \int_{-\infty}^{\infty} f(\tau)\delta(t-\tau)d\tau = f(t)
 \end{equation*}
+and the sampling property:
 \begin{equation*}
-    f(t)*\delta(t_0) = \int_{-\infty}^{\infty} f(\tau)\delta(t_0-\tau)d\tau = x(t_0)
+    f(t)*\delta(t_0) = \int_{-\infty}^{\infty} f(\tau)\delta(t_0-\tau)d\tau = f(t_0)
 \end{equation*}
 That is, the $\delta$ function is the identity function for convolution.\\
 This can be proven by writing and solving the following integral that is using the $\delta$ function and allowing us to control the limits of the integral:
 \begin{equation*}
     x(t)*\delta(t-T) = \int_{(t-T)^-}^{(t-T)^+}x(\tau)\delta((t-T)-\tau)d\tau = x(t-T)
 \end{equation*}
-The unit step function can allow us to fund the convolution time period:
+The above function is also known as time shifting.\\
+We can analyze how convolution reacts to the unit step function:
+\begin{equation*}
+    f(t)*u(t) = \int_{-\infty}^{\infty} f(\tau)u(t-\tau)d\tau = \int_{-\infty}^{t} f(\tau)d\tau
+\end{equation*}
+However, for most functions $f(t)$, this is unbounded, and thus unusable. Instead, we convolute from a certain point of time, which is done like this:
 \begin{align*}
     y(t)=x(t)u(t)*u(t) & = \int_{-\infty}^{\infty} x(\tau)u(\tau)u(t-\tau)d\tau \\
                        & = \int_{0}^{t}x(\tau)d\tau u(t)
@@ -876,7 +882,7 @@ We will now learn some properties of convolution:
 \begin{itemize}
     \item Commutative Property: $f(t)*g(t)=g(t)*f(t)$
           \begin{align*}
-              f(t)*g(t)         & = \int_{-\infty}^{\infty}f(\tau)g(t-\tau)f\tau       \\
+              f(t)*g(t)         & = \int_{-\infty}^{\infty}f(\tau)g(t-\tau)d\tau       \\
               \text{if } \gamma & =t-\tau                                              \\
                                 & = \int_{-\infty}^{\infty}f(t-\gamma)g(\gamma)d\gamma \\
                                 & = g(t)*f(t)
@@ -885,6 +891,7 @@ We will now learn some properties of convolution:
     \item Distributive Property: $f(t)*[g(t)+h(t)]=f(t)*g(t)+f(t)*h(t)$
 \end{itemize}
 Convolution can also be used to create pulses through the convolution $x(t)u(t)*[u(t)-u(t-T)]$ which creates a pulse between $t-T$ and $t$.\\
+
 \subsection{Discrete Convolution}
 Convolution can also be done on a discrete domain, that is, on a domain that is
 non-continuous. In these domains, convolution is defined as:
@@ -914,5 +921,5 @@ The describing function of this circuit will be
     \text{since }\frac{d}{dt}u(t) & = \delta(t)                 \\
     \frac{d}{dt}(1-e^{-t})u(t)    & = e^{-t}
 \end{align*}
-The last equation represents the response of the circuit to an impulse. If we have one impulse, we can represent any input as a combination of step impulses. This would allow us to easily calculate the circuit's response and behavior computationally.
+The last equation represents the response of the circuit to an impulse. If we have one impulse, we can represent any input as a combination of step impulses. This would allow us to easily calculate the circuit's response and behavior computationally.\\
 \end{document}
