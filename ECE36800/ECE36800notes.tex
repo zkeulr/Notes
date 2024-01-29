@@ -404,8 +404,9 @@ Let us consider a triangle of the following form:
 If one were to start with the largest and go to the smallest, that is, if one were to $3a$-sort, and then $2a$-sort, all numbers in the array would be at most $a$ positions away from their correct positions.\\
 This can be semi-trivially proven under the assumption that if an array is $3a$-sorted and then $2a$-sorted, it will still be $3a$-sorted. This will not be solved in this document as it is a homework assignment.\\
 \section{Asymptotic Notation}
-The number of instructions executed is dependent on the number of inputs. As it gets larger, the number of instructions increases too.\\
-This has been generalized and classified using asymptotic notation.
+The number of instructions executed is dependent on the number of inputs. As it
+gets larger, the number of instructions increases too.\\ This has been
+generalized and classified using asymptotic notation.
 \begin{equation*}
     f(n) = O(g(n)) \iff \exists (c,n_0) \text{ such that }f(n)\leq cg(n) \quad \forall (n \geq n_0)
 \end{equation*}
@@ -419,6 +420,43 @@ However, we are searching for $g(n)$ such that it refers to the smallest and sim
 A good strategy to select $c$ is the sum of the absolute values of all the coefficients in $f(n)$.\\
 \textit{Note: $f(n)$ is equivalent to the $T(n)$ in the Time Complexity Analysis section.}\\
 Another proof of $f(n)=O(g(n))$ is $\lim_{n \rightarrow \infty}\frac{f(n)}{g(n)}\neq \infty$.\\
+However, it is not really necessary to go to this extent to find $c$ as there are several easier ways to find valid values. This method is an unnecessary complication for most cases.\\
 For $g(n)$ to be useful, it should be simpler than $f(n)$ such as $1,n,n^2$, $n\log(n), 2^n, n!$.\\
-However, once we go to exponential functions or above, the algorithms cease to be useful.
+However, once we go to exponential functions or above, the algorithms cease to be useful.\\
+Some properties of asymptotic notation are:
+\begin{align*}
+    f(n)&=O(f(n))\\
+    f(n)=O(g(n))\quad &\& \quad g(n) = O(h(n)) \implies f(n)=O(h(n))\\
+    f(n)=O(g(n))\quad &\& \quad g(n) = O(h(n)) \implies f(n)+g(n)=O(h(n))\\
+    f_1(n)=O(g_1(n))\quad &\& \quad f_2(n) = O(g_2(n)) \implies f_1(n)*f_2(n)=O(g_1(n)*g_2(n))\\
+\end{align*}
+Hierarchy of $O(n)$ (in this section, we will show what possible asymptotic notations functions can have.):\\
+\begin{enumerate}
+    \item $k=O(1)$
+    \item $k=O(\log_m(n))$
+    \item $k\log_m(n)=O(\log(n))$
+    \item $k{(\log_m(n))}^i=O(n)$
+    \item $kn=O(n)$
+    \item $kn\log_m(n)=O(n\log(n))$
+    \item $kn\log(n)=O(n^2)$
+    \item $kn^i=O(n^l) \quad \forall (j\geq i)$
+    \item $kn^j=O(d^n \quad \forall(d>1))$
+    \item $kd^n=O(d^n)\quad \forall (d>1)$
+    \item $kd_1^n=O(d_2^n) \quad \forall(d_1>1\quad \&\quad d_1<d_2)$
+    \item $kd^n = O(n!)$
+    \item $kn!=O(n!)$
+    \item $kn!=O(n^n)$
+    \item $kn^n=O(n^n)$
+\end{enumerate}
+There is a notation that goes hang in hand with $O(n)$:
+\begin{align*}
+    f(n)=O(g(n))&\implies g(n)=\Omega(f(n))\\
+    f(n)\leq g(n) &\implies g(n)\geq f(n)\\
+    &\implies \lim_{n\rightarrow\infty}\frac{f(n)}{g(n)}=0
+\end{align*}
+And another:
+\begin{align*}
+    f(n)=\Theta(g(n)) &\iff \exists(c_1,c_2,n_0)\quad c_1g(n)\leq f(n)\leq c_2g(n)\\
+    &\implies \lim_{n\rightarrow\infty}\frac{f(n)}{g(n)}\neq 0,\infty
+\end{align*}
 \end{document}

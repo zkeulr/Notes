@@ -82,7 +82,7 @@
 \maketitle
 
 \begin{abstract}
-    These are lecture notes for spring 2024 MA 26500 at Purdue. Modify, use, and distribute as you please.
+    These are lecture notes for spring 2024 MA 26500 at Purdue as taught by professor Siamak Yassemi. Modify, use, and distribute as you please.
 \end{abstract}
 
 \tableofcontents
@@ -239,7 +239,7 @@ By using these three rules, one can reduce it to the following form:
         0 & 0   & 1   & c_4
     \end{bmatrix}
 \end{equation*}
-This will result in a trivially solvable unique-solution system of equations. This is also known as a \textbf{consistent} system of equations. We can substitute the value of $x_3$, which is $c_4$, into the equation in the row above, and solve it, as it willnow be a single equation with a single variable. This can be done sequentially until all values are found.\\~\\
+This will result in a trivially solvable unique-solution system of equations. This is also known as a \textbf{consistent} system of equations. We can substitute the value of $x_3$, which is $c_4$, into the equation in the row above, and solve it, as it will now be a single equation with a single variable. This can be done sequentially until all values are found.\\~\\
 Note: If the resulting form is instead
 \begin{equation*}
     \begin{bmatrix}
@@ -394,12 +394,12 @@ A vector is a linear combination of other vectors if:
 \begin{equation*}
     c_1\mathbf{u_1}+c_2\mathbf{u_2}+c_3\mathbf{u_3} \ldots c_n\mathbf{u_n} = \mathbf{v}
 \end{equation*}
-For any set of vectors, there is an infinite amount of linear combinations, as the values of the constants they are multiplied with are not restrained by anything and they cound be a part of any domain, be it $\mathbb{R}, \mathbb{I}, \text{or } \mathbb{C}$.\\
-To find if a vector is a linear combination of other matrices, we can create an augmented matrix with the desired vector as the constant column, and all relevant vectors, as the elements of the coeffiecient matrix part of the augmented matrix.\\
-Should there be a free variable in the resolution of teh augmented matrix, there will be infinitely many linear combinations that fulfill the condition we desire.\\
-The $span(\mathbf{v_1}, \mathbf{v_2}, \mathbf{v_3}, \ldots, \mathbf{v_n})$ is the set of all linear combinations of these vectors. So , if asked whether a vector is in the span of other vectors, it is equivalent ot asking if there exists a linear combination of vectors that results in the desired vector.\\
+For any set of vectors, there is an infinite amount of linear combinations, as the values of the constants they are multiplied with are not restrained by anything, and they could be a part of any domain, be it $\mathbb{R}, \mathbb{I}, \text{or } \mathbb{C}$.\\
+To find if a vector is a linear combination of other matrices, we can create an augmented matrix with the desired vector as the constant column, and all relevant vectors, as the elements of the coefficient matrix part of the augmented matrix.\\
+Should there be a free variable in the resolution of the augmented matrix, there will be infinitely many linear combinations that fulfill the condition we desire.\\
+The $span(\mathbf{v_1}, \mathbf{v_2}, \mathbf{v_3}, \ldots, \mathbf{v_n})$ is the set of all linear combinations of these vectors. So, if asked whether a vector is in the span of other vectors, it is equivalent to asking if there exists a linear combination of vectors that results in the desired vector.\\
 \section{Matrix Equation \textbf{Ax} = \textbf{b}}
-Let $\mathbf{A}$ be a $m\times n$ matrix. The product of $\mathbf{A}$ and $\mathbf{x}$ will be the linear combination of the columns of $\mathbf{A}$ using the entries of $\mathbf{x}$ as weights.
+Let $\mathbf{A}$ be an $m\times n$ matrix. The product of $\mathbf{A}$ and $\mathbf{x}$ will be the linear combination of the columns of $\mathbf{A}$ using the entries of $\mathbf{x}$ as weights.
 \begin{equation*}
     \mathbf{A}\mathbf{x} =
     \begin{bmatrix}
@@ -466,8 +466,8 @@ trivial solution will also need to exist, as anything multiplied by 0 is 0.\\
 if and only if there is a free variable.\\ \quad Suppose $\mathbf{Ax=b}$ is
 consistent with solution $\mathbf{p}$, the solution set of the system will be
 the set of all the vectors of the form $\mathbf{w=p+v}$ where \textbf{v} is the
-solution set of the homogenous equation.\\
-3 planes containing the origin could have three kinds of intersections:
+solution set of the homogenous equation.\\ 3 planes containing the origin could
+have three kinds of intersections:
 \begin{enumerate}
     \item Point: origin --- 0 free variables
     \item Line: through origin --- 1 free variable
@@ -488,45 +488,118 @@ Thus, the solution set can be represented as:
     \mathbf{x}=
     x_2
     \begin{bmatrix}
-        -2\\ 1 \\ 0 \\ 0
+        -2 \\ 1 \\ 0 \\ 0
     \end{bmatrix} +x_3
     \begin{bmatrix}
-        0\\ 0 \\ 1 \\ 0
+        0 \\ 0 \\ 1 \\ 0
     \end{bmatrix} + x_4
     \begin{bmatrix}
-        3\\ 0 \\ 0 \\ 1
+        3 \\ 0 \\ 0 \\ 1
     \end{bmatrix}
 \end{equation*}
-This can be done for any $\mathbb{R}^n$ homogenous matrix. 
+This can be done for any $\mathbb{R}^n$ homogenous matrix.
 \begin{enumerate}
     \item Make each free variable 1 for its corresponding $x_n$
-    \item Go to each row, and solve the 1 variable equation, with free variable we are solving for being 1.
-    \item Write the aforementioned solution in the corresponding position of the multiplied matrix to $x_n$ 
+    \item Go to each row, and solve the 1 variable equation, with free variable we are
+          solving for being 1.
+    \item Write the aforementioned solution in the corresponding position of the
+          multiplied matrix to $x_n$
 \end{enumerate}
 \section{Linear Independence}
-A set of vectors is linearly independent if the vector equation $\mathbf{Ax=0}$ has only the trivial solution. It is linearly dependent if there exist solutions distinct to the trivial solution that fulfill the aforementioned property.\\
-The columns of matrix $\mathbf{A}$ are linearly independent if and only if $\mathbf{Ax=0}$ has only the trivial solution.\\
-If every column of A has a pivot position for $\mathbf{Ax=b}$, there is only one solution, and thus it is linearly independent.\\~\\
-So,
+A set of vectors is linearly independent if the vector equation $\mathbf{Ax=0}$
+has only the trivial solution. It is linearly dependent if there exist
+solutions distinct to the trivial solution that fulfill the aforementioned
+property.\\ The columns of matrix $\mathbf{A}$ are linearly independent if and
+only if $\mathbf{Ax=0}$ has only the trivial solution.\\ If every column of A
+has a pivot position for $\mathbf{Ax=b}$, there is only one solution, and thus
+it is linearly independent.\\~\\ So,
 \begin{itemize}
     \item One vector is always linearly independent as long as it is non-zero.
-    \item Two vectors are linearly dependent if and only if one vector is a scalar multiple of the other.
-    \item For three or more vectors, if a vector is a linear combination of the others, it is linearly dependent.
+    \item Two vectors are linearly dependent if and only if one vector is a scalar
+          multiple of the other.
+    \item For three or more vectors, if a vector is a linear combination of the others,
+          it is linearly dependent.
 \end{itemize}
 If a set has more vectors than entries in each vector, then the set is linearly dependent. For example:
 \begin{equation*}
     \left\{
     \begin{bmatrix}
-        -2\\ 1 \\
+        -2 \\ 1 \\
     \end{bmatrix},
     \begin{bmatrix}
-        0\\ 1 \\
+        0 \\ 1 \\
     \end{bmatrix},
     \begin{bmatrix}
-        3\\ 0 \\
+        3 \\ 0 \\
     \end{bmatrix}
     \right\}
 \end{equation*}
 \textit{Note: If $\mathbf{A}$ is an $n \times p$ matrix, it has n rows and p unknowns}.\\
 If a set contains the $\mathbf{0}$ vector, it is linearly dependent.\\
+\section{Introduction to Linear Transformations}
+A transformation or function $T$ from $\mathbb{R}^n$ to $\mathbb{R}^m$ is a
+rule that takes each vector in $\mathbb{R}^n$ and assigns to it a vector in
+$\mathbb{R}^m$.\\ The set $\mathbb{R}^n$ is called the domain, and the set
+$\mathbb{R}^m$ is called the codomain of $T$.\\ The notation is:
+\begin{equation*}
+    T: \mathbb{R}^n \rightarrow \mathbb{R}^m
+\end{equation*}
+so $\mathbf{x}\in\mathbb{R}^n$ and $T(\mathbf{x})\in\mathbb{R}^m$.\\
+A Matrix Transformation consists of a matrix $m\times n$ can define a transformation from $\mathbb{R}^n$ to $\mathbb{R}^m$.
+That is:
+\begin{equation*}
+    \mathbf{x \mapsto A_{n\rightarrow m}x}
+\end{equation*}
+or
+\begin{equation*}
+    T(\mathbf{x})=\mathbf{Ax}
+\end{equation*}
+In essence, a matrix transformation is the multiplication of the matrix \textbf{x} with a matrix \textbf{A} that results in the final transformed matrix that we desire.\\
+So, when asked about the existence of $T(\mathbf{x})=\mathbf{b}$, all that is necessary is the creation and resolution of the augmented matrix of \textbf{A} and \textbf{b}.\\
+This allows for a multitude of geometric transformations such as:
+\begin{center}
+    \includegraphics[width = 200px]{images/transformation_use.png}
+\end{center}
+A linear transformation has the following properties:
+\begin{itemize}
+    \item $T(\mathbf{u+v})=T(\mathbf{u})+T(\mathbf{v})$
+    \item $T(c\mathbf{u})=cT(\mathbf{u})$
+    \item $T(\mathbf{0})=\mathbf{0}$ --- which is quite useful for an initial verification of linear transformations
+    \item $T(c\mathbf{u}+d\mathbf{v})= cT(\mathbf{u})+dT(\mathbf{v})$
+\end{itemize}
+\textit{Note: all matrix transformations are linear transformations, but not all linear transformations are matrix transformations.}\\
+If a matrix is in the range of $T$, it is a linear transformation of the columns of the matrix \textbf{A} that defines $T(x)$.\\
+Let $T$ be a linear transformation. There exists a matrix such that $T(\mathbf{x})=\mathbf{Ax}$. So, we will now work on finding \textbf{A}.\\
+We know that:
+\begin{equation*}
+    T
+    \begin{bmatrix}
+        x_1 \\ x_2 \\
+    \end{bmatrix} = T\left(x_1
+    \begin{bmatrix}
+        1 \\ 0 \\
+    \end{bmatrix}+x_2
+    \begin{bmatrix}
+        0 \\ 1 \\
+    \end{bmatrix}\right)
+\end{equation*}
+For any linear transformation there exists a unique matrix \textbf{A}, called the standard matrix of $T$, that, in most cases, can be found using the above property.\\
+One just needs to find the values of the transformation of all the vectors of the form:
+\begin{equation*}
+    \begin{bmatrix}
+        0 \\ 0 \\ \vdots \\ 1 \\ \vdots \\0\\0
+    \end{bmatrix}
+\end{equation*}
+and each transformation of each vector will be it's respective column of the matrix \textbf{A}.\\
+A transformation is one-to-one if for each point in $\mathbb{R}^m$, that is, the range, every point has at most one vector in $\mathbb{R}^n$ that transforms into it.\\
+A transformation is onto if for each point in $\mathbb{R}^n$, that is, the domain, every point has a transformation.\\
+\begin{itemize}
+    \item A linear transformation $T$ is one-to-one if and only if $T(x)=0$ has just the trivial solution.
+    \item $T$ is one-to-one $\iff$ the columns are linearly independent.
+    \item $T$ maps $\mathbb{R}^n$ onto $\mathbb{R}^m$ $\iff$ the columns of \textbf{A} span $\mathbb{R}^m$.
+    \item $T$ is onto $\iff$ there is a pivot position in every row.
+    \item If $n>m$, the transformation cannot be one-to-one.
+    \item If $m>n$, the transformation cannot be onto.
+    \item If $m=n$, $T$ is onto $\iff$ $T$ is one-to-one.
+\end{itemize}
 \end{document}
