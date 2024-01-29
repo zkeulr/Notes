@@ -374,7 +374,6 @@ and the final form will be:
     v_C(t) = \left(3-\frac{5R}{-3RC+1}\right)e^{\frac{-t}{RC}}+\frac{5R}{-3RC+1}e^{-3t}
 \end{equation*}
 Similar solutions can be found for different inputs, and for RL circuits as well.
-\newpage
 \section{Using ODEs for LC circuits}
 \subsection{Solving Second Order ODEs}
 We can start this by understanding the method of resolution of second order
@@ -513,8 +512,6 @@ If we were given initial conditions of  the form $v_C(0) = k_1, i_L(0) = k_2$ in
     v_C(t) = v_L(t) & = L\frac{di_L(t)}{dt}
 \end{align*}
 to successfully derive the values of the missing constants.
-
-\newpage
 \section{RLC Circuits}
 The first circuit to be analyzed for this case is the parallel RLC circuit
 \begin{center}
@@ -851,6 +848,12 @@ Both $f(t)$ and $g(t)$ are being analyzed respective to a  reference time $t$.\\
 We will also define handedness as the side of $t$ in which  a function has a larger magnitude, should it not be symmetric. So, in this case $g(t)$ would be left-handed.\\
 The values within the integral perform operations on the functions. That is, $f(t)$ becomes $f(\tau)$, while $g(t)$ becomes $g(-\tau)$ (changes handedness) and is moved along the $\tau$ axis from by some predefined value $t$ between $-\infty\rightarrow\infty$. The convolution is the integral of the product of these two functions.\\
 So, while the two transformed functions do not overlap, the product is $0$, but once a time $t$ is analyzed at which they overlap, the integral begins to have values.\\ So, different predefined values of $t$ convolute to different values. However, the convolution will maximize at the time in which they have the maximum intersection.\\
+\subsection{Actual Convolution}
+Looking at what happened above, we can observe that the output of convolution
+is a function of $t$, and has no effect of $\tau$. That is:
+\begin{equation*}
+    f(t)*g(t) = Fn(t)
+\end{equation*}
 There is an important function within convolutions that we defined earlier. And it is important because it has the following properties:
 \begin{equation*}
     f(t)*\delta(t) = \int_{-\infty}^{\infty} f(\tau)\delta(t-\tau)d\tau = x(t)
@@ -859,10 +862,57 @@ There is an important function within convolutions that we defined earlier. And 
     f(t)*\delta(t_0) = \int_{-\infty}^{\infty} f(\tau)\delta(t_0-\tau)d\tau = x(t_0)
 \end{equation*}
 That is, the $\delta$ function is the identity function for convolution.\\
-\subsection{Actual Convolution}
-Looking at what happened above, we can observe that the output of convolution is a function of $t$, and has no effect of $\tau$. That is:
+This can be proven by writing and solving the following integral that is using the $\delta$ function and allowing us to control the limits of the integral:
 \begin{equation*}
-    f(t)*g(t) = Fn(t)
+    x(t)*\delta(t-T) = \int_{(t-T)^-}^{(t-T)^+}x(\tau)\delta((t-T)-\tau)d\tau = x(t-T)
 \end{equation*}
-
+The unit step function can allow us to fund the convolution time period:
+\begin{align*}
+    y(t)=x(t)u(t)*u(t) & = \int_{-\infty}^{\infty} x(\tau)u(\tau)u(t-\tau)d\tau \\
+                       & = \int_{0}^{t}x(\tau)d\tau u(t)
+\end{align*}
+These examples and uses have allowed us to get a basic understanding of convolution and its uses.\\
+We will now learn some properties of convolution:
+\begin{itemize}
+    \item Commutative Property: $f(t)*g(t)=g(t)*f(t)$
+          \begin{align*}
+              f(t)*g(t)         & = \int_{-\infty}^{\infty}f(\tau)g(t-\tau)f\tau       \\
+              \text{if } \gamma & =t-\tau                                              \\
+                                & = \int_{-\infty}^{\infty}f(t-\gamma)g(\gamma)d\gamma \\
+                                & = g(t)*f(t)
+          \end{align*}
+    \item Associative Property: $[f(t)*g(t)]*h(t) = f(t)*[g(t)*h(t)]$
+    \item Distributive Property: $f(t)*[g(t)+h(t)]=f(t)*g(t)+f(t)*h(t)$
+\end{itemize}
+Convolution can also be used to create pulses through the convolution $x(t)u(t)*[u(t)-u(t-T)]$ which creates a pulse between $t-T$ and $t$.\\
+\subsection{Discrete Convolution}
+Convolution can also be done on a discrete domain, that is, on a domain that is
+non-continuous. In these domains, convolution is defined as:
+\begin{equation*}
+    f[n]*g[n] = \sum_{m=-\infty}^{\infty}f[m]g[n-m]
+\end{equation*}
+where $f[n] = [k_1,k_2,k_3,k_4,k_5]$ and $g[n] = [c_1,c_2,c_3,c_4]$ correspond to the values of these functions starting from $0$ and moving forward on the integer domain. So, in this case, $f[1] = k_2$.\\
+The convolution of these is similar to ordinary convolution, however, the "sliding" of $g[n]$ would be along integers and not the real numbers.\\
+Discrete convolution is also commutative, associative, and distributive.\\
+Discrete convolution is used for computational calculations of convolution, with the domain including more numbers than just integers. It is considered that the appropriate spacing between two points should be at most $0.2*(FWHM)$, where FWHM is the width of the formed curve at half the maximum height of the convolution. The extension of the tails, that is, the width of the domain should be about $20FWHM$ on each side of the maximum.\\
+Let us take the following circuit:
+\begin{center}
+    \begin{circuitikz}[american voltages]
+        \draw (0,2)
+        to[V, l=$V_{in}$] (0,0);
+        \draw (0,2)
+        to [R, l=$1\Omega$] (2,2)
+        to [C, l=$1F$] (2,0)
+        to [short, -] (0,0);
+    \end{circuitikz}
+\end{center}
+The describing function of this circuit will be
+\begin{align*}
+    v_{out}(t)                    & = v_{in}(t)-v_{in}(t)e^{-t} \\
+    \text{if }v_{in}(t)           & = u(t)                      \\
+    v_{out}(t)                    & = (1-e^{-t})u(t)            \\
+    \text{since }\frac{d}{dt}u(t) & = \delta(t)                 \\
+    \frac{d}{dt}(1-e^{-t})u(t)    & = e^{-t}
+\end{align*}
+The last equation represents the response of the circuit to an impulse. If we have one impulse, we can represent any input as a combination of step impulses. This would allow us to easily calculate the circuit's response and behavior computationally.
 \end{document}
