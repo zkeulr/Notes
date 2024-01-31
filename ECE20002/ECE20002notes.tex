@@ -922,4 +922,52 @@ The describing function of this circuit will be
     \frac{d}{dt}(1-e^{-t})u(t)    & = e^{-t}
 \end{align*}
 The last equation represents the response of the circuit to an impulse. If we have one impulse, we can represent any input as a combination of step impulses. This would allow us to easily calculate the circuit's response and behavior computationally.\\
+\section{Impulse Response}
+We start this section by defining Linear Time Invariant (LTI) Systems, which are
+circuits that relate to inputs linearly and outside the domain or control of
+time. That is, the highest power of elements in the ODE that defines the
+circuit is $1$.\\ For example:
+\begin{equation*}
+    y(t) = \frac{d^2x(t)}{dt^2}
+\end{equation*} is linear, but
+\begin{equation*}
+    y(t) = \frac{dx^2(t)}{dt}
+\end{equation*}
+is not.\\
+The time invariance indicates a relation between input $x(t)\rightarrow y(t)$ output, and input $x(t-T)\rightarrow y(t-T)$ output.\\
+Let us look at the following LTI system:
+\begin{center}
+    \begin{circuitikz}[american voltages]
+        \draw (0,2)
+        to[V, l=$V_{in}$] (0,0);
+        \draw (0,2)
+        to [R, l=$R$] (2,2)
+        to [L, l=$L$] (4,2)
+        to [C, l=$C$] (4,0)
+        to [short, -] (0,0);
+    \end{circuitikz}
+\end{center}
+Let $h(t)$ be the convolution function of this LTI.
+\begin{align*}
+    \implies x(t)*h(t)&=y(t)\\
+    \text{but if } x(t) &= \delta(t)\\
+    \delta(t)*h(t) &= h(t) = y(t)
+\end{align*}
+We will call this function $h(t)$ the impulse response.\\
+If we were to know the magnitude of the input $x(t)$ at a given time, $\Delta t$, we could define the convolved function with $h(t)$ as $x(t) = |x(\Delta t)|\delta(t-\Delta t)$, which would in turn allow us to, through convolution, solve for the effect of the input on the output at this moment.
+\begin{equation*}
+    x(t)*h(t)=|x(\Delta t)|\delta(t-\Delta t) * h(t) = |x(\Delta t)|h(t-\Delta T)
+\end{equation*}
+We could then add all the effects across evenly spaced discrete times of the convolution and add them for their values at a given time $t$, allowing us to acquire a good estimate of the output at this time. This would end up looking like the following:
+\begin{equation*}
+    |x(0)|h(0)+|x(\Delta t)|h(t-\Delta t)+|x(2\Delta t)|h(t-2\Delta t)+|x(3\Delta t)|h(t-3\Delta t)\ldots
+\end{equation*}
+Let us apply this for a solved output to calculate the impulse response:
+\begin{align*}
+    i(t)&= (1-e^{-10t})u(t)\\
+    \frac{d}{dt}u(t) &= \delta(t)\\
+    \implies \frac{d}{dt}(1-e^{-10t}) &= h(t) = 10e^{-10t}u(t)
+\end{align*}
+Now let us assume, we changed the input to another, all we would need to do would be to convolve this new input with $h(t)$, and we would get the output $y(t)$.\\
+\textit{NOTE: $h(t)$ is the derivative of the step response for an LTI, which is of the form $f(t)u(t)$, with f(t) being the defining equation of the system,}
 \end{document}
