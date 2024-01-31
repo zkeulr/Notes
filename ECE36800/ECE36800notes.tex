@@ -451,12 +451,56 @@ Hierarchy of $O(n)$ (in this section, we will show what possible asymptotic nota
 There is a notation that goes hang in hand with $O(n)$:
 \begin{align*}
     f(n)=O(g(n))&\implies g(n)=\Omega(f(n))\\
-    f(n)\leq g(n) &\implies g(n)\geq f(n)\\
+    \exists c, n_0 \mid f(n)\leq g(n) & \implies \exists c', n_0' \mid g(n)\geq f(n)\\
     &\implies \lim_{n\rightarrow\infty}\frac{f(n)}{g(n)}=0
 \end{align*}
-And another:
+And another, the Theta Notation:
 \begin{align*}
     f(n)=\Theta(g(n)) &\iff \exists(c_1,c_2,n_0)\quad c_1g(n)\leq f(n)\leq c_2g(n)\\
-    &\implies \lim_{n\rightarrow\infty}\frac{f(n)}{g(n)}\neq 0,\infty
+    &\iff \lim_{n\rightarrow\infty}\frac{f(n)}{g(n)}\neq 0,\infty\\
+    &\iff [f(n) = O(g(n))] \land [g(n) = O(f(n))]
 \end{align*}
+And finally the little-o notation:
+\begin{align*}
+    f(n) = o(g(n)) &\iff \lim_{n\rightarrow\infty}\frac{f(n)}{g(n)} = 0\\
+    &\iff \forall c,\exists n_0 \mid f(n)\leq cg(n) \quad \forall n\geq n_0
+\end{align*}
+Which leads to the little-omega notation:
+\begin{align*}
+    g(n) = \omega(f(n)) &\iff f(n) = o(g(n))\\
+    &\iff \lim_{n\rightarrow\infty}\frac{g(n)}{f(n)} = \infty
+\end{align*}
+\textit{For most cases, if f is $O(g)$, but not $\Theta(g)$, it is $o(g)$. Exceptional cases would be like $f(n) = n^{|\sin(n)|}$, which seldom exist.}
+\section{Linked Lists}
+A list is a linear collection of items that can be inserted and removed at any position.\\
+Arrays have O(1) access and overwrite, although insertion or removal may be more than O(1). The size of the array is necessary to program correctly.\\
+A linked list has the followings structure defining it:
+\begin{lstlisting}
+typedef int Info_t;
+typedef struct _Node
+{
+    Info_t data;
+    struct _Node *next;
+} Node;
+
+typedef struct _Header
+{
+    Node *head;
+    Node *tail;
+} Header;
+\end{lstlisting}
+Need to have Head, without it, we cannot do anything.\\
+One can also have the tail, if we so wanted.\\
+The header may contain the addresses of the head, tail, and other useful information for easy access.\\
+They have primitive operations:
+\begin{itemize}
+    \item Empty: return true/false 
+    \item First: return address to first node 
+    \item Last: return address to lat node 
+    \item Insert at head: insert as the first node of the list 
+    \item Insert at tail: insert as last node
+    \item Remove at head
+    \item etc.
+\end{itemize}
+
 \end{document}
