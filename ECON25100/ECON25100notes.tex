@@ -894,6 +894,119 @@ What is important about this are the sign and magnitude. It is positive if when 
             \end{axis}
         \end{tikzpicture}
     \end{center}
+    Different factors, such as 
+    \begin{itemize}
+        \item Availability of substitutes
+        \item Duration of purchase horizon, that is how much time there is to purchase the product
+        \item Expenditure share of consumer budget, that is proportion of total income that the purchase will consume
+        \item Necessity or Luxury?
+        \item Products with lower search costs, that is how easy it is to come across the product
+        \item Addiction
+    \end{itemize}
+    can affect the elasticity of demand.\\
+    The elasticity varies along the demand curve. At a higher price, the elasticity is higher, as the formula indicates. 
+    \begin{center}
+        \begin{tikzpicture}[scale = 0.5]
+            \begin{axis}[
+                    axis lines = left,
+                    xlabel = Quantity,
+                    ylabel = Price,
+                    ymax = 40,
+                    xmax = 40,
+                    ymin = 0,
+                    xmin = 0,
+                    legend entries = {Demand}
+                ]
+                \addplot [
+                    domain=0:30,
+                    samples=10,
+                    color=red,
+                ]
+                {-1*x + 30};
+                \addplot [black, mark=diamond] coordinates {(15,15)};
+                \addplot [green, mark=diamond] coordinates {(5,25)};
+                \addplot [purple, mark=diamond] coordinates {(25,5)};
+            \end{axis}
+        \end{tikzpicture}
+    \end{center}
+    At the green diamond, if we were to use the midpoint formula, the elasticity would be quite high, while at the purple diamond, it would be low. The black diamond, which is the midpoint of the curve, would be unitary elastic.\\
+    So, it would be unitary elastic at the point (Q,P) where $Q=\frac{y-intercept}{2}$ and $P = \frac{x-intercept}{2}$.\\
+    Total revenue is defined as $P*Q$.\\ A change in price leads to a change in quantity demanded, in the opposite direction.\\
+    The price of elasticity of demand tells us whether we should increase or decrease the price.\\
+    One should decrease the price if the demand is elastic. One should increase the price if the demand is elastic. This allows us to draw the following plots:
+    \begin{center}
+        \begin{tikzpicture}[scale = 0.5]
+            \begin{axis}[
+                    axis lines = left,
+                    xlabel = Quantity,
+                    ylabel = Price,
+                    ymax = 40,
+                    xmax = 40,
+                    ymin = 0,
+                    xmin = 0,
+                    legend entries = {Demand}
+                ]
+                \addplot [
+                    domain=5:35,
+                    samples=10,
+                    color=red,
+                ]
+                {-0.5*x + 28};
+                \addplot [black, dashed, fill=gray, fill opacity=0.3] coordinates {(0,18) (20,18) (20,0)} \closedcycle;
+                \addplot [black, dashed, fill=gray, fill opacity=0.4] coordinates {(0,20) (16,20) (16,0)} \closedcycle;
+            \end{axis}
+        \end{tikzpicture}
+        \begin{tikzpicture}[scale = 0.5]
+            \begin{axis}[
+                    axis lines = left,
+                    xlabel = Quantity,
+                    ylabel = Price,
+                    ymax = 40,
+                    xmax = 40,
+                    ymin = 0,
+                    xmin = 0,
+                    legend entries = {Demand}
+                ]
+                \addplot [
+                    domain=5:35,
+                    samples=10,
+                    color=red,
+                ]
+                {-1.5*x + 56};
+                \addplot [black, dashed, fill=gray, fill opacity=0.3] coordinates {(0,18) (25,18) (25,0)} \closedcycle;
+                \addplot [black, dashed, fill=gray, fill opacity=0.4] coordinates {(0,20) (23.5,20) (23.5,0)} \closedcycle;
+            \end{axis}
+        \end{tikzpicture}
+    \end{center}
+    It can be seen that an increase in price in the first graph would lead to a larger decrease in quantity, causing the revenue to fall. In the other one, we can see that an increase in price would only slightly decrease the quantity demanded, which is an increase in the revenue.\\
+    Thus, we can conclude that the revenue also varies along the demand curve.\\
+    The revenue looks like this:
+    \begin{center}
+        \begin{tikzpicture}[scale = 0.5]
+            \begin{axis}[
+                    axis lines = left,
+                    xlabel = Quantity,
+                    ylabel = Revenue,
+                    ymax = 40,
+                    xmax = 40,
+                    ymin = 0,
+                    xmin = 0,
+                    legend entries = {Revenue},
+                    xtick={0, 20, 40},
+                    xticklabels = {$0$, {$\frac{B}{2}$}, $B$},
+                    ytick=\empty
+                ]
+                \addplot [
+                    domain=0:40,
+                    samples=100,
+                    color=magenta,
+                ]
+                {-(0.075)*x^2 + 3*x};
+                \addplot [black, dashed] coordinates {(20,0) (20,30)};
+            \end{axis}
+        \end{tikzpicture}
+    \end{center}
+    So, when the demand is unit elastic, the revenue is maximized.
     \item Cross-price elasticity
     \item Income elasticity
     \item Price Elasticity of Supply

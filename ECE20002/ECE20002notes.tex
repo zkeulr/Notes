@@ -854,7 +854,7 @@ is a function of $t$, and has no effect of $\tau$. That is:
 \begin{equation*}
     f(t)*g(t) = Fn(t)
 \end{equation*}
-There is an important function within convolutions that we defined earlier. And it is important because it has the following property, also known as the sifting property:
+There is an important function within convolutions that we defined earlier. And it is important because it has the following property, also known as the shifting property:
 \begin{equation*}
     f(t)*\delta(t) = \int_{-\infty}^{\infty} f(\tau)\delta(t-\tau)d\tau = f(t)
 \end{equation*}
@@ -923,9 +923,9 @@ The describing function of this circuit will be
 \end{align*}
 The last equation represents the response of the circuit to an impulse. If we have one impulse, we can represent any input as a combination of step impulses. This would allow us to easily calculate the circuit's response and behavior computationally.\\
 \section{Impulse Response}
-We start this section by defining Linear Time Invariant (LTI) Systems, which are
-circuits that relate to inputs linearly and outside the domain or control of
-time. That is, the highest power of elements in the ODE that defines the
+We start this section by defining Linear Time Invariant (LTI) Systems, which
+are circuits that relate to inputs linearly and outside the domain or control
+of time. That is, the highest power of elements in the ODE that defines the
 circuit is $1$.\\ For example:
 \begin{equation*}
     y(t) = \frac{d^2x(t)}{dt^2}
@@ -949,11 +949,11 @@ Let us look at the following LTI system:
 \end{center}
 Let $h(t)$ be the convolution function of this LTI.
 \begin{align*}
-    \implies x(t)*h(t)&=y(t)\\
-    \text{but if } x(t) &= \delta(t)\\
-    \delta(t)*h(t) &= h(t) = y(t)
+    \implies x(t)*h(t)  & =y(t)         \\
+    \text{but if } x(t) & = \delta(t)   \\
+    \delta(t)*h(t)      & = h(t) = y(t)
 \end{align*}
-We will call this function $h(t)$ the impulse response.\\
+We will call this function $h(t)$ the impulse response. In essence, $h(t)$ is the output of the circuit when the input of the function is $\delta (t)$\\
 If we were to know the magnitude of the input $x(t)$ at a given time, $\Delta t$, we could define the convolved function with $h(t)$ as $x(t) = |x(\Delta t)|\delta(t-\Delta t)$, which would in turn allow us to, through convolution, solve for the effect of the input on the output at this moment.
 \begin{equation*}
     x(t)*h(t)=|x(\Delta t)|\delta(t-\Delta t) * h(t) = |x(\Delta t)|h(t-\Delta T)
@@ -964,10 +964,15 @@ We could then add all the effects across evenly spaced discrete times of the con
 \end{equation*}
 Let us apply this for a solved output to calculate the impulse response:
 \begin{align*}
-    i(t)&= (1-e^{-10t})u(t)\\
-    \frac{d}{dt}u(t) &= \delta(t)\\
-    \implies \frac{d}{dt}(1-e^{-10t}) &= h(t) = 10e^{-10t}u(t)
+    i(t)                              & = (1-e^{-10t})u(t)      \\
+    \frac{d}{dt}u(t)                  & = \delta(t)             \\
+    \implies \frac{d}{dt}(1-e^{-10t}) & = h(t) = 10e^{-10t}u(t)
 \end{align*}
-Now let us assume, we changed the input to another, all we would need to do would be to convolve this new input with $h(t)$, and we would get the output $y(t)$.\\
-\textit{NOTE: $h(t)$ is the derivative of the step response for an LTI, which is of the form $f(t)u(t)$, with f(t) being the defining equation of the system,}
+Now let us assume, we changed the input to another, all we would need to do would be to convolve this new input with $h(t)$, and we would get the output $y(t)$. This output will in fact contain both the homogenous and particular solutions of the system.\\
+\textit{NOTE: $h(t)$ is the derivative of the step response for an LTI, which is of the form $f(t)u(t)$, with f(t) being the defining equation of the system.}\\
+The above note leads to the following two steps to find the impulse response:
+\begin{enumerate}
+    \item Find unit step response of the function by setting the input to be $u(t)$
+    \item $h(t) = \frac{d}{dt}(\text{unit step response})$
+\end{enumerate}
 \end{document}

@@ -8,12 +8,14 @@
 \usepackage[activate={true,nocompatibility},final,tracking=true,kerning=true,spacing=true,factor=1100,stretch=10,shrink=10]{microtype}
 \usepackage{color}
 
+
 % Fixes captions and images being cut off
 \usepackage{marginfix}
 \usepackage{array}
 \usepackage{tikz}
 \usepackage{amsmath,amsthm}
 \usetikzlibrary{shapes}
+\usetikzlibrary{matrix}
 \usetikzlibrary{positioning}
 \usepackage{listings}
 \usepackage{caption}
@@ -627,7 +629,7 @@ We will start by defining some things:\\
           \end{center}
           This has another notation, in which each row that is true is added to the sum:
           \begin{equation*}
-              F = (1,0,0,1,1,1,0,1)=\sum_{X,Y,X}(0,3,4,5,7)
+              F = (1,0,0,1,1,1,0,1)=\sum_{X,Y,Z}(0,3,4,5,7)
           \end{equation*}
     \item A \textit{canonical product} of a function is the product of the maxterms
           corresponding to the truth table rows where the function is 0.
@@ -636,7 +638,7 @@ We will start by defining some things:\\
           \end{center}
           This also has another notation:
           \begin{equation*}
-              F = (1,0,0,1,1,1,0,1)=\prod_{X,Y,X}(1,2,6)
+              F = (1,0,0,1,1,1,0,1)=\prod_{X,Y,Z}(1,2,6)
           \end{equation*}
           \begin{center}
               \textit{Note: the union of the terms of the canonical product and the canonical sum, is the full truth table, or the numbers from $0\rightarrow 2^n-1$}
@@ -692,10 +694,160 @@ efficient, or whether it can be improved.\\ The process starts from a
 specification, in words, and leads to a function. However, in this class, we
 will usually start from the function or truth table.\\ We want a minimal
 sum-of-products or product-of-sums. After which, the next goal would be to
-minimize the delay.\\ Canonical forms are usually larger than what we want.\\ If we want to find the canonical form, we conjoin each term of the function with the term that does not appear in both the original and negated form. For example, if we have X,Y,Z as inputs:
+minimize the delay.\\ Canonical forms are usually larger than what we want.\\
+If we want to find the canonical form, we conjoin each term of the function
+with the term that does not appear in both the original and negated form. For
+example, if we have X,Y,Z as inputs:
 \begin{equation*}
     X\lor Y = X\lor Y \lor(Z\land Z')
 \end{equation*}
 This is done for each term, and then expanded, which will result in the canonical form.\\
 However, it is more complicated to go from the canonical form to the original expression.\\
+\subsection{Karnaugh Map}
+Most minimization processes are based on the use of the Combining theorems.\\
+We will use Karnaugh Maps to go from the canonical form to the minimal form. A
+Karnaugh map is a representation of the truth table that allows us to visualize
+the function's minimal form
+\begin{center}
+    \includegraphics[width = 150px]{images/karnaugh.png}
+\end{center}
+where the numbers represent the minterms of the function. This can be expanded to more variables, by dividing the number of variables by two. The order is the order of the gray code for that amount of bits.\\
+So, the function $F(X,Y,Z) = \sum_{X,Y,Z}(3,6,7)$ would be represented as
+\begin{center}
+    \includegraphics[width = 150px]{images/Karnaugh_use.png}
+\end{center}
+Let us assume we have a completed Karnaugh map. We will now observe adjacent terms, if there are two adjacent ones, be it vertical (6,7), horizontal (3,7), or across borders (4,0), they can be combined using the combining theorems.\\
+\begin{center}
+    \includegraphics[width = 150px]{images/karnaugh4example.png}
+\end{center}
+So, in the above Karnaugh map, any of the following can be combined:
+\begin{center}
+    \begin{tikzpicture}
+        \draw[step=0.5cm,color=gray] (-1,-1) grid (1,1);
+        \matrix[matrix of nodes,nodes={inner sep=0pt,text width=.5cm,align=center,minimum height=.5cm}]{
+            0             & 0             & 0 & 0 \\
+            \underline{1} & \underline{1} & 1 & 0 \\
+            1             & 1             & 0 & 1 \\
+            1             & 0             & 0 & 0 \\
+        };
+    \end{tikzpicture}
+    \begin{tikzpicture}
+        \draw[step=0.5cm,color=gray] (-1,-1) grid (1,1);
+        \matrix[matrix of nodes,nodes={inner sep=0pt,text width=.5cm,align=center,minimum height=.5cm}]{
+            0             & 0 & 0 & 0             \\
+            1             & 1 & 1 & 0             \\
+            \underline{1} & 1 & 0 & \underline{1} \\
+            1             & 0 & 0 & 0             \\
+        };
+    \end{tikzpicture}
+    \begin{tikzpicture}
+        \draw[step=0.5cm,color=gray] (-1,-1) grid (1,1);
+        \matrix[matrix of nodes,nodes={inner sep=0pt,text width=.5cm,align=center,minimum height=.5cm}]{
+            0             & 0 & 0 & 0 \\
+            1             & 1 & 1 & 0 \\
+            \underline{1} & 1 & 0 & 1 \\
+            \underline{1} & 0 & 0 & 0 \\
+        };
+    \end{tikzpicture}
+\end{center}
+Additionally, if you combine two ones, you can then combine an adjacent pair:
+\begin{center}
+    \begin{tikzpicture}
+        \draw[step=0.5cm,color=gray] (-1,-1) grid (1,1);
+        \matrix[matrix of nodes,nodes={inner sep=0pt,text width=.5cm,align=center,minimum height=.5cm}]{
+            0             & 0             & 0 & 0 \\
+            \underline{1} & \underline{1} & 1 & 0 \\
+            \underline{1} & \underline{1} & 0 & 1 \\
+            1             & 0             & 0 & 0 \\
+        };
+    \end{tikzpicture}
+\end{center}
+So, all four of the above ones can be combined into a single term.\\
+The goal is to combine as many terms as possible.\\
+This leads to the following rules:
+\begin{itemize}
+    \item If combinations cover only areas of the map where the variable is 0, the
+          variable is complemented in the product term.
+    \item If combinations cover only areas of the map where the variable is 1, the
+          variable is uncomplemented in the product term.
+    \item If combinations cover all areas of the map where a variable is either 0 or 1,
+          the term does not appear
+\end{itemize}
+We want as few combinations as possible, and these combinations to be as large as possible.\\
+The remaining products are then added together.\\
+The above map will have the following combinations:\\
+\begin{center}
+    \begin{table}
+        \begin{tabular}{c c c c}
+
+            \begin{tikzpicture}
+                \draw[step=0.5cm,color=gray] (-1,-1) grid (1,1);
+                \matrix[matrix of nodes,nodes={inner sep=0pt,text width=.5cm,align=center,minimum height=.5cm}]{
+                    0             & 0             & 0 & 0 \\
+                    \underline{1} & \underline{1} & 1 & 0 \\
+                    \underline{1} & \underline{1} & 0 & 1 \\
+                    1             & 0             & 0 & 0 \\
+                };
+            \end{tikzpicture} &
+            \begin{tikzpicture}
+                \draw[step=0.5cm,color=gray] (-1,-1) grid (1,1);
+                \matrix[matrix of nodes,nodes={inner sep=0pt,text width=.5cm,align=center,minimum height=.5cm}]{
+                    0 & 0             & 0             & 0 \\
+                    1 & \underline{1} & \underline{1} & 0 \\
+                    1 & 1             & 0             & 1 \\
+                    1 & 0             & 0             & 0 \\
+                };
+            \end{tikzpicture} &
+            \begin{tikzpicture}
+                \draw[step=0.5cm,color=gray] (-1,-1) grid (1,1);
+                \matrix[matrix of nodes,nodes={inner sep=0pt,text width=.5cm,align=center,minimum height=.5cm}]{
+                    0             & 0 & 0 & 0             \\
+                    1             & 1 & 1 & 0             \\
+                    \underline{1} & 1 & 0 & \underline{1} \\
+                    1             & 0 & 0 & 0             \\
+                };
+            \end{tikzpicture} &
+            \begin{tikzpicture}
+                \draw[step=0.5cm,color=gray] (-1,-1) grid (1,1);
+                \matrix[matrix of nodes,nodes={inner sep=0pt,text width=.5cm,align=center,minimum height=.5cm}]{
+                    0             & 0 & 0 & 0 \\
+                    1             & 1 & 1 & 0 \\
+                    \underline{1} & 1 & 0 & 1 \\
+                    \underline{1} & 0 & 0 & 0 \\
+                };
+            \end{tikzpicture}                                                                     \\
+            $W'\land Z$                                                & $X\land Y' \land Z$ & $X'\land Y\land Z$ & $W'\land X'\land Y$ \\
+            \hline
+            \begin{tabular}{c|c}
+                W & 00 \\
+                X & 01 \\
+                Y & 10 \\
+                Z & 11
+            \end{tabular}                                       &
+            \begin{tabular}{c|c}
+                W & 01 \\
+                X & 11 \\
+                Y & 0  \\
+                Z & 1
+            \end{tabular}                                       &
+            \begin{tabular}{c|c}
+                W & 10 \\
+                X & 00 \\
+                Y & 1  \\
+                Z & 1
+            \end{tabular}                                       &
+            \begin{tabular}{c|c}
+                W & 0  \\
+                X & 0  \\
+                Y & 11 \\
+                Z & 10
+            \end{tabular}
+        \end{tabular}
+    \end{table}
+\end{center}
+Each of these resulting combinations will result in a single product.
+Based on the aforementioned rules, it will be defined as: \\$(W' \land Z) \lor (X\land Y' \land Z) \lor (X'\land Y\land Z) \lor (W'\land X'\land Y)$.\\
+A logic function implies another if for every function in which the first function is 1, the second function is 1 as well. This is called an implicant.\\
+A prime implicant is one such that if any variable is dropped from its product term would stop it from being an implicant. That is, if the combination was once again combined, it no longer only combines 1's.
+
 \end{document}
