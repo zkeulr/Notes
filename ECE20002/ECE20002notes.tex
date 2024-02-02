@@ -976,15 +976,20 @@ The above note leads to the following two steps to find the impulse response:
     \item $h(t) = \frac{d}{dt}(\text{unit step response})$
 \end{enumerate}
 \section{Laplace Transformations}
-\subsection{Intro to Laplace Transformation}
-All circuit analysis till now has been in the time domain. We will now move from the time domain to the frequency domain. This will in turn simplify circuit analysis.\\
-This is done using Laplace Transformations.
-Let 
+\begin{center}
+    "This is the single most important topic in the whole course ... it will also make you mad and depressed." -Prof. Byunghoo Jung
+\end{center}
+\subsection{Introduction to Laplace Transformations}
+All circuit analysis till now has been in the time domain. We will now move
+from the time domain to the frequency domain. This will in turn simplify
+circuit analysis.\\ This is done using Laplace Transformations. Let
 \begin{align*}
-    x(t) &= \int_{-\infty}^{\infty} x(\lambda)\delta(t-\lambda)d\lambda\\
-    \implies s &= \sigma +j\omega
+    x(t)       & = \int_{-\infty}^{\infty} x(\lambda)\delta(t-\lambda)d\lambda \\
+    \implies s & = \sigma +j\omega
 \end{align*}
-with $\sigma$ and $\omega$ being the real and imaginary parts of the frequency.\\ Keep in mind:
+with $\sigma$ and $\omega$ being the real and imaginary parts of the frequency.
+$s$ is a complex number, and thus to completely graphically represent it, we need two different 3D plots. One has the axis [$Re(s),Im(s),|F(s)|$], and the other [$Re(s),Im(s),\phase{F(s)}$]\\
+Keep in mind:
 \begin{equation*}
     Ae^{j(\omega t+\phi)} = A\cos(\omega t+\phi)+jA\sin(\omega t+ \phi)
 \end{equation*}
@@ -996,10 +1001,12 @@ We will define a one-sided Laplace transform as the following:
 The transformations form the following table:
 \begin{itemize}
     \item $\mathcal{L}\{e^{-t}\} = \frac{1}{s+1}$
-    \item $\mathcal{L}\{\delta(t)\} = 1$
-    \item $\mathcal{L}\{u(t)\} = \frac{1}{s}$ with $Re\{s\}\neq 0$
-    \item $\mathcal{L}\{t(u(t))\} = \frac{1}{s^2}$ with $Re\{s\}\neq 0$
-    \item $\mathcal{L}\{e^{-at}u(t)\} = \frac{1}{s+a}$ with $Re\{s+a\}> 0$
+    \item $\mathcal{L}\{t\} = \frac{1}{s^2}$
+    \item $\mathcal{L}\{\frac{t^n}{n!}\} = \frac{1}{s^{n+1}}$
+    \item $\mathcal{L}\{\delta(t)\} = 1 \leftarrow$ \textbf{Important}
+    \item $\mathcal{L}\{u(t)\} = \frac{1}{s}$ with $Re\{s\}\neq 0 \leftarrow$ \textbf{Important}
+    \item $\mathcal{L}\{t(u(t))\} = \frac{1}{s^2}$ with $Re\{s\}\neq 0 \leftarrow$ \textbf{Important}
+    \item $\mathcal{L}\{e^{-at}u(t)\} = \frac{1}{s+a}$ with $Re\{s+a\}> 0 \leftarrow$ \textbf{Important}
     \item $\mathcal{L}\{\cos(\omega t)\} = \frac{s}{s^2+\omega^2}$ with $Re\{s\}> 0$
     \item $\mathcal{L}\{\sin(\omega t)\} = \frac{\omega}{s^2+\omega^2}$ with $Re\{s\}> 0$
     \item $\mathcal{L}\{\cos(\omega t)+\sin(\omega t)\} = \frac{s+\omega}{s^2+\omega^2}$ with $Re\{s\}> 0$
@@ -1007,4 +1014,7 @@ The transformations form the following table:
     \item $\mathcal{L}\{f''(t)\} = s^2F(s) - sf(0)-f'(0)$ with $F(s)$ being the Laplace transform of $f(t)$
     \item $\mathcal{L}\{f^{(n)}(t)\} = s^n F(s) -\sum_{k=0}^{n-1} (s^{n-1-k}\frac{d^k f(0)}{dt^k})$ with $F(s)$ being the Laplace transform of $f(t)$
 \end{itemize}
+The beauty of these, and their applications in this course come from the property $f(t)*g(t) = F(s)G(s)$.\\
+Later in this course we will learn to find $H(s)$ of a system using KVL and KCL without going through ODEs.
+\textit{Note: as a fun fact, Fourier transforms, which are covered in higher level courses, are a subset of Laplace transforms.}
 \end{document}

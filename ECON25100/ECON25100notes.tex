@@ -374,7 +374,7 @@ A supply shift looks like the following:
 \end{center}
 \section{Markets and Equilibrium}
 Markets are organized by what is produced, who produces it, how they are
-produced, and who gets the product.]] There are two kinds of economies:
+produced, and who gets the product. There are two kinds of economies:
 \begin{itemize}
     \item Planned economies: These decisions are made by a central power
     \item Market economies: Each person makes their own decisions
@@ -421,7 +421,7 @@ The system of equations to solve is:
     Q_s & =Q_d
 \end{align*}
 Where the searched for, and relevant variables are $P$ and $Q$ (not $Q_s$ and $Q_d$ separately, as they are equal).\\
-If the market is not in equilibrium, that is, it is in disequilibrium, which are marked by :
+If the market is not in equilibrium, that is, it is in disequilibrium, which are marked by:
 \begin{itemize}
     \item Queuing: People trying to get stuff and not succeeding.
     \item Bundling of extras: promotions, 2 for 1, etc.
@@ -654,7 +654,8 @@ Equilibrium can vary with:
 \end{itemize}
 It is however, also possible for both demand and supply to shift. This may result in an ambiguous shift of equilibrium price and equilibrium quantity.\\
 \begin{itemize}
-    \item Demand $\uparrow$, Supply $\uparrow$ --- equilibrium price: (?), but equilibrium quantity: ($\uparrow$)
+    \item Demand $\uparrow$, Supply $\uparrow$ --- equilibrium price: (?), but
+          equilibrium quantity: ($\uparrow$)
           \begin{center}
               \begin{tikzpicture}[scale = 0.5]
                   \begin{axis}[
@@ -694,7 +695,8 @@ It is however, also possible for both demand and supply to shift. This may resul
                   \end{axis}
               \end{tikzpicture}
           \end{center}
-    \item Demand $\downarrow$, Supply $\downarrow$ --- equilibrium price: (?), but equilibrium quantity: ($\downarrow$)
+    \item Demand $\downarrow$, Supply $\downarrow$ --- equilibrium price: (?), but
+          equilibrium quantity: ($\downarrow$)
           \begin{center}
               \begin{tikzpicture}[scale = 0.5]
                   \begin{axis}[
@@ -734,7 +736,8 @@ It is however, also possible for both demand and supply to shift. This may resul
                   \end{axis}
               \end{tikzpicture}
           \end{center}
-    \item Demand $\uparrow$, Supply $\downarrow$ --- equilibrium price: ($\uparrow$), but equilibrium quantity: (?)
+    \item Demand $\uparrow$, Supply $\downarrow$ --- equilibrium price: ($\uparrow$), but
+          equilibrium quantity: (?)
           \begin{center}
               \begin{tikzpicture}[scale = 0.5]
                   \begin{axis}[
@@ -774,7 +777,8 @@ It is however, also possible for both demand and supply to shift. This may resul
                   \end{axis}
               \end{tikzpicture}
           \end{center}
-    \item Demand $\downarrow$, Supply $\uparrow$ --- equilibrium price: ($\downarrow$), but equilibrium quantity: (?)
+    \item Demand $\downarrow$, Supply $\uparrow$ --- equilibrium price: ($\downarrow$),
+          but equilibrium quantity: (?)
           \begin{center}
               \begin{tikzpicture}[scale = 0.5]
                   \begin{axis}[
@@ -818,197 +822,295 @@ It is however, also possible for both demand and supply to shift. This may resul
 Supply and demand can be used to predict and diagnose market outcomes.\\
 All the previous analysis in this section leads to the following overall rules:
 \begin{enumerate}
-    \item If price and quantity move in same direction, demand has shifted, but we don't know what has happened to the supply.
-    \item If price and quantity move in opposite directions, supply has shifted, but we don't know what has happened to the demand.
+    \item If price and quantity move in same direction, demand has shifted, but we don't
+          know what has happened to the supply.
+    \item If price and quantity move in opposite directions, supply has shifted, but we
+          don't know what has happened to the demand.
 \end{enumerate}
 \section{Elasticity}
-Elasticity is a measure of the responsiveness to the changes in other variables.
+Elasticity is a measure of the responsiveness to the changes in other
+variables.
 \begin{equation*}
     E_{x,y} = \frac{\%\Delta x}{\%\Delta y}
 \end{equation*}
 What is important about this are the sign and magnitude. It is positive if when $y$ increases, $x$ increases as well. The relationship is negative if when $y$ increases, $x$ decreases.\\
 \begin{align*}
-    |E_{x,y}&>1| \implies x \text{ is highly responsive to y, or the relationship is elastic}\\
-    |E_{x,y}&<1| \implies x \text{ is slightly responsive to y, or inelastic}\\
-    |E_{x,y}&=1| \implies x \text{ is proportionally responsive to y, or unitary elastic}
+    |E_{x,y} & >1| \implies x \text{ is highly responsive to y, or the relationship is elastic} \\
+    |E_{x,y} & <1| \implies x \text{ is slightly responsive to y, or inelastic}                 \\
+    |E_{x,y} & =1| \implies x \text{ is proportionally responsive to y, or unitary elastic}
 \end{align*}
 \begin{itemize}
-    \item Price elasticity of demand:
-    A measure of how responsive buyers are to price changes. 
-    \begin{equation*}
-        |\text{Price Elasticity of Demand}| = \frac{|\%\text{ change in quantity demanded}|}{|\%\text{ change in prices}|}
-    \end{equation*}
-    The negative value would mean nothing, as it is already predefined, and so, only the magnitude (or absolute value) is relevant.\\
-    There are a few other methods:
-    \begin{equation*}
-        |E_D| = \left\vert \frac{100*\frac{Q_2-Q_1}{Q_1}}{100*\frac{P_2-P_1}{P_1}}\right\vert
-    \end{equation*}
-    which ignores direction, which is problematic, so you could use the midpoint formula method:
-    \begin{equation*}
-        |E_D| = \left\vert \frac{100*\frac{Q_2-Q_1}{(Q_2+Q_1)/2}}{100*\frac{P_2-P_1}{(P_2+P_1)/2}}\right\vert = \left\vert \frac{\frac{Q_2-Q_1}{(Q_2+Q_1)}}{\frac{P_2-P_1}{(P_2+P_1)}}\right\vert
-    \end{equation*}
-    Which is also referred to as "Arc Elasticity of Demand".\\~\\
-    Perfectly Elastic demand has $E_D = \infty$. That is, you can change price as much as you want, and the demand will not change.\\
-    Perfectly Inelastic demand has $E_D = 0$ which means the demand will shoot to 0 for any price change.\\
-    An elastic curve would look like the following:
-    \begin{center}
-        \begin{tikzpicture}[scale = 0.5]
-            \begin{axis}[
-                    axis lines = left,
-                    xlabel = Quantity,
-                    ylabel = Price,
-                    ymax = 40,
-                    xmax = 40,
-                    ymin = 0,
-                    xmin = 0,
-                    legend entries = {Demand}
-                ]
-                \addplot [
-                    domain=5:35,
-                    samples=10,
-                    color=red,
-                ]
-                {-0.5*x + 28};
-            \end{axis}
-        \end{tikzpicture}
-    \end{center}
-    While an inelastic curve would look more like the following:
-    \begin{center}
-        \begin{tikzpicture}[scale = 0.5]
-            \begin{axis}[
-                    axis lines = left,
-                    xlabel = Quantity,
-                    ylabel = Price,
-                    ymax = 40,
-                    xmax = 40,
-                    ymin = 0,
-                    xmin = 0,
-                    legend entries = {Demand}
-                ]
-                \addplot [
-                    domain=5:35,
-                    samples=10,
-                    color=red,
-                ]
-                {-1.5*x + 56};
-            \end{axis}
-        \end{tikzpicture}
-    \end{center}
-    Different factors, such as 
-    \begin{itemize}
-        \item Availability of substitutes
-        \item Duration of purchase horizon, that is how much time there is to purchase the product
-        \item Expenditure share of consumer budget, that is proportion of total income that the purchase will consume
-        \item Necessity or Luxury?
-        \item Products with lower search costs, that is how easy it is to come across the product
-        \item Addiction
-    \end{itemize}
-    can affect the elasticity of demand.\\
-    The elasticity varies along the demand curve. At a higher price, the elasticity is higher, as the formula indicates. 
-    \begin{center}
-        \begin{tikzpicture}[scale = 0.5]
-            \begin{axis}[
-                    axis lines = left,
-                    xlabel = Quantity,
-                    ylabel = Price,
-                    ymax = 40,
-                    xmax = 40,
-                    ymin = 0,
-                    xmin = 0,
-                    legend entries = {Demand}
-                ]
-                \addplot [
-                    domain=0:30,
-                    samples=10,
-                    color=red,
-                ]
-                {-1*x + 30};
-                \addplot [black, mark=diamond] coordinates {(15,15)};
-                \addplot [green, mark=diamond] coordinates {(5,25)};
-                \addplot [purple, mark=diamond] coordinates {(25,5)};
-            \end{axis}
-        \end{tikzpicture}
-    \end{center}
-    At the green diamond, if we were to use the midpoint formula, the elasticity would be quite high, while at the purple diamond, it would be low. The black diamond, which is the midpoint of the curve, would be unitary elastic.\\
-    So, it would be unitary elastic at the point (Q,P) where $Q=\frac{y-intercept}{2}$ and $P = \frac{x-intercept}{2}$.\\
-    Total revenue is defined as $P*Q$.\\ A change in price leads to a change in quantity demanded, in the opposite direction.\\
-    The price of elasticity of demand tells us whether we should increase or decrease the price.\\
-    One should decrease the price if the demand is elastic. One should increase the price if the demand is elastic. This allows us to draw the following plots:
-    \begin{center}
-        \begin{tikzpicture}[scale = 0.5]
-            \begin{axis}[
-                    axis lines = left,
-                    xlabel = Quantity,
-                    ylabel = Price,
-                    ymax = 40,
-                    xmax = 40,
-                    ymin = 0,
-                    xmin = 0,
-                    legend entries = {Demand}
-                ]
-                \addplot [
-                    domain=5:35,
-                    samples=10,
-                    color=red,
-                ]
-                {-0.5*x + 28};
-                \addplot [black, dashed, fill=gray, fill opacity=0.3] coordinates {(0,18) (20,18) (20,0)} \closedcycle;
-                \addplot [black, dashed, fill=gray, fill opacity=0.4] coordinates {(0,20) (16,20) (16,0)} \closedcycle;
-            \end{axis}
-        \end{tikzpicture}
-        \begin{tikzpicture}[scale = 0.5]
-            \begin{axis}[
-                    axis lines = left,
-                    xlabel = Quantity,
-                    ylabel = Price,
-                    ymax = 40,
-                    xmax = 40,
-                    ymin = 0,
-                    xmin = 0,
-                    legend entries = {Demand}
-                ]
-                \addplot [
-                    domain=5:35,
-                    samples=10,
-                    color=red,
-                ]
-                {-1.5*x + 56};
-                \addplot [black, dashed, fill=gray, fill opacity=0.3] coordinates {(0,18) (25,18) (25,0)} \closedcycle;
-                \addplot [black, dashed, fill=gray, fill opacity=0.4] coordinates {(0,20) (23.5,20) (23.5,0)} \closedcycle;
-            \end{axis}
-        \end{tikzpicture}
-    \end{center}
-    It can be seen that an increase in price in the first graph would lead to a larger decrease in quantity, causing the revenue to fall. In the other one, we can see that an increase in price would only slightly decrease the quantity demanded, which is an increase in the revenue.\\
-    Thus, we can conclude that the revenue also varies along the demand curve.\\
-    The revenue looks like this:
-    \begin{center}
-        \begin{tikzpicture}[scale = 0.5]
-            \begin{axis}[
-                    axis lines = left,
-                    xlabel = Quantity,
-                    ylabel = Revenue,
-                    ymax = 40,
-                    xmax = 40,
-                    ymin = 0,
-                    xmin = 0,
-                    legend entries = {Revenue},
-                    xtick={0, 20, 40},
-                    xticklabels = {$0$, {$\frac{B}{2}$}, $B$},
-                    ytick=\empty
-                ]
-                \addplot [
-                    domain=0:40,
-                    samples=100,
-                    color=magenta,
-                ]
-                {-(0.075)*x^2 + 3*x};
-                \addplot [black, dashed] coordinates {(20,0) (20,30)};
-            \end{axis}
-        \end{tikzpicture}
-    \end{center}
-    So, when the demand is unit elastic, the revenue is maximized.
-    \item Cross-price elasticity
-    \item Income elasticity
-    \item Price Elasticity of Supply
+    \item Price elasticity of demand: A measure of how responsive buyers are to price
+          changes.
+          \begin{equation*}
+              |\text{Price Elasticity of Demand}| = \frac{|\%\text{ change in quantity demanded}|}{|\%\text{ change in prices}|}
+          \end{equation*}
+          The negative value would mean nothing, as it is already predefined, and so, only the magnitude (or absolute value) is relevant.\\
+          There are a few other methods:
+          \begin{equation*}
+              |E_D| = \left\vert \frac{100*\frac{Q_2-Q_1}{Q_1}}{100*\frac{P_2-P_1}{P_1}}\right\vert
+          \end{equation*}
+          which ignores direction, which is problematic, so you could use the midpoint formula method:
+          \begin{equation*}
+              |E_D| = \left\vert \frac{100*\frac{Q_2-Q_1}{(Q_2+Q_1)/2}}{100*\frac{P_2-P_1}{(P_2+P_1)/2}}\right\vert = \left\vert \frac{\frac{Q_2-Q_1}{(Q_2+Q_1)}}{\frac{P_2-P_1}{(P_2+P_1)}}\right\vert
+          \end{equation*}
+          Which is also referred to as "Arc Elasticity of Demand".\\~\\
+          Perfectly Elastic demand has $E_D = \infty$. That is, you can change price as much as you want, and the demand will not change.\\
+          Perfectly Inelastic demand has $E_D = 0$ which means the demand will shoot to 0 for any price change.\\
+          An elastic curve would look like the following:
+          \begin{center}
+              \begin{tikzpicture}[scale = 0.5]
+                  \begin{axis}[
+                          axis lines = left,
+                          xlabel = Quantity,
+                          ylabel = Price,
+                          ymax = 40,
+                          xmax = 40,
+                          ymin = 0,
+                          xmin = 0,
+                          legend entries = {Demand}
+                      ]
+                      \addplot [
+                          domain=5:35,
+                          samples=10,
+                          color=red,
+                      ]
+                      {-0.5*x + 28};
+                  \end{axis}
+              \end{tikzpicture}
+          \end{center}
+          While an inelastic curve would look more like the following:
+          \begin{center}
+              \begin{tikzpicture}[scale = 0.5]
+                  \begin{axis}[
+                          axis lines = left,
+                          xlabel = Quantity,
+                          ylabel = Price,
+                          ymax = 40,
+                          xmax = 40,
+                          ymin = 0,
+                          xmin = 0,
+                          legend entries = {Demand}
+                      ]
+                      \addplot [
+                          domain=5:35,
+                          samples=10,
+                          color=red,
+                      ]
+                      {-1.5*x + 56};
+                  \end{axis}
+              \end{tikzpicture}
+          \end{center}
+          Different factors, such as
+          \begin{itemize}
+              \item Availability of substitutes
+              \item Duration of purchase horizon, that is how much time there is to purchase the
+                    product
+              \item Expenditure share of consumer budget, that is proportion of total income that
+                    the purchase will consume
+              \item Necessity or Luxury?
+              \item Products with lower search costs, that is how easy it is to come across the
+                    product
+              \item Addiction
+          \end{itemize}
+          can affect the elasticity of demand.\\
+          The elasticity varies along the demand curve. At a higher price, the elasticity is higher, as the formula indicates.
+          \begin{center}
+              \begin{tikzpicture}[scale = 0.5]
+                  \begin{axis}[
+                          axis lines = left,
+                          xlabel = Quantity,
+                          ylabel = Price,
+                          ymax = 40,
+                          xmax = 40,
+                          ymin = 0,
+                          xmin = 0,
+                          legend entries = {Demand}
+                      ]
+                      \addplot [
+                          domain=0:30,
+                          samples=10,
+                          color=red,
+                      ]
+                      {-1*x + 30};
+                      \addplot [black, mark=diamond] coordinates {(15,15)};
+                      \addplot [green, mark=diamond] coordinates {(5,25)};
+                      \addplot [purple, mark=diamond] coordinates {(25,5)};
+                  \end{axis}
+              \end{tikzpicture}
+          \end{center}
+          At the green diamond, if we were to use the midpoint formula, the elasticity would be quite high, while at the purple diamond, it would be low. The black diamond, which is the midpoint of the curve, would be unitary elastic.\\
+          So, it would be unitary elastic at the point (Q, P) where $Q=\frac{y-intercept}{2}$ and $P = \frac{x-intercept}{2}$.\\
+          Total revenue is defined as $P*Q$.\\ A change in price leads to a change in quantity demanded, in the opposite direction.\\
+          The price of elasticity of demand tells us whether we should increase or decrease the price.\\
+          One should decrease the price if the demand is elastic. One should increase the price if the demand is elastic. This allows us to draw the following plots:
+          \begin{center}
+              \begin{tikzpicture}[scale = 0.5]
+                  \begin{axis}[
+                          axis lines = left,
+                          xlabel = Quantity,
+                          ylabel = Price,
+                          ymax = 40,
+                          xmax = 40,
+                          ymin = 0,
+                          xmin = 0,
+                          legend entries = {Demand}
+                      ]
+                      \addplot [
+                          domain=5:35,
+                          samples=10,
+                          color=red,
+                      ]
+                      {-0.5*x + 28};
+                      \addplot [black, dashed, fill=gray, fill opacity=0.3] coordinates {(0,18) (20,18) (20,0)} \closedcycle;
+                      \addplot [black, dashed, fill=gray, fill opacity=0.4] coordinates {(0,20) (16,20) (16,0)} \closedcycle;
+                  \end{axis}
+              \end{tikzpicture}
+              \begin{tikzpicture}[scale = 0.5]
+                  \begin{axis}[
+                          axis lines = left,
+                          xlabel = Quantity,
+                          ylabel = Price,
+                          ymax = 40,
+                          xmax = 40,
+                          ymin = 0,
+                          xmin = 0,
+                          legend entries = {Demand}
+                      ]
+                      \addplot [
+                          domain=5:35,
+                          samples=10,
+                          color=red,
+                      ]
+                      {-1.5*x + 56};
+                      \addplot [black, dashed, fill=gray, fill opacity=0.3] coordinates {(0,18) (25,18) (25,0)} \closedcycle;
+                      \addplot [black, dashed, fill=gray, fill opacity=0.4] coordinates {(0,20) (23.5,20) (23.5,0)} \closedcycle;
+                  \end{axis}
+              \end{tikzpicture}
+          \end{center}
+          It can be seen that an increase in price in the first graph would lead to a larger decrease in quantity, causing the revenue to fall. In the other one, we can see that an increase in price would only slightly decrease the quantity demanded, which is an increase in the revenue.\\
+          Thus, we can conclude that the revenue also varies along the demand curve.\\
+          The revenue looks like this:
+          \begin{center}
+              \begin{tikzpicture}[scale = 0.5]
+                  \begin{axis}[
+                          axis lines = left,
+                          xlabel = Quantity,
+                          ylabel = Revenue,
+                          ymax = 40,
+                          xmax = 40,
+                          ymin = 0,
+                          xmin = 0,
+                          legend entries = {Revenue},
+                          xtick={0, 20, 40},
+                          xticklabels = {$0$, {$\frac{B}{2}$}, $B$},
+                          ytick=\empty
+                      ]
+                      \addplot [
+                          domain=0:40,
+                          samples=100,
+                          color=magenta,
+                      ]
+                      {-(0.075)*x^2 + 3*x};
+                      \addplot [black, dashed] coordinates {(20,0) (20,30)};
+                  \end{axis}
+              \end{tikzpicture}
+          \end{center}
+          So, when the demand is unit elastic, the revenue is maximized.
+    \item Cross-price elasticity: Measures how responsive the quantity demanded of one
+          good is to the change in price of another good.\\ It is defined by:
+          \begin{equation*}
+              E_{CP} = \frac{\% \text{ change in quantity demanded}}{\% \text{ change in price of the other good}} = \frac{\% \Delta Q_{D_B}}{\% \Delta P_A}
+          \end{equation*}
+          This time, there would be loss of information if we applied an absolute value.\\
+          If this value is
+          \begin{itemize}
+              \item $<0$: complements in consumption
+              \item $=0$: unrelated or independent
+              \item $>0$: substitutes in consumption
+          \end{itemize}
+    \item Income elasticity: Measures the responsiveness of demand in relation to change
+          in income. It is defined by:
+          \begin{equation*}
+              E_M = \frac{\% \text{ change in quantity demanded}}{\% \text{ change in income}} = \frac{\% \Delta Q_D}{\%\Delta I}
+          \end{equation*}
+          This time as well, there would be loss of information if we applied an absolute value.\\
+          If this value is
+          \begin{itemize}
+              \item $<0$: inferior good
+              \item $>0$: normal good
+          \end{itemize}
+          and if its magnitude is
+          \begin{itemize}
+              \item $0<x<1$: necessity
+              \item $>1$: luxury
+          \end{itemize}
+          \textit{Note: this elasticity only tells us about inferior/normal or necessity/luxury, but it tells us nothing about substitute/complement.}
+    \item Price Elasticity of Supply: Measure of how responsive sellers are to price
+          changes.\\ It is defined by:
+          \begin{equation*}
+              E_{PS} = \frac{\% \text{change in quantity supplied}}{\% \text{change in price}} = \frac{\% \Delta Q_S}{\% \Delta P}
+          \end{equation*}
+          However, the midpoint formula also applies to this, which, to reiterate, was:
+          \begin{equation*}
+              E_{PS} = \frac{\frac{Q_2-Q_1}{Q_2+Q_1}}{\frac{P_2-P_1}{P_2+P_1}}
+          \end{equation*}
+          Note how the absolute value is not applied in this case. This is because the supply elasticity will always be positive.\\
+          A perfectly elastic supply is horizontal, while perfectly inelastic is vertical.\\
+          The following are examples of elastic and inelastic demand respectively:
+          \begin{center}
+              \begin{tikzpicture}[scale = 0.5]
+                  \begin{axis}[
+                          axis lines = left,
+                          xlabel = Quantity,
+                          ylabel = Price,
+                          ymax = 40,
+                          xmax = 40,
+                          ymin = 0,
+                          xmin = 0,
+                          legend entries = {Supply}
+                      ]
+                      \addplot [
+                          domain=5:35,
+                          samples=10,
+                          color=blue,
+                      ]
+                      {0.5*x + 4};
+                  \end{axis}
+              \end{tikzpicture}
+              \begin{tikzpicture}[scale = 0.5]
+                  \begin{axis}[
+                          axis lines = left,
+                          xlabel = Quantity,
+                          ylabel = Price,
+                          ymax = 40,
+                          xmax = 40,
+                          ymin = 0,
+                          xmin = 0,
+                          legend entries = {Supply}
+                      ]
+                      \addplot [
+                          domain=5:35,
+                          samples=10,
+                          color=blue,
+                      ]
+                      {1.5*x - 5};
+                  \end{axis}
+              \end{tikzpicture}
+          \end{center}
+          The factors that affect supply elasticity are the following:
+          \begin{itemize}
+            \item Storage ease
+            \item Additional input availability
+            \item The capacity to produce more
+            \item Ease of market entry/exit
+            \item Response time availability
+          \end{itemize}
+\end{itemize}
+Some other, less important elasticities are:
+\begin{itemize}
+    \item Labor supply elasticity
+    \item Advertising Elasticity (and cross-advertising elasticity)
+    \item Crime elasticity
 \end{itemize}
 \end{document}
