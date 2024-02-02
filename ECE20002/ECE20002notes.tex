@@ -975,4 +975,36 @@ The above note leads to the following two steps to find the impulse response:
     \item Find unit step response of the function by setting the input to be $u(t)$
     \item $h(t) = \frac{d}{dt}(\text{unit step response})$
 \end{enumerate}
+\section{Laplace Transformations}
+\subsection{Intro to Laplace Transformation}
+All circuit analysis till now has been in the time domain. We will now move from the time domain to the frequency domain. This will in turn simplify circuit analysis.\\
+This is done using Laplace Transformations.
+Let 
+\begin{align*}
+    x(t) &= \int_{-\infty}^{\infty} x(\lambda)\delta(t-\lambda)d\lambda\\
+    \implies s &= \sigma +j\omega
+\end{align*}
+with $\sigma$ and $\omega$ being the real and imaginary parts of the frequency.\\ Keep in mind:
+\begin{equation*}
+    Ae^{j(\omega t+\phi)} = A\cos(\omega t+\phi)+jA\sin(\omega t+ \phi)
+\end{equation*}
+as we continue this section.\\
+We will define a one-sided Laplace transform as the following:
+\begin{equation*}
+    \mathcal{L}\{f(t)\} = F(s) = \int_{0}^{\infty} f(t)e^{-st}dt
+\end{equation*}
+The transformations form the following table:
+\begin{itemize}
+    \item $\mathcal{L}\{e^{-t}\} = \frac{1}{s+1}$
+    \item $\mathcal{L}\{\delta(t)\} = 1$
+    \item $\mathcal{L}\{u(t)\} = \frac{1}{s}$ with $Re\{s\}\neq 0$
+    \item $\mathcal{L}\{t(u(t))\} = \frac{1}{s^2}$ with $Re\{s\}\neq 0$
+    \item $\mathcal{L}\{e^{-at}u(t)\} = \frac{1}{s+a}$ with $Re\{s+a\}> 0$
+    \item $\mathcal{L}\{\cos(\omega t)\} = \frac{s}{s^2+\omega^2}$ with $Re\{s\}> 0$
+    \item $\mathcal{L}\{\sin(\omega t)\} = \frac{\omega}{s^2+\omega^2}$ with $Re\{s\}> 0$
+    \item $\mathcal{L}\{\cos(\omega t)+\sin(\omega t)\} = \frac{s+\omega}{s^2+\omega^2}$ with $Re\{s\}> 0$
+    \item $\mathcal{L}\{f'(t)\} = sF(s) - f(0)$ with $F(s)$ being the Laplace transform of $f(t)$
+    \item $\mathcal{L}\{f''(t)\} = s^2F(s) - sf(0)-f'(0)$ with $F(s)$ being the Laplace transform of $f(t)$
+    \item $\mathcal{L}\{f^{(n)}(t)\} = s^n F(s) -\sum_{k=0}^{n-1} (s^{n-1-k}\frac{d^k f(0)}{dt^k})$ with $F(s)$ being the Laplace transform of $f(t)$
+\end{itemize}
 \end{document}
