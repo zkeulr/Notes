@@ -18,6 +18,7 @@
 \usetikzlibrary{shapes}
 \usetikzlibrary{positioning}
 \usepackage{listings}
+\usepackage{forest}
 \usepackage{caption}
 \DeclareCaptionFont{white}{\color{white}}
 \DeclareCaptionFormat{listing}{\colorbox{gray}{\parbox{\textwidth}{#1#2#3}}}
@@ -472,6 +473,7 @@ Which leads to the little-omega notation:
 \end{align*}
 \textit{For most cases, if f is $O(g)$, but not $\Theta(g)$, it is $o(g)$. Exceptional cases would be like $f(n) = n^{|\sin(n)|}$, which seldom exist.}
 \section{Linked Lists}
+\textit{NOTE: my notes on this section are not great, as much of the explanation was done through images and drawings upon them. If you have better notes for this section, please feel free to improve them.}\\
 A list is a linear collection of items that can be inserted and removed at any position.\\
 Arrays have O(1) access and overwrite, although insertion or removal may be more than O(1). The size of the array is necessary to program correctly.\\
 A linked list has the followings structure defining it:
@@ -502,5 +504,85 @@ They have primitive operations:
     \item Remove at head
     \item etc.
 \end{itemize}
+C language works by making copies. Whenever one sends information into a function, one creates a copy of that information to be operated on.\\
+For linked list, or structs in general, this is relevant because their manipulation can be made easier by passing terms to a function in the form:
+\begin{lstlisting}
+    func(**head)
+\end{lstlisting}
+This allows us to point and modify the list through the address of the struct instead of a copy of it.\\
+For example:
+\begin{lstlisting}
+void List_insert_in_order(Node **head_addr, Node *node) {
+    Node dummy;
+    dummy.next = *head_addr;
+    Node *curr = dummy.next;
+    Node *prev = &dummy;
+    while (curr && curr->data < node->data) {
+        prev = curr;
+        curr = curr->next;
+    }
+    prev->next = node;
+    node->next = curr;
+    *head_addr = dummy.next;
+}
+\end{lstlisting}
+This code allows us to insert values into their correct sorted position with ease, and have those changes reflected in the linked list itself. It makes the dummy node equal to the head of the list (not a copy of the list), and works forward from there.\\
+A linked list that has the last node pointing at the first node is called a circular-linked list. It allows us to access everything from the position of tail instead.\\
+Next, we will learn to search with sentinel. That is, it lets us traverse the list without checking if it is NULL. This is done by assigning an external node to a node, and advancing from there, repointing the new node at the next of it, and comparing the value.\\
+A doubly linked list is a linked list that allows traversal in both directions.\\
+It works almost entirely the same as a singly linked list, but has some more complications that arise when inserting or deleting nodes from the middle of the array. An example would be deleting, as shown here:
+\begin{lstlisting}
+List-Delete(header, x):
+    if x->prev != NULL
+    (x->prev)->next = x->next
+    else
+    header->head = x->next
+    if x->next != NULL
+    (x->next)->prev = x->prev
+    else
+    header->tail  =  x->prev
+\end{lstlisting}
+As can be observed, the process involves a lot of back and forth.\\
+But, if it were a circular-linked list as well, the code could be reduced to:
+\begin{lstlisting}
+List-Delete(x):
+    (x->prev)->next = x->next
+    (x->next)->prev = x->prev
+\end{lstlisting}
+\section{Recursion}
+Let us take a code snippet:
+\begin{lstlisting}
+int add(int i, int j)
+{
+    return i+j;
+}
+int main(int argc, char **argv)
+{
+    int i, j;
+    ...
+    fprintf(stdout, "%d\n", add(add(i,j),j));
+    ...
+    return EXIT_SUCCESS;
+}
 
+\end{lstlisting}
+One might think that the first add is called by the fprintf function, however, that is not true. C needs to prepare all the inputs of a function before sending them into the function. \\
+So, what actually happens is, main calls the inner add, takes that result, gives it to the outer add as a parameter, and finally takes that output and passes it to the fprintf function.\\
+This process can be represented through a computation tree, which is, in fact, also very useful when analyzing recursive code.\\
+\begin{center}
+    \begin{forest}
+        [main [add][add][fprintf]]
+    \end{forest}    
+\end{center}
+Post-order traversal of these allow us to understand how these are used. So, in this case, the traversal will be:
+\begin{equation*}
+    \text{add}\rightarrow \text{add} \rightarrow \text{fprintf} \rightarrow \text{main}
+\end{equation*}
+Let us take recursive Fibonacci, for example:\\
+\begin{center}
+    \begin{forest}
+        [4 [3 [2 [1] [0]] [1]][2 [1] [0]]]
+    \end{forest}    
+\end{center}
+By conducting post-order traversal on this tree, we can see how the results will run, or in what order each value will be added.
 \end{document}
