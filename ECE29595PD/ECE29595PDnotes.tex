@@ -14,6 +14,7 @@
 \usepackage{array}
 \usepackage{tikz}
 \usepackage{amsmath,amsthm}
+\usepackage{mdframed}
 \usetikzlibrary{shapes}
 \usetikzlibrary{matrix}
 \usetikzlibrary{positioning}
@@ -683,7 +684,7 @@ NOR gates with AND with inverted inputs. This is usually done from right to
 left, replacing gates that we believe would allow us to simplify the circuit.
 In most cases, the goal would be to reduce the number of inverters within the
 circuit, as they may complicate the analysis once we have the function.\\
-\subsection{Combinational Synthesis}
+\section{Combinational Synthesis}
 This is the process that goes form a truth table or function, and want to get
 the circuit that defines it.\\ The goal is to make a circuit as small as
 possible. This can be done through analyzing how many gates and gate inputs
@@ -848,85 +849,179 @@ The above map will have the following combinations:\\
 \end{center}
 Each of these resulting combinations will result in a single product.
 Based on the aforementioned rules, it will be defined as: \\~\\$(W' \land Z) \lor (X\land Y' \land Z) \lor (X'\land Y\land Z) \lor (W'\land X'\land Y)$\\~\\
-A logic function implies another if for every function in which the first function is 1, the second function is 1 as well. This is called an implicant.\\
-A prime implicant is one such that if any variable is dropped from its product term would stop it from being an implicant. That is, if the combination was once again combined, it no longer only combines 1's.
-This leads to the prime implicant theorem, which tells us that a minimal sum is a sum of prime implicants. So, to find a minimal sum we only need to consider it's prime implicants.\\
-It is possible for a function to have more prime implicants than the number of necessary terms in the minimal sum. So, we will add another few definitions:\\
-\begin{itemize}
-    \item A distinguished minterm of a logic function is a minterm covered by only one
-          prime implicant.
-    \item An essential prime implicant is a prime implicant that covers one or more
-          distinguished minterms.
-\end{itemize}
-These two definitions allow us to find the minimal sum through the following steps:
-\begin{enumerate}
-    \item Find all the prime implicants
-    \item Identify the distinguished minters and essential prime implicants.
-    \item Include all the essential prime implicants.
-\end{enumerate}
-But, this will not assure covering all the ones. So, we make an additional rule:\\
-If P and Q are prime implicants and the number of literals in P is not greater than the number in Q and P covers all the remaining minterms in Q, remove Q.\\
-Some of the remaining may be necessary to select. These are secondary prime implicants.\\
-So we are going to create a prime implicant table:\\
-\begin{itemize}
-    \item A row for every prime implicant
-    \item A column for every minterm
-    \item A mark if the corresponding implicant covers the corresponding minterm
-\end{itemize}
-So, for\\
-\begin{center}
-    \begin{tikzpicture}
-        \draw[step=0.5cm,color=gray] (-1,-1) grid (1,1);
-        \matrix[matrix of nodes,nodes={inner sep=0pt,text width=.5cm,align=center,minimum height=.5cm}]{
-            0 & 0 & 0 & 0 \\
-            0 & 0 & 1 & 1 \\
-            0 & 1 & 1 & 0 \\
-            1 & 1 & 0 & 0 \\
-        };
-    \end{tikzpicture}
-\end{center}
-the table would be:
-\begin{center}
-    \begin{table}
-        \begin{tabular}{c|c c c c c c}
-                 & 0010 & 0110 & 0111 & 1001 & 1101 & 1111 \\
-            \hline
-            1-01 &      &      &      & x    & x    &      \\
-            -111 &      &      & x    &      &      & x    \\
-            0-10 & x    & x    &      &      &      &      \\
-            011- &      & x    & x    &      &      &      \\
-            11-1 &      &      &      &      & x    & x    \\
-        \end{tabular}
-    \end{table}
-\end{center}
-If there is a column with only one mark, it's implicant is selected. All the marks it covers are selected, and these columns and rows are removed.\\
-\begin{center}
-    \begin{table}
-        \begin{tabular}{c|c c c c c c}
-                             & \underline{0010} & \underline{0110} & 0111 & \underline{1001} & \underline{1101} & 1111 \\
-            \hline
-            \underline{1-01} &                  &                  &      & \underline{x}    & \underline{x}    &      \\
-            -111             &                  &                  & x    &                  &                  & x    \\
-            \underline{0-10} & \underline{x }   & \underline{x}    &      &                  &                  &      \\
-            011-             &                  & x                & x    &                  &                  &      \\
-            11-1             &                  &                  &      &                  & x                & x    \\
-        \end{tabular}
-    \end{table}
-\end{center}
-\pagebreak
-The table above is reduced to:\\
-\begin{center}
-    \begin{table}
-        \begin{tabular}{c| c c}
-                 & 0111 & 1111 \\
-            \hline
-            -111 & x    & x    \\
-            011- & x    &      \\
-            11-1 &      & x    \\
-        \end{tabular}
-    \end{table}
-\end{center}
-Since -111 covers both the others, they can be removed, and we keep -111.\\
-This process can be conducted several times, until it is as reduced as possible. However, the Karnaugh map is not powerful enough to always get the minimal form. That will require another representation. However, for several cases, it will drastically reduce the number of terms in the prime implicant table.\\
-This process can instead be conducted for zeros, or considering $F'$, and using deMorgan's on the result.
+    A logic function implies another if for every function in which the first function is 1, the second function is 1 as well. This is called an implicant.\\
+    A prime implicant is one such that if any variable is dropped from its product term would stop it from being an implicant. That is, if the combination was once again combined, it no longer only combines 1's.
+    This leads to the prime implicant theorem, which tells us that a minimal sum is a sum of prime implicants. So, to find a minimal sum we only need to consider it's prime implicants.\\
+    It is possible for a function to have more prime implicants than the number of necessary terms in the minimal sum. So, we will add another few definitions:\\
+    \begin{itemize}
+        \item A distinguished minterm of a logic function is a minterm covered by only one
+              prime implicant.
+        \item An essential prime implicant is a prime implicant that covers one or more
+              distinguished minterms.
+    \end{itemize}
+    These two definitions allow us to find the minimal sum through the following steps:
+    \begin{enumerate}
+        \item Find all the prime implicants
+        \item Identify the distinguished minters and essential prime implicants.
+        \item Include all the essential prime implicants.
+    \end{enumerate}
+    But, this will not assure covering all the ones. So, we make an additional rule:\\
+    If P and Q are prime implicants and the number of literals in P is not greater than the number in Q and P covers all the remaining minterms in Q, remove Q.\\
+    Some of the remaining may be necessary to select. These are secondary prime implicants.\\
+    So we are going to create a prime implicant table:\\
+    \begin{itemize}
+        \item A row for every prime implicant
+        \item A column for every minterm
+        \item A mark if the corresponding implicant covers the corresponding minterm
+    \end{itemize}
+    So, for\\
+    \begin{center}
+        \begin{tikzpicture}
+            \draw[step=0.5cm,color=gray] (-1,-1) grid (1,1);
+            \matrix[matrix of nodes,nodes={inner sep=0pt,text width=.5cm,align=center,minimum height=.5cm}]{
+                0 & 0 & 0 & 0 \\
+                0 & 0 & 1 & 1 \\
+                0 & 1 & 1 & 0 \\
+                1 & 1 & 0 & 0 \\
+            };
+        \end{tikzpicture}
+    \end{center}
+    the table would be:
+    \begin{center}
+        \begin{table}
+            \centering
+            \begin{tabular}{c|c c c c c c}
+                     & 0010 & 0110 & 0111 & 1001 & 1101 & 1111 \\
+                \hline
+                1-01 &      &      &      & x    & x    &      \\
+                -111 &      &      & x    &      &      & x    \\
+                0-10 & x    & x    &      &      &      &      \\
+                011- &      & x    & x    &      &      &      \\
+                11-1 &      &      &      &      & x    & x    \\
+            \end{tabular}
+        \end{table}
+    \end{center}
+    If there is a column with only one mark, it's implicant is selected. All the marks it covers are selected, and these columns and rows are removed.\\
+    \begin{center}
+        \begin{table}
+            \centering
+            \begin{tabular}{c|c c c c c c}
+                                 & \underline{0010} & \underline{0110} & 0111 & \underline{1001} & \underline{1101} & 1111 \\
+                \hline
+                \underline{1-01} &                  &                  &      & \underline{x}    & \underline{x}    &      \\
+                -111             &                  &                  & x    &                  &                  & x    \\
+                \underline{0-10} & \underline{x }   & \underline{x}    &      &                  &                  &      \\
+                011-             &                  & x                & x    &                  &                  &      \\
+                11-1             &                  &                  &      &                  & x                & x    \\
+            \end{tabular}
+        \end{table}
+    \end{center}
+    \pagebreak
+    The table above is reduced to:\\
+    \begin{center}
+        \begin{table}
+            \centering
+            \begin{tabular}{c| c c}
+                     & 0111 & 1111 \\
+                \hline
+                -111 & x    & x    \\
+                011- & x    &      \\
+                11-1 &      & x    \\
+            \end{tabular}
+        \end{table}
+    \end{center}
+    Since -111 covers both the others, they can be removed, and we keep -111.\\
+    This process can be conducted several times, until it is as reduced as possible. However, the Karnaugh map is not powerful enough to always get the minimal form. That will require another representation. However, for several cases, it will drastically reduce the number of terms in the prime implicant table.\\
+    This process can instead be conducted for zeros, or considering $F'$, and using deMorgan's on the result.
+    \subsection{Quine-McCluskey Method}
+    This method is also based on the $A\land X \lor A\land X' = A$.\\ We start by
+    listing out all the minterms, for example, for $F(W,X,Y,Z) = \sum
+(2,6,7,9,13,15)$:\\
+\begin{table}
+    \centering
+    \begin{tabular}{c c}
+        2  & 0010 \\
+        \hline
+        6  & 0110 \\
+        9  & 1001 \\
+        \hline
+        7  & 0111 \\
+        13 & 1101 \\
+        \hline
+        15 & 1111
+    \end{tabular}
+\end{table}
+Note how the terms are divided by the number of ones in the binary of the minterm.\\
+We will then combine each pair of consecutive sections, all terms with all terms:\\
+\begin{table}
+    \centering
+    \begin{tabular}{c c}
+        2,6   & 0-10 \\
+        \hline
+        6,7   & 011- \\
+        9,13  & 1-01 \\
+        \hline
+        7,15  & -111 \\
+        13,15 & 11-1 \\
+    \end{tabular}
+\end{table}
+Two minterms are combined if there is only one bit of difference between the two. The process would be continued if this could be done again, that is, if there were terms in consecutive sections with only one bit difference between two items in two consecutive sections. We will mark every expression that has been combined, and thus appears in a lower table. If there is one that is not selected, and thus unmarked, it will be a part of the final prime implicant table.\\
+\begin{mdframed}
+    \textbf{Incompletely Specified Functions}\\
+    These are functions in which we know what the output should be for certain inputs but don't care what it is for other inputs. To deal with them, the prime implicants can optionally cover them, and occasionally make more efficient expressions.\\
+    So, the following map:\\
+    \begin{center}
+        \begin{tikzpicture}
+            \draw[step=0.5cm,color=gray] (-1,-1) grid (1,1);
+            \matrix[matrix of nodes,nodes={inner sep=0pt,text width=.5cm,align=center,minimum height=.5cm}]{
+                0 & 0 & 0 & 0 \\
+                0 & 0 & 1 & 1 \\
+                d & 1 & 1 & d \\
+                1 & 1 & 0 & 0 \\
+            };
+        \end{tikzpicture}
+    \end{center}
+    can have any values at the d, that is, it can be 0 or 1.\\ So, if we were to select them both as one, the final expression would only have two terms instead of three.
+    \begin{center}
+        \begin{tikzpicture}
+            \draw[step=0.5cm,color=gray] (-1,-1) grid (1,1);
+            \matrix[matrix of nodes,nodes={inner sep=0pt,text width=.5cm,align=center,minimum height=.5cm}]{
+                0 & 0 & 0 & 0 \\
+                0 & 0 & 1 & 1 \\
+                1 & 1 & 1 & 1 \\
+                1 & 1 & 0 & 0 \\
+            };
+        \end{tikzpicture} $\rightarrow$
+        \begin{tikzpicture}
+            \draw[step=0.5cm,color=gray] (-1,-1) grid (1,1);
+            \matrix[matrix of nodes,nodes={inner sep=0pt,text width=.5cm,align=center,minimum height=.5cm}]{
+                0             & 0             & 0 & 0 \\
+                0             & 0             & 1 & 1 \\
+                \underline{1} & \underline{1} & 1 & 1 \\
+                \underline{1} & \underline{1} & 0 & 0 \\
+            };
+        \end{tikzpicture}
+        \begin{tikzpicture}
+            \draw[step=0.5cm,color=gray] (-1,-1) grid (1,1);
+            \matrix[matrix of nodes,nodes={inner sep=0pt,text width=.5cm,align=center,minimum height=.5cm}]{
+                0 & 0 & 0             & 0             \\
+                0 & 0 & \underline{1} & \underline{1} \\
+                1 & 1 & \underline{1} & \underline{1} \\
+                1 & 1 & 0             & 0             \\
+            };
+        \end{tikzpicture}
+    \end{center}
+\end{mdframed}
+The table that is drawn with incompletely specified functions represents terms we don't care about as dashes.\\
+The prime implicant table will also not include the "don't-care" terms. We will conduct the same process as what was done for earlier prime implicant tables.\\
+\section{Timing Hazards}
+The output of a gate is not instant, and the delay could possibly cause errors in the output if the delay is severe enough.\\
+Suppose there is a change in an input to a gate, through which there is an expected change in the output, which will be delayed, and can thus cause problems.\\
+This erroneous performance is called a glitch, and the probability of it happening, is called the hazard.\\
+\begin{mdframed}
+    \textbf{Static Hazards}\\
+    The static-1 hazard is the possibility that the circuit will have a momentary 0 pulse when it is supposed to be stable at 1.\\
+    It is a pair of input combinations that differ in only one input variable and they both give a 1 output, causing a momentary 0.\\
+    The reason for these conditions is that it is possible for only one input to change at a time.
+\end{mdframed}
 \end{document}

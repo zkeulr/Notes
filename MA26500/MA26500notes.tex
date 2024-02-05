@@ -7,6 +7,7 @@
 \usepackage{hyperref}
 \usepackage{pgfplots}
 \usepackage{centernot}
+\usepackage{mdframed}
 \usepackage[activate={true,nocompatibility},final,tracking=true,kerning=true,spacing=true,factor=1100,stretch=10,shrink=10]{microtype}
 \usepackage{color}
 \usepackage{steinmetz}
@@ -73,9 +74,8 @@
 \newcommand{\docpkg}[1]{\texttt{#1}}% package name
 \newcommand{\doccls}[1]{\texttt{#1}}% document class name
 \newcommand{\docclsopt}[1]{\texttt{#1}}% document class option name
-
 % Define a custom command for definitions and biconditional
-\newcommand{\defn}[2]{\noindent\textbf{#1}:\ #2}
+\newcommand{\defn}[2]{\underline{\noindent\textbf{#1}}:\ #2}
 \let\biconditional\leftrightarrow
 
 \begin{document}
@@ -871,4 +871,13 @@ and the basis would be:
         1
     \end{bmatrix}\right\}
 \end{equation*}
+\section{Dimension and Rank}
+\defn{Coordinate vectors}{Let the set $B = \{\mathbf{b_1,b_2,\ldots,b_n}\}$ be a basis of a subspace H.
+For each \textbf{x} in H, the coordinates of \textbf{x} relative to the basis B, are $c_1,c_2,\ldots,c_n$ such that the vector is $\mathbf{x} = c_1\mathbf{b_1}+ c_2\mathbf{b_2}+\cdots+ c_n\mathbf{b_n}$.\\}
+\defn{Dimension of a subspace}{The number of vectors in any subspace H. The dimension of the $\mathbf{0}$ subspace is defined as zero.\\}
+\defn{Rank of a matrix}{the dimension of the column space of said matrix.}\\ It is, in essence the number of pivot columns of the matrix.\\
+\defn{Nullity of a matrix}{the dimension of the null space of said matrix.}\\ It is, in essence the number of free variables in the matrix.\\
+If a matrix \textbf{A} has n columns: $\text{rank}(\mathbf{A})+\text{nullity}(\mathbf{A})=n$.\\
+Any set of elements of H that spans H is a basis for H.\\
+If a matrix \textbf{A} is of dimensions $m\times n$, then $\text{rank}(\mathbf{A})\leq \text{min}(m,n)$
 \end{document}

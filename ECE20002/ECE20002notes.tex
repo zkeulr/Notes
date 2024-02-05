@@ -998,23 +998,65 @@ We will define a one-sided Laplace transform as the following:
 \begin{equation*}
     \mathcal{L}\{f(t)\} = F(s) = \int_{0}^{\infty} f(t)e^{-st}dt
 \end{equation*}
+\textit{Note: as a fun fact, Fourier transforms, which are covered in higher level courses, are a subset of Laplace transforms.}\\
 The transformations form the following table:
 \begin{itemize}
+    \item $\mathcal{L}\{Af(t)\} = AF(s)$
+    \item $\mathcal{L}\{f_1(t)+f_2(t)\} = F_1(s)+F_2(s)$
     \item $\mathcal{L}\{e^{-t}\} = \frac{1}{s+1}$
     \item $\mathcal{L}\{t\} = \frac{1}{s^2}$
+    \item $\mathcal{L}\{tf(t)\} = -\frac{d}{ds}F(s)$
+    \item $\mathcal{L}\{t^n f(t)\} = (-1)^n\frac{d^n}{ds^n}F(s)$
+    \item $\mathcal{L}\{f(t-t_0)u(t-t_0)\} = e^{-st_0}F(s)$
     \item $\mathcal{L}\{\frac{t^n}{n!}\} = \frac{1}{s^{n+1}}$
     \item $\mathcal{L}\{\delta(t)\} = 1 \leftarrow$ \textbf{Important}
     \item $\mathcal{L}\{u(t)\} = \frac{1}{s}$ with $Re\{s\}\neq 0 \leftarrow$ \textbf{Important}
     \item $\mathcal{L}\{t(u(t))\} = \frac{1}{s^2}$ with $Re\{s\}\neq 0 \leftarrow$ \textbf{Important}
     \item $\mathcal{L}\{e^{-at}u(t)\} = \frac{1}{s+a}$ with $Re\{s+a\}> 0 \leftarrow$ \textbf{Important}
+    \item $\mathcal{L}\{e^{-at}f(t)\} = F(s+a)$
     \item $\mathcal{L}\{\cos(\omega t)\} = \frac{s}{s^2+\omega^2}$ with $Re\{s\}> 0$
     \item $\mathcal{L}\{\sin(\omega t)\} = \frac{\omega}{s^2+\omega^2}$ with $Re\{s\}> 0$
     \item $\mathcal{L}\{\cos(\omega t)+\sin(\omega t)\} = \frac{s+\omega}{s^2+\omega^2}$ with $Re\{s\}> 0$
-    \item $\mathcal{L}\{f'(t)\} = sF(s) - f(0)$ with $F(s)$ being the Laplace transform of $f(t)$
-    \item $\mathcal{L}\{f''(t)\} = s^2F(s) - sf(0)-f'(0)$ with $F(s)$ being the Laplace transform of $f(t)$
-    \item $\mathcal{L}\{f^{(n)}(t)\} = s^n F(s) -\sum_{k=0}^{n-1} (s^{n-1-k}\frac{d^k f(0)}{dt^k})$ with $F(s)$ being the Laplace transform of $f(t)$
+    \item $\mathcal{L}\{f'(t)\} = sF(s) - f(0^-)$ with $F(s)$ being the Laplace transform of $f(t)$
+    \item $\mathcal{L}\{f''(t)\} = s^2F(s) - sf(0^-)-f'(0^-)$ with $F(s)$ being the Laplace transform of $f(t)$
+    \item $\mathcal{L}\{f^{(n)}(t)\} = s^n F(s) -\sum_{k=0}^{n-1} (s^{n-1-k}\frac{d^k f(0^-)}{dt^k})$ with $F(s)$ being the Laplace transform of $f(t)$
+    \item $\mathcal{L}\{\int_{-\infty}^{t}f(\tau)d\tau\} = \frac{1}{s}\int_{-\infty}^{0} f(\tau) d\tau +\frac{1}{s}F(s)$
 \end{itemize}
 The beauty of these, and their applications in this course come from the property $f(t)*g(t) = F(s)G(s)$.\\
-Later in this course we will learn to find $H(s)$ of a system using KVL and KCL without going through ODEs.
-\textit{Note: as a fun fact, Fourier transforms, which are covered in higher level courses, are a subset of Laplace transforms.}
+\textit{Note: For most circuits covered in this course, the order of the numerator is lower than the order of the denominator. This will allow us to conduct inverse Laplace Transforms more easily.}\\
+Later in this course we will learn to find $H(s)$ of a system using KVL and KCL without going through ODEs.\\
+\subsection{Properties of Laplace Transforms}
+The Laplace transform of the first derivative can be used to prove the following property, also known as the Initial-Value Theorem:\\
+\begin{equation*}
+    f(0^+) = \lim_{t\rightarrow 0^+}f(t) = \lim_{s\rightarrow\infty}sF(s)
+\end{equation*}
+It also proves the Final-Value Theorem:
+\begin{equation*}
+    \lim_{t\rightarrow\infty} = \lim_{s\rightarrow 0}sF(s)
+\end{equation*}
+It is important to notice that there are limitations of the value of s in the Final-Value theorem.\\
+\subsection{Inverse Laplace Transform}
+Let
+\begin{align*}
+    X(s) &= \frac{P_1(s)}{Q_1(s)}\\
+    H(s) &= \frac{P_2(s)}{Q_2(s)}\\
+    \implies Y(s) &= \frac{P_1(s)P_2(s)}{Q_1(s)Q_2(s)}\\
+    &= \frac{a_m s^m+a_{m-1}s^{m-1}+\cdots+a_1s+a_0}{b_n s^n+b_{n-1}s^{n-1}+\cdots+b_1s+b_0}\\
+    &= \frac{K_1}{(s+p_1)^{r_1}}+\frac{K_2}{(s+p_2)^{r_2}}+\cdots+\frac{K_n}{(s+p_n)^{r_n}}
+\end{align*}
+Rewriting $Y$ as partial fractions allows us to use out look-up table to go back into the time domain.\\
+Let us take a look at each of three cases separately:
+\begin{itemize}
+    \item Simple Real Poles:
+    \begin{align*}
+        F(s) &= \frac{P(S)}{(s+p_1)(s+p_2)Q_1(s)} = \frac{K_1}{s+p_1}+\frac{K_2}{s+p_2}+\frac{P_1(s)}{Q_1(s)}\\
+        K_a &= [F(s)(s+p_1)]_{s=-p_1} = \left[ \frac{P(s)}{(s+p_1)(s+p_2)Q_1(s)}(s+p_1)\right]_{s=-p_1}\\
+        &= \left[\frac{K_1}{s+p_1}(s+p_1)+\frac{K_2}{s+p_2}(s+p_1)+\frac{P_1(s)}{Q_1(s)}(s+p_1)\right]
+    \end{align*}
+    \item: Complex Conjugate Poles:
+    \begin{align*}
+        F(s) &= \frac{P(S)}{(s+\alpha - j\beta)(s+\alpha + j\beta)Q_1(s)}\\
+        &= \frac{K_1}{s+\alpha - j\beta}+\frac{K_2}{s+\alpha +j\beta}+\frac{P_1(s)}{Q_1(s)}
+    \end{align*}
+\end{itemize}
 \end{document}

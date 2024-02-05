@@ -1113,4 +1113,129 @@ Some other, less important elasticities are:
     \item Advertising Elasticity (and cross-advertising elasticity)
     \item Crime elasticity
 \end{itemize}
+\section{Intervening in Markets}
+The government can influence the market through actions like taxes, regulations, subsidies, among others.\\
+This does not, however, stop market forces, it just changes how much things benefit each of the parties in transactions.\\
+Some taxes are:
+\begin{itemize}
+    \item Excise tax: tax on each unit sold, collected from supplier $\leftarrow$ focus of the class
+    \item Ad Valorem tax: percentage tax
+\end{itemize}
+A tax on sellers is seen as a rise in marginal cost of production. It causes a parallel shift of the supply curve:
+\begin{center}
+    \begin{tikzpicture}[scale = 0.5]
+        \begin{axis}[
+                axis lines = left,
+                xlabel = Quantity,
+                ylabel = Price,
+                ymax = 40,
+                xmax = 6,
+                ymin = 0,
+                xmin = 0,
+                legend entries = {S, D, $S_n$, $S_{Revenue}$}
+            ]
+            \addplot [
+                domain=0:5,
+                samples=10,
+                color=blue,
+            ]
+            {6*x + 2};
+            \addplot [
+                domain=0:5,
+                samples=10,
+                color=red,
+            ]
+            {-6*x + 38};
+            \addplot [
+                domain=0:4,
+                samples=10,
+                color=cyan,
+            ]
+            {6*x + 8};
+            \addplot [gray, dashed, fill = gray, fill opacity = 0.2] coordinates {(0,19) (2.5,19) (2.5, 0)} \closedcycle;
+            \addplot [black, dashed] coordinates {(0,20) (3,20) (3,0)};
+            \addplot [black, dashed] coordinates {(0,23) (2.5,23) (2.5,0)};
+        \end{axis}
+    \end{tikzpicture}
+\end{center}
+It causes an increase in price and a reduction in quantity. It also reduces the amount that the seller keeps.\\
+If the tax were instead on the buyer, the marginal benefit of the buyer reduces:
+\begin{center}
+    \begin{tikzpicture}[scale = 0.5]
+        \begin{axis}[
+                axis lines = left,
+                xlabel = Quantity,
+                ylabel = Price,
+                ymax = 40,
+                xmax = 6,
+                ymin = 0,
+                xmin = 0,
+                legend entries = {S,D,$D_n$}
+            ]
+            \addplot [
+                domain=0:5,
+                samples=10,
+                color=blue,
+            ]
+            {6*x + 2};
+            \addplot [
+                domain=0:5,
+                samples=10,
+                color=red,
+            ]
+            {-6*x + 38};
+            \addplot [
+                domain=0:4,
+                samples=10,
+                color=orange,
+            ]
+            {-6*x + 32};
+        \end{axis}
+    \end{tikzpicture}
+\end{center}
+The posted price is what goes to the seller, and $paid - posted = tax$, which is what goes to the government.\\
+To solve these systems, we need to get both price equations, and then add the tax to the price for whichever entity is receiving the tax.\\
+\defn{Tax Wedge}{(Tax)$\times$(New Quantity in Market)}
+\begin{center}
+    \begin{tikzpicture}[scale = 0.5]
+        \begin{axis}[
+                axis lines = left,
+                xlabel = Quantity,
+                ylabel = Price,
+                ymax = 40,
+                xmax = 6,
+                ymin = 0,
+                xmin = 0,
+                legend entries = {S, D, $S_n$, $S_{Revenue}$, $Tax_{wedge}$}
+            ]
+            \addplot [
+                domain=0:5,
+                samples=10,
+                color=blue,
+            ]
+            {6*x + 2};
+            \addplot [
+                domain=0:5,
+                samples=10,
+                color=red,
+            ]
+            {-6*x + 38};
+            \addplot [
+                domain=0:4,
+                samples=10,
+                color=cyan,
+            ]
+            {6*x + 8};
+            \addplot [gray, dashed, fill = gray, fill opacity = 0.2] coordinates {(0,19) (2.5,19) (2.5, 0)} \closedcycle;
+            \addplot [magenta, dashed, fill = magenta, fill opacity = 0.3] coordinates {(0,23) (2.5,23) (2.5, 19) (0,19)} \closedcycle;
+            \addplot [black, dashed] coordinates {(0,20) (3,20) (3,0)};
+            \addplot [black, dashed] coordinates {(0,23) (2.5,23) (2.5,0)};
+        \end{axis}
+    \end{tikzpicture}
+\end{center}
+\defn{Statutory Burden}{Burden of needing to pay taxes}\\
+\defn{Economic Burden}{Burden created by after-tax prices}\\
+\defn{Tax incidence}{Division of Economic Burden}\\
+Tex incidence is independent of statutory burden. It can fall in some combination upon buyers and sellers. The policy alone is not enough to know the economic burden.\\
+The market is what defines tax incidence, not the government.\\
 \end{document}
