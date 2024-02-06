@@ -584,5 +584,49 @@ Let us take recursive Fibonacci, for example:\\
         [4 [3 [2 [1] [0]] [1]][2 [1] [0]]]
     \end{forest}    
 \end{center}
-By conducting post-order traversal on this tree, we can see how the results will run, or in what order each value will be added.
+By conducting post-order traversal on this tree, we can see how the results will run, or in what order each value will be added.\\
+The tallest stack in a recursive algorithm (or longest path in computational tree) is the space complexity. It is the additional memory necessary to store the data. This is because each call is allocating an additional constant amount of memory.\\
+\textit{Note: if you were to have something like a[n] in your stack, the space complexity would drastically increase.}\\
+Let us look back at our Fibonacci tree once more. Let n be the number of sequence terms. Then T and L will be:\\
+\begin{table}
+    \centering
+    \begin{tabular}{c c c}
+        n & T & L\\
+        \hline
+        0 & 1 & 1\\
+        1 & 1 & 1\\
+        2 & 3 & 2\\
+        3 & 5 & 3
+    \end{tabular}
+\end{table}
+with T the total number of nodes, and L being the number of leaf nodes. So, $T=1+T(n-1)+T(n-2)$ and $L=L(n-1)+L(n-2) = Fibonacci(n)$.\\
+So, if there are L leaf nodes, there will be L-1 non-leaf nodes, which is a total of 2L-1 nodes. And since L is F(n), we can calculate the complete space complexity using that.\\
+A binary search tree for an array will have the following computation tree, for a sorted array of length 9:\\
+\begin{center}
+    \begin{forest}
+        [0.8 [0.3 [0.0 [\underline{0.-1}] [\underline{1.0}]] [2.3 [\underline{2.1}] [3.3 [\underline{3.2}] [\underline{4.3}]]]][5.8 [5.5 [\underline{5.4}] [\underline{6.5}]] [7.8 [\underline{7.6}] [8.8 [\underline{8.7}] [\underline{9.8}]]]]]
+    \end{forest}    
+\end{center}
+if the code that defines it is:
+\begin{lstlisting}
+Tnode *Build_BST(int *a, int lidx, int ridx)
+{
+    if (lidx > ridx)
+        return NULL;
+    int mid = (lidx + ridx)/2;
+    Tnode *root = malloc(sizeof(*root));
+    if (root != NULL) {
+        root->data = a[mid];
+        root->left = Build_BST(a, lidx, mid-1);
+        root->right = Build_BST(a, mid+1, ridx);
+    }
+    return root;
+}
+\end{lstlisting}
+This has a space complexity of O(log(n)). That is because at any given moment, there will be at most log(n) stacks (the height of the computational tree is O(log(n)). It will have a time complexity of O(n), as it is the number of non-leaf nodes in the computation tree.\\
+Similar trees can be built for any recursive algorithm.
+\begin{center}
+    "As an engineer, you must look for patterns. You won't see until you start looking."\\ - Prof. Koh
+\end{center}
+However, if there are nodes with non-constant time complexity, 
 \end{document}
