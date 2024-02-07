@@ -873,11 +873,23 @@ and the basis would be:
 \end{equation*}
 \section{Dimension and Rank}
 \defn{Coordinate vectors}{Let the set $B = \{\mathbf{b_1,b_2,\ldots,b_n}\}$ be a basis of a subspace H.
-For each \textbf{x} in H, the coordinates of \textbf{x} relative to the basis B, are $c_1,c_2,\ldots,c_n$ such that the vector is $\mathbf{x} = c_1\mathbf{b_1}+ c_2\mathbf{b_2}+\cdots+ c_n\mathbf{b_n}$.\\}
+    For each \textbf{x} in H, the coordinates of \textbf{x} relative to the basis B, are $c_1,c_2,\ldots,c_n$ such that the vector is $\mathbf{x} = c_1\mathbf{b_1}+ c_2\mathbf{b_2}+\cdots+ c_n\mathbf{b_n}$.\\}
 \defn{Dimension of a subspace}{The number of vectors in any subspace H. The dimension of the $\mathbf{0}$ subspace is defined as zero.\\}
 \defn{Rank of a matrix}{the dimension of the column space of said matrix.}\\ It is, in essence the number of pivot columns of the matrix.\\
 \defn{Nullity of a matrix}{the dimension of the null space of said matrix.}\\ It is, in essence the number of free variables in the matrix.\\
 If a matrix \textbf{A} has n columns: $\text{rank}(\mathbf{A})+\text{nullity}(\mathbf{A})=n$.\\
 Any set of elements of H that spans H is a basis for H.\\
-If a matrix \textbf{A} is of dimensions $m\times n$, then $\text{rank}(\mathbf{A})\leq \text{min}(m,n)$
+If a matrix \textbf{A} is of dimensions $m\times n$, then $\text{rank}(\mathbf{A})\leq \text{min}(m,n)$\
+\section{Determinant}
+\defn{Determinant}{The determinant of an $n \times n$ matrix \textbf{A}, det(\textbf{A}), is based on the elements of the matrix.}\\
+If $\mathbf{A}=\begin{bmatrix}a\end{bmatrix}$, the determinant will be $a$.\\
+If $\mathbf{A}=\begin{bmatrix}a & b\\ c & d\end{bmatrix}$, the determinant will be $ad-bc$.\\
+The next can also be defined, but it is going to be very long. \\
+So the definition is actually:\\
+Let $\mathbf{A}=\begin{bmatrix}a_{ij}\end{bmatrix}_{n\times n}$. \\
+The cofactor $C_{ij}$ of \textbf{A} is $(-1)^{i+j}\det(A_{ij})$, where $A_{ij}$ is the submatrix formed by deleting the $i$th row and $j$th column. So,\\
+\begin{equation*}
+    \det(A) = \sum_{k=1}^{n}a_{kj}C_{kj} = \sum_{k=1}^{n}a_{ik}C_{ik} \text{, for any } i,j\leq n
+\end{equation*}
+\textit{Note: the determinant will be the same regardless of what column or row you choose to cofactor through.}\\
 \end{document}
