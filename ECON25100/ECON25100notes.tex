@@ -1226,16 +1226,146 @@ To solve these systems, we need to get both price equations, and then add the ta
                 color=cyan,
             ]
             {6*x + 8};
-            \addplot [gray, dashed, fill = gray, fill opacity = 0.2] coordinates {(0,19) (2.5,19) (2.5, 0)} \closedcycle;
-            \addplot [magenta, dashed, fill = magenta, fill opacity = 0.3] coordinates {(0,23) (2.5,23) (2.5, 19) (0,19)} \closedcycle;
+            \addplot [gray, dashed, fill = gray, fill opacity = 0.2] coordinates {(0,16.7) (2.5,16.7) (2.5, 0)} \closedcycle;
+            \addplot [magenta, dashed, fill = magenta, fill opacity = 0.3] coordinates {(0,23) (2.5,23) (2.5, 16.7) (0,16.7)} \closedcycle;
             \addplot [black, dashed] coordinates {(0,20) (3,20) (3,0)};
             \addplot [black, dashed] coordinates {(0,23) (2.5,23) (2.5,0)};
         \end{axis}
     \end{tikzpicture}
 \end{center}
-\defn{Statutory Burden}{Burden of needing to pay taxes}\\
-\defn{Economic Burden}{Burden created by after-tax prices}\\
-\defn{Tax incidence}{Division of Economic Burden}\\
-Tex incidence is independent of statutory burden. It can fall in some combination upon buyers and sellers. The policy alone is not enough to know the economic burden.\\
+\defn{Statutory Burden}{Burden of being assigned to pay taxes}\\
+\defn{Economic Burden}{Burden created by after-tax prices, on both buyer and seller}\\
+\defn{Tax incidence}{Division of Economic Burden between buyer and seller}\\
+Tax incidence is independent of statutory burden. It can fall in some combination upon buyers and sellers. The policy alone is not enough to know the economic burden.\\
 The market is what defines tax incidence, not the government.\\
+The elasticity of supply and demand curves determine who will pay more of the tax. The more inelastic the entities curve, the larger the portion of the tax borne by the entity.\\
+So:
+\begin{equation*}
+    \text{Tax Revenue from Buyers} = \text{Tax Paid by buyers} \times \text{New Quantity} = (P_1-P_0)Q_s
+\end{equation*}
+\begin{center}
+    \begin{tikzpicture}[scale = 0.5]
+        \begin{axis}[
+                axis lines = left,
+                xlabel = Quantity,
+                ylabel = Price,
+                ymax = 40,
+                xmax = 6,
+                ymin = 0,
+                xmin = 0,
+                legend entries = {S, D, $S_n$, $Buyer_{burden}$, $Seller_{burden}$}
+            ]
+            \addplot [
+                domain=0:5,
+                samples=10,
+                color=blue,
+            ]
+            {6*x + 2};
+            \addplot [
+                domain=0:5,
+                samples=10,
+                color=red,
+            ]
+            {-6*x + 38};
+            \addplot [
+                domain=0:4,
+                samples=10,
+                color=cyan,
+            ]
+            {6*x + 8};
+            \addplot [red, dashed, fill = red, fill opacity = 0.3] coordinates {(0,23) (2.5,23) (2.5, 20) (0,20)} \closedcycle;
+            \addplot [blue, dashed, fill = blue, fill opacity = 0.3] coordinates {(0,20) (2.5,20) (2.5, 16.8) (0,16.8)} \closedcycle;
+            \addplot [black, dashed] coordinates {(0,20) (3,20) (3,0)};
+            \addplot [black, dashed] coordinates {(0,23) (2.5,23) (2.5,0)};
+        \end{axis}
+    \end{tikzpicture}
+\end{center}
+Let us look at a more extreme case:
+\begin{center}
+    \begin{tikzpicture}[scale = 0.5]
+        \begin{axis}[
+                axis lines = left,
+                xlabel = Quantity,
+                ylabel = Price,
+                ymax = 40,
+                xmax = 6,
+                ymin = 0,
+                xmin = 0,
+                legend entries = {S, D, $S_n$, $Buyer_{burden}$, $Seller_{burden}$}
+            ]
+            \addplot [
+                domain=0:5,
+                samples=10,
+                color=blue,
+            ]
+            {6*x + 2};
+            \addplot [
+                domain=0:5,
+                samples=10,
+                color=red,
+            ]
+            {-12*x + 38};
+            \addplot [
+                domain=0:4,
+                samples=10,
+                color=cyan,
+            ]
+            {6*x + 8};
+            \addplot [red, dashed, fill = red, fill opacity = 0.3] coordinates {(0,18) (1.65,18) (1.65, 14) (0,14)} \closedcycle;
+            \addplot [blue, dashed, fill = blue, fill opacity = 0.3] coordinates {(0,14) (1.65,14) (1.65, 12) (0,12)} \closedcycle;
+            \addplot [black, dashed] coordinates {(0,14) (2,14) (2,0)};
+            \addplot [black, dashed] coordinates {(0,18) (1.65,18) (1.65,0)};
+        \end{axis}
+    \end{tikzpicture}
+\end{center}
+Taxes on buyers also cause a leftward shift, however, this time it is on the demand curve.\\ However, the burden on each entity is still the same, as the elasticity is what defines the tax incidence.\\
+Tax Evaluation process:
+\begin{itemize}
+    \item Which curve is shifting?
+    \item Increase of decrease in taxes?
+    \item Compare pre-tax and post-tax equilibrium
+    \item Assess the elasticities of both supply and demand to find the tax incidence.
+\end{itemize}
+\subsection{Subsidies}
+The same as taxes, but all effects go in reverse, so the curve shifts right.
+The curve looks like this:
+\begin{center}
+    \begin{tikzpicture}[scale = 0.5]
+        \begin{axis}[
+                axis lines = left,
+                xlabel = Quantity,
+                ylabel = Price,
+                ymax = 40,
+                xmax = 6,
+                ymin = 0,
+                xmin = 0,
+                legend entries = {S, D, $S_n$, $Buyer_{gain}$, $Seller_{gain}$}
+            ]
+            \addplot [
+                domain=0:5,
+                samples=10,
+                color=blue,
+            ]
+            {6*x + 8};
+            \addplot [
+                domain=0:5,
+                samples=10,
+                color=red,
+            ]
+            {-12*x + 38};
+            \addplot [
+                domain=0:4,
+                samples=10,
+                color=cyan,
+            ]
+            {6*x + 2};
+            \addplot [red, dashed, fill = red, fill opacity = 0.3] coordinates {(0,18) (1.65,18) (1.65, 14) (0,14)} \closedcycle;
+            \addplot [blue, dashed, fill = blue, fill opacity = 0.3] coordinates {(0,14) (1.65,14) (1.65, 12) (0,12)} \closedcycle;
+            \addplot [black, dashed] coordinates {(0,14) (2,14) (2,0)};
+            \addplot [black, dashed] coordinates {(0,18) (1.65,18) (1.65,0)};
+        \end{axis}
+    \end{tikzpicture}
+\end{center}
+Subsidies are seen as a decrease in marginal cost of production for sellers, and an increase in marginal benefit for buyers.\\
+Once again, as seen in the graph above, the subsidy incidence is defined by the elasticity curve. The more inelastic, the more benefit.
 \end{document}
