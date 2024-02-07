@@ -1053,6 +1053,24 @@ called a glitch, and the probability of it happening, is called the hazard.\\
     \textbf{Static Hazards}\\
     The static-1 hazard is the possibility that the circuit will have a momentary 0 pulse when it is supposed to be stable at 1.\\
     It is a pair of input combinations that differ in only one input variable and they both give a 1 output, causing a momentary 0.\\
-    The reason for these conditions is that it is possible for only one input to change at a time.
+    The reason for these conditions is that it is possible for only one input to change at a time.\\
+    The same can happen for 0, which would be called a static-0 hazard.\\
+    Only one input changes in a static hazard.
 \end{mdframed}
+K-maps can be used to locate static hazards. We look for prime implicants that are adjacent, and the change between them is not covered by the circuit.\\
+\begin{center}
+    \includegraphics[width = 150px]{images/kmaphazard.png}
+\end{center}
+The upper prime implicant and the lower prime implicant, which are each covered by AND gates, have the $11$ column as an adjacency. This can cause timing hazards to occur. To fix them, one would be to add the hazard causing adjacency as an additional AND gate to the circuit.\\
+\begin{center}
+    \begin{tikzpicture}
+        \draw[step=0.5cm,color=gray] (-1,-0.5) grid (1,0.5);
+        \matrix[matrix of nodes,nodes={inner sep=0pt,text width=.5cm,align=center,minimum height=.5cm}]{
+            0 & 0 & \underline{1} & 1 \\
+            0 & 1 & \underline{1} & 0 \\
+        };
+    \end{tikzpicture}
+\end{center}
+If were to not use a K-map, we would need to compare all pairs of prime implicants and find terms that differ in the value of a single input.\\
+If there are no adjacent K-map terms, or all the items that need to be covered, are already covered, no timing hazard will occur.
 \end{document}
