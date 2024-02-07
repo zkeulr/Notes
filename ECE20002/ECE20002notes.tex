@@ -1036,7 +1036,11 @@ It also proves the Final-Value Theorem:
 \end{equation*}
 It is important to notice that there are limitations of the value of s in the Final-Value theorem.\\
 \subsection{Inverse Laplace Transform}
-Let
+The inverse Laplace transform is defined as the following:
+\begin{equation*}
+    f(t)=\frac{1}{j2\pi}\oint\limits_{\Gamma}F(s)e^{st}ds
+\end{equation*}
+However, this is quite complicated to solve, and it may even be completely impossible. So, let
 \begin{align*}
     X(s) &= \frac{P_1(s)}{Q_1(s)}\\
     H(s) &= \frac{P_2(s)}{Q_2(s)}\\
@@ -1053,10 +1057,18 @@ Let us take a look at each of three cases separately:
         K_a &= [F(s)(s+p_1)]_{s=-p_1} = \left[ \frac{P(s)}{(s+p_1)(s+p_2)Q_1(s)}(s+p_1)\right]_{s=-p_1}\\
         &= \left[\frac{K_1}{s+p_1}(s+p_1)+\frac{K_2}{s+p_2}(s+p_1)+\frac{P_1(s)}{Q_1(s)}(s+p_1)\right]
     \end{align*}
-    \item: Complex Conjugate Poles:
+    \item Complex Conjugate Poles:
     \begin{align*}
         F(s) &= \frac{P(S)}{(s+\alpha - j\beta)(s+\alpha + j\beta)Q_1(s)}\\
-        &= \frac{K_1}{s+\alpha - j\beta}+\frac{K_2}{s+\alpha +j\beta}+\frac{P_1(s)}{Q_1(s)}
+        &= \frac{K_1}{s+\alpha - j\beta}+\frac{K_2}{s+\alpha +j\beta}+\frac{P_1(s)}{Q_1(s)}\\
+        &= \frac{sA_1+A_2}{(s+\sigma)^2+\omega^2}+\frac{P_1(s)}{Q_1(s)} \text{ with } A_1=2K_1, A_2=2\sigma K_1+2\omega K_2
     \end{align*}
+    \item Repeated, Real Poles:
+    \begin{align*}
+        F(s) &= \frac{P(S)}{(s+p_1)(s+p_1)Q_1(s)} = \frac{K_1}{s+p_1}+\frac{K_2}{(s+p_1)^2}+\frac{P_1(s)}{Q_1(s)}\\
+    \end{align*}
+    For all except term with quadratic denominator, follow same procedure as in Simple Real Poles. For the quadratic term, multiply the equation by $(s-p_1)^2$, and set $s=p_1$, this will cause all terms to drop out, except $K_2$, which we will then be able to evaluate.\\
+    If there are more than two repeated roots, multiply by the highest exponent, and make everything fall out. Solve as mentioned above. For the rest of the coefficients, a system of equations will have to be solved.
 \end{itemize}
+Once everything is in partial fraction form, we can easily use the lookup table to take it back to the time-domain.
 \end{document}
