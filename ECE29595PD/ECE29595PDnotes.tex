@@ -712,7 +712,36 @@ the function's minimal form
 \begin{center}
     \includegraphics[width = 150px]{images/karnaugh.png}
 \end{center}
-where the numbers represent the minterms of the function. This can be expanded to more variables, by dividing the number of variables by two. The order is the order of the gray code for that amount of bits.\\
+where the numbers represent the minterms of the function. This can be expanded to more variables, by dividing the number of variables by two.\\
+The order of the bits on each side of the rectangle is the gray code for that amount of bits. That is, after dividing the number of bits by two, to get the number of bits on each side of the rectangle, we will assign the bits, and organize the binary values in gray code order. This allows for only one bit to change between two adjacent cells. This will allow for simlification using the $(A\land X\lor(A\land X')) = A$.\\
+\textit{Note: to generate n-bit gray code the following steps can be followed:
+    \begin{itemize}
+        \item Write out $0$ n times. This will be your first bit.
+        \item Change the least significant but to 1. You will now have $000...01$
+        \item Reflect this pair of bits, but change the 2-bit to $1$. You will generate a pair $00...11$,$00...10$.
+        \item Reflect all the bits you have, and change the next most significant bit from $0$ to $1$, until you have all $2^n$ combinations.\\
+        Example for n=4, with each horizontal line being a reflection:
+        \begin{table}
+            \centering
+            \begin{tabular}{c}
+                0000\\
+                0001\\
+                \hline
+                0011\\
+                0010\\
+                \hline
+                0110\\
+                0111\\
+                0101\\
+                0100\\
+                \hline
+                1100\\
+                1101\\
+                \vdots
+            \end{tabular}
+        \end{table}
+    \end{itemize}
+}
 So, the function $F(X,Y,Z) = \sum_{X,Y,Z}(3,6,7)$ would be represented as
 \begin{center}
     \includegraphics[width = 150px]{images/Karnaugh_use.png}
@@ -1015,9 +1044,11 @@ Two minterms are combined if there is only one bit of difference between the two
 The table that is drawn with incompletely specified functions represents terms we don't care about as dashes.\\
 The prime implicant table will also not include the "don't-care" terms. We will conduct the same process as what was done for earlier prime implicant tables.\\
 \section{Timing Hazards}
-The output of a gate is not instant, and the delay could possibly cause errors in the output if the delay is severe enough.\\
-Suppose there is a change in an input to a gate, through which there is an expected change in the output, which will be delayed, and can thus cause problems.\\
-This erroneous performance is called a glitch, and the probability of it happening, is called the hazard.\\
+The output of a gate is not instant, and the delay could possibly cause errors
+in the output if the delay is severe enough.\\ Suppose there is a change in an
+input to a gate, through which there is an expected change in the output, which
+will be delayed, and can thus cause problems.\\ This erroneous performance is
+called a glitch, and the probability of it happening, is called the hazard.\\
 \begin{mdframed}
     \textbf{Static Hazards}\\
     The static-1 hazard is the possibility that the circuit will have a momentary 0 pulse when it is supposed to be stable at 1.\\
