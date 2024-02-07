@@ -18,6 +18,7 @@
 \usetikzlibrary{shapes}
 \usetikzlibrary{positioning}
 \usepackage{listings}
+\usepackage{forest}
 \usepackage{caption}
 \DeclareCaptionFont{white}{\color{white}}
 \DeclareCaptionFormat{listing}{\colorbox{gray}{\parbox{\textwidth}{#1#2#3}}}
@@ -451,12 +452,181 @@ Hierarchy of $O(n)$ (in this section, we will show what possible asymptotic nota
 There is a notation that goes hang in hand with $O(n)$:
 \begin{align*}
     f(n)=O(g(n))&\implies g(n)=\Omega(f(n))\\
-    f(n)\leq g(n) &\implies g(n)\geq f(n)\\
+    \exists c, n_0 \mid f(n)\leq g(n) & \implies \exists c', n_0' \mid g(n)\geq f(n)\\
     &\implies \lim_{n\rightarrow\infty}\frac{f(n)}{g(n)}=0
 \end{align*}
-And another:
+And another, the Theta Notation:
 \begin{align*}
     f(n)=\Theta(g(n)) &\iff \exists(c_1,c_2,n_0)\quad c_1g(n)\leq f(n)\leq c_2g(n)\\
-    &\implies \lim_{n\rightarrow\infty}\frac{f(n)}{g(n)}\neq 0,\infty
+    &\iff \lim_{n\rightarrow\infty}\frac{f(n)}{g(n)}\neq 0,\infty\\
+    &\iff [f(n) = O(g(n))] \land [g(n) = O(f(n))]
 \end{align*}
+And finally the little-o notation:
+\begin{align*}
+    f(n) = o(g(n)) &\iff \lim_{n\rightarrow\infty}\frac{f(n)}{g(n)} = 0\\
+    &\iff \forall c,\exists n_0 \mid f(n)\leq cg(n) \quad \forall n\geq n_0
+\end{align*}
+Which leads to the little-omega notation:
+\begin{align*}
+    g(n) = \omega(f(n)) &\iff f(n) = o(g(n))\\
+    &\iff \lim_{n\rightarrow\infty}\frac{g(n)}{f(n)} = \infty
+\end{align*}
+\textit{For most cases, if f is $O(g)$, but not $\Theta(g)$, it is $o(g)$. Exceptional cases would be like $f(n) = n^{|\sin(n)|}$, which seldom exist.}
+\section{Linked Lists}
+\textit{NOTE: my notes on this section are not great, as much of the explanation was done through images and drawings upon them. If you have better notes for this section, please feel free to improve them.}\\
+A list is a linear collection of items that can be inserted and removed at any position.\\
+Arrays have O(1) access and overwrite, although insertion or removal may be more than O(1). The size of the array is necessary to program correctly.\\
+A linked list has the followings structure defining it:
+\begin{lstlisting}
+typedef int Info_t;
+typedef struct _Node
+{
+    Info_t data;
+    struct _Node *next;
+} Node;
+
+typedef struct _Header
+{
+    Node *head;
+    Node *tail;
+} Header;
+\end{lstlisting}
+Need to have Head, without it, we cannot do anything.\\
+One can also have the tail, if we so wanted.\\
+The header may contain the addresses of the head, tail, and other useful information for easy access.\\
+They have primitive operations:
+\begin{itemize}
+    \item Empty: return true/false 
+    \item First: return address to first node 
+    \item Last: return address to lat node 
+    \item Insert at head: insert as the first node of the list 
+    \item Insert at tail: insert as last node
+    \item Remove at head
+    \item etc.
+\end{itemize}
+C language works by making copies. Whenever one sends information into a function, one creates a copy of that information to be operated on.\\
+For linked list, or structs in general, this is relevant because their manipulation can be made easier by passing terms to a function in the form:
+\begin{lstlisting}
+    func(**head)
+\end{lstlisting}
+This allows us to point and modify the list through the address of the struct instead of a copy of it.\\
+For example:
+\begin{lstlisting}
+void List_insert_in_order(Node **head_addr, Node *node) {
+    Node dummy;
+    dummy.next = *head_addr;
+    Node *curr = dummy.next;
+    Node *prev = &dummy;
+    while (curr && curr->data < node->data) {
+        prev = curr;
+        curr = curr->next;
+    }
+    prev->next = node;
+    node->next = curr;
+    *head_addr = dummy.next;
+}
+\end{lstlisting}
+This code allows us to insert values into their correct sorted position with ease, and have those changes reflected in the linked list itself. It makes the dummy node equal to the head of the list (not a copy of the list), and works forward from there.\\
+A linked list that has the last node pointing at the first node is called a circular-linked list. It allows us to access everything from the position of tail instead.\\
+Next, we will learn to search with sentinel. That is, it lets us traverse the list without checking if it is NULL. This is done by assigning an external node to a node, and advancing from there, repointing the new node at the next of it, and comparing the value.\\
+A doubly linked list is a linked list that allows traversal in both directions.\\
+It works almost entirely the same as a singly linked list, but has some more complications that arise when inserting or deleting nodes from the middle of the array. An example would be deleting, as shown here:
+\begin{lstlisting}
+List-Delete(header, x):
+    if x->prev != NULL
+    (x->prev)->next = x->next
+    else
+    header->head = x->next
+    if x->next != NULL
+    (x->next)->prev = x->prev
+    else
+    header->tail  =  x->prev
+\end{lstlisting}
+As can be observed, the process involves a lot of back and forth.\\
+But, if it were a circular-linked list as well, the code could be reduced to:
+\begin{lstlisting}
+List-Delete(x):
+    (x->prev)->next = x->next
+    (x->next)->prev = x->prev
+\end{lstlisting}
+\section{Recursion}
+Let us take a code snippet:
+\begin{lstlisting}
+int add(int i, int j)
+{
+    return i+j;
+}
+int main(int argc, char **argv)
+{
+    int i, j;
+    ...
+    fprintf(stdout, "%d\n", add(add(i,j),j));
+    ...
+    return EXIT_SUCCESS;
+}
+
+\end{lstlisting}
+One might think that the first add is called by the fprintf function, however, that is not true. C needs to prepare all the inputs of a function before sending them into the function. \\
+So, what actually happens is, main calls the inner add, takes that result, gives it to the outer add as a parameter, and finally takes that output and passes it to the fprintf function.\\
+This process can be represented through a computation tree, which is, in fact, also very useful when analyzing recursive code.\\
+\begin{center}
+    \begin{forest}
+        [main [add][add][fprintf]]
+    \end{forest}    
+\end{center}
+Post-order traversal of these allow us to understand how these are used. So, in this case, the traversal will be:
+\begin{equation*}
+    \text{add}\rightarrow \text{add} \rightarrow \text{fprintf} \rightarrow \text{main}
+\end{equation*}
+Let us take recursive Fibonacci, for example:\\
+\begin{center}
+    \begin{forest}
+        [4 [3 [2 [1] [0]] [1]][2 [1] [0]]]
+    \end{forest}    
+\end{center}
+By conducting post-order traversal on this tree, we can see how the results will run, or in what order each value will be added.\\
+The tallest stack in a recursive algorithm (or longest path in computational tree) is the space complexity. It is the additional memory necessary to store the data. This is because each call is allocating an additional constant amount of memory.\\
+\textit{Note: if you were to have something like a[n] in your stack, the space complexity would drastically increase.}\\
+Let us look back at our Fibonacci tree once more. Let n be the number of sequence terms. Then T and L will be:\\
+\begin{table}
+    \centering
+    \begin{tabular}{c c c}
+        n & T & L\\
+        \hline
+        0 & 1 & 1\\
+        1 & 1 & 1\\
+        2 & 3 & 2\\
+        3 & 5 & 3
+    \end{tabular}
+\end{table}
+with T the total number of nodes, and L being the number of leaf nodes. So, $T=1+T(n-1)+T(n-2)$ and $L=L(n-1)+L(n-2) = Fibonacci(n)$.\\
+So, if there are L leaf nodes, there will be L-1 non-leaf nodes, which is a total of 2L-1 nodes. And since L is F(n), we can calculate the complete space complexity using that.\\
+A binary search tree for an array will have the following computation tree, for a sorted array of length 9:\\
+\begin{center}
+    \begin{forest}
+        [0.8 [0.3 [0.0 [\underline{0.-1}] [\underline{1.0}]] [2.3 [\underline{2.1}] [3.3 [\underline{3.2}] [\underline{4.3}]]]][5.8 [5.5 [\underline{5.4}] [\underline{6.5}]] [7.8 [\underline{7.6}] [8.8 [\underline{8.7}] [\underline{9.8}]]]]]
+    \end{forest}    
+\end{center}
+if the code that defines it is:
+\begin{lstlisting}
+Tnode *Build_BST(int *a, int lidx, int ridx)
+{
+    if (lidx > ridx)
+        return NULL;
+    int mid = (lidx + ridx)/2;
+    Tnode *root = malloc(sizeof(*root));
+    if (root != NULL) {
+        root->data = a[mid];
+        root->left = Build_BST(a, lidx, mid-1);
+        root->right = Build_BST(a, mid+1, ridx);
+    }
+    return root;
+}
+\end{lstlisting}
+This has a space complexity of O(log(n)). That is because at any given moment, there will be at most log(n) stacks (the height of the computational tree is O(log(n)). It will have a time complexity of O(n), as it is the number of non-leaf nodes in the computation tree.\\
+Similar trees can be built for any recursive algorithm.
+\begin{center}
+    "As an engineer, you must look for patterns. You won't see until you start looking."\\ - Prof. Koh
+\end{center}
+However, if there are nodes with non-constant time complexity, 
 \end{document}

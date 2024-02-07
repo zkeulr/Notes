@@ -598,7 +598,7 @@ So, in general, we can make a function that describes them in the following mann
 \end{equation*}
 where $\tau = RC$ for parallel, and $\tau = \frac{L}{R}$ for the series configuration.\\
 \begin{center}
-    \textit{NOTE: $\frac{1}{\tau} = B_w$, or the bandwidth of the circuit.}\\
+    \textit{NOTE: $\frac{1}{\tau} = Bw$, or the bandwidth of the circuit.\\ The quality factor $Q$ of an RLC circuit is $\frac{\omega_0}{Bw}$ where $\omega_0=\frac{1}{\sqrt{LC}}$ is the natural frequency of the circuit.}\\
 \end{center}
 So, we now solve the homogenous equation:
 \begin{align*}
@@ -848,25 +848,31 @@ Both $f(t)$ and $g(t)$ are being analyzed respective to a  reference time $t$.\\
 We will also define handedness as the side of $t$ in which  a function has a larger magnitude, should it not be symmetric. So, in this case $g(t)$ would be left-handed.\\
 The values within the integral perform operations on the functions. That is, $f(t)$ becomes $f(\tau)$, while $g(t)$ becomes $g(-\tau)$ (changes handedness) and is moved along the $\tau$ axis from by some predefined value $t$ between $-\infty\rightarrow\infty$. The convolution is the integral of the product of these two functions.\\
 So, while the two transformed functions do not overlap, the product is $0$, but once a time $t$ is analyzed at which they overlap, the integral begins to have values.\\ So, different predefined values of $t$ convolute to different values. However, the convolution will maximize at the time in which they have the maximum intersection.\\
-\subsection{Actual Convolution}
+\subsection{Actual Convolution (Mathematical and Continuous)}
 Looking at what happened above, we can observe that the output of convolution
 is a function of $t$, and has no effect of $\tau$. That is:
 \begin{equation*}
     f(t)*g(t) = Fn(t)
 \end{equation*}
-There is an important function within convolutions that we defined earlier. And it is important because it has the following properties:
+There is an important function within convolutions that we defined earlier. And it is important because it has the following property, also known as the shifting property:
 \begin{equation*}
-    f(t)*\delta(t) = \int_{-\infty}^{\infty} f(\tau)\delta(t-\tau)d\tau = x(t)
+    f(t)*\delta(t) = \int_{-\infty}^{\infty} f(\tau)\delta(t-\tau)d\tau = f(t)
 \end{equation*}
+and the sampling property:
 \begin{equation*}
-    f(t)*\delta(t_0) = \int_{-\infty}^{\infty} f(\tau)\delta(t_0-\tau)d\tau = x(t_0)
+    f(t)*\delta(t_0) = \int_{-\infty}^{\infty} f(\tau)\delta(t_0-\tau)d\tau = f(t_0)
 \end{equation*}
 That is, the $\delta$ function is the identity function for convolution.\\
 This can be proven by writing and solving the following integral that is using the $\delta$ function and allowing us to control the limits of the integral:
 \begin{equation*}
     x(t)*\delta(t-T) = \int_{(t-T)^-}^{(t-T)^+}x(\tau)\delta((t-T)-\tau)d\tau = x(t-T)
 \end{equation*}
-The unit step function can allow us to fund the convolution time period:
+The above function is also known as time shifting.\\
+We can analyze how convolution reacts to the unit step function:
+\begin{equation*}
+    f(t)*u(t) = \int_{-\infty}^{\infty} f(\tau)u(t-\tau)d\tau = \int_{-\infty}^{t} f(\tau)d\tau
+\end{equation*}
+However, for most functions $f(t)$, this is unbounded, and thus unusable. Instead, we convolute from a certain point of time, which is done like this:
 \begin{align*}
     y(t)=x(t)u(t)*u(t) & = \int_{-\infty}^{\infty} x(\tau)u(\tau)u(t-\tau)d\tau \\
                        & = \int_{0}^{t}x(\tau)d\tau u(t)
@@ -876,7 +882,7 @@ We will now learn some properties of convolution:
 \begin{itemize}
     \item Commutative Property: $f(t)*g(t)=g(t)*f(t)$
           \begin{align*}
-              f(t)*g(t)         & = \int_{-\infty}^{\infty}f(\tau)g(t-\tau)f\tau       \\
+              f(t)*g(t)         & = \int_{-\infty}^{\infty}f(\tau)g(t-\tau)d\tau       \\
               \text{if } \gamma & =t-\tau                                              \\
                                 & = \int_{-\infty}^{\infty}f(t-\gamma)g(\gamma)d\gamma \\
                                 & = g(t)*f(t)
@@ -885,6 +891,7 @@ We will now learn some properties of convolution:
     \item Distributive Property: $f(t)*[g(t)+h(t)]=f(t)*g(t)+f(t)*h(t)$
 \end{itemize}
 Convolution can also be used to create pulses through the convolution $x(t)u(t)*[u(t)-u(t-T)]$ which creates a pulse between $t-T$ and $t$.\\
+
 \subsection{Discrete Convolution}
 Convolution can also be done on a discrete domain, that is, on a domain that is
 non-continuous. In these domains, convolution is defined as:
@@ -914,5 +921,154 @@ The describing function of this circuit will be
     \text{since }\frac{d}{dt}u(t) & = \delta(t)                 \\
     \frac{d}{dt}(1-e^{-t})u(t)    & = e^{-t}
 \end{align*}
-The last equation represents the response of the circuit to an impulse. If we have one impulse, we can represent any input as a combination of step impulses. This would allow us to easily calculate the circuit's response and behavior computationally.
+The last equation represents the response of the circuit to an impulse. If we have one impulse, we can represent any input as a combination of step impulses. This would allow us to easily calculate the circuit's response and behavior computationally.\\
+\section{Impulse Response}
+We start this section by defining Linear Time Invariant (LTI) Systems, which
+are circuits that relate to inputs linearly and outside the domain or control
+of time. That is, the highest power of elements in the ODE that defines the
+circuit is $1$.\\ For example:
+\begin{equation*}
+    y(t) = \frac{d^2x(t)}{dt^2}
+\end{equation*} is linear, but
+\begin{equation*}
+    y(t) = \frac{dx^2(t)}{dt}
+\end{equation*}
+is not.\\
+The time invariance indicates a relation between input $x(t)\rightarrow y(t)$ output, and input $x(t-T)\rightarrow y(t-T)$ output.\\
+Let us look at the following LTI system:
+\begin{center}
+    \begin{circuitikz}[american voltages]
+        \draw (0,2)
+        to[V, l=$V_{in}$] (0,0);
+        \draw (0,2)
+        to [R, l=$R$] (2,2)
+        to [L, l=$L$] (4,2)
+        to [C, l=$C$] (4,0)
+        to [short, -] (0,0);
+    \end{circuitikz}
+\end{center}
+Let $h(t)$ be the convolution function of this LTI.
+\begin{align*}
+    \implies x(t)*h(t)  & =y(t)         \\
+    \text{but if } x(t) & = \delta(t)   \\
+    \delta(t)*h(t)      & = h(t) = y(t)
+\end{align*}
+We will call this function $h(t)$ the impulse response. In essence, $h(t)$ is the output of the circuit when the input of the function is $\delta (t)$\\
+If we were to know the magnitude of the input $x(t)$ at a given time, $\Delta t$, we could define the convolved function with $h(t)$ as $x(t) = |x(\Delta t)|\delta(t-\Delta t)$, which would in turn allow us to, through convolution, solve for the effect of the input on the output at this moment.
+\begin{equation*}
+    x(t)*h(t)=|x(\Delta t)|\delta(t-\Delta t) * h(t) = |x(\Delta t)|h(t-\Delta T)
+\end{equation*}
+We could then add all the effects across evenly spaced discrete times of the convolution and add them for their values at a given time $t$, allowing us to acquire a good estimate of the output at this time. This would end up looking like the following:
+\begin{equation*}
+    |x(0)|h(0)+|x(\Delta t)|h(t-\Delta t)+|x(2\Delta t)|h(t-2\Delta t)+|x(3\Delta t)|h(t-3\Delta t)\ldots
+\end{equation*}
+Let us apply this for a solved output to calculate the impulse response:
+\begin{align*}
+    i(t)                              & = (1-e^{-10t})u(t)      \\
+    \frac{d}{dt}u(t)                  & = \delta(t)             \\
+    \implies \frac{d}{dt}(1-e^{-10t}) & = h(t) = 10e^{-10t}u(t)
+\end{align*}
+Now let us assume, we changed the input to another, all we would need to do would be to convolve this new input with $h(t)$, and we would get the output $y(t)$. This output will in fact contain both the homogenous and particular solutions of the system.\\
+\textit{NOTE: $h(t)$ is the derivative of the step response for an LTI, which is of the form $f(t)u(t)$, with f(t) being the defining equation of the system.}\\
+The above note leads to the following two steps to find the impulse response:
+\begin{enumerate}
+    \item Find unit step response of the function by setting the input to be $u(t)$
+    \item $h(t) = \frac{d}{dt}(\text{unit step response})$
+\end{enumerate}
+\section{Laplace Transformations}
+\begin{center}
+    "This is the single most important topic in the whole course ... it will also make you mad and depressed." -Prof. Byunghoo Jung
+\end{center}
+\subsection{Introduction to Laplace Transformations}
+All circuit analysis till now has been in the time domain. We will now move
+from the time domain to the frequency domain. This will in turn simplify
+circuit analysis.\\ This is done using Laplace Transformations. Let
+\begin{align*}
+    x(t)       & = \int_{-\infty}^{\infty} x(\lambda)\delta(t-\lambda)d\lambda \\
+    \implies s & = \sigma +j\omega
+\end{align*}
+with $\sigma$ and $\omega$ being the real and imaginary parts of the frequency.
+$s$ is a complex number, and thus to completely graphically represent it, we need two different 3D plots. One has the axis [$Re(s),Im(s),|F(s)|$], and the other [$Re(s),Im(s),\phase{F(s)}$]\\
+Keep in mind:
+\begin{equation*}
+    Ae^{j(\omega t+\phi)} = A\cos(\omega t+\phi)+jA\sin(\omega t+ \phi)
+\end{equation*}
+as we continue this section.\\
+We will define a one-sided Laplace transform as the following:
+\begin{equation*}
+    \mathcal{L}\{f(t)\} = F(s) = \int_{0}^{\infty} f(t)e^{-st}dt
+\end{equation*}
+\textit{Note: as a fun fact, Fourier transforms, which are covered in higher level courses, are a subset of Laplace transforms.}\\
+The transformations form the following table:
+\begin{itemize}
+    \item $\mathcal{L}\{Af(t)\} = AF(s)$
+    \item $\mathcal{L}\{f_1(t)+f_2(t)\} = F_1(s)+F_2(s)$
+    \item $\mathcal{L}\{e^{-t}\} = \frac{1}{s+1}$
+    \item $\mathcal{L}\{t\} = \frac{1}{s^2}$
+    \item $\mathcal{L}\{tf(t)\} = -\frac{d}{ds}F(s)$
+    \item $\mathcal{L}\{t^n f(t)\} = (-1)^n\frac{d^n}{ds^n}F(s)$
+    \item $\mathcal{L}\{f(t-t_0)u(t-t_0)\} = e^{-st_0}F(s)$
+    \item $\mathcal{L}\{\frac{t^n}{n!}\} = \frac{1}{s^{n+1}}$
+    \item $\mathcal{L}\{\delta(t)\} = 1 \leftarrow$ \textbf{Important}
+    \item $\mathcal{L}\{u(t)\} = \frac{1}{s}$ with $Re\{s\}\neq 0 \leftarrow$ \textbf{Important}
+    \item $\mathcal{L}\{t(u(t))\} = \frac{1}{s^2}$ with $Re\{s\}\neq 0 \leftarrow$ \textbf{Important}
+    \item $\mathcal{L}\{e^{-at}u(t)\} = \frac{1}{s+a}$ with $Re\{s+a\}> 0 \leftarrow$ \textbf{Important}
+    \item $\mathcal{L}\{e^{-at}f(t)\} = F(s+a)$
+    \item $\mathcal{L}\{\cos(\omega t)\} = \frac{s}{s^2+\omega^2}$ with $Re\{s\}> 0$
+    \item $\mathcal{L}\{\sin(\omega t)\} = \frac{\omega}{s^2+\omega^2}$ with $Re\{s\}> 0$
+    \item $\mathcal{L}\{\cos(\omega t)+\sin(\omega t)\} = \frac{s+\omega}{s^2+\omega^2}$ with $Re\{s\}> 0$
+    \item $\mathcal{L}\{f'(t)\} = sF(s) - f(0^-)$ with $F(s)$ being the Laplace transform of $f(t)$
+    \item $\mathcal{L}\{f''(t)\} = s^2F(s) - sf(0^-)-f'(0^-)$ with $F(s)$ being the Laplace transform of $f(t)$
+    \item $\mathcal{L}\{f^{(n)}(t)\} = s^n F(s) -\sum_{k=0}^{n-1} (s^{n-1-k}\frac{d^k f(0^-)}{dt^k})$ with $F(s)$ being the Laplace transform of $f(t)$
+    \item $\mathcal{L}\{\int_{-\infty}^{t}f(\tau)d\tau\} = \frac{1}{s}\int_{-\infty}^{0} f(\tau) d\tau +\frac{1}{s}F(s)$
+\end{itemize}
+The beauty of these, and their applications in this course come from the property $f(t)*g(t) = F(s)G(s)$.\\
+\textit{Note: For most circuits covered in this course, the order of the numerator is lower than the order of the denominator. This will allow us to conduct inverse Laplace Transforms more easily.}\\
+Later in this course we will learn to find $H(s)$ of a system using KVL and KCL without going through ODEs.\\
+\subsection{Properties of Laplace Transforms}
+The Laplace transform of the first derivative can be used to prove the following property, also known as the Initial-Value Theorem:\\
+\begin{equation*}
+    f(0^+) = \lim_{t\rightarrow 0^+}f(t) = \lim_{s\rightarrow\infty}sF(s)
+\end{equation*}
+It also proves the Final-Value Theorem:
+\begin{equation*}
+    \lim_{t\rightarrow\infty} = \lim_{s\rightarrow 0}sF(s)
+\end{equation*}
+It is important to notice that there are limitations of the value of s in the Final-Value theorem.\\
+\subsection{Inverse Laplace Transform}
+The inverse Laplace transform is defined as the following:
+\begin{equation*}
+    f(t)=\frac{1}{j2\pi}\oint\limits_{\Gamma}F(s)e^{st}ds
+\end{equation*}
+However, this is quite complicated to solve, and it may even be completely impossible. So, let
+\begin{align*}
+    X(s) &= \frac{P_1(s)}{Q_1(s)}\\
+    H(s) &= \frac{P_2(s)}{Q_2(s)}\\
+    \implies Y(s) &= \frac{P_1(s)P_2(s)}{Q_1(s)Q_2(s)}\\
+    &= \frac{a_m s^m+a_{m-1}s^{m-1}+\cdots+a_1s+a_0}{b_n s^n+b_{n-1}s^{n-1}+\cdots+b_1s+b_0}\\
+    &= \frac{K_1}{(s+p_1)^{r_1}}+\frac{K_2}{(s+p_2)^{r_2}}+\cdots+\frac{K_n}{(s+p_n)^{r_n}}
+\end{align*}
+Rewriting $Y$ as partial fractions allows us to use out look-up table to go back into the time domain.\\
+Let us take a look at each of three cases separately:
+\begin{itemize}
+    \item Simple Real Poles:
+    \begin{align*}
+        F(s) &= \frac{P(S)}{(s+p_1)(s+p_2)Q_1(s)} = \frac{K_1}{s+p_1}+\frac{K_2}{s+p_2}+\frac{P_1(s)}{Q_1(s)}\\
+        K_a &= [F(s)(s+p_1)]_{s=-p_1} = \left[ \frac{P(s)}{(s+p_1)(s+p_2)Q_1(s)}(s+p_1)\right]_{s=-p_1}\\
+        &= \left[\frac{K_1}{s+p_1}(s+p_1)+\frac{K_2}{s+p_2}(s+p_1)+\frac{P_1(s)}{Q_1(s)}(s+p_1)\right]
+    \end{align*}
+    \item Complex Conjugate Poles:
+    \begin{align*}
+        F(s) &= \frac{P(S)}{(s+\alpha - j\beta)(s+\alpha + j\beta)Q_1(s)}\\
+        &= \frac{K_1}{s+\alpha - j\beta}+\frac{K_2}{s+\alpha +j\beta}+\frac{P_1(s)}{Q_1(s)}\\
+        &= \frac{sA_1+A_2}{(s+\sigma)^2+\omega^2}+\frac{P_1(s)}{Q_1(s)} \text{ with } A_1=2K_1, A_2=2\sigma K_1+2\omega K_2
+    \end{align*}
+    \item Repeated, Real Poles:
+    \begin{align*}
+        F(s) &= \frac{P(S)}{(s+p_1)(s+p_1)Q_1(s)} = \frac{K_1}{s+p_1}+\frac{K_2}{(s+p_1)^2}+\frac{P_1(s)}{Q_1(s)}\\
+    \end{align*}
+    For all except term with quadratic denominator, follow same procedure as in Simple Real Poles. For the quadratic term, multiply the equation by $(s-p_1)^2$, and set $s=p_1$, this will cause all terms to drop out, except $K_2$, which we will then be able to evaluate.\\
+    If there are more than two repeated roots, multiply by the highest exponent, and make everything fall out. Solve as mentioned above. For the rest of the coefficients, a system of equations will have to be solved.
+\end{itemize}
+Once everything is in partial fraction form, we can easily use the lookup table to take it back to the time-domain.
 \end{document}

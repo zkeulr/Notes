@@ -6,6 +6,8 @@
 \usepackage{amssymb}
 \usepackage{hyperref}
 \usepackage{pgfplots}
+\usepackage{centernot}
+\usepackage{mdframed}
 \usepackage[activate={true,nocompatibility},final,tracking=true,kerning=true,spacing=true,factor=1100,stretch=10,shrink=10]{microtype}
 \usepackage{color}
 \usepackage{steinmetz}
@@ -72,9 +74,8 @@
 \newcommand{\docpkg}[1]{\texttt{#1}}% package name
 \newcommand{\doccls}[1]{\texttt{#1}}% document class name
 \newcommand{\docclsopt}[1]{\texttt{#1}}% document class option name
-
 % Define a custom command for definitions and biconditional
-\newcommand{\defn}[2]{\noindent\textbf{#1}:\ #2}
+\newcommand{\defn}[2]{\underline{\noindent\textbf{#1}}:\ #2}
 \let\biconditional\leftrightarrow
 
 \begin{document}
@@ -594,7 +595,8 @@ and each transformation of each vector will be it's respective column of the mat
 A transformation is one-to-one if for each point in $\mathbb{R}^m$, that is, the range, every point has at most one vector in $\mathbb{R}^n$ that transforms into it.\\
 A transformation is onto if for each point in $\mathbb{R}^n$, that is, the domain, every point has a transformation.\\
 \begin{itemize}
-    \item A linear transformation $T$ is one-to-one if and only if $T(x)=0$ has just the trivial solution.
+    \item A linear transformation $T$ is one-to-one if and only if $T(x)=0$ has just the
+          trivial solution.
     \item $T$ is one-to-one $\iff$ the columns are linearly independent.
     \item $T$ maps $\mathbb{R}^n$ onto $\mathbb{R}^m$ $\iff$ the columns of \textbf{A} span $\mathbb{R}^m$.
     \item $T$ is onto $\iff$ there is a pivot position in every row.
@@ -602,4 +604,280 @@ A transformation is onto if for each point in $\mathbb{R}^n$, that is, the domai
     \item If $m>n$, the transformation cannot be onto.
     \item If $m=n$, $T$ is onto $\iff$ $T$ is one-to-one.
 \end{itemize}
+\section{Matrix Operations}
+\begin{itemize}
+    \item Sum:\\
+          \begin{equation*}
+              u =
+              \begin{bmatrix}
+                  3 \\
+                  8 \\
+                  12
+              \end{bmatrix}
+              +
+              \begin{bmatrix}
+                  9 \\
+                  4 \\
+                  5
+              \end{bmatrix}
+              =
+              \begin{bmatrix}
+                  3+9 \\
+                  8+4 \\
+                  12+5
+              \end{bmatrix} =
+              \begin{bmatrix}
+                  12 \\
+                  12 \\
+                  17
+              \end{bmatrix}
+          \end{equation*}
+          Requires the matrices to be the same size.\\~\\
+    \item Scalar multiplication:
+          \begin{equation*}
+              u = 3*
+              \begin{bmatrix}
+                  3 \\
+                  8 \\
+                  12
+              \end{bmatrix}
+              =
+              \begin{bmatrix}
+                  3*3 \\
+                  8*3 \\
+                  12*3
+              \end{bmatrix} =
+              \begin{bmatrix}
+                  9  \\
+                  24 \\
+                  36
+              \end{bmatrix}
+          \end{equation*}
+          If \textbf{A,B,C} are matrices of the same size:\
+          \begin{itemize}
+              \item $\mathbf{A+B=B+A}$
+              \item $\mathbf{(A+B)+=A+(B+C)}$
+              \item $\mathbf{A+0=A}$
+              \item $r\mathbf{(A+B)=}r\mathbf{A}+r\mathbf{B}$
+              \item $(r+s)\mathbf{A=}r\mathbf{A}+s\mathbf{A}$
+              \item $r(s\mathbf{A}) = s(r\mathbf{A})$
+          \end{itemize}
+    \item Matrix Multiplication:\\ Let \textbf{A} be an $m\times n$ matrix and \textbf{B}
+          be an $n\times p$ matrix, and \textbf{B} has the columns
+          $\mathbf{b_1,b_2,\ldots,b_n}$. \textbf{AB} is defined as the matrix with
+          columns $\mathbf{Ab_1,Ab_2,\ldots,Ab_n}$.\\ \textit{Note: the number of columns
+              of \textbf{A}, is the same as the number of rows of \textbf{B}}.
+          \begin{equation*}
+              \begin{bmatrix}
+                  3  & 4 \\
+                  8  & 5 \\
+                  12 & 1
+              \end{bmatrix}
+              \begin{bmatrix}
+                  2 & 1 \\
+                  1 & 3 \\
+              \end{bmatrix}
+              =
+              \begin{bmatrix}
+                  3(2)+4(1)  & 3(1)+4(3)  \\
+                  8(2)+5(1)  & 8(1)+5(3)  \\
+                  12(2)+1(1) & 12(1)+1(3)
+              \end{bmatrix} =
+              \begin{bmatrix}
+                  10 & 15 \\
+                  21 & 23 \\
+                  25 & 15
+              \end{bmatrix}
+          \end{equation*}
+          Let $\mathbf{A}_{ij}$ be the entry in row $i$ and column $j$ of matrix \textbf{A}.
+          \begin{equation*}
+              (\mathbf{AB})_{ij} = \mathbf{A}_{i1}\mathbf{B}_{1j}+\mathbf{A}_{i2}\mathbf{B}_{2j}+\mathbf{A}_{i3}\mathbf{B}_{3j}+\cdots+\mathbf{A}_{in}\mathbf{B}_{nj}
+          \end{equation*}
+          Matrix multiplication has the following properties:
+          \begin{itemize}
+              \item $\mathbf{A(BC)=(AB)C}$
+              \item $\mathbf{A(B+C)=AB+AC}$
+              \item $\mathbf{(B+C)A=BA+CA}$
+              \item $r\mathbf{(AB)=(\textit{r}A)B = A(\textit{r}B)}$
+              \item $\mathbf{I_mA=A = AI_m}$
+          \end{itemize}
+          with $\mathbf{I_m}$ being the identity matrix.\\
+          \textit{Note: $\mathbf{AB \neq BA}$} unless $\mathbf{B=I_n}\lor \mathbf{B=0}$\\
+          \textit{Note: $\mathbf{AB=0} \centernot\implies \mathbf{A=0}\lor \mathbf{B=0} $}\\
+          Powers of a matrix:\\
+          If \textbf{A} is an $n\times n$ matrix, then $\mathbf{A}^k$ is the matrix that results from:
+          \begin{equation*}
+              \mathbf{A}^k = \underbrace{\mathbf{A} \times \mathbf{A} \times \cdots \times \mathbf{A}}_{\text{k times}}
+          \end{equation*}
+    \item Transpose of a Matrix:\\ Given an $m\times n$ matrix, the transpose of this
+          matrix is the $n\times m$ matrix, denoted by $\mathbf{A}^T$, whose columns are
+          formed by the corresponding rows of \textbf{A}.
+          \begin{equation*}
+              \begin{bmatrix}
+                  a & b \\
+                  c & d \\
+                  e & f
+              \end{bmatrix}^T
+              =
+              \begin{bmatrix}
+                  a & c & e \\
+                  b & d & f \\
+              \end{bmatrix}
+          \end{equation*}
+          It has the following properties:
+          \begin{itemize}
+              \item $(\mathbf{A}^{T})^T = \mathbf{A}$
+              \item $\mathbf{A+B}^{T} = \mathbf{A}^T+\mathbf{B}^T$
+              \item $(r\mathbf{A})^{T} = r\mathbf{A}^T$
+              \item $(\mathbf{AB})^{T} = \mathbf{A}^T\mathbf{B}^T$
+          \end{itemize}
+\end{itemize}
+Let \textbf{A} be an $n\times n$ matrix. This means \textbf{A} is a square matrix.\\
+If this \textbf{A} is of the form:
+\begin{equation*}
+    \begin{bmatrix}
+        a & b & c \\
+        0 & d & e \\
+        0 & 0 & f
+    \end{bmatrix}
+\end{equation*}
+it is an upper triangular matrix.\\
+If this \textbf{A} is of the form:
+\begin{equation*}
+    \begin{bmatrix}
+        a & 0 & 0 \\
+        b & c & 0 \\
+        d & e & f
+    \end{bmatrix}
+\end{equation*}
+it is a lower triangular matrix.\\
+If this \textbf{A} is of the form:
+\begin{equation*}
+    \begin{bmatrix}
+        a & 0 & 0 \\
+        0 & b & 0 \\
+        0 & 0 & c
+    \end{bmatrix}
+\end{equation*}
+it is a diagonal matrix.\\
+If this \textbf{A} is of the form:
+\begin{equation*}
+    \begin{bmatrix}
+        0 & 0 & 0 \\
+        0 & 0 & 0 \\
+        0 & 0 & 0
+    \end{bmatrix}
+\end{equation*}
+it is a zero matrix.\\
+\section{Inverse of a Matrix}
+An $n\times n$ matrix \textbf{A} is said to be invertible, if there is an
+$n\times n$ matrix \textbf{C} such that $\mathbf{CA=AC=I_n}$. If it is not
+invertible, it is singular. Thus, if it is invertible, it is also
+non-singular.\\ The inverse of $\mathbf{A}$ is denoted by $\mathbf{A^{-1}}$.\\
+Let $\mathbf{A} = \begin{bmatrix}
+        a & b \\
+        c & d
+    \end{bmatrix}$. If $ab-cd \neq 0$, \textbf{A} is invertible and $\mathbf{A^{-1}} = \frac{1}{ad-bc}\begin{bmatrix}
+        d  & -b \\
+        -c & a
+    \end{bmatrix}$.\\
+\begin{center}
+    \textit{Note: $ad-bc$ is called the determinant of the matrix.}\\
+\end{center}
+If \textbf{A} is invertible, for any \textbf{b} in $\mathbb{R}^n$, the equation $\mathbf{Ax=b}$ has the unique solution $\mathbf{x=A^{-1}b}$.\\
+This has a few additional properties:
+\begin{itemize}
+    \item If \textbf{A} is invertible, then $\mathbf{A^{-1}}$ is also invertible, and
+          $\mathbf{A = (A^{-1})^{-1}}$
+    \item If \textbf{A} and \textbf{B} are both invertible, than \textbf{AB} is
+          invertible and $\mathbf{(AB)^{-1} = A^{-1}B^{-1}}$.
+    \item If \textbf{A} is invertible, then $\mathbf{A^T}$ is invertible and
+          $\mathbf{(A^T)^{-1} = (A^{-1})^T}$.
+\end{itemize}
+An elementary matrix is defined as a matrix that can be obtained from performing a single elementary operation on the identity matrix.\\
+If an elementary operation is performed on an $n\times n$ matrix \textbf{A}, the resulting matrix can be represented by \textbf{EA}, where \textbf{E} is the result of the same operation applied to the identity matrix.\\
+This will allow us to define any matrix that results from elementary operations of another as a multiplication of elementary matrices with the original matrix.\\
+A matrix \textbf{A} is invertible $\iff$ \textbf{A} is row equivalent to $\mathbf{I_n}$.\\
+The algorithm to find $\mathbf{A^{-1}}$ for any matrix is the following:
+\begin{enumerate}
+    \item Write down the matrix $\mathbf{[A|I_n]}$.
+    \item Row reduce \textbf{A} until it is equal to $\mathbf{I_n}$.
+    \item Perform the same operations to $\mathbf{I_n}$.
+    \item The result of what was originally $\mathbf{I_n}$ will be $\mathbf{A^{-1}}$.
+\end{enumerate}
+If we have a square matrix $\mathbf{A}$ of size $n\times n$:
+\begin{itemize}
+    \item $\mathbf{A}$ is invertible
+    \item $\mathbf{A}$ is row equivalent to $\mathbf{I_n}$
+    \item $\mathbf{A}$ has $n$ pivot positions
+    \item $\mathbf{Ax = 0}$ has only the trivial solution
+    \item Columns of \textbf{A} are linearly independent
+    \item The linear transformation $\mathbf{x\mapsto Ax}$ is one-to-one
+    \item The equation $\mathbf{Ax=b}$ has at least one solution for each \textbf{b} in
+          $\mathbb{R}^n$
+    \item The columns of \textbf{A} span $\mathbb{R}^n$
+    \item The linear transformation $\mathbf{x\mapsto Ax}$ maps $\mathbb{R}^n$ to
+          $\mathbb{R}^n$
+    \item There is an $n \times n$ matrix \textbf{C} such that $\mathbf{CA = I}$
+    \item There is an $n \times n$ matrix \textbf{D} such that $\mathbf{AD = I}$
+    \item $\mathbf{A^T}$ is an invertible matrix
+\end{itemize}
+\section{Subspaces of $\mathbb{R}^n$}
+A subspace of $\mathbb{R}^n$ is any set H in $\mathbb{R}^n$ that has three properties:
+\begin{enumerate}
+    \item The zero vector is in H
+    \item For each \textbf{u} and \textbf{v} in H, $\mathbf{u+v}$ is in H.
+    \item For each \textbf{u} in H, c\textbf{u} is in H, for all c.
+\end{enumerate}
+Let us now look at two important subspaces of $\mathbb{R}^n$:
+\begin{itemize}
+    \item Column Space: the span of three vectors $\mathbf{A_1,A_2,A_3}$, is called
+          Col(\textbf{A}), and is a subspace of $\mathbb{R}^n$.
+    \item Null Space: the set Nul(\textbf{A}) of all solutions $\mathbf{Ax=0}$ is called
+          the null space. It is also a subspace of $\mathbb{R}^n$.
+\end{itemize}
+A basis for a subspace H of $\mathbb{R}^n$ is the following:\\
+$\{\mathbf{v_1,v_2,\ldots,v_n}\} \text{is a basis for H}$ \\ $\iff (\mathbf{v_1,v_2,\ldots,v_n} \text{ are linearly independent}) \land (span(\mathbf{V}) = \mathbb{R}^n)$\\
+So, the basis of Col(\textbf{A}) is  the $(\textbf{pivot columns of \textbf{A}})$.\\
+The basis of Nul(\textbf{A}) is the span of the vectors resulting from the free variable representation of the homogenous solution. For example:\\
+\begin{equation*}
+    \begin{bmatrix}
+        x_1 \\
+        x_2 \\
+        x_3
+    \end{bmatrix} = x_2
+    \begin{bmatrix}
+        1 \\
+        1 \\
+        0
+    \end{bmatrix}+ x_3
+    \begin{bmatrix}
+        3 \\
+        0 \\
+        1
+    \end{bmatrix}
+\end{equation*}
+and the basis would be:
+\begin{equation*}
+    \text{Nul}(\mathbf{A})=
+    \left\{\begin{bmatrix}
+        1 \\
+        1 \\
+        0
+    \end{bmatrix},
+    \begin{bmatrix}
+        3 \\
+        0 \\
+        1
+    \end{bmatrix}\right\}
+\end{equation*}
+\section{Dimension and Rank}
+\defn{Coordinate vectors}{Let the set $B = \{\mathbf{b_1,b_2,\ldots,b_n}\}$ be a basis of a subspace H.
+For each \textbf{x} in H, the coordinates of \textbf{x} relative to the basis B, are $c_1,c_2,\ldots,c_n$ such that the vector is $\mathbf{x} = c_1\mathbf{b_1}+ c_2\mathbf{b_2}+\cdots+ c_n\mathbf{b_n}$.\\}
+\defn{Dimension of a subspace}{The number of vectors in any subspace H. The dimension of the $\mathbf{0}$ subspace is defined as zero.\\}
+\defn{Rank of a matrix}{the dimension of the column space of said matrix.}\\ It is, in essence the number of pivot columns of the matrix.\\
+\defn{Nullity of a matrix}{the dimension of the null space of said matrix.}\\ It is, in essence the number of free variables in the matrix.\\
+If a matrix \textbf{A} has n columns: $\text{rank}(\mathbf{A})+\text{nullity}(\mathbf{A})=n$.\\
+Any set of elements of H that spans H is a basis for H.\\
+If a matrix \textbf{A} is of dimensions $m\times n$, then $\text{rank}(\mathbf{A})\leq \text{min}(m,n)$
 \end{document}
