@@ -16,7 +16,6 @@ Currently being added are:
 - [ECE 20002](ECE20002/ECE20002notes.pdf) - Fundamentals of Electronics II
 - [ECE 29595PD](ECE29595PD/ECE29595PDnotes.pdf) - Digital System Design (Honors)
 - [ECE 36800](ECE36800/ECE36800notes.pdf) - Data Structures and Algorithms
-- [ECON 25100](ECON25100/ECE25100notes.pdf) - Microeconomics
 - [MA 26500](MA26500/MA26500notes.pdf) - Linear Algebra
 
 ## Contributing
