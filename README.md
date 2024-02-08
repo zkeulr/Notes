@@ -18,6 +18,8 @@ Currently being added are:
 - [ECE 36800](ECE36800/ECE36800notes.pdf) - Data Structures and Algorithms
 - [MA 26500](MA26500/MA26500notes.pdf) - Linear Algebra
 
+However, if you would like to access these notes, please reach out to me directly.
+
 ## Contributing
 
 If you have notes for a course that's not currently included, feel free to make a pull request!
