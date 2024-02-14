@@ -1,0 +1,1143 @@
+\documentclass[nobib]{tufte-handout}
+
+%\\geometry{showframe}% for debugging purposes -- displays the margins
+
+\newcommand{\bra}[1]{\left(#1\right)}
+\usepackage{amssymb}
+\usepackage{hyperref}
+\usepackage[activate={true,nocompatibility},final,tracking=true,kerning=true,spacing=true,factor=1100,stretch=10,shrink=10]{microtype}
+\usepackage{color}
+\usepackage{steinmetz}
+% Fixes captions and images being cut off
+\usepackage{marginfix}
+\usepackage{array}
+\usepackage{tikz}
+\usepackage{amsmath,amsthm}
+\usetikzlibrary{shapes}
+\usetikzlibrary{positioning}
+\usepackage{listings}
+\usepackage{caption}
+\usepackage{circuitikz}
+\DeclareCaptionFont{white}{\color{white}}
+\DeclareCaptionFormat{listing}{\colorbox{gray}{\parbox{\textwidth}{#1#2#3}}}
+\captionsetup[lstlisting]{format=listing,labelfont=white,textfont=white}
+
+% Set up the images/graphics package
+\usepackage{graphicx}
+\setkeys{Gin}{width=\linewidth,totalheight=\textheight,keepaspectratio}
+\graphicspath{{.}}
+
+\title{Notes for ECE 20002 - Electrical Engineering Fundamentals II}
+\author[Shubham Saluja Kumar Agarwal]{Shubham Saluja Kumar Agarwal}
+\date{\today}  % if the \date{} command is left out, the current date will be used
+
+% The following package makes prettier tables.  We're all about the bling!
+\usepackage{booktabs}
+
+% The units package provides nice, non-stacked fractions and better spacing
+% for units.
+\usepackage{units}
+
+% The fancyvrb package lets us customize the formatting of verbatim
+% environments.  We use a slightly smaller font.
+\usepackage{fancyvrb}
+\fvset{fontsize=\normalsize}
+
+% Small sections of multiple columns
+\usepackage{multicol}
+
+% For finite state machines 
+\usetikzlibrary{automata} % Import library for drawing automata
+\usetikzlibrary{positioning} % ...positioning nodes
+\usetikzlibrary{arrows} % ...customizing arrows
+\tikzset{node distance=2.5cm, % Minimum distance between two nodes. Change if necessary.
+    every state/.style={ % Sets the properties for each state
+    semithick,
+    fill=gray!10},
+    initial text={}, % No label on start arrow
+    double distance=2pt, % Adjust appearance of accept states
+    every edge/.style={ % Sets the properties for each transition
+    draw,
+    ->,>=stealth', % Makes edges directed with bold arrowheads
+    auto,
+    semithick}}
+\let\epsilon\varepsilon
+
+% These commands are used to pretty-print LaTeX commands
+\newcommand{\doccmd}[1]{\texttt{\textbackslash#1}}% command name -- adds backslash automatically
+\newcommand{\docopt}[1]{\ensuremath{\langle}\textrm{\textit{#1}}\ensuremath{\rangle}}% optional command argument
+\newcommand{\docarg}[1]{\textrm{\textit{#1}}}% (required) command argument
+\newenvironment{docspec}{\begin{quote}\noindent}{\end{quote}}% command specification environment
+\newcommand{\docenv}[1]{\textsf{#1}}% environment name
+\newcommand{\docpkg}[1]{\texttt{#1}}% package name
+\newcommand{\doccls}[1]{\texttt{#1}}% document class name
+\newcommand{\docclsopt}[1]{\texttt{#1}}% document class option name
+
+% Define a custom command for definitions and biconditional
+\newcommand{\defn}[2]{\noindent\textbf{#1}:\ #2}
+\let\biconditional\leftrightarrow
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+    These are lecture notes for spring 2024 ECE 20002 at Purdue as taught by Professor Byunghoo Jung alongside recordings by Professor Michael Capano. Modify, use, and distribute as you please.
+\end{abstract}
+
+\tableofcontents
+
+\section{Course Introduction}
+
+Continuation of Electrical Engineering Fundamentals I. The course addresses
+mathematical and computational foundations of circuit analysis (differential
+equations, Laplace Transform techniques) with a focus on application to linear
+circuits having variable behavior as a function of frequency, with emphasis on
+filtering. Variable frequency behavior is considered for applications of
+electronic components through single-transistor and operational amplifiers. The
+course ends with a consideration of how circuits behave and may be modeled for
+analysis at high frequencies.\\~\\ Learning Objectives:
+\begin{enumerate}
+    \item Analyze 2nd order linear circuits with sources and/or passive elements
+    \item Compute responses of linear circuits with and without initial conditions via
+          one-sided Laplace transform techniques
+    \item Compute responses to linear circuits using transfer function and convolution
+          techniques
+    \item Analyze and design transistor amplifiers at low, mid and high frequencies
+\end{enumerate}
+
+\pagebreak
+
+\section{ECE 20001 Review}
+Sinusoidal Signal (voltage and current) involve phasors, which bring complex
+numbers to the forefront. When in Sinusoidal Steady State (SSS):\\
+\begin{equation*}
+    Z_R=R
+\end{equation*}
+\begin{equation*}
+    Z_L=j\omega L
+\end{equation*}
+\begin{equation*}
+    Z_C=\frac{1}{j\omega C}
+\end{equation*}
+This can in turn be represented as as the following function:\\
+\begin{equation*}
+    x(t)=K_0 cos(\omega t + \theta_0)
+\end{equation*}
+Which can be transformed into the following form:\\
+\begin{align*}
+    K_0 e^{j(\omega t + \theta_0)} & = K_0 e^{j \theta_0}                    \\
+                                   & = K_0 (cos(\theta_0) + j sin(\theta_0)) \\
+                                   & = K_0\phase{\theta_0}
+\end{align*}
+This can be represented as the following in the cartesian plane:\\
+\begin{center}
+    \includegraphics[width = 150px]{images/Screenshot 2024-01-08 155954.png}
+\end{center}
+Thus, these forms can be summed as following:\\
+\begin{table}
+    \centering
+    \begin{tabular}{c|c}
+        x(t)                                & $\mathbf{X}$ \\
+        \hline
+        $K cos(\omega t)$                   & K            \\
+        $K sin(\omega t) = K cos(\omega t)$ & $-Kj$        \\
+        $cos(\omega t) - sin(wt)$           & $1+j$        \\
+        $a cos(\omega t) + b sin(\omega t)$ & $a-bj$
+    \end{tabular}
+\end{table}
+This is especially useful for circuit analysis methods such as KCL and KVL.
+The methods of conversion between polar and phasor are:\\
+\begin{equation*}
+    z=a+bj
+\end{equation*}
+\begin{equation*}
+    z=\rho \phase{\theta}
+\end{equation*}
+\begin{equation*}
+    \rho = |z| = \sqrt{a^2 + b^2}
+\end{equation*}
+\begin{equation*}
+    \theta = \text{phase(}z\text{)}=tan^{-1}(\frac{b}{a})
+\end{equation*}
+These conversions and operations alongside KCL and KVL, can allow us to create a system of differential equations that will allow us to solve almost any circuit. However, we don't like ODEs, so we have developed methods to get around this.\\
+We know that at SSS, the following equations are valid.
+\begin{center}
+    \begin{align*}
+        V_R    & = RI_R                               \\
+        V_L    & = j\omega LI_L                       \\
+        V_C    & = \frac{1}{j \omega C}I_C            \\
+        V_L(t) & = L\frac{di_L}{dt}        & \implies
+        i_L(t) = i_L(0) + \frac{1}{L} \int v_L \,dt   \\
+        i_C(t) & = C\frac{dV_C}{dt}        & \implies
+        V_C(t) = V_C(0) + \frac{1}{C} \int i_C \,dt   \\
+    \end{align*}
+\end{center}
+This can be used to solve most (to the knowledge of the student till this point) SSS circuits. Strategies have been developed to simplify these calculations. Some examples of this are current and voltage division, with the impedance $Z$ replacing the linear $R$. Strategies like these allow the resolution of circuits like these while avoiding higher order differential equations.\\
+Example:
+\begin{center}
+    \begin{circuitikz}[american currents]
+        \draw (0,0)
+        to[I, l=$I$] (0,2)
+        to [short, -*] (1,2)
+        to [L, l=$L$] (1,0)
+        to [short, -] (0,0);
+        \draw (1,2)
+        to [short, -*] (2,2)
+        to [R, l=$R$] (2,0)
+        to [short, *-*] (1,0);
+        \draw (2,2)
+        to [short, -] (2.5,2);
+        \draw (2,0)
+        to [short, -] (2.5,0);
+    \end{circuitikz}
+\end{center}
+\begin{align*}
+    I_R=\frac{Z_L}{Z_R+Z_L}*I=\frac{j \omega L}{R+j \omega L}*I \\
+    I_L=\frac{Z_R}{Z_R+Z_L}*I=\frac{R}{R+j \omega L}*I
+\end{align*}
+If this circuit had an additional energy storing component, such as a capacitor
+or an additional inductor, the complexity of current division does not increase
+by a lot, but the differential equation would go from being a first-order differential
+equation to a second-order differential equation. The complexity of this would be much
+higher than that of the first-order differential equation, and would continue increasing
+for each energy storing component that is added to the circuit.\\
+Note: All of this is based on the assumption of \textbf{Sinusoidal Steady State}.
+\\~\\
+\begin{center}
+    "We don't like differential equations." -Prof. Byunghoo Jung
+\end{center}
+\pagebreak
+\section{Using Ordinary Differential Equations to solve RL and RC circuits}
+This section will provide a brief explanation of nonhomogenous differential
+equations and their applications to circuits (Completely ignoring the fact that
+we in fact do not like them, as repeatedly stated in the previous section).
+\subsection{Ordinary Differential Equations (ODE) Overview}
+Differential equations rely a lot on two properties. The invariability of the
+exponential function across derivatives, and the ability to express any
+function in terms of the exponential function itself. That is,\\
+\begin{equation*}
+    e^t=\frac{d}{dt}e^t=\frac{d^2}{dt^2}e^t \cdots
+\end{equation*}
+Let us take the following differential equation as an example:
+\begin{equation*}
+    y(t)=6x(t)+3\frac{d}{dt}x(t)
+\end{equation*}
+Because of the beauty (invariability) of the exponential function, we assume $x_h(t)=Ae^{\lambda t}$, and try to solve the homogenous equation $0=6x(t)+3x'(t)$.
+\begin{align*}
+    0               & = 6x+3x'                                     \\
+    0               & = 6Ae^{\lambda t} + 3A \lambda e^{\lambda t} \\
+    0               & = 6+3\lambda                                 \\
+    \lambda         & = -2                                         \\
+    \implies x_h(t) & = e^{-2t}
+\end{align*}
+At this point, we will consider two different cases: $y(t) = 4e^{3t}$ and $y(t) = 3e^{-2t}$.
+We will find the particular solution $x_p(t)$ for each of these cases, as they have different methods of resolution.
+\begin{align*}
+    4e^{3t}               & = 6x+3x'                                    \\
+    \text{Assume } x_p(t) & = Be^{3t}                                   \\
+    4e^{3t}               & = 6Be^{3t} + 9Be^{3t}                       \\
+    4                     & = 15B                                       \\
+    B                     & = \frac{15}{4}                              \\
+    \implies x_p(t)       & = \frac{15}{4}e^{3t}                        \\
+    \implies x(t)         & = x_h(t)+x_p(t)=Ae^{-2t}+\frac{15}{4}e^{3t}
+\end{align*}
+Let us assume $y(0) = 4$
+\begin{align*}
+    \implies 4    & = A + \frac{15}{4}                      \\
+    \implies A    & = \frac{1}{4}                           \\
+    \implies x(t) & = \frac{1}{4}e^{-2t}+\frac{15}{4}e^{3t}
+\end{align*}
+On the other hand, if $y(t) = 3e^{-2t}$, since $x_p(t)$ and $x_h(t)$ cannot have the same form, we will need to make a few changes:
+\begin{align*}
+    3e^{-2t}              & = 6x+3x'                              \\
+    \text{Assume } x_p(t) & = Bte^{-2t}                           \\
+    3e^{-2t}              & = 6Bte^{-2t} + 3Be^{-2t} - 6Bte^{-2t} \\
+    \implies 3            & = 3B                                  \\
+    \implies B            & =1                                    \\
+    \implies x_p(t)       & = te^{-2t}
+\end{align*}
+Which can then be substituted into $x(t)$, allowing the differential equation to be fully solved by using the initial conditions.
+\subsection{Using ODEs in circuits}
+We will be solving the following two circuits (Note: you will never see
+something like this with a current source instead, because it would be too
+easy):
+\begin{center}
+    \begin{circuitikz}[american voltages]
+        \draw (0,2)
+        to[V, l=$V_{in}$] (0,0);
+        \draw (0,2)
+        to [R, l=$R$] (2,2)
+        to [L, l=$L$] (2,0)
+        to [short, -] (0,0);
+    \end{circuitikz}
+    \begin{circuitikz}[american voltages]
+        \draw (0,2)
+        to[V, l=$V_{in}$] (0,0);
+        \draw (0,2)
+        to [R, l=$R$] (2,2)
+        to [C, l=$C$] (2,0)
+        to [short, -] (0,0);
+    \end{circuitikz}
+\end{center}
+In the inductor circuit, if $i_L(0)=0$, we know:
+\begin{align*}
+    v_L       & = L\frac{di_L(t)}{dt}                                  \\
+    v_L(t)    & = v_{in}(t) + Ri_L(t)\text{ because of KVL}            \\
+    v_{in}(t) & = L\frac{di_L(t)}{dt} + Ri_L(t)\text{ by substituting}
+\end{align*}
+By dividing the timeline into two sections, $(-\infty, 0) \text{ and } (0,\infty)$, and solving for the second one we can find our desired values for anytime in the future. However, for this to be a viable option, we need to solve for a continuous variable, which is $i$ for an inductor, and $v$ for a capacitor.\\
+By solving this equation as shown previously, and looking for $i_L$, we will find that $\lambda = -\frac{R}{L}$ which is in fact the inverse of the time constant for an RL circuit.
+Under the assumption of $V_{in}$ being a constant, the particular solution will in fact be $i_p(t)=\frac{V_{in}}{R}=i_L(\infty)$. This results in the familiar equation:
+\begin{equation*}
+    i_L(t) = i_L(\infty) + (i_L(t_0)-i_L(\infty))e^{-\frac{R}{L}(t-t_0)}
+\end{equation*}
+The same is done for the capacitor circuit, but this time looking for $v_C$, which ends up resulting in the once again familiar equation:
+\begin{equation*}
+    v_C(t) = v_C(\infty) + (v_C(t_0)-v_C(\infty))e^{-\frac{t-t_0}{RC}}
+\end{equation*}
+Note: energy storing components (L \& C) have memory but cannot consume power. R can consume power but has no memory.\\
+Looking at this conceptually, the resistor is consuming energy at an exponential rate. This causes current, voltage, and all other signals to decay exponentially as well.\\
+Since $P = I^2R = \frac{V^2}{R}$, it makes sense for the time constant to be $\tau = \frac{L}{R} = RC$, for each of them, as a larger capacitor or inductor would store more energy, and the proportionality of the R to the power and current or voltage respectively. That is, if R is larger, the power consumption is larger for an RL and smaller for an RC.\\
+Note: the particular solution of the ODE is a scaled version of the input.\\
+The homogenous solution will be the same for all inputs, and of the form $Ae^{\frac{-t}{\tau}}$.\\
+The particular solution represents the behavior of the analyzed parameter when everything has settled down, or, at infinity.\\
+Let us look at the particular resolution with a forcing equation of the form $v_{in}(t) = A\sin(\omega t)u(t)$.
+\begin{align*}
+    v_{C,p} & = \frac{Z_C}{Z_R+Z_C}V_{in}                              \\
+            & = \frac{\frac{1}{j\omega C}}{R+\frac{1}{j\omega C}}(-Aj) \\
+            & = \frac{1}{j\omega RC+1}(-Aj)
+\end{align*}
+Developing and simplifying that equation can lead to the form $A_1\cos(\omega t)+A_2\sin(\omega t)$.\\
+These can then be substituted into the complete form, and, using the initial conditions, completely define the reactions.
+We will now analyze the following circuits, which resemble the previous ones, but use voltage instead, and have the components in parallel instead of series.
+\begin{center}
+    \begin{circuitikz}[american voltages, american currents]
+        \draw (0,0)
+        to[I, l=$I_{in}$] (0,2);
+        \draw (0,2)
+        to [short, -] (1,2)
+        to [R, l^=$R$] (1,0)
+        to [short, -] (2,0)
+        to [L, l_=$L$] (2,2);
+        \draw (0,0) to [short, -] (1,0);
+        \draw (1,2) to [short, -] (2,2);
+    \end{circuitikz}
+    \begin{circuitikz}[american voltages, american currents]
+        \draw (0,0)
+        to[I, l=$I_{in}$] (0,2);
+        \draw (0,2)
+        to [short, -] (1,2)
+        to [R, l^=$R$] (1,0)
+        to [short, -] (2,0)
+        to [C, l_=$C$] (2,2);
+        \draw (0,0) to [short, -] (1,0);
+        \draw (1,2) to [short, -] (2,2);
+    \end{circuitikz}
+\end{center}
+The only solution we will analyze in this document, is the RC circuit, but the RL circuit can be similarly solved.
+\begin{align*}
+    i_{in}(t)        & = C\frac{dv_C(t)}{dt}+\frac{1}{R}v_C(t)                                 \\
+                     & \text{To solve this, we need to analyze the homogenous solution first,} \\ &\text{which is equivalent to there being no source in the circuit.}\\
+    0                & = C\frac{dv_C(t)}{dt}+\frac{1}{R}v_C(t)                                 \\
+    0                & = RC\frac{dv_C(t)}{dt}+v_C(t)                                           \\
+                     & \text{Assuming that $v_{C,h}(t) = Ae^{\lambda t}$, which results in:}   \\
+    0                & = RC \lambda^1 + \lambda^0 = RC \lambda +1                              \\
+    \lambda          & = -\frac{1}{RC} = -\frac{1}{\tau}                                       \\
+    \implies v_{C,h} & = Ae^{\frac{-t}{\tau}}
+\end{align*}
+All signals in a circuit of this form will also decay exponentially, just like in the previous cases.\\
+Now we can solve for the particular solution of the ODE.\\
+\begin{align*}
+    i_{in}(t)  & = C\frac{dv_C(t)}{dt}+\frac{1}{R}v_C(t)                   \\
+               & \text{With a particular solution of the form $v_{C,p}=m$} \\
+    k          & = C\frac{d(m)}{dt}+\frac{1}{R}m=\frac{1}{R}m              \\
+    \implies m & =kR
+\end{align*}
+We can solve for inputs of constant, exponential, and sinusoidal inputs quite easily.
+If $i_{in}(t) = 5e^{-3t}$, and thus $v_{C,p}=me^{-3t}$ and $v_C(0^-)=3$
+\begin{align*}
+    i_{in}(t)  & = C\frac{dv_C}{dt}+\frac{1}{R}v_C \\
+    5e^{-3t}   & = -3Cme^{-3t}+\frac{1}{R}me^{-3t} \\
+    5          & = \left(-3C+\frac{1}{R}\right)m   \\
+    \implies m & = \frac{5R}{-3RC+1}
+\end{align*}
+Substituting into the equation and using the initial value leads to the following final form:
+\begin{align*}
+    v_C(t)     & = v_{C,h}(t) + v_{C,p}(t)                       \\
+               & = Ae^{-\frac{t}{\tau}}+\frac{5R}{-3RC+1}e^{-3t} \\
+    3          & =A+\frac{5R}{-3RC+1}                            \\
+    \implies A & =3-\frac{5R}{-3RC+1}
+\end{align*}
+and the final form will be:
+\begin{equation*}
+    v_C(t) = \left(3-\frac{5R}{-3RC+1}\right)e^{\frac{-t}{RC}}+\frac{5R}{-3RC+1}e^{-3t}
+\end{equation*}
+Similar solutions can be found for different inputs, and for RL circuits as well.
+\section{Using ODEs for LC circuits}
+\subsection{Solving Second Order ODEs}
+We can start this by understanding the method of resolution of second order
+ODEs. For example:
+\begin{align*}
+    3e^{-3t} & = 2x(t)+3\frac{dx(t)}{dt}+\frac{d^2x(t)}{dt^2} \\
+    x(0)     & = 2                                            \\
+    x'(0)    & = 1
+\end{align*}
+Which leads to the following resolution of the homogenous equation:
+\begin{align*}
+    0                & = \lambda^2+3\lambda+2   \\
+    0                & = (\lambda+1)(\lambda+2) \\
+    \implies \lambda & = -1, -2                 \\
+    \implies x_h(t)  & = A_1e^{-t}+A_2e^{-2t}
+\end{align*}
+Now we solve the particular equation under the assumption $x_p(t)=ke^{-3t}$:
+\begin{align*}
+    3e^{-3t}        & = 2ke^{-3t}+-9ke^{-3t}+9ke^{-3t} \\
+    3               & = 2k-9k+9k                       \\
+    \implies k      & = \frac{3}{2}                    \\
+    \implies x_p(t) & = \frac{3}{2}e^{-3t}
+\end{align*}
+Now, using $x(t)=x_p(t)+x_h(t)$:
+\begin{align*}
+    x(t)          & = A_1e^{-t}+A_2e^{-2t} + \frac{3}{2}e^{-3t}       \\
+    x(0)          & = 2                                               \\
+    x'(0)         & = 1                                               \\
+    2             & = A_1+A_2+\frac{3}{2}                             \\
+    1             & = -A_1-2A_2-\frac{9}{2}                           \\
+    \implies A_2  & = -6                                              \\
+    \implies A_1  & = \frac{13}{2}                                    \\
+    \implies x(t) & = -6e^{-t}+\frac{13}{2}e^{-2t}+\frac{3}{2}e^{-3t}
+\end{align*}
+Had the forcing function $3e^{-3t}$ instead been of the form $B_1e^{-4t}+B_2e^{-3t}$, the particular solution would have needed to be of the form $k_1e^{-4t}+k_2e^{-3t}$.\\
+\subsection{Concept}
+Let us observe the following circuit:
+\begin{center}
+    \begin{circuitikz}[american voltages]
+        \draw (0,2)
+        to[L, l=$L$] (0,0);
+        \draw (0,2)
+        to [short, -] (2,2)
+        to [C, l=$C$] (2,0)
+        to [short, -] (0,0);
+    \end{circuitikz}
+\end{center}
+Both the inductor and the capacitor can store energy, and "send" energy to each other, creating oscillations, but maintain the total energy in the circuit continuous. Circuits of this form are called LC tanks.\\
+Thus, the solution, as does the ideal pendulum, can be defined by sinusoidals.
+\subsection{Solving LC circuits}
+We will begin by solving the following circuit:
+\begin{center}
+    \begin{circuitikz}[american voltages]
+        \draw (0,2)
+        to[V, l=$V_{in}$] (0,0);
+        \draw (0,2)
+        to [L, l=$L$] (2,2)
+        to [C, l=$C$] (2,0)
+        to [short, -] (0,0);
+    \end{circuitikz}
+\end{center}
+Which has a behavior defined by:
+\begin{align*}
+    v_{in}(t)          & = v_L(t)+v_C(t)                     \\
+    i_L(t)             & = i_C(t)                            \\
+    v_L(t)             & = L\frac{di_L(t)}{dt}               \\
+    i_C(t)             & = C\frac{dv_C(t)}{dt}               \\
+    \implies v_L(t)    & = LC\frac{d^2v_C(t)}{dt^2}          \\
+    \implies v_{in}(t) & = LC\frac{d^2v_C(t)}{dt^2} + v_C(t) \\
+\end{align*}
+This will now allow us to solve for $v_C(t)$.
+\begin{align*}
+    v_{in}(t)           & = v_C(t)+LCv_C''(t)                                                              \\
+                        & \text{Solving the homogenous equation:}                                          \\
+    0                   & = v_C(t)+LCv_C''(t)                                                              \\
+    \implies 0          & = 1+LC\lambda^2                                                                  \\
+    \implies \lambda    & = \sqrt{\frac{-1}{LC}} = \pm j\sqrt{\frac{1}{LC}}                                \\
+    \text{if } \omega_0 & = \sqrt{\frac{1}{LC}}                                                            \\
+    v_{C,h}             & = A_1e^{j\omega_0t}+A_2e^{-j\omega_0t}                                           \\
+                        & = A_1(\cos(\omega_0t)+j\sin(\omega_0t)) +A_2(\cos(-\omega_0t)+j\sin(-\omega_0t)) \\
+                        & = (A_1+A_2)\cos(\omega_0t)+j(A_1-A_2)\sin(\omega_0t)                             \\
+                        & = B_1\cos(\omega_0t)+B_2\sin(\omega_0t)
+\end{align*}
+Now we will search for the particular solution with an exponential forcing function, $V_{in} = Fe^{-\omega t}$
+\begin{align*}
+    Fe^-{\omega t}                                            & = v_C(t)+LCv_C''(t)                                                           \\
+    \text{With the particular solution of the form }  v_{C,p} & = Ae^{-\omega t}                                                              \\
+    Fe^{-\omega t}                                            & = LC\omega^2Ae^{-\omega t}+ Ae^{-\omega t}                                    \\
+    F                                                         & = LC\omega^2A+A                                                               \\
+    \implies A                                                & = \frac{F}{LC \omega^2+1}                                                     \\
+    \implies v_{C,p}                                          & = \frac{F}{LC\omega^2+1}e^{-\omega t}                                         \\
+    \implies v_C                                              & = B_1\cos(\omega_0t)+B_2\sin(\omega_0t) + \frac{F}{LC\omega^2+1}e^{-\omega t}
+\end{align*}
+We can now solve for the complete equation if we have the initial conditions.\\
+We could also have solved this for a forcing equation of the form $v_{in}(t) = F_1\cos(\omega t)+F_2\sin(\omega t)$
+\begin{align*}
+    F_1\cos(\omega t)+F_2\sin(\omega t) & = v_C(t)+LCv_C''(t)                                                                                \\
+    v_{C,p}                             & = A_1\cos(\omega t)+ A_2\sin(\omega t)                                                             \\
+    F_1\cos(\omega t)+F_2\sin(\omega t) & = -LC\omega^2A_1\cos(\omega t)-LC\omega^2A_2\sin(\omega t) + A_1\cos(\omega t)+ A_2 \sin(\omega t) \\
+                                        & = (-LC\omega^2+1)(A_1 \cos(\omega t)+A_2\sin(\omega t))                                            \\
+    \implies A_1                        & = \frac{F_1}{1-LC\omega^2}                                                                         \\
+    A_2                                 & = \frac{F_2}{1-LC\omega^2}
+\end{align*}
+These values can then be substituted into the complete form and $B_1$ and $B_2$ can be found using the initial conditions.\\
+We will now solve the following circuit:\\
+\begin{center}
+    \begin{circuitikz}[american voltages, american currents]
+        \draw (0,0)
+        to[I, l=$I_{in}$] (0,2);
+        \draw (0,2)
+        to [short, -] (1,2)
+        to [L, l^=$L$] (1,0)
+        to [short, -] (2,0)
+        to [C, l_=$C$] (2,2);
+        \draw (0,0) to [short, -] (1,0);
+        \draw (1,2) to [short, -] (2,2);
+    \end{circuitikz}
+\end{center}
+In the same way as the last one, we get the differential equation, which in this case is defined by:
+\begin{align*}
+    i_{in} & = LC\frac{d^2i_L(t)}{dt^2}+i_L(t)
+\end{align*}
+However, we can observe that the equation is of the same form as the previous one, but with $i$ replacing $v$. The solution will be of the exact same form, and thus needs no additional resolution.\\
+What is important to remember from this is the following:
+\begin{align*}
+    v_{C,h}(t) & = A_1\cos(\omega_0t)+A_2\sin(\omega_0 t) \\
+               & = K\cos(\omega t +\theta)                \\
+    i_{L,h}(t) & = B_1\cos(\omega_0t)+B_2\sin(\omega_0 t) \\
+               & = K\cos(\omega t +\theta)                \\
+    \omega     & = \frac{1}{\sqrt{LC}}
+\end{align*}
+If we were given initial conditions of  the form $v_C(0) = k_1, i_L(0) = k_2$ instead of $v_C(0)=k_1, v_C'(0)=k_2$, we can use:
+\begin{align*}
+    i_L(t) = i_C(t) & = C\frac{dv_C(t)}{dt} \\
+                    & \text{or}             \\
+    v_C(t) = v_L(t) & = L\frac{di_L(t)}{dt}
+\end{align*}
+to successfully derive the values of the missing constants.
+\section{RLC Circuits}
+The first circuit to be analyzed for this case is the parallel RLC circuit
+\begin{center}
+    \begin{circuitikz}[american voltages, american currents]
+        \draw (0,0)
+        to[R, l=$R$] (0,2);
+        \draw (0,2)
+        to [short, -] (1,2)
+        to [L, l^=$L$] (1,0)
+        to [short, -] (2,0)
+        to [C, l_=$C$] (2,2);
+        \draw (0,0) to [short, -] (1,0);
+        \draw (1,2) to [short, -] (2,2);
+    \end{circuitikz}
+\end{center}
+in which we will be analyzing the behavior of our components assuming there was a power source that has now been turned off.\\
+It is important to note that as the value of the resistors' resistance increases, it's influence on the LC tank decreases, which will later help us visualize these circuits more conceptually.\\
+The other circuit to be analyzed is the series RLC circuit:
+\begin{center}
+    \begin{circuitikz}[american voltages]
+        \draw (0,2)
+        to[R, l=$R$] (0,0);
+        \draw (0,2)
+        to [L, l=$L$] (2,2)
+        to [C, l=$C$] (2,0)
+        to [short, -] (0,0);
+    \end{circuitikz}
+\end{center}
+In this case, as the resistance increases, its damping effect on the LC tank increases.\\
+Let us solve the series example, with a voltage source first.
+\begin{center}
+    \begin{circuitikz}[american voltages]
+        \draw (0,2)
+        to[V, l=$V_{in}$] (0,0);
+        \draw (0,2)
+        to [R, l=$R$] (2,2)
+        to [L, l=$L$] (4,2)
+        to [C, l=$C$] (4,0)
+        to [short, -] (0,0);
+    \end{circuitikz}
+\end{center}
+\begin{align*}
+    v_{in}(t)                     & =v_R(t)+v_L(t)+v_C(t)                                                    \\
+    i_R(t)                        & = i_L(t) = i_C(t)                                                        \\
+    v_{in}(t)                     & = Ri_C(t)+L\frac{di_C(t)}{dt}+v_C(t)                                     \\
+    \text{but, } i_C(t)           & = C\frac{dv_C(t)}{dt}                                                    \\
+    \implies v_{in}(t)            & = RC\frac{dv_C(t)}{dt}+LC\frac{d^2v_C(t)}{dt^2}+v_C(t)                   \\
+    \implies \frac{v_{in}(t)}{LC} & = \frac{R}{L}\frac{dv_C(t)}{dt}+\frac{d^2v_C(t)}{dt^2}+\frac{v_C(t)}{LC}
+\end{align*}
+This can also be solved, but instead from the perspective of the current flowing through the inductor.\\
+\begin{align*}
+    v_{in}(t)                                 & =v_R(t)+v_L(t)+v_C(t)                                                    \\
+    i_R(t)                                    & = i_L(t) = i_C(t)                                                        \\
+    v_{in}(t)                                 & = Ri_L(t)+L\frac{di_L(t)}{dt}+\frac{1}{C}\int i_L(t)dt                   \\
+    \frac{dv_{in}(t)}{dt}                     & = R\frac{di_L(t)}{dt}+L\frac{d^2i_L(t)}{dt^2}+\frac{i_L(t)}{C}           \\
+    \implies \frac{1}{L}\frac{dv_{in}(t)}{dt} & = \frac{R}{L}\frac{di_L(t)}{dt}+\frac{d^2i_L(t)}{dt^2}+\frac{i_L(t)}{LC}
+\end{align*}
+The same procedure can be followed for the parallel version, and the resulting ODEs are:
+\begin{align*}
+    \frac{1}{C}\frac{di_{in}(t)}{dt} & = \frac{d^2v_C(t)}{dt^2}+\frac{1}{RC}\frac{dv_C(t)}{dt}+\frac{v_C(t)}{LC} \\
+                                     & \text{and}                                                                \\
+    \frac{i_{in}(t)}{LC}             & = \frac{d^2i_L(t)}{dt^2}+\frac{1}{RC}\frac{di_L(t)}{dt}+\frac{i_L(c)}{LC}
+\end{align*}
+\begin{center}
+    \begin{circuitikz}[american voltages, american currents]
+        \draw (0,0)
+        to[I, l=$I_{in}$] (0,2);
+        \draw (0,2)
+        to [short, -] (1,2)
+        to [R, l^=$R$] (1,0)
+        to [short, -] (2,0)
+        to [L, l_=$L$] (2,2)
+        to [short, -] (3,2)
+        to [C, l=$C$] (3,0);
+        \draw (0,0) to [short, -] (3,0);
+        \draw (1,2) to [short, -] (2,2);
+    \end{circuitikz}
+\end{center}
+Notice how the damping component, that is, the first derivative, matches what we mentioned on the effect of the resistance on the LC tank, with it being inverse for parallel, and directly proportional for series.\\
+So, in general, we can make a function that describes them in the following manner:
+\begin{equation*}
+    \centering
+    F = \frac{d^2x(t)}{dt^2}+\frac{1}{\tau}\frac{dx(t)}{dt}+\frac{x(t)}{LC}
+\end{equation*}
+where $\tau = RC$ for parallel, and $\tau = \frac{L}{R}$ for the series configuration.\\
+\begin{center}
+    \textit{NOTE: $\frac{1}{\tau} = Bw$, or the bandwidth of the circuit.\\ The quality factor $Q$ of an RLC circuit is $\frac{\omega_0}{Bw}$ where $\omega_0=\frac{1}{\sqrt{LC}}$ is the natural frequency of the circuit.}\\
+\end{center}
+So, we now solve the homogenous equation:
+\begin{align*}
+    0                           & = \frac{d^2x_h(t)}{dt^2}+\frac{1}{\tau}\frac{dx_h(t)}{dt}+\frac{x_h(t)}{LC} \\
+    \text{As usual, } x_h(t)    & = Ae^{\lambda t}                                                            \\
+    0                           & = \lambda^2+\frac{\lambda}{\tau}+\frac{1}{LC}                               \\
+    \implies \lambda            & = \frac{-\frac{1}{\tau}\pm \sqrt{\frac{1}{\tau^2}-\frac{4}{LC}}}{2}         \\
+                                & = -\frac{1}{2\tau} \pm \sqrt{\frac{1}{4\tau^2}-\frac{1}{LC}}                \\
+    \implies \lambda_{parallel} & = -\frac{1}{2RC} \pm \sqrt{\frac{1}{4RC^2}-\frac{1}{LC}}\text{ and}         \\
+    \lambda_{series}            & = -\frac{R}{2L} \pm \sqrt{\frac{R^2}{4L^2}-\frac{1}{LC}}                    \\
+    \implies x_h(t)             & = A_1e^{\lambda_1t}+A_2e^{\lambda_2t}
+\end{align*}
+This divides the solution into three different cases:
+\begin{itemize}
+    \item Overdamping: natural frequencies are real and distinct. That is
+          $\frac{1}{4R^2C^2} > \frac{1}{LC}$ for parallel, and $\frac{R^2}{4L^2} >
+              \frac{1}{LC}$ for series.\\Since all the elements are positive, the roots will
+          both end up being negative. \\ For this,
+          \begin{equation*}
+              x_h(t)=A_1e^{\lambda_1t}+A_2e^{\lambda_2t}
+          \end{equation*}
+    \item Critical Damping: natural frequencies are real and equal. That is
+          $\frac{1}{4R^2C^2} = \frac{1}{LC}$ for parallel, and $\frac{R^2}{4L^2} =
+              \frac{1}{LC}$ for series.\\ Both roots will be either $-\frac{1}{2RC}$ or
+          $-\frac{R}{2L}$ depending on the configuration.\\This ends up behaving like
+          explanation decay.\\ In this case,
+          \begin{equation*}
+              x_h(t) = A_1e^{\lambda t}+A_2te^{\lambda t}
+          \end{equation*}
+    \item Underdamping: natural frequencies are complex conjugates. That is
+          $\frac{1}{4R^2C^2} < \frac{1}{LC}$ for parallel, and $\frac{R^2}{4L^2} <
+              \frac{1}{LC}$ for series.\\This leads to $\lambda$ being of the form $-\sigma_p
+              \pm j\omega_d$, with $\sigma_p = \frac{1}{2\tau}$ the attenuation factor and
+          $\omega_d$ the damped resonance frequency being the square root.\\ Through a
+          series of mathematical operations, and the use of Euler's equation, we can get
+          \begin{equation*}
+              x_h(t) = e^{-\sigma_p t}(B_1\cos(\omega_d t)+jB_2\sin(\omega_d t)) = K\cos(\omega_d t+\theta)
+          \end{equation*}
+          This ends up behaving like a slowly shrinking sinusoidal wave.
+\end{itemize}
+\begin{center}
+    \includegraphics[width=\textwidth]{images/dampings.png}
+\end{center}
+Let us look at some examples:\\
+\begin{align*}
+    \lambda_1 & = -1 ,   & \lambda_2 & =-3    & \implies V_{C,h} & = A_1e^{-t}+A_2e^{-3t}            \\
+    \lambda_1 & =-1 ,    & \lambda_2 & =-1    & \implies V_{C,h} & = A_1e^{-t}+A_2te^{-t}            \\
+    \lambda_1 & = -1+2j, & \lambda_2 & =-1-2j & \implies V_{C,h} & = e^{-t}(A_1\sin(2t)+A_2\cos(2t))
+\end{align*}
+To find the particular solution one could substitute into the ODE and use the same method as previous circuits.\\
+However, there are some shortcuts:
+\begin{itemize}
+    \item Constant input: the particular solution will be the input.
+    \item Sinusoidal input: one can use SSS properties, and strategies like voltage
+          division.
+    \item Exponential input: no shortcut, use ODE.
+\end{itemize}
+\section{Non-Ideal Elements}
+While we have been representing components as perfect inductors or capacitors,
+but these do not exist. If that were the case, inductors or capacitors would be
+used to store energy instead of batteries.\\ The non-ideal inductor, also known
+as a parasitic inductor, has a representation that takes into account the
+resistance of the inductor wire $R_s$, the capacitance between adjacent wires,
+and finally, the Ferrite Core loss, $R_p$, which consists of Eddy current loss
+and hysteresis loss.\\ Thus, a full representation of an inductor, in terms of
+ideal elements, would be:
+\begin{center}
+    \begin{circuitikz}[american voltages, american currents]
+        \draw (0,0)
+        to[R, l=$R_s$] (0,1.5)
+        to[L,l=$L$](0,3);
+        \draw (0,3)
+        to [short, -] (1,3)
+        to [C, l^=$C_p$] (1,0)
+        to [short, -] (2.5,0)
+        to [R, l_=$R_p$] (2.5,3);
+        \draw (0,0) to [short, -] (1,0);
+        \draw (1,3) to [short, -] (2.5,3);
+    \end{circuitikz}
+\end{center}
+However, for this course, the effect of the capacitor and the ferrite core loss are negligible, allowing us to ignore them. If the frequency were closer to the self resonant frequencies of the inductor, $C_p$ would become relevant.\\
+The non-ideal capacitor has a wire inductance $L_s$, a wire resistance $R_s$, and a leakage, $R_p$, which allow us to model the capacitor as the following:
+\begin{center}
+    \begin{circuitikz}[american voltages, american currents]
+        \draw (0,0)
+        to[R, l=$R_s$] (0,1.5)
+        to[L,l=$L_s$](0,3);
+        \draw (0,0)
+        to [short, -] (-1,0)
+        to [C, l^=$C$] (-1,-1.5)
+        to [short, -] (1,-1.5)
+        to [R, l_=$R_p$] (1,0);
+        \draw (0,0) to [short, -] (1,0);
+    \end{circuitikz}
+\end{center}
+However, $L_s$ and $R_s$ are both negligible for this course's considerations, as they both have very small values.\\
+These new representations of these components allow us to introduce a new topic, which is quality factor (Q).
+\begin{align*}
+    Q(j\omega)   & = \left\lvert\frac{\text{Reactance}}{\text{Resistance}}\right\rvert = \left\lvert\frac{\text{Im}(Z)}{\text{Re}(z)}\right\rvert \\
+    \implies Q_L & = \frac{\omega L}{R_s},\quad Q_C = \omega R_p C
+\end{align*}
+By using non-ideal representations of these elements within circuits, such as the RLC circuit, circuits are modified to result in resonant properties distinct to those found with ideal components.\\
+\begin{center}
+    \includegraphics[width = 200px]{images/nonideal_rlc.png}
+\end{center}
+We will now learn to transform these configurations into more manageable and solvable configurations. \\
+So, what we will try to do is to convert a series impedance and resistance configuration into a parallel one and vice-versa. That is, we want the parallel or series configuration with certain components to have the same impedance as the series or parallel configuration with the same components, but with different values.\\
+\begin{align*}
+    Z(j\omega)            & = R_s+jX_s                     & Y(j\omega)            & = G_p+jB_p                    \\
+                          & = \frac{1}{G_p+jB_p}           &                       & =\frac{1}{R_s+jX_s}           \\
+    G_p+jB_p              & = \frac{1}{R_s+jX_s}           & R_s+jX_s              & =\frac{1}{G_p+jB_p}           \\
+                          & = \frac{R_s-jX_s}{R_s^2+X_s^2} &                       & =\frac{G_p-jB_p}{G_p^2+B_p^2} \\
+    \implies G_p(j\omega) & = \frac{R_s}{R_s^2+X_s^2},     & \implies R_s(j\omega) & = \frac{G_p}{G_p^2+B_p^2},    \\
+    B_p                   & = \frac{-X_s}{R_s^2+X_s^2}     & X_s(j\omega)          & = \frac{-B_p}{G_p^2+B_p^2}    \\
+\end{align*}
+With $Z$ being the impedance and $Y$ being the admittance.\\
+Now, through a few operations, we van find the values of $L_p$ and $R_p$ that would be equivalent to what we want.\\
+\begin{align*}
+    L_p & =L_s\left(1+\left(\frac{R_s}{\omega L_s}\right)^2\right)=L_s\left(1+\frac{1}{Q_L^2}\right) \\
+    R_p & =R_s\left(1+\left(\frac{\omega L_s}{R_s}\right)^2\right)=R_s(1+Q_L^2)                      \\
+        & \text{At high Q:}                                                                          \\
+    L_p & \approx L_s                                                                                \\
+    R_p & \approx R_s Q_L^2
+\end{align*}
+This essentially means that at high Q, the inductor resembles an ideal inductor, as we would expect.\\
+The same process can be conducted for capacitors:\\
+\begin{align*}
+    C_s & = C_p\left(1+\frac{1}{Q_c^2}\right) \\
+    R_s & = \frac{R_p}{1+Q_c^2}               \\
+        & \text{At high Q:}                   \\
+    C_s & \approx C_p                         \\
+    R_s & \approx \frac{R_p}{Q_c^2}
+\end{align*}
+These transformations should allow us to transform any non-ideal circuit into an equivalent circuit with ideal components, which we will be able to solve as shown in previous sections.\\
+\textit{Note: unlike the original components, their transformations are frequency dependent.}\\
+Another variable that may surge for non-ideal element questions is to find the self-resonant frequency of the circuit, which is $\omega_0=\frac{1}{\sqrt{LC_s}}$ or $\omega_0=\frac{1}{\sqrt{L_p C}}$ depending on the transformation.\\
+This value can then be substituted into the equations for $Q$ related terms, allowing for simplification, and thus the value of the transformed resistor.
+\section{Switched Circuits (Circuits with Switches)}
+The current through an inductor is and will be continuous regardless of whether
+the voltage across it is continuous. This is because of the property of the
+current through an inductor that defines it as:
+\begin{equation*}
+    i_L(t)=\int_{t_0}^t v_L(\tau)d\tau
+\end{equation*}
+The same happens for capacitors and voltage.\\
+This is relevant because it is often important to know how long it takes for an RL or RC circuit to go from one state to another.\\
+We know that
+\begin{equation*}
+    x(t) = x(\infty) + (x(t_0^+)-x(\infty))e^{\frac{-(t-t_0)}{\tau}}
+\end{equation*}
+What we want to discern is how long it will take for $x$ to go from the value $X_1$ to the value $X_2$.\\
+\begin{align*}
+    x(t_2)                                                        & = x(\infty) + (x(t_1)-x(\infty))e^{\frac{-(t_2-t_1)}{\tau}} \\
+    x(t_2) - x(\infty)                                            & = (x(t_1)-x(\infty))e^{\frac{-(t_2-t_1)}{\tau}}             \\
+    \frac{x(t_2)-x(\infty)}{x(t_1)-x(\infty)}                     & = e^{\frac{-(t_2-t_1)}{\tau}}                               \\
+    \ln\left(\frac{x(t_2)-x(\infty)}{x(t_1)-x(\infty)}\right)     & = \frac{-(t_2-t_1)}{\tau}                                   \\
+    \tau\ln\left(\frac{x(t_1)-x(\infty)}{x(t_2)-x(\infty)}\right) & = t_2-t_1                                                   \\
+    \tau\ln\left(\frac{X_1-x(\infty)}{X_2-x(\infty)}\right)       & = t_2-t_1
+\end{align*}
+If this is used on circuits in specific situations, we can discern at what times a solution is relevant or valid.\\
+Another situation that might be faced is finding the equation describing a circuit that has had switches.\\
+To do so, we would solve the circuit for each situation, or each time interval, as if there were no other switches.\\
+To find the initial condition(s), one would need to find the equation for the previous time interval, find the value of $X$ at the end of the time of said interval, and use that as the initial condition of the next time interval.\\
+\section{Convolution}
+We will visualize this as a circuit with an input $x(t)$ that is sent into a
+circuit function $h(t)$ that results in the output $y(t)$. However, $h(t)$ does
+not exist. But, convolution does. And this follows the property $y(t) =
+    x(t)*h(t)$.\\ This method allows us to find the output of any-order circuits.\\
+\begin{center}
+    "We hate convolution as much as we hate differential equations" \\-Prof. Byunghoo Jung
+\end{center}
+\subsection{Important Functions and Function Transformations}
+\textbf{Functions}\\
+\begin{itemize}
+    \item Unit Step Function:
+          \begin{equation*}
+              u(t) = \left\{
+              \begin{array}{l}
+                  0 \quad t < 0                 \\
+                  \text{undetermined} \quad t=0 \\
+                  1 \quad t > 0                 \\
+              \end{array}
+              \right.
+          \end{equation*}
+          \textit{Note: for most intents and purposes, $u(0)$ can be considered to be $1$ or irrelevant. However, non-continuous signals become undefined.}
+    \item Unit Function Shifted:
+          \begin{equation*}
+              u(t-t_0) = \left\{
+              \begin{array}{l}
+                  0 \quad t < t_0    \\
+                  1 \quad t \geq t_0 \\
+              \end{array}
+              \right.
+          \end{equation*}
+    \item Rectangular Function:
+          \begin{equation*}
+              c(t) = u(t-t_1) - u(t-t_2) = \left\{
+              \begin{array}{l}
+                  0 \quad t < t_1          \\
+                  1 \quad t_1 \leq t < t_2 \\
+                  0 \quad t \geq t_2       \\
+              \end{array}
+              \right.
+          \end{equation*}
+    \item Dirac Function:
+          \begin{equation*}
+              \delta(x) = \left\{
+              \begin{array}{l}
+                  +\infty \quad x = 0 \\
+                  0 \quad x \neq 0    \\
+              \end{array}
+              \right.
+          \end{equation*}
+          \begin{equation*}
+              \int_{-\infty}^\infty \delta(\tau) d\tau = 1
+          \end{equation*}
+          \begin{equation*}
+              \frac{du(t)}{dt} = \delta(t)
+          \end{equation*}
+\end{itemize}
+\textbf{Transformations}
+\begin{itemize}
+    \item If a function $f(t)$ changes to $f(t-b)$ it will shift to the right, and if it
+          changes to $f(t+b)$ it will shift to the left.
+    \item If a function $f(t)$ changes to $f(at)$ with $|a| > 0$, it will expand along
+          the x-axis, and if $|a| < 0$, it will contract. If $a$ is negative, it will be
+          reflected about the x-axis.
+    \item If a function $f(t)$ changes to $cf(t)$, with $|c| > 1$, it will stretch along
+          the y-axis, and if $|c| < 1$, it will contract. If $c$ is negative, it will be
+          reflected about the y-axis.
+    \item If a function $f(t)$ changes to $f(t)+d$, with $d > 0$, it will shift up, and
+          if $d < 0$, it will shift down.
+\end{itemize}
+\textit{Note: if multiple transformations are applied to a function, the order usually does not matter.}
+\subsection{Graphical Convolution}
+The convolution of two functions $f(t)$ and $g(t)$ is defined as:
+\begin{equation*}
+    f(t)*g(t) = \int_{-\infty}^{\infty} f(\tau)g(t-\tau)d\tau = \int_{-\infty}^{\infty} f(t-\tau)g(\tau)d\tau
+\end{equation*}
+It has some other notations as well: $f(t)*g(t)=f*g(t)=(f*g)(t)$.\\
+Convolution can relate inputs to outputs using circuit models. That is, if we are given a highly complicated RLC circuit, we can relate the desired output to the input through convolution.\\
+We will be analyzing the following two functions:
+\begin{center}
+    \includegraphics[width = 150px]{images/concolution_funcs.png}
+\end{center}
+Both $f(t)$ and $g(t)$ are being analyzed respective to a  reference time $t$.\\
+We will also define handedness as the side of $t$ in which  a function has a larger magnitude, should it not be symmetric. So, in this case $g(t)$ would be left-handed.\\
+The values within the integral perform operations on the functions. That is, $f(t)$ becomes $f(\tau)$, while $g(t)$ becomes $g(-\tau)$ (changes handedness) and is moved along the $\tau$ axis from by some predefined value $t$ between $-\infty\rightarrow\infty$. The convolution is the integral of the product of these two functions.\\
+So, while the two transformed functions do not overlap, the product is $0$, but once a time $t$ is analyzed at which they overlap, the integral begins to have values.\\ So, different predefined values of $t$ convolute to different values. However, the convolution will maximize at the time in which they have the maximum intersection.\\
+\subsection{Actual Convolution (Mathematical and Continuous)}
+Looking at what happened above, we can observe that the output of convolution
+is a function of $t$, and has no effect of $\tau$. That is:
+\begin{equation*}
+    f(t)*g(t) = Fn(t)
+\end{equation*}
+There is an important function within convolutions that we defined earlier. And it is important because it has the following property, also known as the shifting property:
+\begin{equation*}
+    f(t)*\delta(t) = \int_{-\infty}^{\infty} f(\tau)\delta(t-\tau)d\tau = f(t)
+\end{equation*}
+and the sampling property:
+\begin{equation*}
+    f(t)*\delta(t_0) = \int_{-\infty}^{\infty} f(\tau)\delta(t_0-\tau)d\tau = f(t_0)
+\end{equation*}
+That is, the $\delta$ function is the identity function for convolution.\\
+This can be proven by writing and solving the following integral that is using the $\delta$ function and allowing us to control the limits of the integral:
+\begin{equation*}
+    x(t)*\delta(t-T) = \int_{(t-T)^-}^{(t-T)^+}x(\tau)\delta((t-T)-\tau)d\tau = x(t-T)
+\end{equation*}
+The above function is also known as time shifting.\\
+We can analyze how convolution reacts to the unit step function:
+\begin{equation*}
+    f(t)*u(t) = \int_{-\infty}^{\infty} f(\tau)u(t-\tau)d\tau = \int_{-\infty}^{t} f(\tau)d\tau
+\end{equation*}
+However, for most functions $f(t)$, this is unbounded, and thus unusable. Instead, we convolute from a certain point of time, which is done like this:
+\begin{align*}
+    y(t)=x(t)u(t)*u(t) & = \int_{-\infty}^{\infty} x(\tau)u(\tau)u(t-\tau)d\tau \\
+                       & = \int_{0}^{t}x(\tau)d\tau u(t)
+\end{align*}
+These examples and uses have allowed us to get a basic understanding of convolution and its uses.\\
+We will now learn some properties of convolution:
+\begin{itemize}
+    \item Commutative Property: $f(t)*g(t)=g(t)*f(t)$
+          \begin{align*}
+              f(t)*g(t)         & = \int_{-\infty}^{\infty}f(\tau)g(t-\tau)d\tau       \\
+              \text{if } \gamma & =t-\tau                                              \\
+                                & = \int_{-\infty}^{\infty}f(t-\gamma)g(\gamma)d\gamma \\
+                                & = g(t)*f(t)
+          \end{align*}
+    \item Associative Property: $[f(t)*g(t)]*h(t) = f(t)*[g(t)*h(t)]$
+    \item Distributive Property: $f(t)*[g(t)+h(t)]=f(t)*g(t)+f(t)*h(t)$
+\end{itemize}
+Convolution can also be used to create pulses through the convolution $x(t)u(t)*[u(t)-u(t-T)]$ which creates a pulse between $t-T$ and $t$.\\
+
+\subsection{Discrete Convolution}
+Convolution can also be done on a discrete domain, that is, on a domain that is
+non-continuous. In these domains, convolution is defined as:
+\begin{equation*}
+    f[n]*g[n] = \sum_{m=-\infty}^{\infty}f[m]g[n-m]
+\end{equation*}
+where $f[n] = [k_1,k_2,k_3,k_4,k_5]$ and $g[n] = [c_1,c_2,c_3,c_4]$ correspond to the values of these functions starting from $0$ and moving forward on the integer domain. So, in this case, $f[1] = k_2$.\\
+The convolution of these is similar to ordinary convolution, however, the "sliding" of $g[n]$ would be along integers and not the real numbers.\\
+Discrete convolution is also commutative, associative, and distributive.\\
+Discrete convolution is used for computational calculations of convolution, with the domain including more numbers than just integers. It is considered that the appropriate spacing between two points should be at most $0.2*(FWHM)$, where FWHM is the width of the formed curve at half the maximum height of the convolution. The extension of the tails, that is, the width of the domain should be about $20FWHM$ on each side of the maximum.\\
+Let us take the following circuit:
+\begin{center}
+    \begin{circuitikz}[american voltages]
+        \draw (0,2)
+        to[V, l=$V_{in}$] (0,0);
+        \draw (0,2)
+        to [R, l=$1\Omega$] (2,2)
+        to [C, l=$1F$] (2,0)
+        to [short, -] (0,0);
+    \end{circuitikz}
+\end{center}
+The describing function of this circuit will be
+\begin{align*}
+    v_{out}(t)                    & = v_{in}(t)-v_{in}(t)e^{-t} \\
+    \text{if }v_{in}(t)           & = u(t)                      \\
+    v_{out}(t)                    & = (1-e^{-t})u(t)            \\
+    \text{since }\frac{d}{dt}u(t) & = \delta(t)                 \\
+    \frac{d}{dt}(1-e^{-t})u(t)    & = e^{-t}
+\end{align*}
+The last equation represents the response of the circuit to an impulse. If we have one impulse, we can represent any input as a combination of step impulses. This would allow us to easily calculate the circuit's response and behavior computationally.\\
+\section{Impulse Response}
+We start this section by defining Linear Time Invariant (LTI) Systems, which
+are circuits that relate to inputs linearly and outside the domain or control
+of time. That is, the highest power of elements in the ODE that defines the
+circuit is $1$.\\ For example:
+\begin{equation*}
+    y(t) = \frac{d^2x(t)}{dt^2}
+\end{equation*} is linear, but
+\begin{equation*}
+    y(t) = \frac{dx^2(t)}{dt}
+\end{equation*}
+is not.\\
+The time invariance indicates a relation between input $x(t)\rightarrow y(t)$ output, and input $x(t-T)\rightarrow y(t-T)$ output.\\
+Let us look at the following LTI system:
+\begin{center}
+    \begin{circuitikz}[american voltages]
+        \draw (0,2)
+        to[V, l=$V_{in}$] (0,0);
+        \draw (0,2)
+        to [R, l=$R$] (2,2)
+        to [L, l=$L$] (4,2)
+        to [C, l=$C$] (4,0)
+        to [short, -] (0,0);
+    \end{circuitikz}
+\end{center}
+Let $h(t)$ be the convolution function of this LTI.
+\begin{align*}
+    \implies x(t)*h(t)  & =y(t)         \\
+    \text{but if } x(t) & = \delta(t)   \\
+    \delta(t)*h(t)      & = h(t) = y(t)
+\end{align*}
+We will call this function $h(t)$ the impulse response. In essence, $h(t)$ is the output of the circuit when the input of the function is $\delta (t)$\\
+If we were to know the magnitude of the input $x(t)$ at a given time, $\Delta t$, we could define the convolved function with $h(t)$ as $x(t) = |x(\Delta t)|\delta(t-\Delta t)$, which would in turn allow us to, through convolution, solve for the effect of the input on the output at this moment.
+\begin{equation*}
+    x(t)*h(t)=|x(\Delta t)|\delta(t-\Delta t) * h(t) = |x(\Delta t)|h(t-\Delta T)
+\end{equation*}
+We could then add all the effects across evenly spaced discrete times of the convolution and add them for their values at a given time $t$, allowing us to acquire a good estimate of the output at this time. This would end up looking like the following:
+\begin{equation*}
+    |x(0)|h(0)+|x(\Delta t)|h(t-\Delta t)+|x(2\Delta t)|h(t-2\Delta t)+|x(3\Delta t)|h(t-3\Delta t)\ldots
+\end{equation*}
+Let us apply this for a solved output to calculate the impulse response:
+\begin{align*}
+    i(t)             & = (1-e^{-10t})u(t)                              \\
+    \frac{d}{dt}u(t) & = \delta(t)                                     \\
+    \implies h(t)    & = \frac{d}{dt}(1-e^{-10t})u(t)                  \\
+                     & = 10e^{-10t}u(t)+(1-e^{-10t})\delta(t)          \\
+                     & = 10e^{-10t}u(t) + (1-e^{-10\times 0})\delta(0) \\
+                     & = 10e^{-10t}u(t)+0\delta(t)                     \\
+                     & = 10e^{-10t}u(t)
+\end{align*}
+Now let us assume, we changed the input to another, all we would need to do would be to convolve this new input with $h(t)$, and we would get the output $y(t)$. This output will in fact contain both the homogenous and particular solutions of the system.\\
+\textit{NOTE: $h(t)$ is the derivative of the step response for an LTI, which is of the form $f(t)u(t)$, with f(t) being the defining equation of the system.}\\
+The above note leads to the following two steps to find the impulse response:
+\begin{enumerate}
+    \item Find unit step response of the function by setting the input to be $u(t)$
+    \item $h(t) = \frac{d}{dt}(\text{unit step response})$
+\end{enumerate}
+\section{Laplace Transformations}
+\begin{center}
+    "This is the single most important topic in the whole course ... it will also make you mad and depressed." -Prof. Byunghoo Jung
+\end{center}
+\subsection{Introduction to Laplace Transformations}
+All circuit analysis till now has been in the time domain. We will now move
+from the time domain to the frequency domain. This will in turn simplify
+circuit analysis.\\ This is done using Laplace Transformations. Let
+\begin{align*}
+    x(t)       & = \int_{-\infty}^{\infty} x(\lambda)\delta(t-\lambda)d\lambda \\
+    \implies s & = \sigma +j\omega
+\end{align*}
+with $\sigma$ and $\omega$ being the real and imaginary parts of the frequency.
+$s$ is a complex number, and thus to completely graphically represent it, we need two different 3D plots. One has the axis [$Re(s),Im(s),|F(s)|$], and the other [$Re(s),Im(s),\phase{F(s)}$]\\
+Keep in mind:
+\begin{equation*}
+    Ae^{j(\omega t+\phi)} = A\cos(\omega t+\phi)+jA\sin(\omega t+ \phi)
+\end{equation*}
+as we continue this section.\\
+We will define a one-sided Laplace transform as the following:
+\begin{equation*}
+    \mathcal{L}\{f(t)\} = F(s) = \int_{0}^{\infty} f(t)e^{-st}dt
+\end{equation*}
+\textit{Note: as a fun fact, Fourier transforms, which are covered in higher level courses, are a subset of Laplace transforms.}\\
+The transformations form the following table:
+\begin{itemize}
+    \item $\mathcal{L}\{Af(t)\} = AF(s)$
+    \item $\mathcal{L}\{f_1(t)+f_2(t)\} = F_1(s)+F_2(s)$
+    \item $\mathcal{L}\{e^{-t}\} = \frac{1}{s+1}$
+    \item $\mathcal{L}\{t\} = \frac{1}{s^2}$
+    \item $\mathcal{L}\{tf(t)\} = -\frac{d}{ds}F(s)$
+    \item $\mathcal{L}\{t^n f(t)\} = (-1)^n\frac{d^n}{ds^n}F(s)$
+    \item $\mathcal{L}\{f(t-t_0)u(t-t_0)\} = e^{-st_0}F(s)$
+    \item $\mathcal{L}\{\frac{t^n}{n!}\} = \frac{1}{s^{n+1}}$
+    \item $\mathcal{L}\{\delta(t)\} = 1 \leftarrow$ \textbf{Important}
+    \item $\mathcal{L}\{u(t)\} = \frac{1}{s}$ with $Re\{s\}\neq 0 \leftarrow$ \textbf{Important}
+    \item $\mathcal{L}\{t(u(t))\} = \frac{1}{s^2}$ with $Re\{s\}\neq 0 \leftarrow$ \textbf{Important}
+    \item $\mathcal{L}\{e^{-at}u(t)\} = \frac{1}{s+a}$ with $Re\{s+a\}> 0 \leftarrow$ \textbf{Important}
+    \item $\mathcal{L}\{e^{-at}f(t)\} = F(s+a)$
+    \item $\mathcal{L}\{\cos(\omega t)\} = \frac{s}{s^2+\omega^2}$ with $Re\{s\}> 0$
+    \item $\mathcal{L}\{\sin(\omega t)\} = \frac{\omega}{s^2+\omega^2}$ with $Re\{s\}> 0$
+    \item $\mathcal{L}\{\cos(\omega t)+\sin(\omega t)\} = \frac{s+\omega}{s^2+\omega^2}$ with $Re\{s\}> 0$
+    \item $\mathcal{L}\{f'(t)\} = sF(s) - f(0^-)$ with $F(s)$ being the Laplace transform of $f(t)$
+    \item $\mathcal{L}\{f''(t)\} = s^2F(s) - sf(0^-)-f'(0^-)$ with $F(s)$ being the Laplace transform of $f(t)$
+    \item $\mathcal{L}\{f^{(n)}(t)\} = s^n F(s) -\sum_{k=0}^{n-1} (s^{n-1-k}\frac{d^k f(0^-)}{dt^k})$ with $F(s)$ being the Laplace transform of $f(t)$
+    \item $\mathcal{L}\{\int_{-\infty}^{t}f(\tau)d\tau\} = \frac{1}{s}\int_{-\infty}^{0} f(\tau) d\tau +\frac{1}{s}F(s)$
+\end{itemize}
+The beauty of these, and their applications in this course come from the property $f(t)*g(t) = F(s)G(s)$.\\
+\textit{Note: For most circuits covered in this course, the order of the numerator is lower than the order of the denominator. This will allow us to conduct inverse Laplace Transforms more easily.}\\
+Later in this course we will learn to find $H(s)$ of a system using KVL and KCL without going through ODEs.\\
+\subsection{Properties of Laplace Transforms}
+The Laplace transform of the first derivative can be used to prove the
+following property, also known as the Initial-Value Theorem:\\
+\begin{equation*}
+    f(0^+) = \lim_{t\rightarrow 0^+}f(t) = \lim_{s\rightarrow\infty}sF(s)
+\end{equation*}
+It also proves the Final-Value Theorem:
+\begin{equation*}
+    \lim_{t\rightarrow\infty} = \lim_{s\rightarrow 0}sF(s)
+\end{equation*}
+It is important to notice that there are limitations of the value of s in the Final-Value theorem.\\
+\subsection{Inverse Laplace Transform}
+\textit{Note: the lecturer and videos gave different processes, if you have a better explanation, please fix this.}\\
+The inverse Laplace transform is defined as the following:
+\begin{equation*}
+    f(t)=\frac{1}{j2\pi}\oint\limits_{\Gamma}F(s)e^{st}ds
+\end{equation*}
+However, this is quite complicated to solve, and it may even be completely impossible. So, let
+\begin{align*}
+    X(s)          & = \frac{P_1(s)}{Q_1(s)}                                                                 \\
+    H(s)          & = \frac{P_2(s)}{Q_2(s)}                                                                 \\
+    \implies Y(s) & = \frac{P_1(s)P_2(s)}{Q_1(s)Q_2(s)}                                                     \\
+                  & = \frac{a_m s^m+a_{m-1}s^{m-1}+\cdots+a_1s+a_0}{b_n s^n+b_{n-1}s^{n-1}+\cdots+b_1s+b_0} \\
+                  & = \frac{K_1}{(s+p_1)^{r_1}}+\frac{K_2}{(s+p_2)^{r_2}}+\cdots+\frac{K_n}{(s+p_n)^{r_n}}
+\end{align*}
+Rewriting $Y$ as partial fractions allows us to use out look-up table to go back into the time domain.\\
+Let us take a look at each of three cases separately:
+\begin{itemize}
+    \item Simple Real Poles:
+          \begin{align*}
+              F(s) & = \frac{P(s)}{(s+p_1)(s+p_2)Q_1(s)} = \frac{K_1}{s+p_1}+\frac{K_2}{s+p_2}+\frac{P_1(s)}{Q_1(s)} \\
+              K_a  & = [F(s)(s+p_1)]_{s=-p_1} = \left[ \frac{P(s)}{(s+p_1)(s+p_2)Q_1(s)}(s+p_1)\right]_{s=-p_1}      \\
+                   & = \left[\frac{K_1}{s+p_1}(s+p_1)+\frac{K_2}{s+p_2}(s+p_1)+\frac{P_1(s)}{Q_1(s)}(s+p_1)\right]
+          \end{align*}
+          In essence, we multiply by each denominator, set the value $s=-p_n$, making $s+p_n=0$, leaving only the coefficient on the right side, as everything else is multiplied by 0. The other side is then evaluated to get the value of the coefficient.
+    \item Complex Conjugate Poles:
+          \begin{align*}
+              F(s) & = \frac{P(S)}{(s+\alpha - j\beta)(s+\alpha + j\beta)Q_1(s)}                                                        \\
+                   & = \frac{K_1}{s+\alpha - j\beta}+\frac{K_2}{s+\alpha +j\beta}+\frac{P_1(s)}{Q_1(s)}                                 \\
+                   & = \frac{sA_1+A_2}{(s+\sigma)^2+\omega^2}+\frac{P_1(s)}{Q_1(s)} \text{ with } A_1=2K_1, A_2=2\sigma K_1+2\omega K_2
+          \end{align*}
+          We can then solve for that using the partial fraction method. However, the bottom may have more complex terms, which would end up complicating the function.
+          This uses:
+          \begin{equation*}
+              \mathcal{L}^-1\left(\frac{K}{s+\alpha - j\beta}+\frac{K^*}{s+\alpha +j\beta}\right) = 2|K|e^{-\alpha t} \cos(\beta t +\theta)
+          \end{equation*}
+    \item Repeated, Real Poles:
+          \begin{align*}
+              F(s) & = \frac{P(S)}{(s+p_1)(s+p_1)Q_1(s)} = \frac{K_1}{s+p_1}+\frac{K_2}{(s+p_1)^2}+\frac{P_1(s)}{Q_1(s)} \\
+          \end{align*}
+          However, for a more general solution, the following property can be used:
+          \begin{equation*}
+              K_{1i}= \frac{1}{(r-i)!}\frac{d^{r-i}}{ds^{r-i}}\left[ (s+p_1)^r \frac{P(s)}{Q(s)}\right]
+          \end{equation*}
+          For all except term with quadratic denominator, follow same procedure as in Simple Real Poles. For the quadratic term, multiply the equation by $(s-p_1)^2$, and set $s=p_1$, this will cause all terms to drop out, except $K_2$, which we will then be able to evaluate.\\
+          If there are more than two repeated roots, multiply by the highest exponent, and make everything fall out. Solve as mentioned above. For the rest of the coefficients, a system of equations will have to be solved.
+\end{itemize}
+Once everything is in partial fraction form, we can easily use the lookup table to take it back to the time-domain.
+\section{Impedance, Admittance, and Zero-State Response}
+\begin{center}
+    "You will now begin to understand the beauty of frequency domain analysis" - Prof. Byunghoo Jung
+\end{center}
+We will now analyze the behavior of circuit parameters in the frequency
+domain.\\
+\begin{itemize}
+    \item Resistors:\\
+          \begin{align*}
+              \mathcal{L}\{v_R(t) = Ri_R(t)\} & = V_R(s) = RI_R(s) \\
+              \mathcal{L}\{i_R(t) = Gv_R(t)\} & = I_R(s) = GV_R(s)
+          \end{align*}
+    \item Inductors:
+          \begin{align*}
+              \mathcal{L}\left\{ v_L(t) = L\frac{di_L(t)}{dt} \right\}                       & =V_L(s) = L(sI_L(s)-i_L(0))                                                                     \\
+              \mathcal{L}\left\{i_L(t) = \frac{1}{L}\int_{-\infty}^{t}v_L(\tau)d\tau\right\} & = I_L(s) = \frac{1}{L}\left( \frac{V_L(s)}{s}+\frac{\int_{-\infty}^{0}v_L(\tau)d\tau}{s}\right)
+          \end{align*}
+    \item Capacitors:
+          \begin{align*}
+              \mathcal{L}\left\{ i_C(t) = L\frac{dv_C(t)}{dt} \right\}                       & =I_C(s) = C(sV_C(s)-v_C(0))                                                                     \\
+              \mathcal{L}\left\{v_C(t) = \frac{1}{C}\int_{-\infty}^{t}i_C(\tau)d\tau\right\} & = V_C(s) = \frac{1}{C}\left( \frac{I_C(s)}{s}+\frac{\int_{-\infty}^{0}I_C(\tau)d\tau}{s}\right)
+          \end{align*}
+\end{itemize}
+\defn{Zero-State Response}{Response of a circuit when all its initial conditions are $0$.}\\
+\begin{align*}
+    V_R(s) & = RI_R(s)           \\
+    V_L(s) & = sLi_L(s)          \\
+    V_C(s) & = \frac{I_C(s)}{sC}
+\end{align*}
+Once these terms are defined, we can also define impedance, which is the equivalent of resistance, but in the frequency domain:
+\begin{equation*}
+    Z(s) = \frac{V(s)}{I(s)}
+\end{equation*}
+Which means,
+\begin{align*}
+    Z_R & = R            \\
+    Z_L & = sL           \\
+    Z_C & = \frac{1}{sC}
+\end{align*}
+On the other hand, we will define admittance as
+\begin{equation*}
+    Y(s) = \frac{I(s)}{V(s)}
+\end{equation*}
+Which leads to:
+\begin{align*}
+    Y_R & = \frac{1}{R} = G \\
+    Y_L & = \frac{1}{sL}    \\
+    Y_C & = sC
+\end{align*}
+These terms can be used to turn RC, RL, LC and RLC circuits into circuits equivalent to solely Z circuits. These circuits can then be solved using strategies like current division, voltage division, among others learned in earlier courses.\\
+We have successfully reduced a linear circuit with inductors and capacitors which initially needed differential equations, into a circuit that is equivalent to one that only has resistances.\\
+\section{Initial Conditions in Laplace Transform}
+We will now analyze what happens when the 
+\end{document}
