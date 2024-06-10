@@ -12,9 +12,12 @@
 \usepackage{subcaption}
 
 \usepackage[style=numeric]{biblatex}
-\addbibresource{bib.bib}
+\bibliography{./bib.bib}
 
 \usepackage[top=2cm, bottom=2cm, left=2cm, right=2cm]{geometry}
+
+% Define graphics path
+\graphicspath{ {./images/} }
 
 \title{Final project}
 \begin{document}
@@ -39,7 +42,7 @@ This project integrates many topics from previous labs,
 notably signal filtering and operational amplification. The report 
 details the theoretical foundation of audio equalization and its component 
 processes, outlines the procedure of design and construction, and presents 
-the circuit valdiation results. These results are then discussed and the 
+the circuit validation results. These results are then discussed and the 
 project's success in meeting specifications analyzed.  
 \end{abstract}
 
@@ -50,7 +53,7 @@ This project is the culmination of a semester's work, synthesizing
 passive/active filters and op-amps into a tangible demonstration: an adjustable 
 audio equalizer capable of selectively modifying the frequencies 
 of an input signal. The final circuit must accept a $320 mV$ RMS signal and selectively amplify 
-frequencies in the ranges of 0-320, 320-3200, and $3200+ Hz$. These seperated
+frequencies in the ranges of 0-320, 320-3200, and $3200+ Hz$. These separated
 signals must be re-integrated and their aggregate independently amplified so that 
 the output signal is suitable for driving a speaker. 
 Additionally, the circuit must meet performance specifications for cutoff, 
@@ -110,7 +113,7 @@ in order. Although many concepts and components from past work are present
 \textbf{passive filters} and \textbf{operational amplifiers}. 
 
 \subsection*{Filters}
-By combining resistors, inductors, and capcitors, we may create 
+By combining resistors, inductors, and capacitors, we may create 
 circuits that permit signals within a range of frequencies to pass 
 unimpeded while attenuating frequencies outside this range. By carefully selecting 
 values for the inductors and capacitors, we can adjust the permitted frequencies
@@ -133,7 +136,7 @@ frequencies below a specified cutoff, the RC low-pass filter shown in Figure
         \end{circuitikz} 
     \end{center}
 \end{figure}
-If we recall the behavior of a capacitor, as frequency increases, the impedence 
+If we recall the behavior of a capacitor, as frequency increases, the impedance 
 decreases according to the formula 
 \begin{equation}
     Z_C = \frac{1}{j \omega C}
@@ -271,20 +274,20 @@ The width of the pass band is given by the (equally creatively titled) \emph{ban
 \end{equation}
 Thus, by tuning the values of $R_{HPF}$, $L_{HPF}$, and $C_{HPF}$ we 
 may center and adjust the width of the pass band to whatever we desire. 
-This project requires the use of all three filter types to seperate 
+This project requires the use of all three filter types to separate 
 the frequencies into the $0-320$, $320-3200$, and $3200+Hz$ bands. 
-Once seperated, these signals may be seperately amplified or attenuated
+Once separated, these signals may be separately amplified or attenuated
 before recombination. Let us now turn to the component used to amplify 
-signals, the \textbf{operational amplifer}. 
+signals, the \textbf{operational amplifier}. 
 
 \subsection*{Amplifiers}
-Operational amplifers, or \emph{op-amps}, accept two signals
+Operational amplifiers, or \emph{op-amps}, accept two signals
 and output one. Different combinations of op-amps and other 
 components can achieve high gains ($10^5$ or more), isolate 
 subcircuits to reduce loading, or sum many signals. The schematic 
 for an op-amp is displayed in Figure \ref{fig:opampschematic}. 
 \begin{figure}
-    \caption{Operational amplifer schematic}
+    \caption{Operational amplifier schematic}
     \label{fig:opampschematic}
     \begin{center}
         \begin{circuitikz}
@@ -305,7 +308,7 @@ for an op-amp is displayed in Figure \ref{fig:opampschematic}.
     \end{center}
 \end{figure}
 The audio equalizer circuit in this project uses op-amps configured as 
-inverting amplifers, whose layout is shown in Figure. \ref{fig:opampinvertingamp}. 
+inverting amplifiers, whose layout is shown in Figure. \ref{fig:opampinvertingamp}. 
 \begin{figure}
     \caption{Inverting amplifier schematic}
     \label{fig:opampinvertingamp}
@@ -362,8 +365,8 @@ entire output signal.
 
 \subsection*{Audio Equalizer}
 Now that we are equipped with an understanding of the audio equalizer's 
-fundemental components, let us integrate them and see how they adjust 
-the different frequencies of an input signal. Once a singal of $320 mv$ RMS is 
+fundamental components, let us integrate them and see how they adjust 
+the different frequencies of an input signal. Once a signal of $320 mv$ RMS is 
 connected, each filter will isolate its respective range of frequencies. 
 The output of each filter then enters its amplifier, which allows for selective 
 tuning. The amplified output is then recombined and fed into the master 
@@ -837,7 +840,7 @@ signal recombination, ripple control, and output power.
 
     \item \emph{Ripple}: Figure \ref{fig:ripple} shows the gain at maximum volume during is mostly
     linear with a maximum difference of $0.78 dB$. That means 
-    that the human ear will percieve a roughly 10\% difference in loudness between the frequency 
+    that the human ear will perceive a roughly 10\% difference in loudness between the frequency 
     which produces the lowest gain and the frequency which produces the highest. This is 
     absolutely acceptable and will barely be perceptible when listening to music from the 
     audio equalizer. 
@@ -860,7 +863,7 @@ validating its potential for effective audio signal processing.
 Now we are done. This report has exhaustively detailed the theory, simulation, 
 construction, and testing of an audio equalizer. The circuit successfully 
 filtered the input signal into the desired frequency bands, 
-used inverting op-amps to attentuate select frequencies, 
+used inverting op-amps to attenuate select frequencies, 
 recombined these signals while allowing for further volume adjustment, 
 and amplified the result so that it could drive a speaker with measured specifications. 
 
