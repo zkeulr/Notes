@@ -111,10 +111,6 @@ analysis at high frequencies.\\~\\ Learning Objectives:
 
 \pagebreak
 
-\section{Semiconductor Review}
-
-\pagebreak
-
 \section{Field-Effect Transistor Devices}
 
 Let us begin where ECE 20001 ended, with metal-oxide semiconductor 
@@ -230,11 +226,57 @@ semiconductor. The capacitance is constant when
 gate voltage is negative, then falls at the \emph{flat-band voltage}
 $V_{GS} = 0V$, then rapidly rises again after the threshold voltage 
 is reached. 
-
 \begin{figure}
     \caption{p-type MOS Capacitance-Voltage Characteristic}
     \label{p-type MOS C-V}
     \includegraphics{moscv.png}
 \end{figure}
+
+The resistivity of the inversion channel created by the gate's bias
+is given by 
+\begin{equation}
+    \frac{1}{\rho} = (n\mu_e + p\mu_h)q
+\end{equation}
+where $n$ is the concentration of electrons, 
+$p$ is the concentration of holes, $\mu_e$ is
+the mobility of electrons, $\mu_h$ is the 
+mobility of holes, and $q$ is the charge of an electron. 
+The higher the gate voltage, the higher the current between source and drain. 
+Below the threshold voltage there is no current flow because no 
+channel is formed. This relationship is linear provided the drain voltage 
+is less than 150 mV, but above 0.3 V becomes nonlinear. That's because 
+the channel is no longer a regular shape, but narrows in the region of the 
+drain. Below 150 mV, however, this distortion can be assumed negligible. 
+Recall that 
+\begin{equation}
+    R = \frac{\rho L}{A}
+\end{equation}
+Whereas for small $v_{DS}$ the area is almost constant, 
+when $v_{DS} > 0.15 V$ the area $A$ decreases enough that 
+the resistance $R$ is significantly increased. When the area has 
+decreased to zero at the drain, we reach the \emph{pinch-off} and 
+the drain voltage is at saturation $v_{DS(sat)}$. The current still 
+flows constantly for all drain voltage above saturation, however. 
+Before saturation is reached and after the gate voltage is above the threshold, 
+we are in the triode region. In the triode region, the current is given by 
+\begin{equation}
+    i_{D(triode)} = \mu C_{ox} \frac{W}{L} ((v_{GS}-V_T)v_{DS}-\frac{v^2_{DS}}{2})
+\end{equation}
+Sometimes, the constant terms are wrapped up into 
+one constant, like so:
+\begin{equation}
+    i_{D(triode)} = k_n ((v_{GS}-V_T)v_{DS}-\frac{v^2_{DS}}{2})
+\end{equation}
+In the saturation region, 
+\begin{align}
+    i_{D(sat)} &= \mu C_{ox} \frac{W}{L} \frac{(v_{GS}-V_T)^2}{2} \\
+    &= k_n \frac{v^2_{DS(sat)}}{2}
+\end{align}
+When we are far away from saturation, 
+the resistance of the channel is given by 
+\begin{align}
+    R_{on} &= \frac{\partial v_{DS}}{\partial i_D} \\
+    &= \frac{1}{\mu C_{ox} \frac{W}{L} (v_{GS} - V_T)}
+\end{align}
 
 \end{document}
