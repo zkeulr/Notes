@@ -17,7 +17,6 @@ Courses with complete notes:
 Currently being added are:
 
 - [ECE 20002](ECE20002/ECE20002.pdf) - Fundamentals of Electronics II
-- [ECE 20002](ECE20875/ECE20875.pdf) - Python for Data Science
 - [POL 23700](POL23700/POL23700.pdf) - Modern Weapons and International Relations
 
 
