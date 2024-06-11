@@ -113,6 +113,7 @@ analysis at high frequencies.\\~\\ Learning Objectives:
 
 \section{Field-Effect Transistor Devices}
 
+\subsection{MOSFETs}
 Let us begin where ECE 20001 ended, with metal-oxide semiconductor 
 field-effect transistors (MOSFETs). The rectangle below represent 
 a wafer of silicon. The p - Si label indicates that the 
@@ -199,7 +200,7 @@ p-type regions, as in figure \ref{fig:pMOSFET}.
 \end{figure}
 In this case the primary current carrier will be holes. 
 
-In the case of the nMOSFET in figure \ref{nMOSFET diagram}, 
+In the case of the nMOSFET in figure \ref{fig:nMOSFET diagram}, 
 a negative gate voltage will attract holes in the 
 semiconductor, forming two oppositely charged areas separated 
 by a distance $x$. This establishes an electric field 
@@ -220,15 +221,15 @@ $C$ given by
 If $0 < V_T < v_{GS}$, then $C=f{\omega}$, where $\omega$ is 
 the frequency of our probe. 
 
-Figure \ref{p-type MOS C-V} displays the 
+Figure \ref{fig:p-type MOS C-V} displays the 
 capacitance-voltage graph of a p-type metal-oxide 
 semiconductor. The capacitance is constant when 
 gate voltage is negative, then falls at the \emph{flat-band voltage}
 $V_{GS} = 0V$, then rapidly rises again after the threshold voltage 
 is reached. 
 \begin{figure}
-    \caption{p-type MOS Capacitance-Voltage Characteristic}
-    \label{p-type MOS C-V}
+    \caption{p-type MOS capacitance-voltage characteristic}
+    \label{fig:p-type MOS C-V}
     \includegraphics{moscv.png}
 \end{figure}
 
@@ -259,7 +260,7 @@ the drain voltage is at saturation $v_{DS(sat)}$. The current still
 flows constantly for all drain voltage above saturation, however. 
 Before saturation is reached and after the gate voltage is above the threshold, 
 we are in the triode region. In the triode region, the current is given by 
-\begin{equation}
+\begin{equation} \label{eq:triode current}
     i_{D(triode)} = \mu C_{ox} \frac{W}{L} ((v_{GS}-V_T)v_{DS}-\frac{v^2_{DS}}{2})
 \end{equation}
 Sometimes, the constant terms are wrapped up into 
@@ -279,4 +280,179 @@ the resistance of the channel is given by
     &= \frac{1}{\mu C_{ox} \frac{W}{L} (v_{GS} - V_T)}
 \end{align}
 
+Figure \ref{fig:Transfer Characteristics} shows a family of $i_D$-$v_{DS}$
+curves with differing values of $v_{GS}$. 
+\begin{figure}
+    \caption{Transfer characteristics of nMOSFETs}
+    \label{fig:Transfer Characteristics}
+    \includegraphics{Transfer Characteristics.png}
+\end{figure}
+Also show as a dashed green line is the saturation current 
+as a function of gate voltage. Let's look at the impact 
+the threshold voltage has by plotting the $i_D$-$v_{GS}$ curve 
+for differing values of $V_T$ in figure \ref{fig:idvgsvt}. 
+\begin{figure}
+    \caption{$i_D$-$v_{GS}$ curve for select values of $V_T$}
+    \label{fig:idvgsvt}
+    \includegraphics{idvgsvt.png}
+\end{figure}
+Now the green dashed curve corresponds to a threshold voltage of zero. 
+Recall that the threshold voltage is intrinsic to 
+the semiconductor wafer. Doping variations, defect, and shape can 
+all affect the threshold voltage. If we build a depletion-mode nMOSFET,
+then we allow for negative threshold voltages.
+
+A normally off like in figure \ref{fig:nMOSFET diagram} 
+has the symbol shown in \ref{fig:nMOSFET schematic} and 
+is said to be in enhancement mode. 
+\begin{figure}
+    \caption{nMOSFET schematic}
+    \label{fig:nMOSFET schematic}
+    \begin{center}
+        \begin{circuitikz}
+            \draw (0,0) node[nmos] (mosfet) {};
+            \draw (mosfet.D) -- ++(0,-0.5) node[vdd] {$V_{D}$};
+            \draw (mosfet.S) -- ++(0,0.5) node[right] {$V_S$};
+            \draw (mosfet.G) -- ++(-0.5,0) node[left] {$V_{GS}$};
+        \end{circuitikz}
+    \end{center}
+\end{figure}
+If the nMOSFET has an n-channel between the source and 
+drain, as shown in figure \ref{fig:nMOSFET diagram on}, 
+\begin{figure}
+    \caption{ Normally on nMOSFET diagram}
+    \label{fig:nMOSFET diagram on}
+    \begin{center}
+        \begin{circuitikz}
+            \draw (0,0)
+            to (4,0)
+            to (4,2)
+            to (0,2)
+            to (0,0);
+            \node at (2,1) {p - Si};
+            \draw (2,0) to (2,-0.25) node[ground]{};
+    
+            \draw (0.5, 2) rectangle node {$n^+$} (1.5,1.65);
+            \draw (2.5, 2) rectangle node {$n^+$} (3.5,1.65);
+    
+            \draw[fill=gray] (0,2) rectangle (0.5,2.25);
+            \draw[fill=gray] (1.5,2) rectangle (2.5,2.25);
+            \draw[fill=gray] (3.5,2) rectangle (4,2.25);
+            
+            \draw[fill=black] (0.5, 2) rectangle (1.5,2.125);
+            \draw[fill=black] (1.5,2.25) rectangle (2.5,2.375);
+            \draw[fill=black] (2.5, 2) rectangle (3.5,2.125);
+    
+            \draw (1, 2) to[short, -*] (1, 3) node[above] {Source}
+            to (0.5, 3);
+            \draw (2, 2.25) to[short, -*] (2, 3.25) node[above] {Gate, $v_{GS}(v_G)$};
+            \draw (3, 2) to[short, -*] (3, 3) node[right] {Drain, $v_{DS}(v_D)$};
+
+            \draw[fill=green] (1.5, 2) rectangle (2.5, 1.75) node[below] {n-channel}; 
+        \end{circuitikz}
+    \end{center}
+\end{figure}
+then it is normally on and its symbol is as seen in 
+figure \ref{fig:nMOSFET on schematic}. This kind of nMOSFET 
+is said to be in depletion mode. 
+\begin{figure}
+    \caption{Schematic of normally on nMOSFET}
+    \label{fig:nMOSFET on schematic}
+    \begin{center}
+        \begin{circuitikz}
+            \draw (0,0) node[nmos] (mosfet) {};
+            \draw (mosfet.D) -- ++(0,-0.5) node[vdd] {$V_{D}$};
+            \draw (mosfet.S) -- ++(0,0.5) node[right] {$V_S$};
+            \draw (mosfet.G) -- ++(-0.5,0) node[left] {$V_{GS}$};
+            \draw[fill=black] (-0.5, -0.25) rectangle (-0.425, 0.25);
+        \end{circuitikz}
+    \end{center}
+\end{figure}
+Note the thicker line between source and drain representing 
+the n-channel. 
+
+Similarly, the pMOSFET shown in figure \ref{fig:pMOSFET} is 
+a normally off, enhancement mode pMOSFET. A pMOSFET with a 
+p-channel is normally on and in depletion mode. 
+
+Let's look at the transfer characteristics of 
+the different types of MOSFETs. figure \ref{fig:Transfer Characteristics} 
+shows these characteristics for a normally off, enhancement mode 
+nMOSFET.
+For a normally on, depletion mode nMOSFET the graph is exactly 
+the same, except that the current can flow even when the 
+gate bias is zero since the fabricated channel allows 
+the flow of electrons from source to drain.
+The output characteristics for a normally off, enhancement mode pMOSFET
+are shown in figure \ref{fig:idvgsvt pmosfet}.
+\begin{figure}
+    \caption{$i_D$-$v_{DS}$ curve for select values of $v_{GS}-V_T$}
+    \label{fig:idvgsvt pmosfet}
+    \includegraphics{output characteristics pmosfet.png}
+\end{figure}
+A negative bias on the gate will induce a channel of positive holes 
+in the semiconductor, making the threshold voltage for a pMOSFET 
+negative. Again, the normally on depletion mode pMOSFET graph has the same 
+shape, but since there is an existing channel for current it will flow even for 
+some positive values of $v_{GS}$. We need to deplete the channel by pushing away all 
+the holes in it with the bias on the gate in order to turn it off. 
+
+To review, there for four kinds of MOSFETs in which we are interested:
+\begin{itemize}
+    \item normally off, enhancement mode nMOSFETs
+    \item normally on, depletion mode nMOSFETs
+    \item normally off, enhancement mode pMOSFETs
+    \item normally on, depletion mode pMOSFETs
+\end{itemize}
+
+\subsection{Transconductance}
+
+Now, let us move on the the topic of transconductance. 
+In the triode region, the transconductance is defined as 
+\begin{equation} \label{eq:g_m}
+    g_m = \frac{i_D}{v_{GS}} \rvert_{Q_{pt}}
+\end{equation}
+where 
+\begin{equation}
+    Q_{pt} = (I_D, V_{DS}).
+\end{equation}
+If we recall equation \ref{eq:triode current}, and substitute
+for $i_D$ in equation \ref{eq:g_d}, then we obtain 
+\begin{align}
+    g_m &= \mu C_{ox} \frac{W}{L} v_{DS} \\
+    &= \frac{i_{D(triode)}}{(v_{GS}-v_T)-\frac{v_{DS}}{2}}
+\end{align}
+
+In the saturation region, 
+\begin{equation}
+    g_m = \frac{di_D}{dv_{GS}} \rvert_{Q_{pt}}
+\end{equation}
+and 
+\begin{equation}
+    i_{D(sat)} = \mu C_{ox} \frac{W}{L} \frac{(v_{GS}-V_T)^2}{2}.
+\end{equation}
+Again combining these two equations, 
+\begin{align}
+    g_m &= \mu C_{ox} \frac{W}{L}(v_{GS} - V_T) \\
+    &= \frac{2i_{D(sat)}}{(v_{GS}-V_T)}
+\end{align}
+The larger the transconductance, the larger 
+the gain of an amplifier circuit 
+that uses the transistor. 
+
+By adjusting the voltage of the drain, we 
+can modulate the channel length. Specifically, 
+\begin{align}
+    i_{D(sat)} &\propto \frac{1}{L-\Delta L} \\
+    &\equiv \frac{1}{L}\left(1 + \frac{\Delta L}{L}\right).
+\end{align}
+And 
+\begin{equation}
+    \Delta L \propto (v_{DS} - v_{DS(sat)})
+\end{equation}
+means that 
+\begin{equation}
+    i_{D(sat)} = \frac{1}{2} \mu C_{ox} \frac{W}{L} (v_{GS}-V_T)^2 \left[1 + \lambda(v_{DS}-v_{DS(sat)})\right]
+\end{equation}
+where $\lambda$ is the channel length modulation parameter. 
 \end{document}
