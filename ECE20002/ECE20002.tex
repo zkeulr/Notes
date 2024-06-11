@@ -440,6 +440,8 @@ The larger the transconductance, the larger
 the gain of an amplifier circuit 
 that uses the transistor. 
 
+\subsection{Channel length modulation}
+
 By adjusting the voltage of the drain, we 
 can modulate the channel length. Specifically, 
 \begin{align}
@@ -454,5 +456,13 @@ means that
 \begin{equation}
     i_{D(sat)} = \frac{1}{2} \mu C_{ox} \frac{W}{L} (v_{GS}-V_T)^2 \left[1 + \lambda(v_{DS}-v_{DS(sat)})\right]
 \end{equation}
-where $\lambda$ is the channel length modulation parameter. 
+where $\lambda$ is the empirically determined 
+channel length modulation parameter. 
+The output resistance at the drain is given by 
+\begin{align}
+    r_0 &= \left[\frac{\partial i_{D(sat)}}{\partial v_{DS}}\right]^{-1} \\
+    &= \left[\lambda \frac{1}{2} k_n (v_{GS}-V_T)^2\right]^{-1} \\
+    &= \frac{1}{\lambda I_{D(sat)}} \\
+    &\approx \frac{V_A}{I_{D(sat)}}
+\end{align}
 \end{document}
