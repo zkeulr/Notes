@@ -206,7 +206,7 @@ semiconductor, forming two oppositely charged areas separated
 by a distance $x$. This establishes an electric field 
 within the oxide layer given by the equation for a 
 parallel plate capacitor
-\begin{equation}
+\begin{equation} \label{eq:1}
     \mathcal{E}_x = - \frac{dV}{dx}
 \end{equation}
 Likewise, a positive gate voltage \emph{that is less than $V_T$} will attract electrons in the 
@@ -215,7 +215,7 @@ oxide layer, but because the semiconductor is n-type, the electrons will
 be spread out over a wider area and have their own capacitance $C_d$. 
 Thus the total capacitance across the oxide and depletion region
 $C$ given by
-\begin{equation}
+\begin{equation} \label{eq:2}
     \frac{1}{C} = \frac{1}{C_ox} + \frac{1}{C_d}
 \end{equation}
 If $0 < V_T < v_{GS}$, then $C=f{\omega}$, where $\omega$ is 
@@ -235,7 +235,7 @@ is reached.
 
 The resistivity of the inversion channel created by the gate's bias
 is given by 
-\begin{equation}
+\begin{equation} \label{eq:3}
     \frac{1}{\rho} = (n\mu_e + p\mu_h)q
 \end{equation}
 where $n$ is the concentration of electrons, 
@@ -249,7 +249,7 @@ is less than 150 mV, but above 0.3 V becomes nonlinear. That's because
 the channel is no longer a regular shape, but narrows in the region of the 
 drain. Below 150 mV, however, this distortion can be assumed negligible. 
 Recall that 
-\begin{equation}
+\begin{equation} \label{4}
     R = \frac{\rho L}{A}
 \end{equation}
 Whereas for small $v_{DS}$ the area is almost constant, 
@@ -260,22 +260,22 @@ the drain voltage is at saturation $v_{DS(sat)}$. The current still
 flows constantly for all drain voltage above saturation, however. 
 Before saturation is reached and after the gate voltage is above the threshold, 
 we are in the triode region. In the triode region, the current is given by 
-\begin{equation} \label{eq:triode current}
+\begin{equation} \label{eq:5}
     i_{D(triode)} = \mu C_{ox} \frac{W}{L} ((v_{GS}-V_T)v_{DS}-\frac{v^2_{DS}}{2})
 \end{equation}
 Sometimes, the constant terms are wrapped up into 
 one constant, like so:
-\begin{equation}
+\begin{equation} \label{eq:6}
     i_{D(triode)} = k_n ((v_{GS}-V_T)v_{DS}-\frac{v^2_{DS}}{2})
 \end{equation}
 In the saturation region, 
-\begin{align}
+\begin{align} \label{eq:7}
     i_{D(sat)} &= \mu C_{ox} \frac{W}{L} \frac{(v_{GS}-V_T)^2}{2} \\
     &= k_n \frac{v^2_{DS(sat)}}{2}
 \end{align}
 When we are far away from saturation, 
 the resistance of the channel is given by 
-\begin{align}
+\begin{align} \label{eq:8}
     R_{on} &= \frac{\partial v_{DS}}{\partial i_D} \\
     &= \frac{1}{\mu C_{ox} \frac{W}{L} (v_{GS} - V_T)}
 \end{align}
@@ -311,10 +311,10 @@ is said to be in enhancement mode.
     \begin{center}
         \begin{circuitikz}
             \draw (0,0) node[nmos] (mosfet) {};
-            \draw (mosfet.D) -- ++(0,-0.5) node[vdd] {$V_{D}$};
-            \draw (mosfet.S) -- ++(0,0.5) node[right] {$V_S$};
+            \draw (mosfet.D) -- ++(0,-0.5) node[right] {$V_{D}$};
+            \draw[->] (mosfet.S) -- ++(0,-0.1) node[right] {$V_S$};
             \draw (mosfet.G) -- ++(-0.5,0) node[left] {$V_{GS}$};
-        \end{circuitikz}
+        \end{circuitikz} 
     \end{center}
 \end{figure}
 If the nMOSFET has an n-channel between the source and 
@@ -361,11 +361,11 @@ is said to be in depletion mode.
     \begin{center}
         \begin{circuitikz}
             \draw (0,0) node[nmos] (mosfet) {};
-            \draw (mosfet.D) -- ++(0,-0.5) node[vdd] {$V_{D}$};
-            \draw (mosfet.S) -- ++(0,0.5) node[right] {$V_S$};
+            \draw (mosfet.D) -- ++(0,-0.5) node[right] {$V_{D}$};
+            \draw[->] (mosfet.S) -- ++(0,-0.1) node[right] {$V_S$};
             \draw (mosfet.G) -- ++(-0.5,0) node[left] {$V_{GS}$};
             \draw[fill=black] (-0.5, -0.25) rectangle (-0.425, 0.25);
-        \end{circuitikz}
+        \end{circuitikz} 
     \end{center}
 \end{figure}
 Note the thicker line between source and drain representing 
@@ -409,30 +409,30 @@ To review, there for four kinds of MOSFETs in which we are interested:
 
 Now, let us move on the the topic of transconductance. 
 In the triode region, the transconductance is defined as 
-\begin{equation} \label{eq:g_m}
+\begin{equation} \label{eq:9}
     g_m = \frac{i_D}{v_{GS}} \rvert_{Q_{pt}}
 \end{equation}
 where 
 \begin{equation}
     Q_{pt} = (I_D, V_{DS}).
 \end{equation}
-If we recall equation \ref{eq:triode current}, and substitute
-for $i_D$ in equation \ref{eq:g_d}, then we obtain 
+If we recall equation \ref{eq:5}, and substitute
+for $i_D$ in equation \ref{eq:9}, then we obtain 
 \begin{align}
     g_m &= \mu C_{ox} \frac{W}{L} v_{DS} \\
     &= \frac{i_{D(triode)}}{(v_{GS}-v_T)-\frac{v_{DS}}{2}}
 \end{align}
 
 In the saturation region, 
-\begin{equation}
+\begin{equation} \label{eq:10}
     g_m = \frac{di_D}{dv_{GS}} \rvert_{Q_{pt}}
 \end{equation}
 and 
-\begin{equation}
+\begin{equation} \label{eq:11}
     i_{D(sat)} = \mu C_{ox} \frac{W}{L} \frac{(v_{GS}-V_T)^2}{2}.
 \end{equation}
 Again combining these two equations, 
-\begin{align}
+\begin{align} \label{eq:12}
     g_m &= \mu C_{ox} \frac{W}{L}(v_{GS} - V_T) \\
     &= \frac{2i_{D(sat)}}{(v_{GS}-V_T)}
 \end{align}
@@ -444,25 +444,81 @@ that uses the transistor.
 
 By adjusting the voltage of the drain, we 
 can modulate the channel length. Specifically, 
-\begin{align}
+\begin{align} \label{eq:13}
     i_{D(sat)} &\propto \frac{1}{L-\Delta L} \\
     &\equiv \frac{1}{L}\left(1 + \frac{\Delta L}{L}\right).
 \end{align}
 And 
-\begin{equation}
+\begin{equation} \label{eq:14}
     \Delta L \propto (v_{DS} - v_{DS(sat)})
 \end{equation}
 means that 
-\begin{equation}
+\begin{equation} \label{eq:15}
     i_{D(sat)} = \frac{1}{2} \mu C_{ox} \frac{W}{L} (v_{GS}-V_T)^2 \left[1 + \lambda(v_{DS}-v_{DS(sat)})\right]
 \end{equation}
 where $\lambda$ is the empirically determined 
 channel length modulation parameter. 
 The output resistance at the drain is given by 
-\begin{align}
+\begin{align} \label{eq:16}
     r_0 &= \left[\frac{\partial i_{D(sat)}}{\partial v_{DS}}\right]^{-1} \\
     &= \left[\lambda \frac{1}{2} k_n (v_{GS}-V_T)^2\right]^{-1} \\
     &= \frac{1}{\lambda I_{D(sat)}} \\
     &\approx \frac{V_A}{I_{D(sat)}}
 \end{align}
+
+\subsection{Summary}
+
+\begin{figure}
+    \begin{center}
+        \begin{tabular}{ c | c | c }
+             & nMOSFET & pMOSFET \\
+            \hline 
+            Enhancement &
+            \begin{circuitikz}
+                \draw (0,0) node[nmos] (mosfet) {};
+                \draw (mosfet.D) -- ++(0,-0.5) node[right] {$V_{D}$};
+                \draw[->] (mosfet.S) -- ++(0,-0.1) node[right] {$V_S$};
+                \draw (mosfet.G) -- ++(-0.5,0) node[left] {$V_{GS}$};
+            \end{circuitikz}
+            & 
+            \begin{circuitikz}
+                \draw (0,0) node[nmos] (mosfet) {};
+                \draw (mosfet.D) -- ++(0,-0.5) node[right] {$V_{D}$};
+                \draw[->] (mosfet.S) -- ++(0,0.25) node[right] {$V_S$};
+                \draw (mosfet.G) -- ++(-0.5,0) node[left] {$V_{GS}$};
+            \end{circuitikz}
+            \\
+            \hline 
+            Depletion & 
+            \begin{circuitikz}
+                \draw (0,0) node[nmos] (mosfet) {};
+                \draw (mosfet.D) -- ++(0,-0.5) node[right] {$V_{D}$};
+                \draw[->] (mosfet.S) -- ++(0,-0.1) node[right] {$V_S$};
+                \draw (mosfet.G) -- ++(-0.5,0) node[left] {$V_{GS}$};
+                \draw[fill=black] (-0.5, -0.25) rectangle (-0.425, 0.25);
+            \end{circuitikz} 
+            & 
+            \begin{circuitikz}
+                \draw (0,0) node[nmos] (mosfet) {};
+                \draw (mosfet.D) -- ++(0,-0.5) node[right] {$V_{D}$};
+                \draw[->] (mosfet.S) -- ++(0,0.25) node[right] {$V_S$};
+                \draw (mosfet.G) -- ++(-0.5,0) node[left] {$V_{GS}$};
+                \draw[fill=black] (-0.5, -0.25) rectangle (-0.425, 0.25);
+            \end{circuitikz} 
+            \\
+        \end{tabular}
+    \end{center}
+    \caption{MOSFET schema}
+    \label{tab:MOSFET schema}
+\end{figure}
+
+\begin{center}
+    \begin{tabular}{ c | c | c }
+        & Equation & Reference \\
+        \hline
+
+        
+    \end{tabular}
+\end{center}
+
 \end{document}
