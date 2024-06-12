@@ -489,7 +489,7 @@ Consider a circuit with two enhancement mode pMOSFETs.
             \draw (m1.D) to ++(1,0);
             \draw[->] (m1.D) to ++(0,-0.25);
     
-            \draw (2,0) node[nmos, left, ] (m2) {};
+            \draw (2,0) node[nmos, left] (m2) {};
             \node at (2,0) {$M_2$};
             \draw[->] (m2.D) to ++(0,-0.25);
             \draw (m2.D) to ++(-1,0)
@@ -502,7 +502,6 @@ Consider a circuit with two enhancement mode pMOSFETs.
         \end{circuitikz}
     \end{center}
 \end{figure}
-
 Notice that in figure \ref{fig:MOSFET DC circuit 1}, 
 the drain of $M_1$ is directly attached to the gate. From 
 this we have 
@@ -510,12 +509,58 @@ this we have
     v_{DS1} &= v_{GS1} \\
     &= v_{GS2}
 \end{align}
-We are told $M_1$ is in saturation. We also have that 
-\begin{align} \label{eq:17}
+We are told $M_1$ is in saturation. If these are two identical 
+transistors, then 
+\begin{align} \label{eq:18}
     I_{REF} &= I_{D(sat)} \\
     &= \frac{1}{2} k_{p1} (v_{GS1} - V_{T1})^2\\
-    &= I_{OUT}
+    &= I_{OUT}.
 \end{align}
+From this, we learn that the reference current 
+is mirrored by the drain current if 
+$k_{p1} = k_{p2}$ and $v_{GS1} = v_{GS2}$. 
+
+Let us now look at the inverter shown in figure \ref{fig:MOSFET DC circuit 2}. 
+\begin{figure}
+    \caption{Inverter}
+    \label{fig:MOSFET DC circuit 2}
+    \begin{center}
+        \begin{circuitikz}
+            \draw (0,0) node[pmos, left] (m2) {};
+            \node at (0,0) {$M_2$};
+            \draw[->] (m1.D) to ++(0,-0.25);
+            \draw (m2.D) to ++(0,-0.25);
+            \node[left] at (m2.D) {$D_2$};
+            \node[left] at (m2.S) {$S_2$};
+
+            \draw[short, -o] (0,0.5) to ++(0, 1) node[above] {$5V$};
+    
+            \draw (0,-2) node[nmos, left] (m1) {};
+            \node at (0,-2) {$M_1$};
+            \node[left] at (m1.S) {$S_1$};
+            \node[left] at (m1.D) {$D_1$};
+
+            \draw (m1.D) to ++(0,0.25)
+            to[short, -o] ++(0.5,0) node[right] {$V_{out}$};
+
+            \draw[->] (m1.S) to ++(0,-0.125);
+            \draw (0, -3) to[R] ++(0,-1) node[ground] {};
+
+            \draw (m1.G) to ++(0,1);
+            \draw (m2.G) to ++(0,-1)
+            to[short, -o] ++(-1, 0) node[above] {$V_{in}$} node[below] {G};
+        \end{circuitikz}
+    \end{center}
+\end{figure}
+Let's try to find $V_{out}$ for $V_{in} = 0V$ and $V_{in} = 5V$. 
+We are told that $V_{T(M1)} = 1V$ and $V_{T(M2)} = -1V$, because 
+M1 is an enhancement mode nMOSFET and M2 is an enhancement mode 
+pMOSFET. When $V_{in} = 0V$, M1 is off because $v_{GS1} < V_{T(M1)}$. 
+Likewise, M2 is on because $v_{GS2} < V_{T(M2)}$ (recall that M2 is a pMOSFET).  
+Since M1 is off, no current flows and $V_{out} = 5V$. For $V_{in} = 5V$, 
+M1 flips on while M2 is off. Since M2 is off, no current flows. 
+That means that $V_{out} = 5V$. 
+
 
 \subsection{Summary}
 
