@@ -80,6 +80,15 @@
 % Define graphics path
 \graphicspath{ {./images/} }
 
+\tikzset{
+  mirror/.code={
+    \def\mirrortemp{#1} % Store the content to be mirrored
+    \begin{scope}[xscale=-1] % Mirror horizontally
+      \path \mirrortemp; % Draw the mirrored path
+    \end{scope}
+  }
+}
+
 \begin{document}
 
 \maketitle
@@ -360,11 +369,10 @@ is said to be in depletion mode.
     \label{fig:nMOSFET on schematic}
     \begin{center}
         \begin{circuitikz}
-            \draw (0,0) node[nmos] (mosfet) {};
+            \draw (0,0) node[nmosd] (mosfet) {};
             \draw (mosfet.D) -- ++(0,-0.5) node[right] {$V_{D}$};
             \draw[->] (mosfet.S) -- ++(0,-0.1) node[right] {$V_S$};
             \draw (mosfet.G) -- ++(-0.5,0) node[left] {$V_{GS}$};
-            \draw[fill=black] (-0.5, -0.25) rectangle (-0.425, 0.25);
         \end{circuitikz} 
     \end{center}
 \end{figure}
@@ -465,6 +473,49 @@ The output resistance at the drain is given by
     &= \frac{1}{\lambda I_{D(sat)}} \\
     &\approx \frac{V_A}{I_{D(sat)}}
 \end{align}
+Channel length modulation is not important when 
+channel length is relatively large, but it is important 
+on modern transistors where are on the order of nanometers. 
+
+\subsection{MOSFETs in DC circuits}
+Consider a circuit with two enhancement mode pMOSFETs. 
+\begin{figure}
+    \caption{MOSFET DC circuit}
+    \label{fig:MOSFET DC circuit 1}
+    \begin{center}
+        \begin{circuitikz}
+            \draw (0,0) node[nmos, left, xscale=-1] (m1) {};
+            \node at (0,0) {$M_1$};
+            \draw (m1.D) to ++(1,0);
+            \draw[->] (m1.D) to ++(0,-0.25);
+    
+            \draw (2,0) node[nmos, left, ] (m2) {};
+            \node at (2,0) {$M_2$};
+            \draw[->] (m2.D) to ++(0,-0.25);
+            \draw (m2.D) to ++(-1,0)
+            to[short, -o] ++(0, 0.5) node[above] {$V^+$};
+    
+            \draw (m2.S) to[short, i=$I_{OUT}$] ++(0,-1);
+            \draw (m2.G) to ++(0, -0.75)
+            to (m1.S)
+            to[R, i=$I_{REF}$, l=$R_{REF}$] ++(0,-1.5) node[ground] {};
+        \end{circuitikz}
+    \end{center}
+\end{figure}
+
+Notice that in figure \ref{fig:MOSFET DC circuit 1}, 
+the drain of $M_1$ is directly attached to the gate. From 
+this we have 
+\begin{align} \label{eq:17}
+    v_{DS1} &= v_{GS1} \\
+    &= v_{GS2}
+\end{align}
+We are told $M_1$ is in saturation. We also have that 
+\begin{align} \label{eq:17}
+    I_{REF} &= I_{D(sat)} \\
+    &= \frac{1}{2} k_{p1} (v_{GS1} - V_{T1})^2\\
+    &= I_{OUT}
+\end{align}
 
 \subsection{Summary}
 
@@ -491,19 +542,17 @@ The output resistance at the drain is given by
             \hline 
             Depletion & 
             \begin{circuitikz}
-                \draw (0,0) node[nmos] (mosfet) {};
+                \draw (0,0) node[nmosd] (mosfet) {};
                 \draw (mosfet.D) -- ++(0,-0.5) node[right] {$V_{D}$};
                 \draw[->] (mosfet.S) -- ++(0,-0.1) node[right] {$V_S$};
                 \draw (mosfet.G) -- ++(-0.5,0) node[left] {$V_{GS}$};
-                \draw[fill=black] (-0.5, -0.25) rectangle (-0.425, 0.25);
             \end{circuitikz} 
             & 
             \begin{circuitikz}
-                \draw (0,0) node[nmos] (mosfet) {};
+                \draw (0,0) node[nmosd] (mosfet) {};
                 \draw (mosfet.D) -- ++(0,-0.5) node[right] {$V_{D}$};
                 \draw[->] (mosfet.S) -- ++(0,0.25) node[right] {$V_S$};
                 \draw (mosfet.G) -- ++(-0.5,0) node[left] {$V_{GS}$};
-                \draw[fill=black] (-0.5, -0.25) rectangle (-0.425, 0.25);
             \end{circuitikz} 
             \\
         \end{tabular}
