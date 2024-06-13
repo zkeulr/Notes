@@ -559,7 +559,57 @@ pMOSFET. When $V_{in} = 0V$, M1 is off because $v_{GS1} < V_{T(M1)}$.
 Likewise, M2 is on because $v_{GS2} < V_{T(M2)}$ (recall that M2 is a pMOSFET).  
 Since M1 is off, no current flows and $V_{out} = 5V$. For $V_{in} = 5V$, 
 M1 flips on while M2 is off. Since M2 is off, no current flows. 
-That means that $V_{out} = 5V$. 
+That means that $V_{out} = 5V$.
+
+\subsection{Transistors as amplifiers}
+The circuit shown in figure \ref{fig:Transistor as amplifier}
+\begin{figure}
+    \caption{Common-source nMOSFET amplifier circuit}
+    \label{fig:Transistor as amplifier}
+    \begin{center}
+        \begin{circuitikz}
+            \draw (0,0) node[nmos, left] (mos) {}
+            (mos.G) to ++(-1,0)
+            to[V, l=$v_{gs}$] ++(0,-1)
+            to[V, l=$V_{GS}$] ++(0,-1)
+            node[left] {$3.5 V$}
+            to ++(2, 0)
+            node[ground] {}
+            to (mos.S);
+
+            \node at (0, 3.2) {$V_{DD} = +10V$};
+            \draw (0, 3) to[R, i=$i_D$, l=$R_D: 3.3k \Omega$, o-] (mos.D);
+        \end{circuitikz}
+    \end{center}
+\end{figure}
+has both AC and DC voltage sources. The source labelled 
+by $V_{GS}$, all caps, is the DC voltage. The source 
+$v_{gs}$, all lowercase, is the AC. This is not to be 
+confused with $v_{GS}$, the total gate bias. The mix of 
+cases indicates we have both AC and DC bias in consideration. 
+The cool thing about this circuit is a small oscillation in 
+the AC input induces a much larger oscillation in the 
+output, hence calling it an amplifier. The output signal 
+is going to be phase shifted by $180^\circ$. We can calculate the gain 
+with eq. \ref{eq:19}
+\begin{equation} \label{eq:19}
+    A_v = \frac{v_{ds}}{v_{gs}}
+\end{equation}
+In this instance, 
+\begin{align} \label{eq:20}
+    A_v &= \frac{v_{ds}}{v_{gs}} \\
+    &= \frac{4.17\angle 180^\circ}{1\angle 0^\circ} \\
+    &= -4.17
+\end{align}
+This gain, however, will be somewhat distorted. To reduce distortion 
+we need that $\lvert v_{gs} \rvert <<2(V_{GS}-V_T)$. The exact value 
+of the "much less" symbol $<<$ will depend on the application, 
+but it's common to require $\lvert v_{gs} \rvert < 0.2(V_{GS} - V_T)$. 
+If we assume the small signal condition and no channel length modulation, then the transconductance
+of the amplifier is 
+\begin{equation} \label{eq:21}
+    g_m = \sqrt{2k_n I_{D(sat)}}
+\end{equation}
 
 \subsection{Chapter summary}
 
@@ -572,8 +622,6 @@ That means that $V_{out} = 5V$.
             Triode & $0 \leq v_{DS} \leq v_{DS(sat)}$\\
             Saturation & $v_{DS} > v_{DS(sat)}$\\
             \hline
-
-            
         \end{tabular}
     \end{center}
     \caption{MOSFET regions of operation}
