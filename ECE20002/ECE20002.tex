@@ -321,9 +321,12 @@ is said to be in enhancement mode.
         \begin{circuitikz}
             \draw (0,0) node[nmos] (mosfet) {};
             \draw (mosfet.D) -- ++(0,-0.5) node[right] {$V_{D}$};
-            \draw[->] (mosfet.S) -- ++(0,-0.1) node[right] {$V_S$};
+            \draw (mosfet.S) -- ++(0,-0.1) node[right] {$V_S$}
+            -- ++(0, 0.6) 
+            -- ++(-0.5,0)
+            to[short, i=~] ++(0.5,0);
             \draw (mosfet.G) -- ++(-0.5,0) node[left] {$V_{GS}$};
-        \end{circuitikz} 
+        \end{circuitikz}
     \end{center}
 \end{figure}
 If the nMOSFET has an n-channel between the source and 
@@ -371,9 +374,12 @@ is said to be in depletion mode.
         \begin{circuitikz}
             \draw (0,0) node[nmosd] (mosfet) {};
             \draw (mosfet.D) -- ++(0,-0.5) node[right] {$V_{D}$};
-            \draw[->] (mosfet.S) -- ++(0,-0.1) node[right] {$V_S$};
+            \draw (mosfet.S) -- ++(0,-0.1) node[right] {$V_S$}
+            -- ++(0, 0.6) 
+            -- ++(-0.5,0)
+            to[short, i=~] ++(0.5,0);
             \draw (mosfet.G) -- ++(-0.5,0) node[left] {$V_{GS}$};
-        \end{circuitikz} 
+        \end{circuitikz}
     \end{center}
 \end{figure}
 Note the thicker line between source and drain representing 
@@ -630,6 +636,18 @@ of the amplifier is
 
 \begin{figure}
     \begin{center}
+        \begin{tabular}{ c | c }
+            nMOSFET & pMOSFET \\
+            \hline
+            $v_{GS(on)} > 0$ & $v_{GS(on)} < 0$ \\
+        \end{tabular}
+    \end{center}
+    \caption{Differences between pMOSFET and nMOSFET}
+    \label{tab:pn differences}
+\end{figure}
+
+\begin{figure}
+    \begin{center}
         \begin{tabular}{ c | c | c }
              & nMOSFET & pMOSFET \\
             \hline 
@@ -637,14 +655,19 @@ of the amplifier is
             \begin{circuitikz}
                 \draw (0,0) node[nmos] (mosfet) {};
                 \draw (mosfet.D) -- ++(0,-0.5) node[right] {$V_{D}$};
-                \draw[->] (mosfet.S) -- ++(0,-0.1) node[right] {$V_S$};
+                \draw (mosfet.S) -- ++(0,-0.1) node[right] {$V_S$}
+                -- ++(0, 0.6) 
+                -- ++(-0.5,0)
+                to[short, i=~] ++(0.5,0);
                 \draw (mosfet.G) -- ++(-0.5,0) node[left] {$V_{GS}$};
             \end{circuitikz}
             & 
             \begin{circuitikz}
-                \draw (0,0) node[nmos] (mosfet) {};
-                \draw (mosfet.D) -- ++(0,-0.5) node[right] {$V_{D}$};
-                \draw[->] (mosfet.S) -- ++(0,0.25) node[right] {$V_S$};
+                \draw (0,0) node[pmos] (mosfet) {};
+                \draw (mosfet.D) -- ++(0,-0.25) node[right] {$V_{D}$};
+                \draw (mosfet.S) -- ++(0,0.1) node[right] {$V_S$}
+                -- ++(0, -0.6) 
+                to[short, i=~] ++(-0.5,0);
                 \draw (mosfet.G) -- ++(-0.5,0) node[left] {$V_{GS}$};
             \end{circuitikz}
             \\
@@ -653,14 +676,19 @@ of the amplifier is
             \begin{circuitikz}
                 \draw (0,0) node[nmosd] (mosfet) {};
                 \draw (mosfet.D) -- ++(0,-0.5) node[right] {$V_{D}$};
-                \draw[->] (mosfet.S) -- ++(0,-0.1) node[right] {$V_S$};
+                \draw (mosfet.S) -- ++(0,-0.1) node[right] {$V_S$}
+                -- ++(0, 0.6) 
+                -- ++(-0.5,0)
+                to[short, i=~] ++(0.5,0);
                 \draw (mosfet.G) -- ++(-0.5,0) node[left] {$V_{GS}$};
             \end{circuitikz} 
             & 
             \begin{circuitikz}
-                \draw (0,0) node[nmosd] (mosfet) {};
-                \draw (mosfet.D) -- ++(0,-0.5) node[right] {$V_{D}$};
-                \draw[->] (mosfet.S) -- ++(0,0.25) node[right] {$V_S$};
+                \draw (0,0) node[pmosd] (mosfet) {};
+                \draw (mosfet.D) -- ++(0,-0.25) node[right] {$V_{D}$};
+                \draw (mosfet.S) -- ++(0,0.1) node[right] {$V_S$}
+                -- ++(0, -0.6) 
+                to[short, i=~] ++(-0.5,0);
                 \draw (mosfet.G) -- ++(-0.5,0) node[left] {$V_{GS}$};
             \end{circuitikz} 
             \\
@@ -674,9 +702,12 @@ of the amplifier is
     \begin{tabular}{ c | c }
         Equation & Reference \\
         \hline
+        $v_{DS(sat)} = v_{GS} - V_T$ \\
+        \hline
         $i_{D(cutoff)} = 0$ & \\
         \hline
-        $i_{D(triode)} = \mu C_{ox} \frac{W}{L} ((v_{GS}-V_T)v_{DS}-\frac{v^2_{DS}}{2})$
+        $i_{D(triode)} = \mu C_{ox} \frac{W}{L} ((v_{GS}-V_T)v_{DS}-\frac{v^2_{DS}}{2})$ \\
+        $= k_n ((v_{GS}-V_T)v_{DS}-\frac{v^2_{DS}}{2})$
         & eq. \ref{eq:5} \\
         \hline
         $i_{D(sat)} = \mu C_{ox} \frac{W}{L} \frac{(v_{GS}-V_T)^2}{2}$ \\
