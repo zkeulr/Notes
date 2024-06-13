@@ -565,6 +565,23 @@ That means that $V_{out} = 5V$.
 
 \begin{figure}
     \begin{center}
+        \begin{tabular}{ c | c }
+            Region & Conditions \\
+            \hline
+            Cut-off & $v_{DS} < 0$ or $v_{DS(sat)} < 0$ \\
+            Triode & $0 \leq v_{DS} \leq v_{DS(sat)}$\\
+            Saturation & $v_{DS} > v_{DS(sat)}$\\
+            \hline
+
+            
+        \end{tabular}
+    \end{center}
+    \caption{MOSFET regions of operation}
+    \label{tab:MOSFET region}
+\end{figure}
+
+\begin{figure}
+    \begin{center}
         \begin{tabular}{ c | c | c }
              & nMOSFET & pMOSFET \\
             \hline 
@@ -606,11 +623,18 @@ That means that $V_{out} = 5V$.
 \end{figure}
 
 \begin{center}
-    \begin{tabular}{ c | c | c }
-        & Equation & Reference \\
+    \begin{tabular}{ c | c }
+        Equation & Reference \\
         \hline
-
-        
+        $i_{D(cutoff)} = 0$ & \\
+        \hline
+        $i_{D(triode)} = \mu C_{ox} \frac{W}{L} ((v_{GS}-V_T)v_{DS}-\frac{v^2_{DS}}{2})$
+        & eq. \ref{eq:5} \\
+        \hline
+        $i_{D(sat)} = \mu C_{ox} \frac{W}{L} \frac{(v_{GS}-V_T)^2}{2}$ \\
+        $= k_n \frac{v^2_{DS(sat)}}{2}$
+        & eq. \ref{eq:7} \\
+        \hline
     \end{tabular}
 \end{center}
 
