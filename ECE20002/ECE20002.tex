@@ -624,23 +624,42 @@ of the amplifier is
         \begin{tabular}{ c | c }
             Region & Conditions \\
             \hline
-            Cut-off & $v_{DS} < 0$ or $v_{DS(sat)} < 0$ \\
-            Triode & $0 \leq v_{DS} \leq v_{DS(sat)}$\\
-            Saturation & $v_{DS} > v_{DS(sat)}$\\
+            Cut-off & $v_{GS} < V_T$ \\
+            Triode & $v_{DS} > v_{DS(sat)}$\\
+            Saturation & $v_{DS} \leq v_{DS(sat)}$\\
             \hline
         \end{tabular}
     \end{center}
-    \caption{MOSFET regions of operation}
-    \label{tab:MOSFET region}
+    \caption{nMOSFET regions of operation}
+    \label{tab:nMOSFET regions}
 \end{figure}
 
 \begin{figure}
     \begin{center}
         \begin{tabular}{ c | c }
-            nMOSFET & pMOSFET \\
+            Region & Conditions \\
             \hline
-            $v_{GS(on)} > 0$ & $v_{GS(on)} < 0$ \\
-            $V_T > 0$ & $V_T < 0$ \\
+            Cut-off & $v_{GS} > V_T$ \\
+            Triode & $v_{DS} \leq v_{DS(sat)}$\\
+            Saturation & $v_{DS} > v_{DS(sat)}$\\
+            \hline
+        \end{tabular}
+    \end{center}
+    \caption{pMOSFET regions of operation}
+    \label{tab:pMOSFET regions}
+\end{figure}
+
+\begin{figure}
+    \begin{center}
+        \begin{tabular}{ c | c | c }
+            & nMOSFET & pMOSFET \\
+            \hline
+            Cutoff & $v_{GS} < 0$ & $v_{GS} > 0$ \\
+            Triode & $v_{GS} > 0$ & $v_{GS} < 0$ \\
+            Saturation & $v_{GS} > 0$ & $v_{GS} < 0$ \\
+            \hline
+            Enhancement & $V_T > 0$ & $V_T < 0$ \\
+            Depletion & $V_T < 0$ & $V_T > 0$ \\
             \hline
         \end{tabular}
     \end{center}
