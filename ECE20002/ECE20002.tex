@@ -617,8 +617,6 @@ of the amplifier is
     g_m = \sqrt{2k_n I_{D(sat)}}
 \end{equation}
 
-\subsection{Common-source amplifier circuit}
-
 Figure \ref{fig:cs amplifier} shows the small signal equivalent circuit
 of a common source amplifier. 
 \begin{figure}
@@ -704,7 +702,6 @@ To find the AC equivalent circuit,
     \item Replace the transistor with its small-signal model 
 \end{enumerate}
 
-
 \subsection{Chapter summary}
 
 \begin{figure}
@@ -763,42 +760,42 @@ To find the AC equivalent circuit,
             Enhancement &
             \begin{circuitikz}
                 \draw (0,0) node[nmos] (mosfet) {};
-                \draw (mosfet.D) -- ++(0,-0.5) node[right] {$V_{D}$};
-                \draw (mosfet.S) -- ++(0,-0.1) node[right] {$V_S$}
-                -- ++(0, 0.6) 
+                \draw (mosfet.D)node[right] {$V_{D}$};
+                \draw (mosfet.S) node[right] {$V_S$}
+                -- ++(0, 0.5) 
                 -- ++(-0.5,0)
                 to[short, i=~] ++(0.5,0);
-                \draw (mosfet.G) -- ++(-0.5,0) node[left] {$V_{GS}$};
+                \draw (mosfet.G) node[left] {$V_{G}$};
             \end{circuitikz}
             & 
             \begin{circuitikz}
                 \draw (0,0) node[pmos] (mosfet) {};
-                \draw (mosfet.D) -- ++(0,-0.25) node[right] {$V_{D}$};
-                \draw (mosfet.S) -- ++(0,0.1) node[right] {$V_S$}
-                -- ++(0, -0.6) 
+                \draw (mosfet.D) node[right] {$V_{D}$};
+                \draw (mosfet.S) node[right] {$V_S$}
+                -- ++(0, -0.5) 
                 to[short, i=~] ++(-0.5,0);
-                \draw (mosfet.G) -- ++(-0.5,0) node[left] {$V_{GS}$};
+                \draw (mosfet.G) node[left] {$V_{G}$};
             \end{circuitikz}
             \\
             \hline 
             Depletion & 
             \begin{circuitikz}
                 \draw (0,0) node[nmosd] (mosfet) {};
-                \draw (mosfet.D) -- ++(0,-0.5) node[right] {$V_{D}$};
-                \draw (mosfet.S) -- ++(0,-0.1) node[right] {$V_S$}
-                -- ++(0, 0.6) 
+                \draw (mosfet.D) node[right] {$V_{D}$};
+                \draw (mosfet.S) node[right] {$V_S$}
+                -- ++(0, 0.5) 
                 -- ++(-0.5,0)
                 to[short, i=~] ++(0.5,0);
-                \draw (mosfet.G) -- ++(-0.5,0) node[left] {$V_{GS}$};
+                \draw (mosfet.G) node[left] {$V_{G}$};
             \end{circuitikz} 
             & 
             \begin{circuitikz}
                 \draw (0,0) node[pmosd] (mosfet) {};
-                \draw (mosfet.D) -- ++(0,-0.25) node[right] {$V_{D}$};
-                \draw (mosfet.S) -- ++(0,0.1) node[right] {$V_S$}
-                -- ++(0, -0.6) 
+                \draw (mosfet.D) node[right] {$V_{D}$};
+                \draw (mosfet.S) node[right] {$V_S$}
+                -- ++(0, -0.5) 
                 to[short, i=~] ++(-0.5,0);
-                \draw (mosfet.G) -- ++(-0.5,0) node[left] {$V_{GS}$};
+                \draw (mosfet.G) node[left] {$V_{G}$};
             \end{circuitikz} 
             \\
         \end{tabular}
