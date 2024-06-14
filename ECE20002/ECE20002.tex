@@ -617,6 +617,60 @@ of the amplifier is
     g_m = \sqrt{2k_n I_{D(sat)}}
 \end{equation}
 
+\subsection{Common-source amplifier circuit}
+
+Figure \ref{fig:cs amplifier} shows the small signal equivalent circuit
+of a common source amplifier. 
+\begin{figure}
+    \begin{center}
+        \begin{circuitikz}
+            \draw (4,-1) node[nmos] (mosfet) {};
+            \draw (mosfet.S) -- ++(0,-0.1)
+            -- ++(0, 0.6) 
+            -- ++(-0.5,0)
+            to[short, i=~] ++(0.5,0);
+
+            \draw (0,0) to[V, invert, l=$V_{DD}$] ++(0,2)
+            -- ++(4,0)
+            to[R, i=$i_D$, l=$R_D$] (mosfet.D)
+            ;
+            \draw (mosfet.D) to[short, -o] ++(1,0) node[below] {$+$};
+            \draw (mosfet.S) to ++(0,-1.25)
+            to[short, -o] ++(1,0) node[above] {$-$}
+            -- ++(-5, 0)
+            -- ++(0,3);
+
+            \node at (5, -1.5) {$v_{DS}$};
+
+            \draw (mosfet.G) -- ++(-1,0)
+            to[sV, l=$v_g$] ++(0, -1)
+            to[V, l=$V_{GS}$] ++(0,-1)
+            node[ground] {};
+        \end{circuitikz}
+    \end{center}
+    \caption{Small signal equivalent circuit}
+    \label{fig:cs amplifier}
+\end{figure}
+Notice the two voltage sources, one AC signal 
+and one DC bias at the gate. The total 
+input signal is given by
+\begin{align} \label{eq:22}
+    v_{GS}(t) &= v_{gs}(t) + V_{GS} \\
+    v_{DS}(t) &= v_{ds}(t) + V_{DS}
+\end{align}
+The drain current for such a circuit 
+when channel length modulation is accounted for 
+is given by 
+\begin{align*} \label{eq:23}
+    i_{D(clm)} = \frac{1}{2}k_n \left[ v^2_{gs} + 2(V_{GS} - V_T)v_{gs} + (V_{GS} - V_T)^2 \right] \\
+    \times \left[ 1 + \lambda(V_{DS} - (V_{GS} - V_T)) + \lambda(v_{ds} - v_{gs}) \right]
+\end{align*}
+When channel length modulation can 
+be ignored, the current reduces to 
+\begin{equation} \label{eq:24}
+    i_{D(sat)} = \frac{1}{2}k_n \left[ v^2_{gs} + 2(V_{GS} - V_T)v_{gs} + (V_{GS} - V_T)^2 \right]
+\end{equation}
+
 \subsection{Chapter summary}
 
 \begin{figure}
