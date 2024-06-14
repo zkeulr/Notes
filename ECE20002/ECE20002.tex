@@ -670,6 +670,40 @@ be ignored, the current reduces to
 \begin{equation} \label{eq:24}
     i_{D(sat)} = \frac{1}{2}k_n \left[ v^2_{gs} + 2(V_{GS} - V_T)v_{gs} + (V_{GS} - V_T)^2 \right]
 \end{equation}
+For finite output resistance $r_0$, 
+\begin{align} \label{eq:25}
+    \frac{1}{r_0} &= \left[ \frac{\partial i_{D(clm)}}{\partial v_{DS}} \right] \\
+    &= \frac{\partial}{\partial v_{DS}} \left\{ \frac{k_n}{2} (v_{GS} - V_T)^2 \left[ 1 + \lambda(v_{DS} - v_{DS(sat)}) \right] \right\} \\
+    &= \frac{k_n}{2} (v_{GS} - V_T)^2 \frac{\partial}{\partial v_{DS}} \left[ 1 + \lambda(v_{DS} - v_{DS(sat)}) \right] \\
+    &= \lambda \frac{k_n}{2} (v_{GS} - V_T)^2 \\
+    &= \lambda I_{D(sat)}.
+\end{align}
+We then define the \emph{intrinsic voltage gain of a MOSFET}
+as 
+\begin{align}
+    \mu_f &= g_m r_0 \\
+    &= \sqrt{2k_n I_{D(sat)}} \left( \frac{1}{\lambda I_{D(sat)}} \right) \\
+    &= \frac{1}{\lambda} \sqrt{\frac{2k_n}{I_{D(sat)}}}
+\end{align}
+We can greatly simplify circuit analysis 
+by breaking the circuit up into 
+AC and DC. To find the DC equivalent 
+circuit, follow these steps: 
+\begin{enumerate}
+    \item Replace all capacitors with open circuits
+    \item Replace all inductors with short circuits
+    \item Deactivate AC sources 
+    \item Find the Q-point using the DC equivalent circuit
+\end{enumerate}
+To find the AC equivalent circuit, 
+\begin{enumerate}
+    \item Replace all capacitors with short circuits at operational frequency
+    \item Replace all inductors with open circuits at operational frequency
+    \item Deactivate DC voltages and replace with short circuits 
+    \item Deactivate DC current sources and replace with open circuits 
+    \item Replace the transistor with its small-signal model 
+\end{enumerate}
+
 
 \subsection{Chapter summary}
 
