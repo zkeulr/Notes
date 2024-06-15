@@ -805,19 +805,22 @@ To find the AC equivalent circuit,
 \end{figure}
 
 \begin{center}
-    \begin{tabular}{ c | c }
-        Equation & Reference \\
+    \begin{tabular}{ c | c  c }
+        Equation & Use & Reference \\
         \hline
-        $v_{DS(sat)} = v_{GS} - V_T$ \\
+        $v_{DS(sat)} = v_{GS} - V_T$ & MOSFET & \\
         \hline
-        $i_{D(cutoff)} = 0$ & \\
+        $i_{D(cutoff)} = 0$ & MOSFET & \\
         \hline
         $i_{D(triode)} = \mu C_{ox} \frac{W}{L} ((v_{GS}-V_T)v_{DS}-\frac{v^2_{DS}}{2})$ \\
-        $= k_n ((v_{GS}-V_T)v_{DS}-\frac{v^2_{DS}}{2})$
+        $= k_n ((v_{GS}-V_T)v_{DS}-\frac{v^2_{DS}}{2})$ \\
+        $= \frac{k_n}{2} (2v_{DS(sat)} - v_{DS})v_{DS}$
+        & MOSFET
         & eq. \ref{eq:5} \\
         \hline
         $i_{D(sat)} = \mu C_{ox} \frac{W}{L} \frac{(v_{GS}-V_T)^2}{2}$ \\
         $= k_n \frac{v^2_{DS(sat)}}{2}$
+        & MOSFET
         & eq. \ref{eq:7} \\
         \hline
     \end{tabular}
