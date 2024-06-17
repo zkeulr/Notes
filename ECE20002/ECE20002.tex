@@ -678,7 +678,7 @@ For finite output resistance $r_0$,
 \end{align}
 We then define the \emph{intrinsic voltage gain of a MOSFET}
 as 
-\begin{align}
+\begin{align} \label{eq:26}
     \mu_f &= g_m r_0 \\
     &= \sqrt{2k_n I_{D(sat)}} \left( \frac{1}{\lambda I_{D(sat)}} \right) \\
     &= \frac{1}{\lambda} \sqrt{\frac{2k_n}{I_{D(sat)}}}
@@ -702,7 +702,210 @@ To find the AC equivalent circuit,
     \item Replace the transistor with its small-signal model 
 \end{enumerate}
 
-\subsection{Chapter summary}
+\subsection{Amplifier topologies}
+There are three different nMOSFET amplifier 
+topologies we will consider in this class, 
+starting with the common-source amplifier shown in 
+figure \ref{fig:common-source amplifier}. 
+\begin{figure}
+    \begin{center}
+        \begin{circuitikz}
+            \draw (0,0) node[nmos] (mosfet) {};
+            \draw (mosfet.S) -- ++(0,-0.1)
+            -- ++(0, 0.6) 
+            -- ++(-0.5,0)
+            to[short, i=~] ++(0.5,0);
+
+            \node[ground] at (mosfet.S) {};
+
+            \node[ground] at (-2, -1) {};
+            \draw (-2, -1) to[V, l=$v_i$, invert] ++(0,1)
+            to[short, -o, l=$v_g$] ++(1,0);
+            
+            \draw (mosfet.D) to[short, -o, l=$v_d$] ++(1,0)
+            to[R, l=$R_L$, v=$v_0$] ++(0,-2)
+            node[ground] {};
+        \end{circuitikz}
+    \end{center}
+    \caption{Common-source amplifier}
+    \label{fig:common-source amplifier}
+\end{figure}
+The common-source amplifier's input is taken 
+through the gate, the output is taken 
+through the drain, and the terminal that 
+is common to output and input is the source. 
+
+The second topology is the common-gate amplifier 
+shown in figure \ref{fig:common-gate amplifier}.
+\begin{figure}
+    \begin{center}
+        \begin{circuitikz}
+            \draw (0,0) node[nmos] (mosfet) {};
+            \draw (mosfet.S) -- ++(0,-0.1)
+            -- ++(0, 0.6) 
+            -- ++(-0.5,0)
+            to[short, i=~] ++(0.5,0);
+
+            \draw (mosfet.G) -- ++(-2, 0)
+            node[ground] {};
+
+            \node[ground] at (-2, -1.75) {};
+            \draw (-2, -1.75) to[V, l=$v_i$, invert] ++(0,1)
+            to[short, -o, l=$v_s$] ++(1,0)
+            -- (mosfet.S);
+            
+            \draw (mosfet.D) to[short, -o, l=$v_d$] ++(1,0)
+            to[R, l=$R_L$, v=$v_0$] ++(0,-2)
+            node[ground] {};
+        \end{circuitikz}
+    \end{center}
+    \caption{Common-source amplifier}
+    \label{fig:common-gate amplifier}
+\end{figure}
+Here we see that the AC voltage source is applied 
+to the source, while the output is taken 
+at the drain and the common terminal 
+is at the gate. 
+
+The previous two amplifiers suggest a 
+third, the common-drain amplifier in 
+figure \ref{fig:common-drain amplifier}.
+\begin{figure}
+    \begin{center}
+        \begin{circuitikz}
+            \draw (0,0) node[nmos] (mosfet) {};
+            \draw (mosfet.S) -- ++(0,-0.1)
+            -- ++(0, 0.6) 
+            -- ++(-0.5,0)
+            to[short, i=~] ++(0.5,0);
+
+            \node[ground] at (-2, -1) {};
+            \draw (-2, -1) to[V, l=$v_i$, invert] ++(0,1)
+            to[short, -o, l=$v_g$] ++(1,0)
+            -- (mosfet.G);
+            
+            \draw (mosfet.S) to[short, -o, l=$v_s$] ++(1,0)
+            to[R, l=$R_L$, v=$v_0$] ++(0,-2)
+            node[ground] {};
+
+            \draw (mosfet.D) -- ++(1,0)
+            node[ground] {};
+        \end{circuitikz}
+    \end{center}
+    \caption{Common-source amplifier}
+    \label{fig:common-drain amplifier}
+\end{figure}
+As may be expected, here the common terminal 
+is the drain, the input is at the gate, and 
+the output is at the source. 
+
+\marginnote{You may be thinking: "what happens if the 
+input and output are swapped? Will the circuit still 
+work as an amplifier?" No.} 
+
+The voltage gain in a common-drain 
+amplifier is given by 
+\begin{equation} \label{eq:27}
+    A_V = \frac{g_m R'_L}{1 + g_m R'_L} \left(\frac{R_G}{R_I + R_G}\right)
+\end{equation}
+where $R'_L = (r_0 || R_6 || R_3)$. 
+For a MOSFET where $r_0 >> R_L$, 
+\begin{equation} \label{eq:28}
+    A_V \approx \frac{R_G}{R_I + R_G}
+\end{equation}
+When this is true, the MOSFET is 
+acting as a \emph{voltage follower}. 
+
+Figure \ref{fig:hybrid-pi model} shows the small-signal 
+model for an nMOSFET called a hybrid-pi model. 
+\begin{figure}
+    \begin{center}
+        \begin{circuitikz}
+            \draw (0,0) node[left] {$G$}
+            to[short, o-o] ++(1,0);
+            
+            \path (1.25,0) to[short, v=$v_{gs}$] ++(0,-2);
+
+            \draw (1.25, -2) to[short, o-*] ++(2,0)
+            to[short, -o] ++(0,-0.5)
+            node[right] {$S$}
+            -- ++(0,1)
+            to[cI, l=$g_m v_{gs}$, invert] ++(0,1.5)
+            -- ++(2,0)
+            to[short, -o] ++(1,0)
+            node[right] {$D$}
+            to[short, i_=$i_d$] ++(-1,0)
+            to[R, l=$r_0$] ++(0,-2)
+            to[short, -o] ++(1,0)
+            -- ++(-3,0);
+
+            \path (6,0) to[short, v^=$v_ds$] ++(0,-2);
+        \end{circuitikz}
+    \end{center}
+    \caption{Hybrid-pi model}
+    \label{fig:hybrid-pi model}
+\end{figure}
+This model is excellent for 
+common-source and common-drain amplifiers. 
+For the common-gate amplifier, the alternative 
+T-model shown in figure \ref{fig:T-model} is more useful. 
+\begin{figure}
+    \begin{center}
+        \begin{circuitikz}
+            \draw (0,0) node[left] {$G$}
+            to[short, i=$i_g: 0$] ++(2,0)
+            to[cI, invert, l=$g_m v_{gs}$] ++(0,2)
+            to[short, -o] ++(0, 0.5)
+            node[left] {D}
+            to[short, i=$i_d$] ++(0,-0.5)
+            -- ++(2,0)
+            to[R, l=$r_0$] ++(0, -4)
+            -- ++(-2,0)
+            to[short, -o] ++(0,-0.5)
+            node[right] {$S$}
+            -- ++(0,0.5)
+            to[R, l=$\frac{1}{g_m}$, v<=$v_{gs}$] ++(0,2);
+        \end{circuitikz}
+    \end{center}
+    \caption{T-model}
+    \label{fig:T-model}
+\end{figure}
+The voltage gain in a common-gate 
+amplifier is given by 
+\begin{equation} \label{eq:28}
+    A_V = \frac{g_m R_L}{1 + g_m(R_I || R_6)} \left(\frac{R_6}{R_I+R_6}\right)
+\end{equation}
+
+Let's recap our three kinds of amplifiers.
+For the inverting common-source amplifier, 
+\begin{equation} \label{eq:29}
+    A_V = -\frac{g_m R_L}{1 + g_m R_S} \left(\frac{R_G}{R_I+R_G}\right).
+\end{equation}
+Additionally, 
+\begin{align} \label{eq:30}
+    R_{in} &= \infty \\
+    R_{out} &= R_L
+\end{align}
+For the non-inverting common-gate amplifier, 
+\begin{equation} \label{eq:31}
+    A_V = \frac{g_m R_L}{1 + g_m(R_I || R_6)} \left(\frac{R_6}{R_I+R_6}\right)
+\end{equation}
+with 
+\begin{align} \label{eq:32}
+    R_{in} &= \frac{1}{g_m} \\
+    R_{out} &= R_L 
+\end{align}
+For the follower common-drain amplifier, 
+\begin{align} \label{eq:33}
+    A_V &= \frac{g_m R_L}{1 + g_m R_L} \left(\frac{R_G}{R_I+R_G}\right) \\
+    &\approx \left(\frac{R_G}{R_I + R_G}\right). 
+\end{align}
+Here, 
+\begin{align} \label{eq:34}
+    R_{in} &= \infty \\
+    R_{out} &= \frac{1}{g_m}
+\end{align}
+\subsection{Reference}
 
 \begin{figure}
     \begin{center}
@@ -838,5 +1041,32 @@ To find the AC equivalent circuit,
         \hline
     \end{tabular}
 \end{center}
+
+\begin{figure}
+    \begin{center}
+        \begin{circuitikz}
+            \draw (0,0) node[left] {$G$}
+            to[short, o-o] ++(1,0);
+            
+            \path (1.25,0) to[short, v=$v_{gs}$] ++(0,-2);
+
+            \draw (1.25, -2) to[short, o-*] ++(2,0)
+            to[short, -o] ++(0,-0.5)
+            node[right] {$S$}
+            -- ++(0,1)
+            to[cI, l=$g_m v_{gs}$, invert] ++(0,1.5)
+            -- ++(2,0)
+            to[short, -o] ++(1,0)
+            node[right] {$D$}
+            to[short, i_=$i_d$] ++(-1,0)
+            to[R, l=$r_0$] ++(0,-2)
+            to[short, -o] ++(1,0)
+            -- ++(-3,0);
+
+            \path (6,0) to[short, v^=$v_ds$] ++(0,-2);
+        \end{circuitikz}
+    \end{center}
+    \caption{Hybrid-pi model}
+\end{figure}
 
 \end{document}
