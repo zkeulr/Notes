@@ -905,6 +905,9 @@ Here,
     R_{in} &= \infty \\
     R_{out} &= \frac{1}{g_m}
 \end{align}
+
+\subsection{Frequency range for FET amplifiers}
+
 The \emph{lower-frequency cutoff} for an 
 amplifier circuit is defined as the $\omega_L$ 
 where the gain $A_V$ is $\frac{1}{\sqrt{2}}$
@@ -915,6 +918,39 @@ the maximum gain, but the higher of the two
 values. 
 The bandwidth of useable frequencies is 
 $\omega_H - \omega_L$. 
+
+The higher-cutoff frequency is defined by capacitors within 
+the amplifier circuit, $C_{gs}$ and $C_{gd}$. 
+\marginnote{$C_{gs}$ is 
+the capacitance between the gate and channel at a point 
+nearer the source, while $C_{gd}$ is the same but 
+for a point nearer the drain.}
+We do not explore this relation within this course.
+However, we are told the following equations are 
+valid in the triode region:
+\begin{align} \label{eq:35}
+    C_{gc} &= WLC_{ox} \\
+    C_{gd} &= \frac{C_{gc}}{2} + C_{gdo} X_{do} \\
+    C_{gs} &= \frac{C_{gc}}{2} + C_{gso} X_{so}
+\end{align}
+\marginnote{$C_{gso}$ is the capacitance of oxide overlapping source, 
+$C_{gdo}$ is the capacitance of oxide overlapping drain,
+$X_{so}$ is the length of oxide overlap on source, 
+and $X_{do}$ is the length of oxide overlap on drain.}
+In the saturation region, 
+\begin{align} \label{eq:36}
+    C_{gd} &= C_{gdo}X_{do} \\
+    C_{gs} &= \frac{2}{3}C_{gc} + C_{gso}X_{so}
+\end{align}
+Typically $C_{gd}$ is so much smaller than $C_{gs}$
+as to be insignificant. 
+
+The maximum useful linear frequency of 
+a transistor is
+\begin{align} \label{eq:37}
+    f_T &= \frac{1}{2\pi} \frac{g_m}{C_{gc}} \\
+    &= \frac{1}{2\pi} \frac{\mu}{L^2} (v_{gs} - V_T)
+\end{align}
 
 In addition to the intrinsic capacitances $C_{ox}$
 and $C_d$, there are also parasitic capacitances. 
