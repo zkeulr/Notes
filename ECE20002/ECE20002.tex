@@ -1123,4 +1123,68 @@ source/drain and the metal contact on the gate.
     \caption{Hybrid-pi model}
 \end{figure}
 
+\section{Operational Amplifier}
+The \emph{operational amplifier} (op-amp)
+is a high voltage gain amplifier
+with a differential input. It can 
+perform mathematical operations, 
+but it's also commonly used in 
+industrial and consumer products. 
+On any op-amp pinout are eight terminals:
+\begin{enumerate}
+    \item offset null
+    \item inverting input
+    \item noninverting input
+    \item negative power supply
+    \item offset null
+    \item output
+    \item positive power supply 
+    \item no connection
+\end{enumerate}
+The symbol for an op-amp 
+is given in figure \ref{fig:op-amp symbol}.
+\begin{figure}
+    \begin{center}
+        \begin{circuitikz}
+            \draw (0, 0) node[op amp] (opamp) {};
+            \node[left] at (opamp.+) {$v_+$};
+            \node[left] at (opamp.-) {$v_-$};
+            \node[right] at (opamp.out) {$V_{out}$};
+            \draw[-latex] (opamp.up) -- +(0,1) node[above] (vv) {$V_+$};
+            \draw[-latex] (opamp.down) -- +(0,-1) node[below] (v) {$V_-$};
+        \end{circuitikz}
+    \end{center}
+    \caption{Operational amplifier symbol}
+    \label{fig:op-amp symbol}
+\end{figure}
+We have a potential at the inverting terminal 
+$v_-$, and a not necessarily equal 
+potential at the noninverting terminal $v_+$. 
+$V_-$ and $V_+$ are the negative and positive power supplies, 
+respectively. 
+We can model the op-amp as in figure \ref{fig:op-amp model}.
+\begin{figure}
+    \begin{center}
+        \begin{circuitikz}
+            \draw (0, 0) node[left] {$v_-$} 
+            to[short, o-, i=$i_-$] ++(1,0)
+            to[R, *-*, l=$R_i$, v<=$v_d$] ++(0,-2)
+            to[short, -o, i<=$i_+$] ++(-1, 0)
+            node[left] {$v_+$};
+
+            \draw (5,0) to[R, o-, l=$R_0$] ++(-2,0)
+            to[cV, l=$Av_d$] ++(0,-2)
+            -- ++(1,0) node[ground] {}
+            to[short, -o] ++(1,0);
+
+            \path (4.5,0) to[short, v^=$v_0$] ++(0,-2);
+        \end{circuitikz}
+    \end{center}
+    \caption{Operational amplifier model}
+    \label{fig:op-amp model}
+\end{figure}
+The gain $A$ is typically $O(10^4)$, but 
+can be higher or lower. The input signal 
+is voltage, not current, so we typically 
+make $R_i$ large to avoid loss of signal. 
 \end{document}
