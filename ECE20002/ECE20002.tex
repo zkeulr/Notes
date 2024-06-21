@@ -1234,4 +1234,82 @@ make $R_i$ large to avoid loss of signal.
 $R_i$ is also $\infty$.}
 The maximum and minimum possible voltages 
 are clipped to $V_+$ and $V_-$, respectively. 
+
+Consider the feedback loop 
+shown in figure \ref{fig:feedback loop}.
+\tikzstyle{block} = [draw, fill=blue!20, rectangle, 
+    minimum height=3em, minimum width=6em]
+\tikzstyle{sum} = [draw, fill=blue!20, circle, node distance=1cm]
+\tikzstyle{input} = [coordinate]
+\tikzstyle{output} = [coordinate]
+\begin{figure}
+    \begin{center}
+        \begin{tikzpicture}[auto, node distance=2cm,>=latex']
+            \node [input, name=input] {};
+            \node [sum, right of=input] (sum) {};
+            \node [block, right of=sum, node distance=3cm] (system) {$A$};
+            \node [output, right of=system] (output) {};
+            \node [block, below of=system] (measurements) {$B$};
+        
+            \draw [draw,->] (input) -- node {$x_s$} (sum);
+            \draw [->] (sum) -- node {$x_i$} (system);
+            \draw [->] (system) -- node [name=y] {$x_o$}(output);
+            \draw [->] (y) |- (measurements);
+            \draw [->] (measurements) -| node[pos=0.99] {$-$} 
+                node [near end] {$x_f$} (sum);
+        \end{tikzpicture}
+    \end{center}
+    \caption{Feedback loop}
+    \label{fig:feedback loop}
+\end{figure}
+Here, $x_o = Ax_i$ and $x_f = Bx_o$. At the 
+summing circle, the feedback $x_f$ is subtracted 
+from $x_s$ to yield $x_i$: $x_i = x_s - x_f$. 
+We define the closed-loop gain as 
+\begin{align} \label{eq:38}
+    A_f &= \frac{x_o}{x_s} \\
+    &= \frac{A}{1+AB}
+\end{align}
+The product $AB$ is the \emph{loop gain}, 
+and $1 + AB$ is the \emph{amount of feedback}.
+When $AB >> 1$, $A_f \approx \frac{1}{B}$. 
+Consider the inverting op-amp shown in figure 
+\ref{fig:inverting op-amp}.
+\begin{figure}
+    \begin{center}
+        \begin{circuitikz}
+            \draw (0, 0) node[op amp] (opamp) {};
+
+            \draw (opamp.-) to[short] ++(-1,0) 
+            node (a) {}
+            to[R, l=$R_S$, i<=$I_S$] ++(-3,0)
+            to[V, l=$V_S$] ++(0,-2)
+            node[ground] {};
+
+            \draw (a) -- ++(0,1)
+            to[R, l=$R_f$] ++(3.4,0)
+            to[short, i>=$I_f$] (opamp.out)
+            to[short, -o] ++(0.5, 0)
+            node[right] {$V_o$};
+
+            \draw (opamp.+) -- ++(0,-1)
+            node[ground] {};
+        \end{circuitikz}
+    \end{center}
+    \caption{Inverting op-amp}
+    \label{fig:inverting op-amp}
+\end{figure}
+Because the potential of the noninverting 
+and inverting terminals of an op-amp
+are equal, we know that $V_- = 0$. Ergo, 
+\begin{equation} \label{eq:39}
+    I_S = \frac{V_S}{R_S}
+\end{equation}
+With a little more algebra that makes a 
+useful exercise for the reader, we obtain 
+\begin{equation} \label{eq:40}
+    A_f = -\frac{R_f}{R_S}
+\end{equation}
+Hence why this setup is called an inverting 
+op-amp. 
 \end{document}
