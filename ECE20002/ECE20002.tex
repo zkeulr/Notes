@@ -911,15 +911,20 @@ Here,
 The \emph{lower-frequency cutoff} for an 
 amplifier circuit is defined as the $\omega_L$ 
 where the gain $A_V$ is $\frac{1}{\sqrt{2}}$
-the maximum gain. The \emph{higher-frequency cutoff} $\omega_H$
+the maximum gain. 
+We are told that 
+\begin{align} \label{eq:omega_L}
+    \omega_L &= \frac{1}{\tau} \\
+    &= \frac{1}{r_{eq}C}.
+\end{align}
+If there are multiple capacitors in the circuit, 
+find $r_{eq}$ for each, calculate all possible 
+values of $\omega_L$, and pick the largest. 
+The \emph{higher-frequency cutoff} $\omega_H$
 is also defined as the frequency
 where the gain $A_V$ is $\frac{1}{\sqrt{2}}$
 the maximum gain, but the higher of the two 
-values. We are told that 
-\begin{align} \label{eq:omega_L}
-    \omega_L &= \frac{1}{\tau} \\
-    &= \frac{1}{r_{eq}C}
-\end{align}
+values. 
 The bandwidth of useable frequencies is 
 $\omega_H - \omega_L$. 
 
