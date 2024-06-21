@@ -1201,9 +1201,8 @@ is given in figure \ref{fig:op-amp symbol}.
     \caption{Operational amplifier symbol}
     \label{fig:op-amp symbol}
 \end{figure}
-We have a potential at the inverting terminal 
-$v_-$, and a not necessarily equal 
-potential at the noninverting terminal $v_+$. 
+We have a potential at the inverting terminal of
+$v_-$, and a potential at the noninverting terminal of $v_+$. 
 $V_-$ and $V_+$ are the negative and positive power supplies, 
 respectively. 
 We can model the op-amp as in figure \ref{fig:op-amp model}.
@@ -1231,4 +1230,8 @@ The gain $A$ is typically $O(10^4)$, but
 can be higher or lower. The input signal 
 is voltage, not current, so we typically 
 make $R_i$ large to avoid loss of signal. 
+\marginnote{In an ideal op-amp, $A = \infty$ and 
+$R_i$ is also $\infty$.}
+The maximum and minimum possible voltages 
+are clipped to $V_+$ and $V_-$, respectively. 
 \end{document}
