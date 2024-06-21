@@ -915,7 +915,11 @@ the maximum gain. The \emph{higher-frequency cutoff} $\omega_H$
 is also defined as the frequency
 where the gain $A_V$ is $\frac{1}{\sqrt{2}}$
 the maximum gain, but the higher of the two 
-values. 
+values. We are told that 
+\begin{align} \label{eq:omega_L}
+    \omega_L &= \frac{1}{\tau} \\
+    &= \frac{1}{r_{eq}C}
+\end{align}
 The bandwidth of useable frequencies is 
 $\omega_H - \omega_L$. 
 
@@ -1093,6 +1097,11 @@ source/drain and the metal contact on the gate.
         & CLM active 
         & eq. \ref{eq:24} \\
         \hline
+        $\omega_L = \frac{1}{\tau}$ \\
+        $= \frac{1}{r_{eq}C}$
+        & Amplifier 
+        & \ref{eq:omega_L} \\
+        \hline
     \end{tabular}
 \end{center}
 
@@ -1122,6 +1131,28 @@ source/drain and the metal contact on the gate.
     \end{center}
     \caption{Hybrid-pi model}
 \end{figure}
+\begin{figure}
+    \begin{center}
+        \begin{circuitikz}
+            \draw (0,0) node[left] {$G$}
+            to[short, i=$i_g: 0$] ++(2,0)
+            to[cI, invert, l=$g_m v_{gs}$] ++(0,2)
+            to[short, -o] ++(0, 0.5)
+            node[left] {D}
+            to[short, i=$i_d$] ++(0,-0.5)
+            -- ++(2,0)
+            to[R, l=$r_0$] ++(0, -4)
+            -- ++(-2,0)
+            to[short, -o] ++(0,-0.5)
+            node[right] {$S$}
+            -- ++(0,0.5)
+            to[R, l=$R_{in}: \frac{1}{g_m}$, v<=$v_{gs}$] ++(0,2);
+        \end{circuitikz}
+    \end{center}
+    \caption{T-model}
+\end{figure}
+
+\pagebreak
 
 \section{Operational Amplifier}
 The \emph{operational amplifier} (op-amp)
