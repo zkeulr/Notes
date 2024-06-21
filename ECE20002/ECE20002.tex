@@ -1076,7 +1076,7 @@ source/drain and the metal contact on the gate.
 
 \begin{center}
     \begin{tabular}{ c | c  c }
-        Equation & Use & Reference \\
+        Equation & Condition & Reference \\
         \hline
         $v_{DS(sat)} = v_{GS} - V_T$ & MOSFET & \\
         \hline
@@ -1109,7 +1109,11 @@ source/drain and the metal contact on the gate.
         $\omega_L = \frac{1}{\tau}$ \\
         $= \frac{1}{r_{eq}C}$
         & Amplifier 
-        & \ref{eq:omega_L} \\
+        & eq. \ref{eq:omega_L} \\
+        \hline
+        $\omega_H = \frac{1}{(R_S||R_1||R_2)C_{gs}}$
+        & Common-source amplifier
+        & eq. \ref{eq:omega_H(cs)} \\
         \hline
     \end{tabular}
 \end{center}
