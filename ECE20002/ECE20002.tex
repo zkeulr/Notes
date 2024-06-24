@@ -1226,7 +1226,7 @@ We can model the op-amp as in figure \ref{fig:op-amp model}.
     \caption{Operational amplifier model}
     \label{fig:op-amp model}
 \end{figure}
-The gain $A$ is typically $O(10^4)$, but 
+The open-loop gain $A$ is typically $O(10^4)$, but 
 can be higher or lower. The input signal 
 is voltage, not current, so we typically 
 make $R_i$ large to avoid loss of signal. 
@@ -1312,4 +1312,15 @@ useful exercise for the reader, we obtain
 \end{equation}
 Hence why this setup is called an inverting 
 op-amp. 
+
+\subsection{Reference}
+
+Ideal op-amp features:
+\begin{itemize}
+    \item $v_+ = v_-$
+    \item $A = \infty$ 
+    \item $R_o = 0$
+    \item $i_- = i_+ = 0$
+\end{itemize}
+
 \end{document}
