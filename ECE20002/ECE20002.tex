@@ -1323,4 +1323,140 @@ Ideal op-amp features:
     \item $i_- = i_+ = 0$
 \end{itemize}
 
+\section{Circuit Analysis}
+An important function in circuit analysis 
+is the expontential function 
+\begin{equation} \label{eq:41}
+    e^x = \sum_{k=0}^\infty \frac{x^k}{k!}
+\end{equation}
+Any function can be expressed as a linear 
+combination of exponential functions. Recall 
+also that $\int e^x dx = e^x + C$ and 
+$\frac{d}{dx} e^x = e^x$. 
+An \emph{ordinary differential equation} (ODE)
+is given by 
+\begin{equation} \label{eq:42}
+    y(t) = \sum_{k=0}^{n} A_k \frac{d^k x(t)}{dt^k}
+\end{equation}
+$y(t)$ is the forcing function, our objective is 
+to find $x(t)$ that matches $y(t)$. The process for 
+this is to first solce the specific case 
+when $y(t) = 0$, the homogeneous ODE. We then 
+find the particular solution that matches $y(t)$. 
+In the case of circuit analysis, the homogeneous
+case corresponds to analyzing our circuit absent 
+any excitations from forcing functions. To make this clear,
+we want to solve 
+\begin{equation} \label{eq:43}
+    0 = \sum_{k=0}^{n} A_k \frac{d^k x(t)}{dt^k}.
+\end{equation}
+We assume a solution of the form
+\begin{equation} \label{eq:44}
+    x_h(t) = Ae^{\lambda t}.
+\end{equation}
+Let's consider an example. Say 
+\begin{equation}
+    y(t) = 2x(t) + 3 \frac{dx(t)}{dt}.
+\end{equation}
+We take 
+\begin{equation}
+    0 = 2x_h(t) + 3 \frac{dx_h(t)}{dt}.
+\end{equation}
+If $x_h(t) = A e^{\lambda t}$, 
+then 
+\begin{equation}
+    0 = 2A e^{\lambda t} + 3 A \lambda e^{\lambda t}.
+\end{equation}
+Cancelling out $Ae^{\lambda t}$ from 
+both sides, we obtain 
+\begin{equation}
+    0 = 2 + 3 \lambda.
+\end{equation}
+This is the \emph{characteristic equation}
+of the circuit. Solving this characteristic 
+equation will provide the \emph{natural frequency}
+$\lambda$ for the homogeneous ODE solution. 
+\marginnote{$\lambda$ is called the 
+natural frequency because it's what 
+we get without any external excitation.}
+Returning to our example, say 
+$y(t) = 4e^{-t}$. We can reasonably 
+assume that $x_p(t) = Be^{-t}$. 
+Plugging this in, we find that 
+\begin{align}
+    y(t) &= 2x(t) + 3 \frac{dx(t)}{dt} \\
+    4e^{-t} &= 2Be^{-t} + 3(-1)Be^{-t} \\
+    B &= -4
+    x_p(t) = -4e^{-t}.
+\end{align}
+The complete solution is the superposition 
+of the homogeneous and particular solutions, 
+\begin{equation}
+    x(t) = x_h(t) + x_p(t).
+\end{equation}
+Recall that although we found $\lambda$ 
+for the homogenous solution, we have not 
+yet found $A$. To do so we require 
+an initial condition. Say in this case 
+the initial condition is given as 
+$x(0) = 2$. Then 
+\begin{align}
+    x(0) &= 2 \\
+    &= -4e^0 + Ae^0 \\
+    A &= 6.
+\end{align}
+So the complete solution becomes 
+\begin{equation}
+    x(t) = -4r^{-t} + 6e^{-\frac{2}{3}t}
+\end{equation}
+
+This isn't a differential equations class, 
+this is a circuits class. The reason 
+we care about ODEs is because they arise 
+in circuits. For example, consider 
+the circuit in figure \ref{fig:RL circuit}.
+\begin{figure}
+    \begin{center}
+        \begin{circuitikz}
+            \draw (0,0) to[V, invert, l=$v_{in}$] ++(0,2)
+            to[R, l=$R$] ++(2,0)
+            to[L, l=$L$, v=$v_L(t)$, i=$i_L(t)$] ++(0,-2)
+            -- ++(-2,0); 
+        \end{circuitikz}
+    \end{center}
+    \caption{RL circuit}
+    \label{fig:RL circuit}
+\end{figure}
+Remember that 
+\begin{equation}
+    v_L = L \frac{d i_L(t)}{dt}.
+\end{equation}
+Via KVL, we have that 
+\begin{equation}
+    v_{in}(t) = v_L(t) + Ri_L(t).
+\end{equation}
+Putting the two together, 
+\begin{equation}
+    v_{in}(t) = L \frac{d i_L(t)}{dt} + Ri_L(t).
+\end{equation}
+This is a first-order ODE. Solving it 
+is left as an exercise to the reader. 
+A similar process applies to the RC 
+circuit shown in figure \ref{fig:RC circuit}.
+\begin{figure}
+    \begin{center}
+        \begin{circuitikz}
+            \draw (0,0) to[V, invert, l=$v_{in}$] ++(0,2)
+            to[R, l=$R$] ++(2,0)
+            to[C, l=$C$, v=$v_C(t)$, i=$i_C(t)$] ++(0,-2)
+            -- ++(-2,0); 
+        \end{circuitikz}
+    \end{center}
+    \caption{RC circuit}
+    \label{fig:RC circuit}
+\end{figure}
+In both the RC and RL cases, solving the ODE 
+will yield the formulas for $v_C(t)$ and 
+$v_L(t)$ with which we are familiar from 
+ECE 20001. 
 \end{document}
