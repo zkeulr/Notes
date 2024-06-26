@@ -1324,6 +1324,9 @@ Ideal op-amp features:
 \end{itemize}
 
 \section{Circuit Analysis}
+
+\subsection{Differential Equations}
+
 An important function in circuit analysis 
 is the expontential function 
 \begin{equation} \label{eq:41}
@@ -1410,6 +1413,8 @@ So the complete solution becomes
     x(t) = -4r^{-t} + 6e^{-\frac{2}{3}t}
 \end{equation}
 
+\subsection{RC and RL Circuits}
+
 This isn't a differential equations class, 
 this is a circuits class. The reason 
 we care about ODEs is because they arise 
@@ -1459,4 +1464,108 @@ In both the RC and RL cases, solving the ODE
 will yield the formulas for $v_C(t)$ and 
 $v_L(t)$ with which we are familiar from 
 ECE 20001. 
+
+\subsection{Switched Circuits}
+
+The current through an inductor is continuous, 
+even when the voltage across it is not. Likewise,
+voltage across a capacitor is continuous even if 
+current is not. Recall from ECE 20001 that the time 
+it takes a variable of interest, inductor current 
+or capacitor voltage, to go from $x(t_1)$ to $x(t_2)$
+in its respective circuit is given by 
+\begin{equation} \label{eq:45}
+    t_2 - t_1 = \tau \ln{\left(\frac{x(t_1) - x(\infty)}{x(t_2) - x(\infty)}\right)}.
+\end{equation}
+If switched events are associated with $x(t)$, then 
+eq. \ref{eq:45} can be used to find the time for which 
+a certain circuit configuration is valid. 
+
+Consider the circuit in figure \ref{fig:switched circuit}.
+\begin{figure}
+    \begin{center}
+        \begin{circuitikz}
+            \draw (0,0) to[V, invert, l=$12V$] ++(0,2)
+            to[R, l=$6 k\Omega$] ++(2,0)
+            to[nos] ++(0,-0.5)
+            to[R, l_=$3 k\Omega$] ++(0,-1.5)
+            -- ++(-2,0)
+            -- ++(4,0)
+            to[C, l=$0.5mF$, v<=$v_c(t)$] ++(0,2)
+            -- ++(-2,0);
+        \end{circuitikz}
+    \end{center}
+    \caption{Switched circuit}
+    \label{fig:switched circuit}
+\end{figure}
+We are told that the switch is initially open 
+as shown and closes when $v_c(t) = 9V$. The switch 
+opens again when $v_c(t) = 5V$. $v_c(0^+) = 0V$. 
+We wish to find an expression for $v_c(t)$ from $t=0$ 
+to the third time the switch flips.  
+Let's start by recalling the helpful equation in eq. \ref{eq:46}. 
+\begin{equation} \label{eq:46}
+    x(t) = x(\infty) + \left[x(t_0) - x(\infty)\right]e^{-\left(\frac{t-t_0}{\tau}\right)}
+\end{equation}
+Ergo, 
+\begin{equation} \label{eq:47}
+    v_c(t) = v_c(\infty) + \left[v_c(t_0) - v_c(\infty)\right]e^{-\left(\frac{t-t_0}{\tau}\right)}
+\end{equation}
+For an RC circuit such as this one, $\tau = RC$.
+\begin{equation} \label{eq:48}
+    v_c(t) = v_c(\infty) + \left[v_c(t_0) - v_c(\infty)\right]e^{-\left(\frac{t-t_0}{RC}\right)}
+\end{equation}
+We know from our conditions that $v_c(t_0) = 0$, so 
+eq. \ref{eq:48} simplifies to
+\begin{equation} \label{eq:49}
+    v_c(t) = v_c(\infty) - v_c(\infty)e^{-\frac{t}{RC}}
+\end{equation}
+In the open configuration, $v_c(\infty) = 12V$ and $R = 6 k\Omega$.
+We know that, but our circuit from $t = 0$ until $v_c(t) = 9V$ doesn't. 
+Therefore, 
+\begin{align}
+    t_2 - t_1 &= \tau \ln{\left(\frac{x(t_1) - x(\infty)}{x(t_2) - x(\infty)}\right)} \\
+    &= \tau \ln{\left(\frac{v_c(t_1) - v_c(\infty)}{v_c(t_2) - v_c(\infty)}\right)} \\
+    t_2 &= RC \ln{\left(\frac{0 - 12}{9 - 12}\right)} \\
+    &= 3 \ln{\left(\frac{-12}{-3}\right)} \\
+    &\approx 4.16
+\end{align}
+and
+\begin{align}
+    v_c(t) &= v_c(\infty) - v_c(\infty)e^{-\frac{t}{RC}} \\
+    &= 12 - 12e^{-\frac{t}{3}}
+\end{align}
+Now, let's consider what happens after the switch closes. 
+Now $R = 6k\Omega || 3k\Omega = 2k\Omega$, and $v_c(t) = 4V$. 
+This time around, $v_c(t_0) = 9V$. We therefore have 
+\begin{align}
+    t_2 - t_1 &= \tau \ln{\left(\frac{x(t_1) - x(\infty)}{x(t_2) - x(\infty)}\right)} \\
+    t_2 - 4.16 &= \ln{\left(\frac{9-4}{5-4}\right)} \\
+    t_2 &\approx 4.16 + 1.61 \\
+    &= 5.77
+\end{align}
+and
+\begin{align}
+    v_c(t) &= v_c(\infty) + \left[v_c(t_0) - v_c(\infty)\right]e^{-\left(\frac{t-t_0}{\tau}\right)} \\
+    &= 4 + \left[9 - 4\right]e^{-\left(\frac{t - 4.16}{1}\right)} \\
+    &= 4 + 5e^{-(t - 4.16)}
+\end{align}
+Finally, the switch opens again. 
+\begin{align}
+    t_2 &= 5.77 + 3\ln{\left(\frac{5-12}{9-12}\right)} \\
+    &= 8.31
+\end{align}
+and
+\begin{equation}
+    v_c(t) = 12 - 7e^{\left(-\frac{t-5.77}{3}\right)}
+\end{equation}
+Therefore, our complete function is 
+\[v_c(t) = \begin{cases} 
+      0 & t \leq 0 \\
+      12 - 12e^{-\frac{t}{3}} & 0 \leq t \leq 4.16 \\
+      4 + 5e^{-(t - 4.16)} & 4.16 \leq t \leq 5.77 \\
+      12 - 7e^{\left(-\frac{t-5.77}{3}\right)} &  5.77 \leq t \leq 8.31
+   \end{cases}
+\]
+
 \end{document}
