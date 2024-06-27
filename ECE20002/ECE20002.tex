@@ -1568,4 +1568,86 @@ Therefore, our complete function is
    \end{cases}
 \]
 
+\subsection{Second-order Differential Equations}
+Consider the circuit shown in figure \ref{fig:LC circuit}.
+\begin{figure}
+    \begin{center}
+        \begin{circuitikz}
+            \draw (0,0) to[V, l=$v_{in}(t)$, invert] ++(0,2)
+            to[L, l=$L$, i=$i(t)$] ++(3,0)
+            to[C, l=$C$, v>=$v_C(t)$] ++(0,-2)
+            -- ++(-3,0);
+        \end{circuitikz}
+    \end{center}
+    \caption{LC circuit}
+    \label{fig:LC circuit}
+\end{figure}
+By KVL, we see that 
+\begin{equation}
+    v_{in}(t) = v_C(t) + v_L(t)
+\end{equation}
+and we also know, 
+because $i$ is the 
+current through a capacitor, 
+\begin{equation}
+    i = C \frac{dv_C(t)}{dt}
+\end{equation}
+But wait! The voltage through 
+the inductor is 
+\begin{align}
+    v_L(t) &= L \frac{di(t)}{dt} \\
+    &= L \left(\frac{d}{dt} C \frac{dv_C(t)}{dt}\right)\\
+    &= LC \frac{d^2 v_C(t)}{dt^2}.
+\end{align}
+That means 
+\begin{equation}
+    v_{in}(t) = LC \frac{d^2 v_C(t)}{dt^2} + v_C(t).
+\end{equation}
+Yikes. This is a second order 
+homogeneous equation. We can 
+still solve it by assuming 
+a homogenous solution of the form 
+\begin{equation}
+    v_{ch} = Ae^{\lambda t},
+\end{equation}
+But now substitution and 
+cancellation yields
+\begin{equation}
+    0 = LC \lambda^2 + 1
+\end{equation}
+as a characteristic equation, 
+meaning
+\begin{equation}
+    \lambda = \pm j \frac{1}{\sqrt{LC}}.
+\end{equation}
+Well, this is no problem for us. 
+To make things a little cleaner 
+let's define $\omega_o = \frac{1}{\sqrt{LC}}$
+as the \emph{natural frequency} of 
+the LC circuit. Now what we have for 
+a homogenous equation is 
+\begin{equation}
+    v_{ch} = A_1 e^{j\omega_ot} + A_2 e^{-j\omega_ot}
+\end{equation}
+Via Eurler's formula 
+\begin{equation}
+    e^{j\theta} = \cos{(\theta)} + j\sin{(\theta)},
+\end{equation}
+\marginnote{It's incredible how often 
+Euler's formula arises 
+in the natural world, isn't it?}
+we have that 
+\begin{equation}
+    v_{ch}(t) = A_1 \left(\cos{(\omega_ot)} + j\sin{\omega_ot}\right)
+    + A_2 \left(\cos{(-\omega_ot)} + j\sin{(-\omega_ot)}\right).
+\end{equation}
+With a little bit of 
+algebraic manipulation, we find 
+\begin{equation}
+    v_{ch}(t) = B_1\cos{(\omega_ot)} + B_2 \sin{(\omega_ot)}.
+\end{equation}
+What that means for our circuit 
+is that the capacitor's voltage will 
+oscillate back and forth sinusoidally, 
+which is a pretty cool result. 
 \end{document}
