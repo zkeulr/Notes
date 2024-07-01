@@ -1328,7 +1328,7 @@ Ideal op-amp features:
 \subsection{Differential Equations}
 
 An important function in circuit analysis 
-is the expontential function 
+is the exponential function 
 \begin{equation} \label{eq:41}
     e^x = \sum_{k=0}^\infty \frac{x^k}{k!}
 \end{equation}
@@ -1343,10 +1343,10 @@ is given by
 \end{equation}
 $y(t)$ is the forcing function, our objective is 
 to find $x(t)$ that matches $y(t)$. The process for 
-this is to first solce the specific case 
+this is to first solve the specific case 
 when $y(t) = 0$, the homogeneous ODE. We then 
 find the particular solution that matches $y(t)$. 
-In the case of circuit analysis, the homogeneous
+In the case of exponential circuit analysis, the homogeneous
 case corresponds to analyzing our circuit absent 
 any excitations from forcing functions. To make this clear,
 we want to solve 
@@ -1464,6 +1464,80 @@ In both the RC and RL cases, solving the ODE
 will yield the formulas for $v_C(t)$ and 
 $v_L(t)$ with which we are familiar from 
 ECE 20001. 
+
+Note that both the inductor and capacitor 
+are non-ideal elements, and if we are to 
+accurately model circuits we must account 
+for this. Specifically, inductors behave 
+non-ideally in the following ways:
+\begin{itemize}
+    \item The wire that makes up the coil 
+    of the inductor has intrinsic resistance
+    \item The spacing between the wire has 
+    intrinsic capacitance 
+    \item Hysteresis or eddy currents in the 
+    ferrite core have intrinsic resistance
+\end{itemize}
+Capacitors have the following non-idea 
+characteristics: 
+\begin{itemize}
+    \item The wire connected to the 
+    capacitor has intrinsic inductance 
+    \item The wire connected to the 
+    capacitor has intrinsic resistance 
+    \item  The insulating dielectric between 
+    the plates of the capacitor has a large 
+    but finite resistance, and leakage current 
+    can therefore flow from one plate to another
+\end{itemize}
+The inductor is less ideal than the 
+capacitor, since it necessarily has 
+more non-ideal components than the 
+capacitor. Therefore, for the capacitor, 
+we can comfortably neglect the effects 
+of the non-ideal wire. 
+\marginnote{In real life, the effects of 
+the wire can be minimized by using chip
+capacitors, which have very short wires.}
+Figures \ref{fig:non-ideal inductor}
+and \ref{fig:non-ideal capacitor} show the 
+non-ideal models for inductor and capacitor 
+used in this course. 
+\begin{figure}
+    \begin{center}
+        \begin{circuitikz}
+            \draw (0,0) to[short, o-*, i=$i_L(t)$] ++(0,-1)
+            -- ++(-1,0)
+            to[L, l=$L$] ++(0,-1.5)
+            to[R, l=$R_S$] ++(0,-1.5)
+            -- ++(1,0)
+            to[short, *-o] ++(0,-1)
+            -- ++(0,1)
+            -- ++(1,0)
+            to[R, l=$R_P$, v<=$v_L(t)$] ++(0,3)
+            -- ++(-1,0);
+        \end{circuitikz}
+    \end{center}
+    \caption{Non-ideal inductor}
+    \label{fig:non-ideal inductor}
+\end{figure}
+\begin{figure}
+    \begin{center}
+        \begin{circuitikz}
+            \draw (0,0) to[short, o-*, i=$i_C(t)$] ++(0,-1)
+            -- ++(-1,0)
+            to[C, l=$C$] ++(0,-2)
+            -- ++(1,0)
+            to[short, *-o] ++(0,-1)
+            -- ++(0,1)
+            -- ++(1,0)
+            to[R, l=$R_p$, v<=$v_C(t)$] ++(0,2)
+            -- ++(-1,0);
+        \end{circuitikz}
+    \end{center}
+    \caption{Non-ideal capacitor}
+    \label{fig:non-ideal capacitor}
+\end{figure}
 
 \subsection{Switched Circuits}
 
@@ -1650,4 +1724,106 @@ What that means for our circuit
 is that the capacitor's voltage will 
 oscillate back and forth sinusoidally, 
 which is a pretty cool result. 
+
+\subsection{RLC circuits}
+Let's now introduce a resistor 
+to the LC circuit. Consider figure 
+\ref{fig:RLC parallel circuit}, 
+where resistor, inductor, and 
+capacitor are in parallel. 
+\begin{figure}
+    \begin{center}
+        \begin{circuitikz}
+            \draw (0,0) -- ++(-2,0)
+            to[R, l=$R$] ++(0,-2)
+            -- ++(2,0)
+            to[L, i<=$i_L(t)$, l^=$L$] ++(0,2)
+            -- ++(2,0)
+            to[C, l=$C$, v=$v_C(t)$] ++(0,-2)
+            -- ++(-2,0);
+        \end{circuitikz}
+    \end{center}
+    \caption{RLC parallel circuit}
+    \label{fig:RLC parallel circuit}
+\end{figure}
+We can also align the components 
+in parallel, like in figure \ref{fig:RLC series circuit}.
+\begin{figure}
+    \begin{center}
+        \begin{circuitikz}
+            \draw (0,0) to[R, l=$R$] ++(2,0)
+            to[L, l=$L$] ++(2,0)
+            to[short, i=$i_L(t)$] ++(0,-2)
+            to[C, l=$C$, v>=$v_C(t)$] ++(-4,0)
+            -- ++(0,2);
+        \end{circuitikz}
+    \end{center}
+    \caption{RLC series circuit}
+    \label{fig:RLC series circuit}
+\end{figure}
+In either case, the resistor dampens the sinusoidal 
+response of the LC circuit. In the 
+case of the parallel circuit of figure \ref{fig:RLC parallel circuit},
+as the resistance goes to infinity, the circuit 
+starts to resemble just a plain LC circuit. 
+In the case of the series circuit of 
+\ref{fig:RLC series circuit}, as the resistance 
+goes to zero the circuit start to look more 
+like an LC circuit. Deriving an ODE for 
+both of these circuits is a wonderful 
+exercise, give it a try and compare your result 
+to the following expression.
+\begin{equation}
+    F = \frac{d^2 x(t)}{dt^2} + \frac{1}{\tau} \frac{dx(t)}{dt} + \frac{x(t)}{LC}
+\end{equation}
+where $\tau = \frac{L}{R}$ for series RLC circuits 
+and $\tau = RC$ for parallel. 
+\marginnote{Consider how $R$ affects 
+the differential equation in both 
+the series and parallel cases.}
+Finding the solution to the differential is 
+another great exercise. Here is the characteristic 
+equation:
+\begin{equation}
+    0 = \lambda^2 + \frac{1}{\tau} \lambda + \frac{1}{LC}
+\end{equation}
+and here is the general solution
+to the homogenous equation:
+\begin{equation}
+    x_h(t) = A_1 e^{\lambda_1 t} + A_2 e^{\lambda_2 t}
+\end{equation}
+Now the specific values of $\lambda$ 
+become very relevant, and give us three cases. 
+\begin{itemize}
+    \item[\emph{Case 1: $\lambda$ real}]
+    When $\lambda$s are real and distinct, the 
+    circuit is \emph{overdamped}. There is 
+    no oscillation, and the function simply goes to
+    zero and stops. 
+    \item[\emph{Case 2: both $\lambda$ identical}]
+    When $\lambda_1 = \lambda_2$, the circuit 
+    is \emph{critically damped}. The signal 
+    in the circuit decays exponentially to zero. 
+    \item[\emph{Case 3: $\lambda$ complex}] When $\lambda$ are complex, they will 
+    be conjugates of one another and 
+    the circuit is \emph{underdamped}. 
+    If $\lambda$ is imaginary, then 
+    the circuit has no dissipation and 
+    will oscillate forever. If 
+    $\lambda_1 = -\sigma_p \pm j\omega_d$ 
+    and $\lambda_2 = -\sigma_p \mp j\omega_d$,
+    then we say $\sigma_p$ is the attenuation 
+    factor and $\omega_p$ is the dampened 
+    resonance frequency. 
+\end{itemize}
+Figure \ref{fig:roots}
+shows each case plotted on the complex plane. 
+\begin{figure}
+    \begin{center}
+        \includegraphics{images/roots.png}
+    \end{center}
+    \caption{Damping cases on complex plane}
+    \label{fig:roots}
+\end{figure}
+
 \end{document}
