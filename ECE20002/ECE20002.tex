@@ -1826,4 +1826,42 @@ shows each case plotted on the complex plane.
     \label{fig:roots}
 \end{figure}
 
+\subsection{Convolution}
+
+Given two functions, $f(t)$ and $g(t)$, their 
+\emph{convolution} is 
+\[f(t) * g(t) = \int_{-\infty}^{\infty} f(\tau)g(t-\tau)d\tau.\]
+A notable property of the Dirac delta function 
+$\delta(t)$ is that 
+\begin{align} \label{eq:convolution with delta}
+    f(t) * \delta(t) &= \int_{-\infty}^{\infty} f(\tau)\delta(t-\tau)d\tau \\
+    &= f(t)
+\end{align}
+Additionally, 
+\begin{align} \label{eq:time-shift convolution}
+    f(t) * \delta(t - T) &= \int_{-\infty}^{\infty} f(\tau)\delta(t-T-\tau)d\tau \\
+    &= f(t - T)
+\end{align}
+It may seem a bit odd to convolve a function 
+when you can just compute it, but soon we shall 
+find examples where convolution is actually 
+easier than finding the function $f(t)$, and then 
+we will be glad for eqs. \ref{eq:convolution with delta}
+and \ref{eq:time-shift convolution}.
+If we convolve $f(t)u(t)$ with $u(t)$, we obtain 
+\begin{align}
+    f(t)u(t) * u(t) &= \int_{-\infty}^{\infty} f(\tau)\delta(\tau)u(t-\tau)d\tau \\
+    &= \int_{0}^{t} f(\tau) d\tau
+\end{align}
+which is simply the integral of $f(t)$. 
+Convolution is, as can be shown with a bit of elbow 
+grease, commutative, associative, and distributive 
+over addition. 
+
+Again, however, this is an electrical engineering class, 
+not a math class. How does this relate to circuits?
+For the purposes, of this class, it allows us 
+to relate outputs to inputs using 
+functions that describe a linear network. 
+
 \end{document}
