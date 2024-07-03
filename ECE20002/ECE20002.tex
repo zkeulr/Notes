@@ -1643,6 +1643,7 @@ Therefore, our complete function is
 \]
 
 \subsection{Second-order Differential Equations}
+
 Consider the circuit shown in figure \ref{fig:LC circuit}.
 \begin{figure}
     \begin{center}
@@ -1726,6 +1727,7 @@ oscillate back and forth sinusoidally,
 which is a pretty cool result. 
 
 \subsection{RLC circuits}
+
 Let's now introduce a resistor 
 to the LC circuit. Consider figure 
 \ref{fig:RLC parallel circuit}, 
@@ -1933,4 +1935,115 @@ The response of the circuit to a Dirac impulse excitation is
 found by taking the time derivative of the unit-step response.
 That's important: the impulse response is 
 the derivative of the step response. 
+
+\subsection{Laplace Transformations}
+
+I don't know about you, but my idea of a 
+good time isn't sitting down to solve 
+integro-differential equations. Luckily
+there's a better way to solve circuits. 
+If we can move 
+from the time domain to the frequency 
+domain our math gets a lot easier 
+and we'll have time for more important things,
+such as literally anything else. 
+Enter the one-sided \emph{Laplace transform}. 
+This is big kid math and you should be excited
+because it turns nasty differential equations 
+into nice algebraic ones. Eq. \ref{eq:laplace} 
+shows the guts of the Laplace transform. 
+\begin{align} \label{eq:laplace}
+    \mathcal{L}\left\{f(t)\right\} &= F(s) \\
+    &= \int_{0}^{\infty} f(t)e^{-st}dt
+\end{align}
+The Laplace transform turns a function 
+of time $t$ into a function of 
+frequency $s$ by integrating time away. 
+Eq. \ref{eq:laplace derivative} shows why that's useful. 
+\begin{align} \label{eq:laplace derivative}
+    \mathcal{L}\left\{\frac{d}{dt} f(t)\right\} &= \int_{0}^{\infty} \frac{d}{dt} f(t)e^{-st}dt \\
+    &= e^{-st}f(t) \rvert_{t=0}^{\infty} - \int_{0}^{\infty} -s f(t)e^{-st}dt \\
+    &= s \mathcal{L}\left\{f(t)\right\} - f(0)
+\end{align}
+Did you catch that? We transformed a 
+differential equation into an algebraic one. 
+With the help of a table like \ref{tab:laplace}, we can transform 
+back into the time domain too. 
+
+Let's see this applied to a circuit. Say we have 
+an RC circuit with $v_{in} = Au(t)$, where 
+$A$ is constant. We know that 
+\[RC \frac{d}{dt}v_C(t) + v_C(t) = Au(t).\]
+While we could solve this with our ordinary 
+differential methods, we're better than that now. 
+Take the Laplace transform of both sides. 
+\begin{align}
+    \mathcal{L}\left\{RC \frac{d}{dt}v_C(t) + v_C(t)\right\} &= \mathcal{L}\left\{Au(t)\right\} \\
+    \mathcal{L}\left\{RC \frac{d}{dt}v_C(t)\right\} + \mathcal{L}\left\{v_C(t)\right\} &= \mathcal{L}\left\{Au(t)\right\} \\
+    RC \left(sV_C(s)-v_C(0)\right) + V_C(t)&= \frac{A}{s} \\
+    V_C(s) &= \frac{A}{RC}\left(\frac{1}{s(s+\frac{1}{RC})}\right) + \frac{v_C(0)}{s + \frac{1}{RC}} \\
+    &= \frac{A}{s} - \frac{A}{s+\frac{1}{RC}} + \frac{v_C(0)}{s+\frac{1}{RC}} \\
+    \mathcal{L}\left\{V_C(s)\right\} &= \mathcal{L}\left\{\frac{A}{s} - \frac{A}{s+\frac{1}{RC}} + \frac{v_C(0)}{s+\frac{1}{RC}}\right\} \\
+    &= \mathcal{L}\left\{\frac{A}{s}\right\} - \mathcal{L}\left\{\frac{A}{s+\frac{1}{RC}}\right\} + \mathcal{L}\left\{\frac{v_C(0)}{s+\frac{1}{RC}}\right\} \\
+    &= A(1-e^{-\frac{t}{RC}})u(t) + v_C(0)e^{-\frac{t}{RC}}u(t)
+\end{align}
+Isn't that so much \emph{easier}? 
+In all seriousness, computers are 
+much better at algebra than calculus, 
+so it's methods like the Laplace
+transform that allow computational
+tools for solving circuits to exist. 
+
+\subsection{Reference}
+
+\newcounter{NumberInTable}
+\newcommand{\LTNUM}{\stepcounter{NumberInTable}{(\theNumberInTable)}}
+\newcommand{\Laplace}[1]{\ensuremath{\mathcal{L}{\left[#1\right]}}}
+\newcommand{\InvLap}[1]{\ensuremath{\mathcal{L}^{-1}{\left[#1\right]}}}
+\vspace{2ex}
+\begin{center}
+    \begin{table}
+        \caption{Laplace transforms}
+        \label{tab:laplace}
+        \begin{tabbing}
+            \hspace*{1.5 in}\=\hspace{1.5in}\= \kill
+            $f(t)$ \> $\Laplace{f(t)}=F(s)$ \> \\ \\
+            $1$       			 \> $\dfrac{1}{s}$           \>\LTNUM \\ \\
+            $e^{at}f(t)$	\> $F(s-a)$	\>\LTNUM \\ \\ 
+            $\mathcal{U}(t-a)$ \> $\dfrac{e^{-as}}{s}$ \>\LTNUM \\ \\
+            $f(t-a)\mathcal{U}(t-a)$ \> $e^{-as}F(s)$ \>\LTNUM \\ \\
+            $\delta(t)$	\> 1 \> \LTNUM \\ \\
+            $\delta(t-t_0)$ \> $e^{-st_0}$ \>\LTNUM \\ \\
+            $t^nf(t)$ 	\> $(-1)^n\dfrac{d^nF(s)}{ds^n}$  \>\LTNUM \\ \\
+            $f'(t)$ 	\> $sF(s) - f(0)$ \>\LTNUM \\ \\
+            $f^{n}(t)$ 	\> $s^nF(s) - s^{(n-1)} f(0) - $ \\ \\
+            \> $\cdots - f^{(n-1)}(0)$ \>\LTNUM \\ \\
+            $\displaystyle{\int_0^t f(x)g(t-x)dx}$ \> $F(s)G(s)$ \>\LTNUM \\ \\
+            $t^n$ ($n=0,1,2,\dots$)     \> $\dfrac{n!}{s^{n+1}}$    \>\LTNUM \\ \\
+            $t^x$ ($x\geq-1\in\mathbb{R}$)     \> $\dfrac{\Gamma(x+1)}{s^{x+1}}$ \>\LTNUM\\ \\
+            $\sin kt$ 	\> $\dfrac{k}{s^2+k^2}$ \>\LTNUM \\ \\
+            $\cos kt$ 	\> $\dfrac{s}{s^2+k^2}$ \>\LTNUM \\ \\
+            $e^{at}$ 	\> $\dfrac{1}{s-a}$ 	\>\LTNUM \\ \\
+            $\sinh kt$	\> $\dfrac{k}{s^2-k^2}$ \>\LTNUM \\ \\
+            $\cosh kt$	\> $\dfrac{s}{s^2-k^2}$ \>\LTNUM \\ \\
+            $\dfrac{e^{at}-e^{bt}}{a-b}$	\> $\dfrac{1}{(s-a)(s-b)}$ \>\LTNUM\\ \\ 
+            $\dfrac{ae^{at}-be^{bt}}{a-b}$	\> $\dfrac{s}{(s-a)(s-b)}$ \>\LTNUM\\ \\ 
+            $te^{at}$	\> $\dfrac{1}{(s-a)^2}$	\>\LTNUM \\ \\
+            $t^ne^{at}$	\> $\dfrac{n!}{(s-a)^{n+1}}$	\>\LTNUM \\ \\
+            $e^{at}\sin kt$	\> $\dfrac{k}{(s-a)^2+k^2}$  \>\LTNUM \\ \\
+            $e^{at}\cos kt$	\> $\dfrac{s-a}{(s-a)^2+k^2}$  \>\LTNUM \\ \\
+            $e^{at}\sinh kt$	\> $\dfrac{k}{(s-a)^2-k^2}$  \>\LTNUM \\ \\
+            $e^{at}\cosh kt$	\> $\dfrac{s-a}{(s-a)^2-k^2}$  \>\LTNUM \\ \\
+            $t\sin kt$  	\> $\dfrac{2ks}{(s^2+k^2)^2}$ \>\LTNUM \\ \\
+            $t\cos kt$  	\> $\dfrac{s^2-k^2}{(s^2+k^2)^2}$ \>\LTNUM \\ \\
+            $t\sinh kt$  	\> $\dfrac{2ks}{(s^2-k^2)^2}$ \>\LTNUM \\ \\
+            $t\cosh kt$  	\> $\dfrac{s^2-k^2}{(s^2-k^2)^2}$ \>\LTNUM \\ \\
+            $\dfrac{\sin at}{t}$	\> $\arctan \dfrac{a}{s}$ \>\LTNUM \\ \\
+            $\dfrac{1}{\sqrt{\pi t}}e^{-a^2/4t}$	\> $\dfrac{e^{-a\sqrt{s}}}{\sqrt{s}}$ \> \LTNUM \\ \\
+            $\dfrac{a}{2\sqrt{\pi t^3}}e^{-a^2/4t}$	\> $e^{-a\sqrt{s}}$ \> \LTNUM \\ \\
+            $\text{erfc}\left(\dfrac{a}{2\sqrt{t}}\right)$ \>  $\dfrac{e^{-a\sqrt{s}}}{s}$ \> \LTNUM \\ \\
+        \end{tabbing}
+    \end{table}
+\end{center}
+
 \end{document}
