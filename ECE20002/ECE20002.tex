@@ -1858,10 +1858,77 @@ Convolution is, as can be shown with a bit of elbow
 grease, commutative, associative, and distributive 
 over addition. 
 
+\subsection{Linear Time Invariant Systems}
+
 Again, however, this is an electrical engineering class, 
 not a math class. How does this relate to circuits?
 For the purposes, of this class, it allows us 
 to relate outputs to inputs using 
 functions that describe a linear network. 
+Specifically, we can model 
+\emph{linear time invariant} (LTI) systems, 
+which produce output signals
+that are related to inputs in a 
+linear and time invariant manner.
+Recall that linear means the differential 
+equation has the form 
+\[b(x) = a_0(x)y + a_1(x)\frac{dy}{dx} + a_2\frac{d^2 y}{dx^2} + \dots + a_n(x)\frac{d^n y}{dx}.\]
+The \emph{degree} of this differential
+equation is $n$, but it's linear because 
+$b(x)$ is a linear combination 
+of derivatives of $y$. Likewise, 
+\[\frac{1}{L} \frac{dv_{in}(t)}{dt} = \frac{d^2 i_L(t)}{dt^2} + \frac{R}{L} \frac{di_L(t)}{dt} + \frac{1}{LC}i_L(t)\]
+is linear, even though its \emph{order} is two. 
+That's the linear part of linear 
+time invariant. The time invariant 
+part means that whether we apply an 
+input to the system now or 
+$T$ seconds from now, the output 
+will be identical except for a 
+time delay of $T$ seconds. 
+That is, if the output due to 
+input $x(t)$ is $y(t)$, then the 
+output due to input $x(t - T)$ is $y(t - T)$. 
+Hence, the system is time invariant 
+because the output does not depend on 
+the particular time the input is applied.
 
+Suppose we have some LTI system, 
+where the input is $x(t)$ and the 
+output is $y(t)$. The relationship 
+betwen them is given by $x(t) * h(t) = y(t)$. 
+$h(t)$ is the \emph{impulse response}. 
+Consider the case of the RC circuit in figure \ref{fig:RC LTI}. 
+\begin{figure}
+    \begin{center}
+        \begin{circuitikz}
+            \draw (0,0) to[V, invert, l=$v_{in}(t)$] ++(0,2)
+            to[R, l=$R$, i=$i_C(t)$] ++(2,0)
+            to[C, v^=$v_{out}(t)$] ++(0,-2)
+            -- ++(-2,0);
+        \end{circuitikz}
+    \end{center}
+    \caption{RC circuit as an LTI system}
+    \label{fig:RC LTI}
+\end{figure}
+For convenience, let $R = 1\omega$ and 
+$C = 1F$. Let the circuit also be at 
+rest at $t_0 = 0$. We know that for an RC circuit, 
+\[v_c(t) = v_c(\infty) + [v_c(t_0) - v_c(\infty)] e^{-\frac{t-t_0}{RC}}\]
+In this case, $v_C(t) = v_{out}(t)$, 
+$v_{out}(t_0) = 0V$, and by inspection 
+$v_C(\infty) = v_{in}(t)$. Our equation becomes 
+\[v_{out}(t) = v_{in}(t) - v_{in}(t)e^{-t}.\]
+Let's let $v_{in}(t) = u(t)$. Then 
+\[u(t) = (1-e^{-t})u(t).\]
+If we differentiate both sides, 
+then we have that 
+\begin{align}
+    \frac{d}{dt} u(t) &= \frac{d}{dt} u(t) - \frac{d}{dt} e^{-t}u(t) \\
+    \delta(t) &= \delta(t) - (e^{-t}\delta(t) - e^{-t}u(t)) \\
+    &= e^{-t}u(t) \\
+    &= h(t)
+\end{align}
+The response of the circuit to a Dirac impulse excitation is
+found by taking the time derivative of the unit-step response.
 \end{document}
