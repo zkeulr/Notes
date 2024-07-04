@@ -1967,8 +1967,12 @@ Eq. \ref{eq:laplace derivative} shows why that's useful.
 \end{align}
 Did you catch that? We transformed a 
 differential equation into an algebraic one. 
-With the help of a table like \ref{tab:laplace}, we can transform 
+With the help of a table like table \ref{tab:laplace}, we can transform 
 back into the time domain too. 
+\marginnote{Technically, you don't need a table.
+The inverse Laplace transform is defined as 
+$\mathcal{L}^{-1} \{F(s)\}(t) =  \frac{1}{2\pi i}\lim_{T\to\infty}\int_{\gamma-iT}^{\gamma+iT}e^{st}F(s)\,ds$,
+but like, gross.}
 
 Let's see this applied to a circuit. Say we have 
 an RC circuit with $v_{in} = Au(t)$, where 
@@ -1994,6 +1998,28 @@ so it's methods like the Laplace
 transform that allow computational
 tools for solving circuits to exist. 
 
+Let's tie convolutions and Laplace 
+transforms together now. Say we take the 
+Laplace transform of two functions 
+$f(t)$ and $g(t)$, both of which 
+are $0$ for $t < 0$. We can write them 
+as $f(t)u(t)$ and $g(t)u(t)$, and we 
+will. Now, the Laplace transform 
+of their convolution is 
+\begin{align}
+    \mathcal{L} \left\{f(t)*g(t)\right\} &= \int_0^{\infty} \int_{-\infty}^{\infty} f(\tau)g(t-\tau)d\tau e^{-st}dt \\
+    &= \int_0^{\infty} \int_{-\infty}^{\infty} f(\tau)u(t) g(t-\tau)d\tau e^{-st}dt \\
+    &= \int_0^{\infty} \int_{0}^{\infty} f(\tau) g(t-\tau)d\tau e^{-st}dt \\
+    &= \int_0^{\infty} f(\tau) \int_{0}^{\infty} g(t-\tau) e^{-st}dt d\tau \\
+    \lambda &= t - \tau \\
+    \mathcal{L} \left\{f(t)*g(t)\right\} &= \int_0^{\infty} f(\tau) \int_{0}^{\infty} g(\lambda) e^{-s(\lambda+\tau)}d\lambda d\tau \\
+    &= \int_0^{\infty} f(\tau) \int_{0}^{\infty} g(\lambda) e^{-s\lambda}e^{-s\tau}d\lambda d\tau \\
+    &= \int_0^{\infty} f(\tau)e^{-s\tau}d\tau \int_{0}^{\infty} g(\lambda) e^{-s\lambda}d\lambda \\
+    &= F(s)G(s)
+\end{align}
+So convolution in the time domain corresponds 
+to multiplication in the frequency domain.
+
 \subsection{Reference}
 
 \newcounter{NumberInTable}
@@ -2010,15 +2036,15 @@ tools for solving circuits to exist.
             $f(t)$ \> $\Laplace{f(t)}=F(s)$ \> \\ \\
             $1$       			 \> $\dfrac{1}{s}$           \>\LTNUM \\ \\
             $e^{at}f(t)$	\> $F(s-a)$	\>\LTNUM \\ \\ 
-            $\mathcal{U}(t-a)$ \> $\dfrac{e^{-as}}{s}$ \>\LTNUM \\ \\
-            $f(t-a)\mathcal{U}(t-a)$ \> $e^{-as}F(s)$ \>\LTNUM \\ \\
+            $u(t-a)$ \> $\dfrac{e^{-as}}{s}$ \>\LTNUM \\ \\
+            $f(t-a)$ \> $e^{-sa}F(s)$ \>\LTNUM \\ \\
             $\delta(t)$	\> 1 \> \LTNUM \\ \\
             $\delta(t-t_0)$ \> $e^{-st_0}$ \>\LTNUM \\ \\
             $t^nf(t)$ 	\> $(-1)^n\dfrac{d^nF(s)}{ds^n}$  \>\LTNUM \\ \\
             $f'(t)$ 	\> $sF(s) - f(0)$ \>\LTNUM \\ \\
             $f^{n}(t)$ 	\> $s^nF(s) - s^{(n-1)} f(0) - $ \\ \\
             \> $\cdots - f^{(n-1)}(0)$ \>\LTNUM \\ \\
-            $\displaystyle{\int_0^t f(x)g(t-x)dx}$ \> $F(s)G(s)$ \>\LTNUM \\ \\
+            $f(t)*g(t)$ \> $F(s)G(s)$ \>\LTNUM \\ \\
             $t^n$ ($n=0,1,2,\dots$)     \> $\dfrac{n!}{s^{n+1}}$    \>\LTNUM \\ \\
             $t^x$ ($x\geq-1\in\mathbb{R}$)     \> $\dfrac{\Gamma(x+1)}{s^{x+1}}$ \>\LTNUM\\ \\
             $\sin kt$ 	\> $\dfrac{k}{s^2+k^2}$ \>\LTNUM \\ \\
