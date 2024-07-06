@@ -2039,6 +2039,55 @@ using partial fraction expansion. Via
 the linearity of the Laplace transform, 
 we can then change each individual addend 
 back into its respective time-domain counterpart. 
+We have three cases to consider. 
+\begin{enumerate}
+    \item[Case 1:] The denominator 
+    has real, distinct roots. In 
+    this case the transform can be
+    expressed as 
+    \begin{align} \label{eq:distinct real roots}
+        F(s) &= \frac{a_0+a_1s+a_2s^2+\dots+a_ms^m}{(s-p_1)(s-p_2)\dots (s-p_n)} \\
+        &= A_0 + \sum_{k=1}^{n} \frac{A_k}{s-p_k}.
+    \end{align}
+    To find any $A_i$, simply multiply both sides 
+    of eq. \ref{eq:distinct real roots} by $(s-p_i)$.
+    You'll obtain 
+    \begin{equation}
+        \frac{a_0+a_1s+a_2s^2+\dots+a_ms^m}{(s-p_1)\dots (s-p_{i-1}) (s-p_{i+1}) \dots (s-p_n)} = (s-p_i) \left(A_0 + \sum_{k \neq i}^{n} \frac{A_k}{s-p_k}\right) + A_i
+    \end{equation}
+    Then set $s$ equal to $p_i$ to obtain
+    \begin{equation}
+        \frac{a_0+a_1p_i+a_2p^2_i+\dots+a_mp^m_i}{(p_i-p_1)\dots (p_i-p_{i-1}) (p_i-p_{i+1}) \dots (p_i-p_n)} = A_i.
+    \end{equation}
+    Repeat for all $p_i$ to find all $A_i$. 
+    \item[Case 2:] The denominator has 
+    real, repeated roots. This would look 
+    something like 
+    \begin{align} \label{repeated real roots}
+        F(s) &= \frac{a_0+a_1s+a_2s^2+\dots+a_ms^m}{(s-p_1)(s-p_1)\dots (s-p_n)} \\
+        &= \frac{A_1}{s-p_1} + \frac{A_2}{(s-p_1)^2} + \sum_{k=3}^{n} \frac{A_k}{s-p_k}.
+    \end{align}
+    The same process as in case 
+    1 will take care of this. 
+    To find $A_2$, multiply 
+    both sides of eq. \ref{repeated real roots} 
+    by $(s-p_1)^2$ and set $s = p_1$. Proceed as 
+    before. 
+    \item[Case 3:] The denominator 
+    has complex roots. If you're unlucky, 
+    you'll have to write your Laplace 
+    transform as 
+    \begin{align} \label{eq:complex roots}
+        F(s) &= \frac{a_0+a_1s+a_2s^2+\dots+a_ms^m}{((s+\sigma)^2 +\omega^2) \dots (s-p_n)} \\
+        &= \frac{a_0+a_1s+a_2s^2+\dots+a_ms^m}{(s + \sigma + j\omega)(s + \sigma -j\omega)\dots (s-p_n)} \\
+        &= \frac{A_1 + jA_2}{s+\sigma+j\omega} + \frac{A_1-jA_2}{s+\sigma-j\omega} + \text{real roots}.
+    \end{align}
+    In this case, find the real roots 
+    with whichever of the two previous 
+    cases is applicable and then multiply 
+    by $s+\sigma+j\omega$ and $s+\sigma+j\omega$ 
+    to solve for the imaginary roots. 
+\end{enumerate}
 
 \subsection{Reference}
 
