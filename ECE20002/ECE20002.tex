@@ -2020,6 +2020,26 @@ of their convolution is
 So convolution in the time domain corresponds 
 to multiplication in the frequency domain.
 
+Since computing the inverse Laplace 
+is so unattractive, we generally 
+seek a way to break our function
+into pieces so we can use a table 
+lookup on each piece. 
+A Laplace transform, can always be represented as 
+\[F(s) = \frac{a_0 + a_1s + a_2s^2 + \dots + a_m s^m}{b_0 + b_1s + b_2s^2 + \dots + b_n s^n},\]
+where $a_i, b_i$ are real and rational
+and $m \leq n$. Think about it, have 
+you ever seen a Laplace transform 
+where the numerator was a higher
+degree than the denominator? 
+The reason we care about that is because it
+enables us to write our transform as 
+\[F(s) = A_0 + \frac{A_1}{s-p_1}+\frac{A_2}{s-p_2}+\dots+\frac{A_m}{s-p_n}\]
+using partial fraction expansion. Via 
+the linearity of the Laplace transform, 
+we can then change each individual addend 
+back into its respective time-domain counterpart. 
+
 \subsection{Reference}
 
 \newcounter{NumberInTable}
