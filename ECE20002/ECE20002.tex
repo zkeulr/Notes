@@ -2141,4 +2141,307 @@ We have three cases to consider.
     \end{table}
 \end{center}
 
+\subsection{Impedance, Admittance, and Zero-State Response}
+We're engineers. We're all about 
+making things easier, so even 
+though Laplace transforms have 
+greatly simplified our differential 
+equations, we'd still like to 
+find an easier method to 
+analyze linear circuits. That 
+is precisely what impedance will 
+allow us to do. 
+
+Let's think about the current-voltage 
+relationships for our three major 
+components. 
+\begin{itemize}
+    \item[Resistors:] 
+    \begin{equation}
+        \mathcal{L}\left\{v_R(t) = Ri_R(t)\right\} = RI_R(s)
+    \end{equation}
+    \begin{equation}
+        \mathcal{L}\left\{i_R(t) = Gv_R(t)\right\} = GV_R(s)
+    \end{equation}
+    \item[Inductors:] 
+    \begin{align}
+        \mathcal{L}\left\{v_L(t) = L\frac{di_L(t)}{dt}\right\} &= V_L(s) \\
+        &= L\left(sI_L(s) - i_L(0)\right)
+    \end{align}
+    \begin{align}
+        \mathcal{L}\left\{i_L(t) = \frac{1}{L} \int_{-\infty}^{t}v_L(\tau) d\tau\right\} &= I_L(s) \\
+        &= \frac{1}{L} \left(\frac{V_L(s)}{s} + \frac{\int_{-\infty}^{0} v_L(\tau) d\tau}{s}\right)
+    \end{align}
+    \item[Capacitors:]
+    \begin{align}
+        \mathcal{L}\left\{v_c(t) = \frac{1}{C} \int_{-\infty}^{t}i_C(\tau) d\tau\right\} &= V_C(s) \\
+        &= \frac{1}{C} \left( \frac{I_C(s)}{s} + \frac{\int_{-\infty}^{0} i_C(\tau) d\tau}{s}\right)
+    \end{align}
+    \begin{align}
+        \mathcal{L}\left\{i_c(t) = C \frac{dv_c(t)}{dt}\right\} &= I_C(s) \\
+        &= C\left(sV_C(s) - v_C(0)\right)
+    \end{align}
+\end{itemize}
+
+The \emph{zero-state response} is the response of the circuit 
+to external sources when its initial conditions are zero. 
+If we have zero-state conditions, then 
+\begin{itemize}
+    \item[Resistors:] $V_R(s) = RI_R(s)$
+    \item[Inductors:] $V_L(s) = sLI_L(s)$
+    \item[Capacitors:] $V_C(S) = \frac{I_C(s)}{sC}$
+\end{itemize}
+We can generalize the concept of resistance 
+to the complex world by defining the impedance $Z$ as
+\[Z(s) = \frac{V(s)}{I(s)}.\]
+That makes the impedance for each element 
+\begin{itemize}
+    \item[Resistors:] $Z_R(s) = R$
+    \item[Inductors:] $Z_L(s) = sL$
+    \item[Capacitors:] $Z_C(s) = \frac{1}{sC}$   
+\end{itemize}
+Under zero-state conditions, the current 
+for each element is given by 
+\begin{itemize}
+    \item[Resistors:] $I_R(s) = \frac{V_R(s)}{R}$
+    \item[Inductors:] $I_L(s) = \frac{V_L(s)}{sL}$
+    \item[Capacitors:] $I_C(s) = sCV_C(s)$  
+\end{itemize}
+The admittances for each passive element are 
+\begin{itemize}
+    \item[Resistors:] $Y_R(s) = \frac{1}{R}$
+    \item[Inductors:] $Y_L(s) = \frac{1}{sL}$
+    \item[Capacitors:] $Y_C(s) = sC$  
+\end{itemize}
+The concepts of impedance and admittance 
+are extremely attractive because they allow 
+us to sidestep the use of differential 
+equations and solve our circuits linearly. 
+We can basically treat impedance in the frequency 
+realm as we would resistance in the time realm. 
+Here, let's have an example. 
+\begin{figure}
+    \begin{center}
+        \begin{circuitikz}
+            \draw (0,0) to[V, invert, l=$5u(t)V$] ++(0,2)
+            to[R, l=$100\Omega$] ++(2,0)
+            to[C, l_=$0.1F$, v^=$v_C(t)$] ++(0,-2)
+            -- ++(-2,0);
+        \end{circuitikz}
+    \end{center}
+    \caption{Time domain}
+    \label{fig:time domain}
+\end{figure}
+In the frequency domain, figure \ref{fig:time domain}
+becomes \ref{fig:freq domain}.
+\begin{figure}
+    \begin{center}
+        \begin{circuitikz}
+            \draw (0,0) to[V, invert, l=$\frac{5}{s}$] ++(0,2)
+            to[R, l=$100\Omega$] ++(2,0)
+            to[C, l_=$\frac{10}{s}$, v^=$V_C(t)$] ++(0,-2)
+            -- ++(-2,0);
+        \end{circuitikz}
+    \end{center}
+    \caption{Frequency domain}
+    \label{fig:freq domain}
+\end{figure}
+Since we can treat impedance like resistance, let's 
+do a simple voltage division to solve for $V_C(s)$ 
+(and subsequently, $v_C(t)$).
+\begin{align}
+    V_C(s) &= \frac{Z_C}{Z_C + Z_R} V_{in}(s) \\
+    &= \frac{\frac{10}{s}}{\frac{10}{s} + 100} \frac{5}{s} \\
+    &= \frac{5}{s(10s+1)} \\
+    &= \frac{0.5}{s(s+\frac{1}{10})} \\
+    &= \frac{A}{s} + \frac{B}{s + \frac{1}{10}} \\
+    &= \frac{5}{s} - \frac{5}{s+\frac{1}{10}}.
+\end{align}
+If we take the inverse Laplace transform of both 
+sides, we find that 
+\begin{align}
+    \mathcal{L}^{-1}\left\{ V_C(s) \right\} &= \mathcal{L}^{-1}\left\{ \frac{5}{s} \right\} - \mathcal{L}^{-1}\left\{ \frac{5}{s+\frac{1}{10}} \right\} \\
+    &= v_C(t) \\
+    &= 5u(t) - 5e^{-\frac{t}{10}}u(t) \\
+    &= (5 - 5e^{-\frac{t}{10}})u(t)
+\end{align}
+Exactly the result we would achieve 
+using differential equations or Laplace 
+transforms, with arguably much less 
+work. However, we assumed zero-state 
+conditions. Can this method deal 
+with situations where the initial 
+state is not zero? Yes! 
+Consider again figure \ref{fig:freq domain}, 
+but this time say $v_C(0) = 2V$. 
+We'll use KVL around the circuit to obtain 
+\begin{align}
+    V_{in}(s) &= V_R(s) + V_C(s) \\
+    &= RI_C(s) + V_C(s) \\
+    &= RC\left(sV_C(s) - v_C(0)\right) + V_C(s) \\
+    \frac{5}{s} &= 10\left(sV_C(s) - 2\right) + V_C(s).
+\end{align}
+If we solve for $V_C(s)$, we find 
+that 
+\begin{equation}
+    V_C(s) = \frac{5}{s} - \frac{3}{s+0.1},
+\end{equation}
+making our final solution 
+\[v_C(t) = 5 + (2-5)e^{-\frac{t}{RC}}\]
+When a capacitor has 
+non-zero initial conditions 
+the current through it will 
+be of the form 
+\[i_C(t) = C\frac{dv_C(t)}{dt}\]
+which in the frequency domain is 
+\[I_C(s) = C\left(sV_C(s) - v_C(0)\right).\]
+There's two terms here, 
+one corresponding to the current 
+generated by the voltage source 
+and one corresponding to initial conditions. 
+We can think of this physically 
+like figure \ref{fig:inital condition capacitor model}. 
+\begin{figure}
+    \begin{center}
+        \begin{circuitikz}[european resistors]
+            \draw (0,0) to[R, l=$sC$, v<=$V_C(s)$] ++(0,2)
+            -- ++(1,0)
+            to[short, -*] ++(0,1)
+            to[short, i=$I_C(s)$] ++(0,-1)
+            -- ++(1,0)
+            to[I, invert, l=$Cv_C(0)$] ++(0,-2)
+            -- ++(-1, 0)
+            to[short, -*] ++(0,-1)
+            -- ++(0,1)
+            -- ++(-1,0);
+        \end{circuitikz}
+    \end{center}
+    \caption{Physical significance of each term}
+    \label{fig:inital condition capacitor model}
+\end{figure}
+As can be seen, there's two components
+to the current. The current due to 
+initial conditions flows opposite 
+$I_C(s)$. That checks out physically. 
+If you start with a bit of charge 
+piled up on your capacitor plates, it's 
+going to want to discharge and 
+that will create a current going from positive 
+to negative. If we find the equivalent 
+Thevenin circuit, we get the circuit 
+in figure \ref{fig:inital condition capacitor model thev}.
+\begin{figure}
+    \begin{center}
+        \begin{circuitikz}[european resistors]
+            \draw (0,0) to[R, *-, l=$\frac{1}{sC}$, i=$I_C(s)$] ++(0,-2)
+            to[V, -*, l=$\frac{v_C(0)}{s}$] ++(0,-2);
+            \path (-0.5,1) to[short, v=$V_C(s)$] ++(0,-6);
+        \end{circuitikz}
+    \end{center}
+    \caption{Thevenin equivalent model}
+    \label{fig:inital condition capacitor model thev}
+\end{figure}
+We can make
+similar models for the inductor, 
+as shown in \ref{fig:inital condition inductor model}
+and ref{fig:inital condition inductor model thev}.
+\begin{figure}
+    \begin{center}
+        \begin{circuitikz}[european resistors]
+            \draw (0,0) to[R, l=$\frac{1}{sL}$, v<=$V_L(s)$] ++(0,2)
+            -- ++(1,0)
+            to[short, -*] ++(0,1)
+            to[short, i=$I_C(s)$] ++(0,-1)
+            -- ++(1,0)
+            to[I, l=$\frac{i_L(0)}{s}$] ++(0,-2)
+            -- ++(-1, 0)
+            to[short, -*] ++(0,-1)
+            -- ++(0,1)
+            -- ++(-1,0);
+        \end{circuitikz}
+    \end{center}
+    \caption{Physical significance of each term}
+    \label{fig:inital condition inductor model}
+\end{figure}
+\begin{figure}
+    \begin{center}
+        \begin{circuitikz}[european resistors]
+            \draw (0,0) to[R, *-, l=$sL$, i=$I_L(s)$] ++(0,-2)
+            to[V, invert, -*, l=$Li_L(0)$] ++(0,-2);
+            \path (-0.5,1) to[short, v=$V_L(s)$] ++(0,-6);
+        \end{circuitikz}
+    \end{center}
+    \caption{Thevenin equivalent model}
+    \label{fig:inital condition capacitor model thev}
+\end{figure}
+For the inductor, we have a constant 
+voltage related to the initial conditions
+and the current is being dissipated by 
+the impedance of the inductor. 
+Which model you use is determined by 
+the circuit you're analyzing. The right 
+choice can make a problem much easier to 
+analyze. 
+
+We've talked so much about responses, 
+now is a good time to recap all the 
+types of responses we've seen thus far. 
+\begin{itemize}
+    \item Complete Response. Includes
+    responses from all inputs (independent current and
+    voltage sources)
+    and responses from all initial conditions.
+    \item Zero-Input Response (ZIR). Response to a set of initial
+    conditions when all inputs are deactivated.
+    \item Zero-State Response (ZSR): Response to a specific input
+    signal when all initial conditions are set to zero.
+    \item Forced Response: Response from all components not
+    associated with the complex natural frequencies of the
+    circuit (i.e. the roots of the characteristic equation).
+    \item Natural Response: Response to terms associated with
+    roots of characteristic equation.
+    \item Transient Response: Defined by terms that are neither
+    constant nor sinusoidal. Anything that increases or decays
+    with time.
+    \item Sinusoidal Steady State Response: Response that is
+    sinusoidal with time.
+\end{itemize}
+
+\subsection{Transfer Functions}
+
+Recall that if the output of a circuit 
+is $y(t)$, the input is $x(t)$, and the 
+impulse response is $h(t)$, then 
+\[y(t) = h(t)*x(t).\]
+If we take the Laplace transform of 
+both sides of this equation, we find 
+\[Y(s) = H(s)X(s)\]
+and 
+\[H(s) = \frac{Y(s)}{X(s)}.\]
+$H(s)$ is called the \emph{transfer function}, 
+and the above formula only applies 
+when there are no independent sources 
+within the circuit and all initial 
+conditions are set to zero. If you 
+find the transfer function, you 
+can use it to get either the input (if 
+the output is known) or the output (if 
+the input is known).
+Once known, responses to any input may be calculated
+(provided the input variable remains unchanged).
+The form of the transfer function (or impedance or
+admittance) reveals information about the circuit or
+system associated with the transfer function.
+The transfer function,
+along with impedances and admittances, 
+are all rational functions. We can express 
+the transfer function as 
+\begin{equation}
+    H(S) = K\frac{(s-z_1)^{q_1}(s-z_2)^{q_2} \dots (s-z_m)^{q_m}}{(s-p_1)^{r_1}(s-p_2)^{r_2} \dots (s-p_n)^{r_n}}
+\end{equation}
+where $p_n$ are the \emph{poles} and 
+$z_m$ are the \emph{zeroes}. The constant 
+$K$ is called the \emph{gain constant}. 
+
+
 \end{document}
