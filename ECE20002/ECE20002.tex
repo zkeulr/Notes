@@ -2468,4 +2468,118 @@ unstable. Systems with a pole on the $j\omega$ axis of order 1
 Systems with pole(s) on the $j\omega$ axis of order greater
 than 1 ($\mathbb{Re}\{s\} = \sigma_i = 0$) are unstable.
 
+\subsection{Resonance}
+
+\defn{Resonance}{An RLC circuit is in resonance when the voltage and current
+waveforms are in phase at the input terminals of the network.}
+
+\defn{Resonance frequency}{Frequency
+where the impedance (or admittance) becomes purely real.}
+
+Consider the circuit in figure \ref{fig:resonance}.
+\begin{figure}
+    \begin{center}
+        \begin{circuitikz}
+            \draw (0,0) to[I, l=$I_{in}(s)$] ++(0,4)
+            -- ++(2,0)
+            to[R, l=$R$] ++(0,-4)
+            -- ++(2,0)
+            to[L, l=$L$, i<=$I_L(s)$] ++(0,4)
+            -- ++(-2,0)
+            -- ++(2,0)
+            -- ++(2,0)
+            to[C, l=$C$, i=$I_C(s)$, v=$V_C(s)$] ++(0,-4)
+            -- ++(-6,0);
+        \end{circuitikz}
+    \end{center}
+    \caption{Resonance in parallel circuit}
+    \label{fig:resonance}
+\end{figure}
+The resonance frequency $\omega_r$ is equal to the 
+natural frequency $\omega_0 = \frac{1}{\sqrt{LC}}$
+for RLC circuits.
+When the circuit is in resonance, 
+all the current from the source flows 
+through the resistor. That might 
+be desirable if the resistor is, say, 
+a heating coil. In an LC circuit, 
+the impedance becomes zero. 
+
+\subsection{Scaling}
+
+Consider the simple circuits
+in figure \ref{fig:scaling}.
+\begin{figure}
+    \begin{center}
+        \begin{circuitikz}
+            \draw (0,0) to[V, invert, l=$v_{IN}(t)$] ++(0,2)
+            to[R, l=$1\Omega$] ++(2,0)
+            to[R, l=$1\Omega$, v=$v_{OUT}(t)$] ++(0,-2)
+            -- ++(-2,0);
+        \end{circuitikz}
+        \begin{center}
+            \begin{circuitikz}
+                \draw (0,0) to[V, invert, l=$v_{IN}(t)$] ++(0,2)
+                to[R, l=$1000\Omega$] ++(2,0)
+                to[R, l=$1000\Omega$, v=$v_{OUT}(t)$] ++(0,-2)
+                -- ++(-2,0);
+            \end{circuitikz}
+        \end{center}
+    \end{center}
+    \caption{Scaling impedances}
+    \label{fig:scaling}
+\end{figure}
+What is the transfer function $H(s)$ for 
+each? For the first, it is nothing 
+more than
+\begin{align}
+    H(s) &= \frac{V_{out}(s)}{V_{in}(s)} \\
+    &= \frac{1}{1+1} \\
+    &= \frac{1}{2}
+\end{align}
+and for the second 
+\begin{align}
+    H(s) &= \frac{V_{out}(s)}{V_{in}(s)} \\
+    &= \frac{1000}{1000+1000} \\
+    &= \frac{1}{2}
+\end{align}
+Thus, we can scale the impedances without changing 
+the transfer function. This is useful 
+in circuit design and analysis, 
+where we might want to analyze 
+with convenient values such as $1$ 
+and build our design with components
+that we actually possess. Of course, 
+this is a very simplistic example. 
+If we include other components it 
+can become more complex, but in general 
+we may do these things without 
+changing the poles and zeroes of 
+the transfer function, although its 
+magnitude may change. 
+\begin{itemize}
+    \item Multiply resistances by $K_m$
+    \item Multiply inductances by $K_m$
+    \item Multiply current-controlled voltage sources by $K_m$
+    \item Divide capacitances by $K_m$
+    \item Divide voltage-controlled current sources by $K_m$
+\end{itemize}
+If you do the above, the magnitude of 
+the impedance of the circuit will be 
+scaled by $K_m$. 
+A dimensionless transfer function has magnitude that
+does not change. That is, if both 
+the input and output have the same 
+units, then $H(s)$ has a constant 
+magnitude. 
+A transfer function with units of ($A/V$= siemens) has
+magnitude equal to original magnitude times $\frac{1}{K_m}$.
+A transfer function with units of ($V/A$ = ohms) has
+magnitude equal to original magnitude times $K_m$.
+Here is how frequency scaling affects each component. 
+In RL circuits (series or parallel), $L_{new} = \frac{L_{old}}{K_f}$.
+In RC circuits (series or parallel), $C_{new} = \frac{C_{old}}{K_f}$. 
+Resistors have an impedance that is not frequency dependent, 
+so resistance is not frequency scaled. 
+
 \end{document}
