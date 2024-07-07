@@ -2442,6 +2442,30 @@ the transfer function as
 where $p_n$ are the \emph{poles} and 
 $z_m$ are the \emph{zeroes}. The constant 
 $K$ is called the \emph{gain constant}. 
-
+Calling $z_m$ zeroes makes sense, but why 
+poles? To answer that, let's remember that 
+$s = \sigma + j\omega$. Therefore, $H(s)$ 
+is a function on the complex plane. The poles 
+correspond to where we're dividing by zero and 
+the graph of $H(s)$ jumps to infinity. 
+On the complex plane, we often mark them with xs
+and zeroes with dots. 
+Poles indicate the form of the natural response of a circuit.
+When you solve the inverse Laplace transform,
+they're the values that end up as $\lambda$ 
+in $Ae^{-\lambda t}$. If the order of a pole is 
+greater than one, then some terms will be 
+multiplied by $t^n$. 
+A circuit is \emph{stable} if conditions 
+remain finite for all $t$. The transfer function 
+and its poles indicate when the circuit may 
+be unstable. If all poles have $\mathbb{Re}\left\{s\right\} = \sigma_i < 0$
+(that is, if they reside on the left hand side of the complex plane), 
+then it is guaranteed he circuit will be stable. 
+Any pole such that $\mathbb{Re}\{s\} = \sigma_i > 0$ indicates system is
+unstable. Systems with a pole on the $j\omega$ axis of order 1
+($\mathbb{Re}\{s\} = \sigma_i = 0$) are marginally stable.
+Systems with pole(s) on the $j\omega$ axis of order greater
+than 1 ($\mathbb{Re}\{s\} = \sigma_i = 0$) are unstable.
 
 \end{document}
