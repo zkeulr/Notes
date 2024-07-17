@@ -2442,16 +2442,16 @@ the transfer function as
     H(S) = K\frac{(s-z_1)^{q_1}(s-z_2)^{q_2} \dots (s-z_m)^{q_m}}{(s-p_1)^{r_1}(s-p_2)^{r_2} \dots (s-p_n)^{r_n}}
 \end{equation}
 where $p_n$ are the \emph{poles} and 
-$z_m$ are the \emph{zeroes}. The constant 
+$z_m$ are the \emph{zeros}. The constant 
 $K$ is called the \emph{gain constant}. 
-Calling $z_m$ zeroes makes sense, but why 
+Calling $z_m$ zeros makes sense, but why 
 poles? To answer that, let's remember that 
 $s = \sigma + j\omega$. Therefore, $H(s)$ 
 is a function on the complex plane. The poles 
 correspond to where we're dividing by zero and 
 the graph of $H(s)$ jumps to infinity. 
 On the complex plane, we often mark them with xs
-and zeroes with dots. 
+and zeros with dots. 
 Poles indicate the form of the natural response of a circuit.
 When you solve the inverse Laplace transform,
 they're the values that end up as $\lambda$ 
@@ -2556,7 +2556,7 @@ this is a very simplistic example.
 If we include other components it 
 can become more complex, but in general 
 we may do these things without 
-changing the poles and zeroes of 
+changing the poles and zeros of 
 the transfer function, although its 
 magnitude may change. 
 \begin{itemize}
@@ -2586,13 +2586,237 @@ so resistance is not frequency scaled.
 
 \section{Filtering}
 
-\subsection{Bandpass response}
+\subsection{RLC bandpass response}
+
+Consider the parallel RLC circuit 
+in figure \ref{fig:RLC parallel bandpass}.
+\begin{figure}
+    \begin{center}
+        \begin{circuitikz}
+            \draw (0,0) -- ++(-2,0)
+            to[R, l=$R$] ++(0,-2)
+            -- ++(2,0)
+            to[L, i<=$I_L(s)$, l^=$L$] ++(0,2)
+            -- ++(2,0)
+            to[C, l=$C$, v=$V_C(s)$] ++(0,-2)
+            -- ++(-2,0);
+
+            \draw (-2, 0) -- ++(-2, 0)
+            to[sI, l=$I_{in(s)}$] ++(0,-2)
+            -- ++(2,0);
+        \end{circuitikz}
+    \end{center}
+    \caption{RLC parallel circuit}
+    \label{fig:RLC parallel bandpass}
+\end{figure}
+Let's say the output 
+of this system is $V_c(s)$, 
+and the input is $I_{in}(s)$.
+The transfer function 
+$H(s)$ will be
+\begin{align}
+    H(s) &= \frac{V_c(s)}{I_{in}(s)} \\
+    &= \frac{V_{in}(s)}{I_{in}(s)} \\
+    &= Z_{in}(s).
+\end{align}
+We calculate the impedance $Z_{in}(s)$ as 
+\begin{align}
+    (Z_{in}(s))^{-1} &= R^{-1} + \left(j\omega L\right)^{-1} + \left(\frac{1}{j\omega C}\right)^{-1} \\
+    &= \frac{1}{R} + j\left(\omega C - \frac{1}{\omega L}\right) \\
+    Z_{in}(s) &= \frac{1}{\frac{1}{R} + j\left(\omega C - \frac{1}{\omega L}\right)}.
+\end{align}
+To find the resonance frequency, 
+we need to determine when 
+the impedance is real. This 
+will only occur when the 
+coefficient of $j$ is 
+$0$, or when 
+\begin{align}
+    \omega C &= \frac{1}{\omega L} \\
+    \omega^2 &= \frac{1}{LC} \\
+    \omega &= \frac{1}{\sqrt{LC}}.
+\end{align}
+When the frequency is at $\omega_r = \frac{1}{\sqrt{LC}}$, 
+the circuit in figure \ref{fig:RLC parallel bandpass}
+has a few interesting properties. 
+\begin{enumerate}
+    \item Since $Z_{in}(s) = R$, 
+    the voltage is simply 
+    $V_c(s) = RI_{in}(s)$.
+    \item All of $I_{in}(s)$ 
+    flows through the resistor.
+    \item The width of the 
+    voltage response depends 
+    on $R$, $L$, and $C$. 
+\end{enumerate}
+We can calculate the bandwidth 
+of the circuit by finding 
+the higher and lower half-power 
+cutoff frequencies
+$\omega_H$ and 
+$\omega_L$. 
+I'll spare you the algebra:
+\begin{align}
+    \omega_H &= \frac{1}{2RC} + \sqrt{\frac{1}{(2RC)^2} - \frac{1}{LC}}\\
+    \omega_L &= -\frac{1}{2RC} + \sqrt{\frac{1}{(2RC)^2} - \frac{1}{LC}}
+\end{align}
+The bandwidth 
+will be $B_{\omega} = \omega_H - \omega_L$.
+Thus, 
+\begin{align}
+    B_{\omega} &= \omega_H - \omega_L \\
+    &= \frac{1}{2RC} + \sqrt{\frac{1}{(2RC)^2} - \frac{1}{LC}} - \left(-\frac{1}{2RC} + \sqrt{\frac{1}{(2RC)^2} - \frac{1}{LC}}\right) \\
+    &= \frac{1}{RC}
+\end{align}
+We define the \emph{quality
+factor} as $Q = \frac{\omega_r}{B_{\omega}}$.
+Plugging in for $\omega_r$ and 
+$B_{\omega}$, we have 
+\begin{align}
+    Q &= \frac{\omega_r}{B_{\omega}} \\
+    &= \frac{\frac{1}{\sqrt{LC}}}{\frac{1}{RC}} \\
+    &= R\sqrt{\frac{C}{L}}.
+\end{align}
+If a response is symmetric or can be approximated as
+symmetric, then 
+\begin{align}
+    \omega_L &= \omega_r - \frac{B_{\omega}}{2} \\
+    \omega_H &= \omega_r + \frac{B_{\omega}}{2}.
+\end{align}
+We can express $H(s)$ in terms of 
+$Q$ and $\omega_r$. 
+\begin{align}
+    H(s) &= \frac{V_c(s)}{I_{in}(s)} \\
+    &= \frac{\frac{s}{C}}{s^2 + \frac{s}{RC} + \frac{1}{LC}} \\
+    &= \frac{\frac{s}{C}}{s^2 + \frac{\omega_m s}{Q} + \omega^2_r}.
+\end{align}
+
+Let's now investigate the impact that 
+our parameters have in the overdamped, 
+critically damped, and underdamped cases. 
+\begin{enumerate}
+    \item Let $L = 3 H$, $C = 0.033 mF$, 
+    and $R = 50\Omega$. The circle 
+    will have radius given by 
+    \begin{align}
+        \omega_r &= \frac{1}{\sqrt{LC}} \\
+        &= 100 rad/s.
+    \end{align}
+    The quality factor $Q$ will be
+    \begin{align}
+        Q &= R \sqrt{\frac{C}{L}} \\
+        &= 0.165.
+    \end{align}
+    $H(s)$ will be 
+    \begin{equation}
+        \frac{s}{(s + 50)(s + 150)}.
+    \end{equation}
+
+    \item Let $L = 3 H$, $C = 0.033 mF$, 
+    and $R = 150\Omega$. The circle 
+    will have radius given by 
+    \begin{align}
+        \omega_r &= \frac{1}{\sqrt{LC}} \\
+        &= 100 rad/s.
+    \end{align}
+    The quality factor $Q$ will 
+    be
+    \begin{align}
+        Q &= R \sqrt{\frac{C}{L}} \\
+        &= 0.495
+    \end{align}
+    $H(s)$ will be 
+    \begin{equation}
+        \frac{s}{(s + 100)^2}.
+    \end{equation}
+
+    \item Let $L = 3 H$, $C = 0.033 mF$, 
+    and $R = 200\Omega$. The circle 
+    will have radius given by 
+    \begin{align}
+        \omega_r &= \frac{1}{\sqrt{LC}} \\
+        &= 100 rad/s.
+    \end{align}
+    The quality factor $Q$ will 
+    be
+    \begin{align}
+        Q &= R \sqrt{\frac{C}{L}} \\
+        &= 0.66
+    \end{align}
+    $H(s)$ will be 
+    \begin{equation}
+        \frac{s}{(s + 60 + j80)(s + 60 - j80)}.
+    \end{equation}
+\end{enumerate}
+
+Let's now consider the series RLC circuit 
+in figure \ref{fig:RLC series bandpass}.
+\begin{figure}
+    \begin{center}
+        \begin{circuitikz}
+            \draw (0,0) to[sV, l=$V_{in}(s)$] ++(0,2)
+            to[L, l=$L$, i=$I_L(s)$] ++(3,0)
+            to[R, l=$R$] ++(2,0)
+            to[C, l=$C$, v=$V_c(s)$] ++(0,-2)
+            -- (0,0);
+        \end{circuitikz}
+    \end{center}
+    \caption{RLC series circuit}
+    \label{fig:RLC series bandpass}
+\end{figure}
+This time, let's take the output variable 
+to be $I_L(s)$ instead of $V_c(s)$. The 
+input variable is $V_{in}(s)$. We can
+find the transfer function $H(s)$ as 
+\begin{align}
+    H(s) &= \frac{I_L(s)}{V_{in}(s)} \\
+    &= \frac{I_{in}(s)}{V_{in}(s)} \\
+    &= Y_{in}(s).
+\end{align}
+We calculate the admittance $Y_{in}(s)$ as
+\begin{align}
+    Y_{in}(s) &= \frac{1}{R + sL + \frac{1}{sC}} \\
+    &= \frac{sC}{s^2LC + sRC + 1}.
+\end{align}
+We'll list the values for the bandwidth
+and quality factor, leaving the 
+derivation as an exercise to the 
+reader. 
+\begin{align}
+    B_{\omega} &= \frac{R}{L} \\
+    Q &= \frac{1}{R}\sqrt{\frac{L}{C}}
+\end{align}
+A final note: the quality factor $Q$ 
+is not affected by scaling, but 
+the bandwidth $B_{\omega}$ and peak 
+frequency $\omega_r$ are. 
 
 \subsection{Butterworth Low-pass Filters}
 
 \subsection{Butterworth High-pass Filters}
 
 \subsection{Active Low-pass Filters}
+
+\subsection{Reference}
+
+\begin{figure}
+    \begin{center}
+        \begin{tabular}{c | c | c }
+            & Parallel & Series \\
+            \hline
+            $B_{\omega}$ & $\frac{1}{RC}$ & $\frac{R}{L}$ \\
+            $Q$ & $R\sqrt{\frac{C}{L}}$ & $\frac{1}{R}\sqrt{\frac{L}{C}}$ \\
+            \hline
+        \end{tabular}
+    \end{center}
+    \caption{RLC response parameters}
+    \label{tab:RLC response parameters}
+\end{figure}
+
+\begin{align}
+    H_{RLC}(s) &= \frac{\frac{s}{C}}{s^2 + \frac{s}{RC} + \frac{1}{LC}} \\
+    &= \frac{\frac{s}{C}}{s^2 + \frac{\omega_m s}{Q} + \omega^2_r}
+\end{align}
 
 \section{Conclusion}
 
