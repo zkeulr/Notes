@@ -12,6 +12,7 @@
 \usepackage{marginfix}
 \usepackage{array}
 \usepackage{tikz}
+\usepackage{pgfplots}
 \usepackage{amsmath,amsthm}
 \usetikzlibrary{shapes}
 \usetikzlibrary{positioning}
@@ -2792,6 +2793,82 @@ the bandwidth $B_{\omega}$ and peak
 frequency $\omega_r$ are. 
 
 \subsection{Butterworth Low-pass Filters}
+
+Consider the circuit 
+in figure \ref{fig:butterworth lowpass}.
+\begin{figure}
+    \begin{center}
+        \begin{circuitikz}
+            \draw (0,0) -- ++(-2,0)
+            to[I, l=$i_{in}(t)$] ++(0,2)
+            -- ++(2,0)
+            to[R, l=$1\Omega$] ++(0,-2)
+            -- ++(2,0)
+            to[L, l=$1H$, i<=$i_L(t)$] ++(0,2)
+            -- ++(-2,0);
+        \end{circuitikz}
+    \end{center}
+    \caption{RL parallel circuit}
+    \label{fig:butterworth lowpass}
+\end{figure}
+We calculate the transfer 
+function $H(s)$ for the 
+circuit in figure 
+\ref{fig:butterworth lowpass}
+as 
+\begin{align} \label{eq:butterworth lowpass}
+    H(s) &= \frac{I_L(s)}{I_{in}(s)} \\
+    &= \frac{\frac{1}{j\omega L}}{\frac{1}{j\omega L} + \frac{1}{R}} \\
+    &= \frac{1}{1+j\omega} \\
+    |H(s)| &= \lvert \frac{1}{1+j\omega} \rvert \\
+    &= \lvert \frac{1 - j\omega}{1^2 + \omega^2} \rvert \\
+    &= \lvert \frac{1}{1 + \omega^2}  - j\frac{\omega}{1 + \omega^2} \rvert \\
+    &= \sqrt{\left(\frac{1}{1 + \omega^2}\right)^2 + \left(\frac{\omega}{1 + \omega^2}\right)^2} \\
+    &= \sqrt{\frac{1}{(1 + \omega^2)^2} + \frac{\omega^2}{(1 + \omega^2)^2}} \\
+    &= \sqrt{\frac{1 + \omega^2}{(1 + \omega^2)^2}} \\
+    &= \sqrt{\frac{1}{1 + \omega^2}} \\
+    &= \frac{1}{\sqrt{1 + \omega^2}}
+\end{align}
+What eq. \ref{eq:butterworth lowpass} 
+tells us is that as $\omega$ increases, 
+$|H(s)|$ goes from $1$ to $0$. A plot of 
+this behavior is shown in figure 
+\ref{fig:butterworth lowpass plot}.
+\begin{figure}
+    \begin{center}
+        \begin{tikzpicture}
+            \begin{semilogxaxis}[
+                xlabel={$\omega$},
+                ylabel={$|H(s)|$},
+                grid=both,
+                log basis x={10},
+                xmax=100,
+                domain=0.01:100,
+                ymin=0,
+                ymax=1
+            ]
+            
+            \addplot[
+                thick
+            ]
+            {1/sqrt(1 + x^2)};
+            
+            \end{semilogxaxis}
+        \end{tikzpicture}
+    \end{center}
+    \caption{$|H(s)|$ vs. $\omega$ plot}
+    \label{fig:butterworth lowpass plot}
+\end{figure}
+This is useful because it allows us 
+to attenuate signals of high frequency, 
+while allowing lower frequencies through 
+unimpeded. This kind of circuit is 
+known as a \emph{low-pass filter}, 
+because low frequencies are allowed 
+to pass. 
+
+In this class, we are especially interested in 
+
 
 \subsection{Butterworth High-pass Filters}
 
