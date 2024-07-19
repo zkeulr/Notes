@@ -2902,6 +2902,145 @@ table \ref{tab:normalized butterworth}.
 
 \subsection{Butterworth High-pass Filters}
 
+A Butterworth high-pass filter does 
+the opposite of a low-pass filter by 
+letting high frequencies through 
+and blocking low frequencies. To make 
+a high-pass filter, simply interchange 
+inductors and capacitors. Figure 
+\ref{fig:butterworth highpass}
+demonstrates a high-pass filter. 
+\begin{figure}
+    \begin{center}
+        \begin{circuitikz}
+            \draw (0,0) -- ++(-2,0)
+            to[I, l=$i_{in}(t)$] ++(0,2)
+            -- ++(2,0)
+            to[R, l=$1\Omega$] ++(0,-2)
+            -- ++(2,0)
+            to[C, l=$1C$, v<=$v_v(t)$] ++(0,2)
+            -- ++(-2,0);
+        \end{circuitikz}
+    \end{center}
+    \caption{Butterworth high-pass filter}
+    \label{fig:butterworth highpass}
+\end{figure}
+To spare the derivation, take it on 
+faith that the transfer function 
+for the filter in figure \ref{fig:butterworth highpass}
+is 
+\begin{equation}
+    H(s) = \frac{s}{1+s}.
+\end{equation}
+Conversely from the low-pass filter, 
+now $|H(s)|$ is near zero for 
+small values of $s$ and near one 
+for larger values.  
+
+The steps to find a filter design 
+for a specific need are as follows:
+\begin{enumerate}
+    \item Find filter order $n$
+    \item Select corresponding 
+    normalized transfer function 
+    \item Reference the known 
+    circuit configuration with 
+    selected transfer function
+    \item Find and adjust $\omega_c$ 
+    if $A_{max} \neq 3dB$
+    \item Scale magnitude and 
+    frequency as necessary
+\end{enumerate}
+The filter order 
+$n$ can be found by selecting 
+the minimum integer $n$ such 
+that 
+\begin{equation}
+    n \geq \frac{\log{\left( \frac{10^{0.1A_{min}} - 1}{10^{0.1A_{max}} - 1} \right)}}{2\log{(\frac{\omega_p}{\omega_s})}}
+\end{equation}
+where $\Omega_s = \frac{1}{\omega_s}$. 
+A range of viable values for $\omega_c$
+can by found with the formula given in 
+eq. \ref{eq:omega scaling}
+\begin{equation} \label{eq:omega scaling}
+    \frac{1}{\left( 10^{0.1A_{max}} - 1 \right)^{\frac{1}{2n}}} \leq \omega_c \leq \frac{\frac{1}{\omega_s}}{\left( 10^{0.1A_{min}} - 1 \right)^{\frac{1}{2n}}}
+\end{equation}
+For high-pass filters, it's easier to 
+find the right low-pass filter and 
+then convert to a high-pass filter 
+by changing all inductors to capacitors 
+and vice versa. 
+Let's do an example 
+to illustrate.
+
+Say we want a high-pass filter 
+with the following specifications:
+\begin{itemize}
+    \item $A_{max} = 2dB$ ($H_{max} = -2dB$)
+    \item $A_{min} = 40dB$ ($H_{min} = -40dB$)
+    \item $\omega_s = 100Hz$
+    \item $\omega_p = 1000Hz$. 
+\end{itemize}
+First, we need to find the 
+minimum filter order. 
+\begin{align}
+    n &= \left\lceil \frac{\log{\left( \frac{10^{0.1A_{min}} - 1}{10^{0.1A_{max}} - 1} \right)}}{2\log{(\frac{\omega_p}{\omega_s})}} \right\rceil \\
+    &= \left\lceil \frac{\log{\left( \frac{10^{0.1\times 40} - 1}{10^{0.1\times 2} - 1} \right)}}{2\log{(\frac{1000 Hz}{100 Hz})}} \right\rceil \\
+    &= 3
+\end{align}
+Next, we take the corresponding transfer 
+function from table \ref{tab:normalized butterworth}.
+In this case it is 
+\begin{equation}
+    H(s) = \frac{1}{s^3 + 2s^2 + 2s + 1}.
+\end{equation}
+The circuit that goes with this transfer 
+function is shown in figure \ref{tab:3rd order butterworth highpass}.
+\begin{figure}
+    \begin{center}
+        \begin{circuitikz}
+            \draw (0,0) -- ++(-2,0)
+            to[V, l=$v_{IN}(t)$] ++(0,2)
+            to[R, l=$R_s$] ++(2,0)
+            to[C, l=$C_1$] ++(0,-2)
+            -- ++(2,0)
+            to[C, l=$C_2$, v<=$v_{out}(t)$] ++(0,2)
+            to[L, l=$L$] ++(-2,0);
+        \end{circuitikz}
+    \end{center}
+    \caption{3rd order high-pass filter}
+    \label{fig:3rd order butterworth highpass}
+\end{figure}
+\begin{align}
+    H(s) &= \frac{V_{out}(s)}{V_{in}(s)} \\
+    &= \frac{1}{s^3R_sLC_1C_2 + s^2LC_2 + sR_s(C_1+C_2) + 1} \\
+    &= \frac{1}{s^3 + 2s^2 + 2s + 1} \\
+    R_sLC_1C_2 &= 1 \\
+    LC_2 &= 2 \\
+    R_s(C_1 + C_2) &= 2 \\
+    R_s &= 1 \\
+    C_1 &= 0.5 \\
+    C_2 &= 1.5 \\
+    L &= \frac{4}{3}
+\end{align}
+We now need to adjust $\omega_c$, 
+since $\omega_c \neq \omega_p$. 
+To do this, we can get 
+a range of values that would 
+work using the formula in 
+eq. \ref{eq:omega scaling}.
+We find that 
+\begin{equation}
+    \omega_c \in \left[ 1.094, 2.15 \right]
+\end{equation}
+Whatever value of $C_1$, $C_2$, and $L$ 
+we choose, we would need to scale 
+each by $\frac{1}{\omega_c}$. 
+We would then substitute these 
+values into our circuit, 
+and our high-pass filter is 
+complete.
+
 \subsection{Active Low-pass Filters}
 
 \subsection{Reference}
