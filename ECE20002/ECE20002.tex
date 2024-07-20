@@ -3043,6 +3043,48 @@ complete.
 
 \subsection{Active Low-pass Filters}
 
+So far every low-pass filter 
+we have seen requires an 
+inductor. This is problematic 
+once you recall that 
+inductors are the most 
+non-ideal element we have 
+seen to date. We can craft 
+a better low-pass filter 
+by using op-amps and
+avoiding inductors. Figure 
+\ref{fig:op-amp low-pass filter}
+demonstrates the simplest 
+low-pass filter using an op-amp, 
+called an \emph{active} filter 
+as opposed to the \emph{passive}
+inductor-based low-pass 
+filter. 
+\begin{figure}
+    \begin{center}
+        \begin{circuitikz}[european resistors]
+            \draw (0, 0) node[op amp] (opamp) {};
+            \draw (opamp.-)to[R, -o, l=$Z_{IN}$] ++(-2,0)
+            node[left] {$v_{IN}(t)$};
+            \draw (opamp.-) -- ++(-0.1,0)
+            -- ++(0,1)
+            to[R, l=$Z_F$] ++(2.5,0)
+            to[short] (opamp.out)
+            to[short, -o] ++(0.25,0)
+            node[right] {$v_{OUT}(t)$};
+            \draw (opamp.+) -- ++(0,-1)
+            node[ground] {};
+        \end{circuitikz}
+    \end{center}
+    \caption{Active low-pass filter}
+    \label{fig:op-amp low-pass filter}
+\end{figure}
+The transfer function can be quickly calculated as 
+\begin{align}
+    H(s) &= \frac{V_{out}(s)}{V_{in}(s)} \\
+    &= -\frac{Z_F(s)}{Z_{in}(s)}
+\end{align}
+
 \subsection{Reference}
 
 \begin{figure}
