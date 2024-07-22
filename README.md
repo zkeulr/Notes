@@ -7,6 +7,7 @@ This repository contains lecture notes for several classes at Purdue University.
 Courses with complete notes:
 
 - [ECE 20001](ECE20001/ECE20001.pdf) - Fundamentals of Electronics I
+- [ECE 20002](ECE20002/ECE20002.pdf) - Fundamentals of Electronics II
 - [ECE 26400](ECE26400/ECE26400.pdf) - Advanced C Programming
 - [ECE 36900](ECE36900/ECE36900.pdf) - Discrete Mathematics for Computer Engineers
 - [PHYS 27200](PHYS27200/PHYS27200.pdf) - Electric and Magnetic Interactions
@@ -15,8 +16,6 @@ Courses with complete notes:
 - [MA 26500](MA26500/MA26500notes.pdf) - Linear Algebra
 
 Currently being added are:
-
-- [ECE 20002](ECE20002/ECE20002.pdf) - Fundamentals of Electronics II
 - [POL 23700](POL23700/POL23700.pdf) - Modern Weapons and International Relations
 
 
