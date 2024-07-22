@@ -973,7 +973,7 @@ source/drain and the semiconductor, while the
 overlap capacitance $C_{ov}$ forms between the 
 source/drain and the metal contact on the gate. 
 
-\subsection{Reference}
+\newpage
 
 \begin{figure}
     \begin{center}
@@ -1313,6 +1313,8 @@ useful exercise for the reader, we obtain
 \end{equation}
 Hence why this setup is called an inverting 
 op-amp. 
+
+\newpage
 
 \subsection{Reference}
 
@@ -2089,6 +2091,8 @@ We have three cases to consider.
     by $s+\sigma+j\omega$ and $s+\sigma+j\omega$ 
     to solve for the imaginary roots. 
 \end{enumerate}
+
+\newpage
 
 \subsection{Reference}
 
@@ -3066,7 +3070,7 @@ filter.
             \draw (0, 0) node[op amp] (opamp) {};
             \draw (opamp.-)to[R, -o, l=$Z_{IN}$] ++(-2,0)
             node[left] {$v_{IN}(t)$};
-            \draw (opamp.-) -- ++(-0.1,0)
+            \draw (opamp.-) -- ++(-0.1  ,0)
             -- ++(0,1)
             to[R, l=$Z_F$] ++(2.5,0)
             to[short] (opamp.out)
@@ -3082,8 +3086,296 @@ filter.
 The transfer function can be quickly calculated as 
 \begin{align}
     H(s) &= \frac{V_{out}(s)}{V_{in}(s)} \\
-    &= -\frac{Z_F(s)}{Z_{in}(s)}
+    &= -\frac{Z_F(s)}{Z_{in}(s)}.
 \end{align}
+Let's see how we can construct 
+a circuit whose transfer 
+function is identical to the 
+normalized first order 
+Butterworth transfer function, 
+\begin{equation}
+    H(s) = \frac{1}{s+1}.
+\end{equation}
+Since we know that, for 
+the circuit in figure 
+\ref{fig:op-amp low-pass filter}
+$H(s) = -\frac{Z_F(s)}{Z_{in}(s)}$, 
+an appropriate configuration
+could be that of figure 
+\ref{fig:op-amp low-pass filter with parallel RC}.
+\begin{figure}
+    \begin{center}
+        \begin{circuitikz}
+            \draw (0, 0) node[op amp] (opamp) {};
+            \draw (opamp.-)to[R, -o, l=$1\Omega$] ++(-2,0)
+            node[left] {$v_{IN}(t)$};
+            \draw (opamp.-) -- ++(-0.1,0)
+            -- ++(0,1)
+            to[short] ++(0.5,0) coordinate (A)
+            to[R, l=$1\Omega$] ++(2,0) 
+
+            (A) to[short] ++(0,1.5) coordinate (B)
+            (B) to[C, l=$1F$] ++(2,0) coordinate (C)
+            (C) to[short] ++(0,-1.5)
+            -- (opamp.out)
+            to[short, -o] ++(0.25,0) node[right] {$v_{OUT}(t)$};
+            
+            \draw (opamp.+) -- ++(0,-1)
+            node[ground] {};
+        \end{circuitikz}
+    \end{center}
+    \caption{Active low-pass filter}
+    \label{fig:op-amp low-pass filter with parallel RC}
+\end{figure}
+We see that $Z_F = \frac{1}{s + 1}$, while $Z_{IN} = 1$. 
+Thus
+\begin{align}
+    H(s) &= -\frac{Z_F(s)}{Z_{in}(s)} \\
+    &= -\frac{\frac{1}{s + 1}}{1} \\
+    &= -\frac{1}{s + 1}.
+\end{align}
+We can construct higher-order 
+filters by chaining first-order 
+filters together. Consider 
+figure \ref{fig:chained op-amp low-pass filters}.
+\begin{figure}
+    \begin{center}
+        \begin{circuitikz}[european resistors]
+            \draw (0, 0) node[op amp] (opamp) {};
+            \draw (opamp.-) to[R, -o, l=$Z_{IN1}$] ++(-2,0)
+            node[left] {$v_{IN}(t)$};
+            \draw (opamp.-) -- ++(-0.1  ,0)
+            -- ++(0,1)
+            to[R, l=$Z_{F1}$] ++(2.5,0)
+            to[short] (opamp.out)
+            to[short, -o] ++(0.25,0) coordinate (A);
+            \draw (opamp.+) -- ++(0,-1)
+            node[ground] {};
+
+            \draw (4.5, -0.5) node[op amp] (opamp) {};
+            \draw (opamp.-) to[R, -o, l=$Z_{IN2}$] (A);
+            \draw (opamp.-) -- ++(-0.1  ,0)
+            -- ++(0,1)
+            to[R, l=$Z_{F2}$] ++(2.5,0)
+            to[short] (opamp.out)
+            to[short, -o] ++(0.25,0)
+            node[right] {$v_{OUT}(t)$} coordinate (A);
+            \draw (opamp.+) -- ++(0,-1)
+            node[ground] {};
+        \end{circuitikz}
+    \end{center}
+    \caption{Chained active low-pass filters}
+    \label{fig:chained op-amp low-pass filters}
+\end{figure}
+With a bit of calculation, we 
+can show that 
+\begin{align}
+    H(s) &= \frac{V_{OUT}(s)}{V_{IN}(s)} \\
+    &= \frac{-V_{OUT1}(s) \frac{-Z_{F2}(s)}{Z_{IN2}(s)}}{V_{IN}(s)} \\
+    &= \frac{-\left(-V_{IN}(s)\frac{Z_{F1}}{Z_{IN1}}\right) \frac{-Z_{F2}(s)}{Z_{IN2}(s)}}{V_{IN}(s)} \\
+    &= \frac{Z_{F1}(s)}{Z_{IN1}(s)} \frac{Z_{F2}(s)}{Z_{IN2}(s)}
+\end{align}
+We can construct up to a second 
+degree polynomial in the numerator 
+and up to a second degree polynomial 
+in the denominator using parallel 
+combinators of capacitors and 
+resistors. By chaining $n$ op-amps, 
+we can make the $n$th Butterworth 
+transfer function. With 
+magnitude and frequency 
+scaling, we can make any 
+$n$th degree transfer function, 
+with a small caveat. The caveat is 
+that the poles will only be real, 
+assuming we use only capacitors and 
+resistors. If we introduce 
+indcuctors then we can encounter 
+filters with complex poles, but 
+avoiding inductors is the entire 
+reason we made active op-amps. We
+find a solution to this conundrum
+with a different filter topology. 
+Figure \ref{fig:sallen and key}
+demonstrates one possible 
+configuration, called 
+a Sallen and Key filter. 
+\begin{figure}
+    \begin{center}
+        \begin{circuitikz}
+            \draw (0, 0) node[op amp] (opamp) {};
+
+            \draw (opamp.+) -- ++(-1,0) coordinate (A)
+            to[C, l=$C_2$] ++(0,1)
+            -- ++(-2,0)
+            node[ground] {}
+            (A) to[R, l=$R_2$] ++(-2,0) coordinate (B)
+            to[R, -o, l=$R_1$] ++(-2,0)
+            node[left] {$v_{IN}(t)$}
+            (B) -- ++(0,-2)
+            to[C, l=$C_1$] ++(5.365,0)
+            -- (opamp.out)
+            to[short, -o] ++(1,0)
+            node[right] {$v_{OUT}(t)$}
+            (opamp.-) -- ++(0,1) coordinate (C)
+            to[R, l=$R_B$] ++(0,2)
+            -- ++(-1,0)
+            node[ground] {}
+            (C) to[R, l=$R_A$] ++(2.39,0)
+            -- (opamp.out);
+        \end{circuitikz}
+    \end{center}
+    \caption{Sallen and Key filter}
+    \label{fig:sallen and key}
+\end{figure}
+With a lot of elbow grease, 
+the transfer function 
+for the Sallen and Key 
+filter can be shown to 
+be 
+\begin{equation} \label{eq:sallen and key}
+    H(s) = \frac{ \frac{ 1 + \frac{R_A}{R_B} }{R_1R_2C_1C_2} }{ s^2 + \left( \frac{1}{R_1C_1} + \frac{1}{R_2C_1} - \frac{R_A}{R_BR_2C_2} \right)s + \frac{1}{R_1R_2C_1C_2} }
+\end{equation}
+This unwieldy beast can 
+be simplified if we let 
+$R_A = 0$ and $R_B = \infty$. 
+This configuration
+corresponds to figure 
+\ref{fig:simple sallen and key}.
+\begin{figure}
+    \begin{center}
+        \begin{circuitikz}
+            \draw (0, 0) node[op amp] (opamp) {};
+
+            \draw (opamp.+) -- ++(-1,0) coordinate (A)
+            to[C, l=$C_2$] ++(0,1)
+            -- ++(-2,0)
+            node[ground] {}
+            (A) to[R, l=$R_2$] ++(-2,0) coordinate (B)
+            to[R, -o, l=$R_1$] ++(-2,0)
+            node[left] {$v_{IN}(t)$}
+            (B) -- ++(0,-2)
+            to[C, l=$C_1$] ++(5.365,0)
+            -- (opamp.out)
+            to[short, -o] ++(1,0)
+            node[right] {$v_{OUT}(t)$}
+            (opamp.-) -- ++(0,1)
+            -- ++(2.39,0)
+            -- (opamp.out);
+        \end{circuitikz}
+    \end{center}
+    \caption{Simplified Sallen and Key filter}
+    \label{fig:simple sallen and key}
+\end{figure}
+Eq. \ref{eq:sallen and key}
+simplifies to 
+\begin{equation} \ref{eq:sallen and key transfer}
+    H(s) = \frac{ \frac{1}{R_1R_2C_1C_2} }{ s^2 + \left( \frac{1}{(R_1||R_2)C_1} \right)s + \frac{1}{R_1R_2C_1C_2} }
+\end{equation}
+We can express this 
+as 
+\begin{equation}
+    H(s) = \frac{K_0}{s^2 + 2\sigma s + \omega^2_0}
+\end{equation}
+where 
+\begin{align}
+    2\sigma &= \frac{1}{(R_1 || R_2)C_1}, \\
+    \omega_0 &= \sqrt{ \frac{1}{R_1R_2C_1C_2} },
+\end{align}
+and 
+\begin{equation}
+    K_0 = \frac{1}{R_1R_2C_1C_2}
+\end{equation}
+
+Let's bring this all 
+together with an example. 
+Say we wish to find the circuit 
+whose transfer function is 
+\begin{align} \label{eq:example transfer}
+    H(s) &= \frac{1}{s^3 + 2s^2 + 2s + 1} \\
+    &= \frac{1}{(s+1)(s^2+s+1)} \\
+    &= -\left( -\frac{1}{s+1} \right)\left( \frac{1}{s^2+s+1} \right)
+\end{align}
+We already know how to make
+the filter whose transfer function 
+is $-\frac{1}{s+1}$, and for 
+the negative in front we 
+just need an inverting 
+op-amp with gain of $1$. 
+That leaves us to find 
+the circuit whose transfer 
+function is 
+\begin{equation} \label{eq:example sallen and key transfer}
+    \frac{1}{s^2+s+1}.
+\end{equation} 
+Since the roots are complex, 
+we know we'll need a Sallen 
+and Key filter. If we compare 
+the form of eq. \ref{eq: example sallen and key transfer}
+to eq. \ref{eq:sallen and key transfer}, 
+we see that we need 
+\begin{align}
+    \frac{1}{(R_1||R_2)C_1} &= 1 \\
+    \frac{1}{R_1R_2C_1C_2} &= 1.
+\end{align}
+Since we have two equations but 
+four unknowns, there will be 
+an infinite number of 
+solutions for our elements. 
+Let's choose 
+\begin{align}
+    R_1 &= 1\Omega \\
+    R_2 &= 1\Omega \\
+    C_1 &= 2F \\
+    C_2 &= 0.5F
+\end{align}
+Then the circuit whose transfer 
+function is eq. \ref{eq:example transfer}
+is shown in figure \ref{fig:example solution}.
+\begin{figure}
+    \begin{center}
+        \begin{circuitikz}
+            \draw (0, 0) node[op amp] (opamp) {};
+            \draw (opamp.out) -- ++(0,2)
+            to[R, l=$10k\Omega$] ++(-2.375,0)
+            -- (opamp.-)
+            to[R, -o, l=$10k\Omega$] ++(-1.5,0)
+            node[left] {$v_{IN}(t)$}
+            (opamp.+) node[ground] {};
+
+            \draw (4, -0.5) node[op amp] (op-amp) {};
+            \draw (op-amp.+) node[ground] {}
+            (op-amp.-) to[R, l=$1\Omega$] (opamp.out)
+            (op-amp.-) -- ++(0,1) coordinate (Z)
+            to[R, l=$1\Omega$] ++(2.4,0) coordinate (Y)
+            -- (op-amp.out)
+            (Z) -- ++(0,1.5)
+            to[C, l=$1F$] ++(2.4,0)
+            -- (Y);
+
+            \draw (12, 0) node[op amp] (opamp) {};
+            \draw (opamp.+) -- ++(-1,0) coordinate (A)
+            to[C, l=$0.5 F$] ++(0,1)
+            -- ++(-2,0)
+            node[ground] {}
+            (A) to[R, l=$1\Omega$] ++(-2,0) coordinate (B)
+            to[R, l=$1\Omega$] ++(-2,0)
+            -- (op-amp.out)
+            (B) -- ++(0,-2)
+            to[C, l=$2F$] ++(5.365,0)
+            -- (opamp.out)
+            to[short, -o] ++(1,0)
+            node[right] {$v_{OUT}(t)$}
+            (opamp.-) -- ++(0,1)
+            -- ++(2.39,0)
+            -- (opamp.out);
+        \end{circuitikz}
+    \end{center}
+    \caption{Complete topology}
+    \label{fig:example solution}
+\end{figure}
+
+\newpage
 
 \subsection{Reference}
 
@@ -3121,6 +3413,32 @@ The transfer function can be quickly calculated as
     \label{tab:normalized butterworth}
 \end{figure}
 
+\newpage
+
 \section{Conclusion}
+
+We have arrived at the end now. 
+You will take your final exams 
+and eventually forget the 
+majority of what you learned
+here. What will remain after 
+five months, five years, time 
+so precious but so abstract, 
+will be your curiousity, the 
+methods by which you explore the 
+world, and the knowledge that 
+you applied yourself, did your 
+best, and grew. Do not waste 
+the opportunity that living 
+affords you. Do not content 
+yourself with mere existence. 
+Hunger for growth, \emph{starve}
+for it. Move ever forward
+and remember that although 
+one day you may no more 
+remember the experiences you 
+have had than the meals you have 
+eaten, but even so they have 
+made you.
 
 \end{document}
