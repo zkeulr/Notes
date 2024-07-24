@@ -9,15 +9,12 @@ Courses with complete notes:
 - [ECE 20001](ECE20001/ECE20001.pdf) - Fundamentals of Electronics I
 - [ECE 20002](ECE20002/ECE20002.pdf) - Fundamentals of Electronics II
 - [ECE 26400](ECE26400/ECE26400.pdf) - Advanced C Programming
-- [ECE 36900](ECE36900/ECE36900.pdf) - Discrete Mathematics for Computer Engineers
-- [PHYS 27200](PHYS27200/PHYS27200.pdf) - Electric and Magnetic Interactions
 - [ECE 29595PD](ECE29595PD/ECE29595PDnotes.pdf) - Digital System Design (Honors)
 - [ECE 36800](ECE36800/ECE36800notes.pdf) - Data Structures and Algorithms
-- [MA 26500](MA26500/MA26500notes.pdf) - Linear Algebra
-
-Currently being added are:
+- [ECE 36900](ECE36900/ECE36900.pdf) - Discrete Mathematics for Computer Engineers
+- [PHYS 27200](PHYS27200/PHYS27200.pdf) - Electric and Magnetic Interactions
 - [POL 23700](POL23700/POL23700.pdf) - Modern Weapons and International Relations
-
+- [MA 26500](MA26500/MA26500notes.pdf) - Linear Algebra
 
 ## Contributing
 
