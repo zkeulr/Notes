@@ -20,7 +20,6 @@ Courses with complete notes:
 
 If you have notes for a course that's not currently included, feel free to make a pull request!
 
-
 ## License
 
 These notes are free to use and share under the MIT License. See [`LICENSE`](LICENSE) for details.
