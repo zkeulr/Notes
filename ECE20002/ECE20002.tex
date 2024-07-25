@@ -2334,14 +2334,14 @@ in figure \ref{fig:inital condition capacitor model thev}.
 We can make
 similar models for the inductor, 
 as shown in \ref{fig:inital condition inductor model}
-and ref{fig:inital condition inductor model thev}.
+and \ref{fig:inital condition inductor model thev}.
 \begin{figure}
     \begin{center}
         \begin{circuitikz}[european resistors]
-            \draw (0,0) to[R, l=$\frac{1}{sL}$, v<=$V_L(s)$] ++(0,2)
+            \draw (0,0) to[R, l=$sL$, v<=$V_L(s)$] ++(0,2)
             -- ++(1,0)
             to[short, -*] ++(0,1)
-            to[short, i=$I_C(s)$] ++(0,-1)
+            to[short, i=$I_L(s)$] ++(0,-1)
             -- ++(1,0)
             to[I, l=$\frac{i_L(0)}{s}$] ++(0,-2)
             -- ++(-1, 0)
@@ -2362,7 +2362,7 @@ and ref{fig:inital condition inductor model thev}.
         \end{circuitikz}
     \end{center}
     \caption{Thevenin equivalent model}
-    \label{fig:inital condition capacitor model thev}
+    \label{fig:inital condition indcuctor model thev}
 \end{figure}
 For the inductor, we have a constant 
 voltage related to the initial conditions
