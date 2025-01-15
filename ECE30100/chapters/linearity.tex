@@ -1,0 +1,45 @@
+\section{Linearity}
+Readers are familiar with the concept
+of linearity, which mathematically
+may be expressed as
+\begin{equation}
+    f(a + b) = f(a) + f(b)
+\end{equation}
+
+Linear systems possess the property
+of superposition, so given an
+input as a sum of weighted inputs
+the output is a sum of weighted outputs.
+
+The necessary and sufficient
+conditions for linearity in a CT
+system are
+if the input is $\alpha_1x_1(t)
+    + \alpha_2x_2(t)$ the output
+is $S(\alpha_1x_1(t)) + S(\alpha_2x_2(t))$.
+Likewise for DT systems,
+\begin{equation}
+    S[\alpha_1x_1[t] + \alpha_2x_2[t]] = S[\alpha_1x_1[t]] + S[\alpha_2x_2[t]]
+\end{equation}
+This equality for hold for any real
+valued $\alpha_1$ and $\alpha_2$.
+
+Consider the CT system $S$ given
+by $y(t) = tx(t)$. We are interested
+in determining if the system is
+linear. We test it with the definition
+of linearity,
+\begin{align}
+    y(\alpha_1x_1(t) + \alpha_2x_2(t)) & = t(\alpha_1x_1(t) + \alpha_2x_2(t))    \\
+                                       & = t\alpha_1x_1(t) + t\alpha_2x_2(t)     \\
+                                       & = y(\alpha_1x_1(t)) + y(\alpha_2x_2(t))
+\end{align}
+Since this is the definition of linearity, the
+system is linear.
+
+Why do we care? We care because linearity
+gives us many useful properties and
+makes solving systems much easier.
+If we know the output for any set of
+inputs, we can find the output for
+any linear combination of those inputs.

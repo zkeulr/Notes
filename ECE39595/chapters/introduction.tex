@@ -1,1 +1,57 @@
 \section{Introduction}
+Let's examine some basic C++ programs.
+\begin{lstlisting}[language=C++,caption=Hello World]
+    #include <iostream>
+
+    int main() {
+        std::cout << "Hello World!";
+        return 0;
+    }
+\end{lstlisting}
+
+\begin{lstlisting}[language=C++,caption=User Input]
+    #include <iostream>
+
+    int main() {
+        double n;
+        int i;
+
+        std::cout << "Enter float: ";
+        std::cin >> n;
+
+        std::cout << "Enter integer: ";
+        std::cin >> i;
+
+        return 0;
+    }
+\end{lstlisting}
+
+The \texttt{stds} you're seeing all over the place refer not
+to a frat party but the standard namespace. It holds
+useful objects like standard in ("\texttt{cin}") and standard
+out ("\texttt{cout}").
+
+In C, we use \texttt{malloc} and \texttt{free} to allocate memory. In C++,
+the equivalent operations are \texttt{new} and \texttt{delete}.
+
+\begin{lstlisting}[language=C++,caption=Free and Delete]
+    void CorrectUsage(){
+        int *ptr = new int[3];
+        int *ptr1 = new int;
+        ptr[0] = 1;
+        ptr[1] = 2;
+        ptr[2] = 3;
+        *ptr1 = 5;
+        delete ptr1;
+        delete [] ptr;        
+\end{lstlisting}
+The reason for this is using \texttt{new} and \texttt{free} calls
+an object's constructor and destructors, which are defined to properly
+delete the object. Technically, \texttt{malloc} and \texttt{free} are
+both present in C++, but they won't trigger the constructors and
+destructors and should be avoided. The choice to leave these functions in
+was made to improve compatibility with C, which is a theme the reader
+may notice in C++'s many possible ways to do the same thing.
+
+C++ filenames are terminated with a \texttt{.cpp} or \texttt{.cc}
+extension, like \texttt{example.cpp} or \texttt{example.cc}

@@ -1,0 +1,45 @@
+\section{Objects and Classes}
+A class stores functions (methods) and values for a bunch
+of objects you may want to create that follow its blueprint,
+like characters in a video game or car models.
+
+\begin{lstlisting}[language=C++,caption=Objects and Classes]
+    #include <iostream>
+
+    class Dog {
+            public:
+            std::string breed;
+            std::string name;
+
+            void bark() {
+                    std::cout << "Woof!" << std::endl;
+                }
+        };
+
+    int main() {
+            Dog my_dog;
+            my_dog.breed = "Labrador";
+            my_dog.name = "Buddy";
+
+            Dog your_dog;
+            your_dog.breed = "Poodle";
+            your_dog.name = "Coco";
+
+            std::cout << my_dog.breed << std::endl;
+            my_dog.bark();
+
+            return 0;
+        }
+\end{lstlisting}
+
+There are many ways to create a new object in C++.
+
+\begin{lstlisting}[language=C++,caption=Alternative Instantiations]
+#include "Dog.h"
+int main(int argc, char* argv[ ]) {
+    Dog* myDog = new Dog("Sam");
+    Dog myDog("Sanjay");
+    Dog myDog = Dog("Jenna");
+    ...
+}
+\end{lstlisting}
