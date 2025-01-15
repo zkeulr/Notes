@@ -1,0 +1,49 @@
+\section{Number Systems}
+In daily life, we primarily interact with the familiar
+base-10 numbers. However, when interaction with digital
+systems, we must also concern ourselves with base-2, base-8,
+base-16, and other bases which are friendly to binary
+states. Unless completely unambiguous, the base of a number
+is written as a right subscript such as $144_{10}$ for base-10
+or $1001_{2}$ for base-2.
+
+For binary numbers, each digit represents a power of two.
+To convert a binary number to decimal, you sum the products of
+each binary digit with its corresponding power of two. For
+example, the binary number 1001 is calculated as
+\begin{align}
+    2^3 \times 1 + 2^2 \times 0 + 2^1 \times 0 + 2^0 \times 1 & = 8 + 0 + 0 + 1 \\
+                                                              & = 9_{10}
+\end{align}
+
+To convert from hexadecimal to decimal, each digit represents a
+power of sixteen. For instance, the hexadecimal number f1 is
+calculated as
+\begin{align}
+    15 \times 161+1 \times 160 & = 240+1    \\
+                               & = 241_{10}
+\end{align}
+where f represents the decimal value 15.
+When converting to another base, reverse the process by dividing
+the decimal number by the target base, recording the remainder,
+and repeating with the quotient until it reaches zero.
+The remainders give you the digits of the number in the new
+base, read in reverse order.
+
+To convert a decimal number into binary, for example, you
+repeatedly divide the number by 2 and record the remainders.
+For the decimal number 9, dividing by 2 gives a quotient of 4
+and a remainder of 1. Dividing 4 by 2 gives a quotient of 2
+and a remainder of 0. Dividing 2 by 2 gives a quotient of 1
+and a remainder of 0, and finally, dividing 1 by 2 gives a
+quotient of 0 and a remainder of 1. Reading the remainders
+from bottom to top, the binary representation of 9 is 1001.
+
+In SystemVerilog, numbers are written in format
+\texttt{[size]'[base][number]}, for example:
+\begin{itemize}
+    \item 4'b1001 // binary, 9 in decimal, bit width 4 bits
+    \item 8'hf1 //hex, equals 421, bit width 8 bits
+    \item 3'o3 // octal, 3, bit width 3 bits
+    \item 32'b1001\_1101\_0101\_1111 // binary, 40255, bit width 32 bits
+\end{itemize}
