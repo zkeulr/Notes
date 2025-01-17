@@ -1,0 +1,121 @@
+\section{Logic Gates}
+We represent boolean operations in circuit diagrams
+with gates, whose symbols and truth tables are below.
+\begin{itemize}
+    \item Buffer \\
+          \begin{tikzpicture}[circuit logic US]
+              \node (buffer) [buffer gate, draw, logic gate inputs=1, anchor=output] {};
+          \end{tikzpicture}
+          \\
+          \begin{tabular}{|c|c|}
+              \hline
+              A & Output \\
+              \hline
+              0 & 0      \\
+              1 & 1      \\
+              \hline
+          \end{tabular}
+    \item AND \\
+          \begin{tikzpicture}[circuit logic US][circuit logic US]
+              \node (and) [and gate, draw, logic gate inputs=nn] {};
+          \end{tikzpicture}
+          \\
+          \begin{tabular}{|c|c|c|}
+              \hline
+              A & B & Output \\
+              \hline
+              0 & 0 & 0      \\
+              0 & 1 & 0      \\
+              1 & 0 & 0      \\
+              1 & 1 & 1      \\
+              \hline
+          \end{tabular}
+    \item OR \\
+          \begin{tikzpicture}[circuit logic US]
+              \node (or) [or gate, draw, logic gate inputs=nn] {};
+          \end{tikzpicture}
+          \\
+          \begin{tabular}{|c|c|c|}
+              \hline
+              A & B & Output \\
+              \hline
+              0 & 0 & 0      \\
+              0 & 1 & 1      \\
+              1 & 0 & 1      \\
+              1 & 1 & 1      \\
+              \hline
+          \end{tabular}
+    \item NOT \\
+          \begin{tikzpicture}[circuit logic US]
+              \node (not) [not gate, draw, logic gate inputs=n] {};
+          \end{tikzpicture}
+          \\
+          \begin{tabular}{|c|c|}
+              \hline
+              A & Output \\
+              \hline
+              0 & 1      \\
+              1 & 0      \\
+              \hline
+          \end{tabular}
+    \item NAND \\
+          \begin{tikzpicture}[circuit logic US]
+              \node (nand) [nand gate, draw, logic gate inputs=nn] {};
+          \end{tikzpicture}
+          \\
+          \begin{tabular}{|c|c|c|}
+              \hline
+              A & B & Output \\
+              \hline
+              0 & 0 & 1      \\
+              0 & 1 & 1      \\
+              1 & 0 & 1      \\
+              1 & 1 & 0      \\
+              \hline
+          \end{tabular}
+    \item NOR \\
+          \begin{tikzpicture}[circuit logic US]
+              \node (nor) [nor gate, draw, logic gate inputs=nn] {};
+          \end{tikzpicture}
+          \\
+          \begin{tabular}{|c|c|c|}
+              \hline
+              A & B & Output \\
+              \hline
+              0 & 0 & 1      \\
+              0 & 1 & 0      \\
+              1 & 0 & 0      \\
+              1 & 1 & 0      \\
+              \hline
+          \end{tabular}
+    \item XOR \\
+          \begin{tikzpicture}[circuit logic US]
+              \node (xor) [xor gate, draw, logic gate inputs=nn] {};
+          \end{tikzpicture}
+          \\
+          \begin{tabular}{|c|c|c|}
+              \hline
+              A & B & Output \\
+              \hline
+              0 & 0 & 0      \\
+              0 & 1 & 1      \\
+              1 & 0 & 1      \\
+              1 & 1 & 0      \\
+              \hline
+          \end{tabular}
+    \item XNOR \\
+          \begin{tikzpicture}[circuit logic US]
+              \node (xnor) [xnor gate, draw, logic gate inputs=nn] {};
+          \end{tikzpicture}
+          \\
+          \begin{tabular}{|c|c|c|}
+              \hline
+              A & B & Output \\
+              \hline
+              0 & 0 & 1      \\
+              0 & 1 & 0      \\
+              1 & 0 & 0      \\
+              1 & 1 & 1      \\
+              \hline
+          \end{tabular}
+\end{itemize}
