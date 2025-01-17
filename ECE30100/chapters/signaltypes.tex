@@ -1,0 +1,60 @@
+\section{Classifying Signal Types}
+Before we proceed we must be able to classify signal types. We
+have so far seen continuous time and discrete time signals,
+and now we introduce \emph{complex} signals as well. Let's define
+all of these here:
+\begin{itemize}
+    \item DT: $x[n]$ is a sequence of complex values, including purely real values.
+          numbers. Example: $x[n] = \frac{n}{2}$.
+    \item CT: $x(t)$ is complex (including purely real) and continuous for all real values of $t$.
+          Example: $x(t) = \frac{t}{2} -jt$.
+    \item Complex:
+\end{itemize}
+
+For DT, complex $x[n]$ can be represented in Cartesian or polar form.
+For Cartesian,
+\begin{equation}
+    x[n] = x_{Re}[n] + jx_{Im}[n].
+\end{equation}
+For polar,
+\begin{equation}
+    x[n] = A[n]e^{j\Theta[n]}.
+\end{equation}
+We can swap between the two with Euler's formula.
+\begin{align}
+    A[n]e^{j\Theta[n]}     & = A[n]\cos(\Theta[n]) + jA[n]\sin(\Theta[n])                                        \\
+    x_{Re}[n] + jx_{Im}[n] & = \sqrt{x_{Re}[n]^2 + x_{Im}[n]^2} \times e^{j\arctan(\frac{x_{Im}[n]}{x_{Re}[n]})}
+\end{align}
+DT vs. CT is one option to classify signals. Another
+possibility is Energy vs. Power. For this class, energy in a continuous
+time system is the area under the squared magnitude of the signal. Mathematically
+energy over $(t_1, t_2)$ is equal to
+\begin{align}
+    E & = \int_{t_1}^{t_2} |x(t)|^2 dt                     \\
+      & = \int_{t_1}^{t_2} (x_{Re}(t)^2 + x_{Im}(t)^2) dt.
+\end{align}
+For DT systems, the formula for energy is
+\begin{align}
+    E & = \sum_{n=n_1}^{n_2} |x[n]|^2                     \\
+      & = \sum_{n=n_1}^{n_2} (x_{Re}[n]^2 + x_{Im}[n]^2).
+\end{align}
+The total energy $E_\infty$ is the energy from $t = -\infty$ to $t = \infty$.
+
+Power is energy per unit time, or in terms of calculus $P(t) = \frac{d}{dt}E(t)$.
+For CT, average power is
+\begin{equation}
+    P_{avg} = \frac{1}{t_2 - t_1} \int_{t_1}^{t_2} |x(t)|^2 dt.
+\end{equation}
+For DT,
+\begin{equation}
+    P_{avg} = \frac{1}{n_2 - n_1 + 1} \sum_{n=n_1}^{n_2} |x[n]|^2.
+\end{equation}
+The overall average power is
+\begin{equation}
+    P_{\infty} = \lim_{T \rightarrow \infty} \frac{1}{2T} \int_{-T}^{T} |x(t)|^2 dt
+\end{equation}
+for CT and
+\begin{equation}
+    P_{\infty} = \lim_{N \rightarrow \infty} \frac{1}{2N + 1} \sum_{n=-N}^{N} |x[n]|^2
+\end{equation}
+for DT time.

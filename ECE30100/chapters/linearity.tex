@@ -17,9 +17,13 @@ system are
 if the input is $\alpha_1x_1(t)
     + \alpha_2x_2(t)$ the output
 is $S(\alpha_1x_1(t)) + S(\alpha_2x_2(t))$.
+Formally,
+\begin{equation}
+    S(\alpha_1x_1(t) + \alpha_2x_2(t)) = \alpha_1S(x_1(t)) + \alpha_2S(x_2(t)).
+\end{equation}
 Likewise for DT systems,
 \begin{equation}
-    S[\alpha_1x_1[t] + \alpha_2x_2[t]] = S[\alpha_1x_1[t]] + S[\alpha_2x_2[t]]
+    S[\alpha_1x_1[t] + \alpha_2x_2[t]] = \alpha_1S[x_1[t]] + \alpha_2S[x_2[t]].
 \end{equation}
 This equality for hold for any real
 valued $\alpha_1$ and $\alpha_2$.
@@ -32,7 +36,7 @@ of linearity,
 \begin{align}
     y(\alpha_1x_1(t) + \alpha_2x_2(t)) & = t(\alpha_1x_1(t) + \alpha_2x_2(t))    \\
                                        & = t\alpha_1x_1(t) + t\alpha_2x_2(t)     \\
-                                       & = y(\alpha_1x_1(t)) + y(\alpha_2x_2(t))
+                                       & = \alpha_1y(x_1(t)) + \alpha_2y(x_2(t))
 \end{align}
 Since this is the definition of linearity, the
 system is linear.
