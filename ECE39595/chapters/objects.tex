@@ -43,3 +43,36 @@ int main(int argc, char* argv[ ]) {
     ...
 }
 \end{lstlisting}
+
+There are also many ways to access values in an object.
+One potentially novel way is through the \texttt{->} operator.
+It's shorthand for dereferencing a pointer and then accessing
+a member of the object it points to.
+\begin{lstlisting}[language=C++,caption=-> Operator]
+class Example {
+public:
+    int value;
+    void show() {
+        std::cout << "Value: " << value << std::endl;
+    }
+};
+
+int main() {
+    Example obj;
+    obj.value = 10;
+
+    Example* ptr = &obj;  // Pointer to the object
+
+    // Accessing members using the pointer
+    ptr->value = 20;      // Equivalent to (*ptr).value = 20;
+    ptr->show();          // Equivalent to (*ptr).show();
+
+    return 0;
+}
+\end{lstlisting}
+
+In C++, the \texttt{private} and \texttt{public} keywords define access
+control for members within a class. They determine how and where those
+members can be accessed outside the class. \texttt{private} members are
+accessible only within the class in which they're declared. \texttt{public}
+members are accessible from anywhere a member of the class is visible.1
