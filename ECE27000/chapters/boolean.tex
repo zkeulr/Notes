@@ -2,3 +2,32 @@
 Computers operate in binary. To represent the state of a
 computer we require a suitable mathematical framework,
 provided by boolean algebra.
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{|l|l|}
+        \hline
+        \textbf{Rule}           & \textbf{Expression}                                                                            \\ \hline
+        Commutativity           & $X + Y = Y + X$                                                                                \\
+                                & $X \cdot Y = Y \cdot X$                                                                        \\ \hline
+        Associativity           & $(X + Y) + Z = X + (Y + Z)$                                                                    \\
+                                & $(X \cdot Y) \cdot Z = X \cdot (Y \cdot Z)$                                                    \\ \hline
+        Distributivity          & $X \cdot Y + X \cdot Z = X \cdot (Y + Z)$                                                      \\
+                                & $(X + Y) \cdot (X + Z) = X + Y \cdot Z$                                                        \\ \hline
+        Covering                & $X + X \cdot Y = X$                                                                            \\
+                                & $X \cdot (X + Y) = X$                                                                          \\ \hline
+        Combining               & $X \cdot Y + X \cdot Y = X$                                                                    \\
+                                & $(X + Y) \cdot (X + Y) = X$                                                                    \\ \hline
+        Consensus               & $X \cdot Y + X \cdot Z + Y \cdot Z = X \cdot Y + X' \cdot Z$                                   \\
+                                & $(X + Y) \cdot (X + Z) \cdot (Y + Z) = (X + Y) \cdot (X + Z)$                                  \\ \hline
+        Generalized Idempotency & $X + X + \dots + X = X$                                                                        \\
+                                & $X \cdot X \cdot \dots \cdot X = X$                                                            \\ \hline
+        DeMorgan’s Theorems     & $(X_1 \cdot X_2 \cdot \dots \cdot X_n)' = X_1' + X_2' + \dots + X_n'$                          \\
+                                & $(X_1 + X_2 + \dots + X_n)' = X_1' \cdot X_2' \cdot \dots \cdot X_n'$                          \\ \hline
+        Generalized DeMorgan’s  & $F(X_1, X_2, \dots, X_n, +, \cdot) = F(X_1, X_2, \dots, X_n, \cdot, +)'$                       \\ \hline
+        Shannon’s Expansion     & $F(X_1, X_2, \dots, X_n) = X_1 \cdot F(1, X_2, \dots, X_n) + X_1' \cdot F(0, X_2, \dots, X_n)$ \\
+                                & $F(X_1, X_2, \dots, X_n) = [X_1 + F(0, X_2, \dots, X_n)] \cdot [X_1' + F(1, X_2, \dots, X_n)]$ \\ \hline
+    \end{tabular}
+    \caption{Boolean Algebra}
+    \label{tab:boolean_rules}
+\end{table}
