@@ -1,0 +1,108 @@
+\section{Sorting}
+\subsection{Bubble Sort}
+Bubble Sort is a simple sorting algorithm that repeatedly steps 
+through the list, compares adjacent elements, and swaps them if 
+they are in the wrong order. The pass through the list is repeated 
+until the list is sorted.
+
+\textbf{Time Complexity:}
+\begin{itemize}
+    \item Best Case: $O(n)$ (when the array is already sorted)
+    \item Average Case: $O(n^2)$
+    \item Worst Case: $O(n^2)$
+\end{itemize}
+
+\begin{lstlisting}[caption=Bubble Sort]
+void bubble_sort(int arr[], int n) {
+    for (int i = 0; i < n-1; i++) {
+        int swapped = 0;
+        for (int j = 0; j < n-i-1; j++) {
+            if (arr[j] > arr[j+1]) {
+                int temp = arr[j];
+                arr[j] = arr[j+1];
+                arr[j+1] = temp;
+                swapped = 1;
+            }
+        }
+        if (swapped == 0)
+            break;
+    }
+}
+\end{lstlisting}
+\subsection{Insertion Sort}
+Insertion Sort builds the sorted array one item at a time. 
+It picks an element and places it into its correct position in 
+the sorted part of the array.
+
+\textbf{Time Complexity:}
+\begin{itemize}
+    \item Best Case: $O(n)$ (when the array is already sorted)
+    \item Average Case: $O(n^2)$
+    \item Worst Case: $O(n^2)$
+\end{itemize}
+
+\begin{lstlisting}[caption=Insertion Sort]
+void insertion_sort(int arr[], int n) {
+    for (int i = 1; i < n; i++) {
+        int key = arr[i];
+        int j = i - 1;
+        while (j >= 0 && arr[j] > key) {
+            arr[j + 1] = arr[j];
+            j = j - 1;
+        }
+        arr[j + 1] = key;
+    }
+}
+\end{lstlisting}
+\subsection{Selection Sort}
+Selection Sort divides the array into a sorted and an unsorted 
+region. It repeatedly selects the smallest (or largest) element 
+from the unsorted region and moves it to the sorted region.
+
+\textbf{Time Complexity:}
+\begin{itemize}
+    \item Best Case: $O(n^2)$
+    \item Average Case: $O(n^2)$
+    \item Worst Case: $O(n^2)$
+\end{itemize}
+
+\begin{lstlisting}[caption=Selection Sort]
+void selection_sort(int arr[], int n) {
+    for (int i = 0; i < n-1; i++) {
+        int min_idx = i;
+        for (int j = i+1; j < n; j++) {
+            if (arr[j] < arr[min_idx])
+                min_idx = j;
+        }
+        int temp = arr[min_idx];
+        arr[min_idx] = arr[i];
+        arr[i] = temp;
+    }
+}
+\end{lstlisting}
+\subsection{Shell Sort}
+Shell Sort is an optimization over Insertion Sort. 
+It first sorts elements that are far apart and then progressively 
+reduces the gap between elements to be sorted.
+
+\textbf{Time Complexity:}
+\begin{itemize}
+    \item Best Case: $O(n \log n)$
+    \item Average Case: depends on the gap sequence, commonly $O(n^{3/2})$ or $O(n \log^2 n)$
+    \item Worst Case: $O(n^2)$
+\end{itemize}
+
+\begin{lstlisting}[caption=Shell Sort]
+void shell_sort(int arr[], int n) {
+    for (int gap = n/2; gap > 0; gap /= 2) {
+        for (int i = gap; i < n; i++) {
+            int temp = arr[i];
+            int j;
+            for (j = i; j >= gap && arr[j - gap] > temp; j -= gap) {
+                arr[j] = arr[j - gap];
+            }
+            arr[j] = temp;
+        }
+    }
+}
+\end{lstlisting}
