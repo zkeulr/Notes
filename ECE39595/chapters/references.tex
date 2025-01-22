@@ -1,0 +1,50 @@
+\section{References}
+Just like C, C++ passes parameters by reference. 
+Primitive variables like \texttt{int}, 
+\texttt{float}, \texttt{char}, \texttt{pointer} 
+as passed as a copy in parameters. When an 
+object variable is passed as a parameter, it's 
+also passed as a copy. Since each object can be 
+arbitrarily large, this could incur a large cost. 
+The way we get around this is by passing a 
+reference (address) to the object instead. 
+When a reference to an object is passed as an argument, only a copy of
+the reference is passed. 
+
+\begin{lstlisting}[language=C++, caption={Passing Objects by Value and Reference}]
+    #include <iostream>
+    using namespace std;
+    
+    class MyClass {
+    public:
+        int value;
+        MyClass(int v) : value(v) {}
+    };
+    
+    // Function to modify object passed by value
+    void modifyByValue(MyClass obj) {
+        obj.value = 42; // Modifies the copy, not the original
+    }
+    
+    // Function to modify object passed by reference
+    void modifyByReference(MyClass& obj) {
+        obj.value = 42; // Modifies the original object
+    }
+    
+    int main() {
+        MyClass obj(10);
+    
+        cout << "Original value: " << obj.value << endl;
+    
+        // Pass object by value
+        modifyByValue(obj);
+        cout << "After modifyByValue: " << obj.value << endl;
+    
+        // Pass object by reference
+        modifyByReference(obj);
+        cout << "After modifyByReference: " << obj.value << endl;
+    
+        return 0;
+    }
+\end{lstlisting}
+    
