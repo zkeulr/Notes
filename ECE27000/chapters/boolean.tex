@@ -1,7 +1,8 @@
 \section{Boolean Algebra}
 Computers operate in binary. To represent the state of a
 computer we require a suitable mathematical framework,
-provided by boolean algebra.
+provided by boolean algebra. In boolean algebra, variables 
+can only take on two values: 0 and 1. 
 
 \begin{table}[h]
     \centering
@@ -22,12 +23,34 @@ provided by boolean algebra.
                                 & $(X + Y) \cdot (X + Z) \cdot (Y + Z) = (X + Y) \cdot (X + Z)$                                  \\ \hline
         Generalized Idempotency & $X + X + \dots + X = X$                                                                        \\
                                 & $X \cdot X \cdot \dots \cdot X = X$                                                            \\ \hline
-        DeMorgan’s Theorems     & $(X_1 \cdot X_2 \cdot \dots \cdot X_n)' = X_1' + X_2' + \dots + X_n'$                          \\
+        DeMorgan's Theorems     & $(X_1 \cdot X_2 \cdot \dots \cdot X_n)' = X_1' + X_2' + \dots + X_n'$                          \\
                                 & $(X_1 + X_2 + \dots + X_n)' = X_1' \cdot X_2' \cdot \dots \cdot X_n'$                          \\ \hline
-        Generalized DeMorgan’s  & $F(X_1, X_2, \dots, X_n, +, \cdot) = F(X_1, X_2, \dots, X_n, \cdot, +)'$                       \\ \hline
-        Shannon’s Expansion     & $F(X_1, X_2, \dots, X_n) = X_1 \cdot F(1, X_2, \dots, X_n) + X_1' \cdot F(0, X_2, \dots, X_n)$ \\
+        Generalized DeMorgan's  & $F(X_1, X_2, \dots, X_n, +, \cdot) = F(X_1, X_2, \dots, X_n, \cdot, +)'$                       \\ \hline
+        Shannon's Expansion     & $F(X_1, X_2, \dots, X_n) = X_1 \cdot F(1, X_2, \dots, X_n) + X_1' \cdot F(0, X_2, \dots, X_n)$ \\
                                 & $F(X_1, X_2, \dots, X_n) = [X_1 + F(0, X_2, \dots, X_n)] \cdot [X_1' + F(1, X_2, \dots, X_n)]$ \\ \hline
     \end{tabular}
     \caption{Boolean Algebra}
     \label{tab:boolean_rules}
 \end{table}
+
+An interesting and useful property in boolean algebra is "duality", where 
+replacing all ANDs with ORs and all 1s with 0s gives a valid and 
+equivalent theorem. For instance,
+\begin{table}[h]
+    \centering
+    \begin{tabular}{|c|c|}
+        \hline
+        X AND 0 = 0 & X OR 1 = 1 \\ \hline
+        X OR 0 = X & X AND 1 = X \\ 
+        \hline                                                                       \\
+    \end{tabular}
+    \caption{Boolean Duality}
+    \label{tab:boolean_duality}
+\end{table}
+
+Any logic can be implemented using just the following:
+\begin{itemize}
+    \item AND, OR, and NOT gates
+    \item NAND gates
+    \item NOR gates
+\end{itemize}
