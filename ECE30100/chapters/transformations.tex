@@ -116,4 +116,13 @@ The product of two odd signals is even (e.g. $x \times x^3$).
 The product of two evens is even ($x^2 \times 2$). The product of 
 an odd and an even is odd ($x \times x^2$). 
 
-Any signal can be written as the sum of an even and an odd signal. 
+Any signal can be written as the sum of an even and an odd signal 
+using these formulas: 
+\begin{align}
+    x(t) &= x_{even}(t) + x_{odd}(t) \\
+    &= \frac{x(t) + x(-t)}{2} + \frac{x(t) - x(-t)}{2} \\
+\end{align}
+\begin{align}
+    x[n] &= x_{even}[n] + x_{odd}[n] \\
+    &= \frac{x[n] + x[-n]}{2} + \frac{x[n] - x[-n]}{2} \\
+\end{align}
