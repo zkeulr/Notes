@@ -1,0 +1,51 @@
+\section{Copy Constructor}
+
+The copy constructor allows you to copy the values of one object
+to another. If you have any pass-by-value functions in your class, 
+then you'll need to create a copy constructor since pass-by-value 
+creates a copy of the object to manipulate within the method. 
+
+\begin{lstlisting}[language=C++,caption=Copy Constructor]
+#include <iostream>
+#include <cstring>
+
+class Person {
+private:
+    char* name;
+    int age;
+
+public:
+    Person(const char* personName, int personAge) {
+        name = new char[strlen(personName) + 1]; // Allocate memory
+        strcpy(name, personName); // Copy the string
+        age = personAge;
+    }
+
+    // Copy constructor
+    Person(const Person& other) {
+        name = new char[strlen(other.name) + 1]; // Allocate new memory
+        strcpy(name, other.name); // Copy the name
+        age = other.age; // Copy the age
+    }
+};
+
+int main() {
+    Person person1("Alice", 25); // Create the first object
+    Person person2 = person1; // Use the copy constructor
+
+    return 0;
+}
+\end{lstlisting}
+
+We must be careful in the case of self-assignment (\texttt{x = x}), 
+especially if anything is being deleted in the copy constructor. 
+It's wise to include a check for self assignment and to simply 
+return \texttt{*this} if true. 
+
+\begin{lstlisting}[language=C++,caption=Self Assignment Check]
+    const MyClass& MyClass::operator=(const MyClass& copyFrom) {
+        if(this == &copyFrom) { return *this; }
+
+        // other copying logic
+    }
+    \end{lstlisting}
