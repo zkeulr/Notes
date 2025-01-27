@@ -1,8 +1,15 @@
 \section{Classifying Signal Types}
-Before we proceed we must be able to classify signal types. We
-have so far seen continuous time and discrete time signals,
-and now we introduce \emph{complex} signals as well. Let's define
-all of these here:
+Before we proceed we must be able to classify signal types.
+There are five ways to divide signal types.
+\begin{itemize}
+    \item DT vs. CT
+    \item Periodic vs. aperiodic
+    \item Finite energy vs. finite power
+    \item Even and odd
+    \item Complex exponential
+\end{itemize}
+
+\subsection{DT vs. CT}
 \begin{itemize}
     \item DT: $x[n]$ is a sequence of complex values, including purely real values.
           numbers. Example: $x[n] = \frac{n}{2}$.
@@ -25,6 +32,8 @@ We can swap between the two with Euler's formula.
     A[n]e^{j\Theta[n]}     & = A[n]\cos(\Theta[n]) + jA[n]\sin(\Theta[n])                                        \\
     x_{Re}[n] + jx_{Im}[n] & = \sqrt{x_{Re}[n]^2 + x_{Im}[n]^2} \times e^{j\arctan(\frac{x_{Im}[n]}{x_{Re}[n]})}
 \end{align}
+
+\subsection{Energy vs. Power}
 DT vs. CT is one option to classify signals. Another
 possibility is Energy vs. Power. For this class, energy in a continuous
 time system is the area under the squared magnitude of the signal. Mathematically
@@ -58,3 +67,21 @@ for CT and
     P_{\infty} = \lim_{N \rightarrow \infty} \frac{1}{2N + 1} \sum_{n=-N}^{N} |x[n]|^2
 \end{equation}
 for DT time.
+
+\subsection{Complex exponential}
+A CT complex exponential signal is of the form 
+$x(t) = Ce^{\alpha t}$, where $C$ and $\alpha$ 
+are in general complex. Alternatively, 
+\begin{equation}
+    x(t) = |C| e^{\sigma t} e^{j(\omega t + \phi)}
+\end{equation}
+where $\phi$ is the angle between the real axis and 
+$C$ when plotted on the complex plane and $\alpha = \sigma + j\omega$. 
+
+The $\sigma$ term determines whether the signal has exponential 
+growth, decay, or neither. If $\sigma = 0$ then we are left 
+with the periodic complex exponential $e^{j(\omega t + \phi)}$ 
+with period $\frac{2\pi}{\omega}$. 
+
+$\omega$ is called the fundemental frequency, 
+$\phi$ is called the phase. 
