@@ -1,0 +1,28 @@
+\section{Verilog}
+
+SystemVerilog is a hardware description and verification language 
+(HDVL) that extends Verilog by adding high-level programming constructs. 
+It is widely used for modeling, simulating, and verifying digital 
+systems.
+
+The listing below is an example of a NAND gate expressed in SystemVerilog.
+
+\begin{lstlisting}[caption={NAND}, label={lst:nand_gate}]
+module nand_gate (
+    input  logic a,
+    input  logic b,
+    output logic y
+);
+    assign y = ~(a & b);
+endmodule
+\end{lstlisting}
+
+In SystemVerilog, numbers are written in format
+\texttt{[size]'[base][number]}, for example:
+\begin{itemize}
+    \item 4'b1001 (binary, 9 in decimal, bit width 4 bits)
+    \item 8'hf1 (hex, equals 421, bit width 8 bits)
+    \item 3'o3 (octal, 3, bit width 3 bits)
+    \item 32'b1001\_1101\_0101\_1111 (binary, 40255, bit width 32 bits)
+\end{itemize}
+
