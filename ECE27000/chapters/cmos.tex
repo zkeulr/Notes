@@ -1,0 +1,97 @@
+\section{CMOS}
+Complementary Metal-Oxide-Semiconductor (CMOS) 
+technology is the dominant semiconductor technology 
+for modern integrated circuits. CMOS combines both n-type 
+(NMOS) and p-type (PMOS) metal-oxide-semiconductor field-effect
+transistors (MOSFETs) to create the familiar logic gates such as 
+AND, NOT, XOR, etc. 
+
+\subsection{PMOS}
+\begin{figure}[h]
+    \centering
+    \begin{circuitikz}
+        \draw (0,0) node[pmos](P){};
+        \draw (P.gate) to[short] ++(-0.5,0) node[left]{Gate};
+        \draw (P.source) to[short] ++(0,0.5) node[above]{Source ($V_{DD}$)};
+        \draw (P.drain) to[short] ++(0,-0.5) node[below]{Drain};
+    \end{circuitikz}
+    \caption{PMOS transistor circuit symbol}
+    \label{fig:pmos}
+\end{figure}
+
+PMOS transistors consist of:
+\begin{itemize}
+    \item p+ source and drain regions
+    \item n-type substrate (body)
+    \item SiO\textsubscript{2} gate dielectric
+    \item Polysilicon gate electrode
+\end{itemize}
+
+PMOS operates with negative gate-to-source voltage ($V_{GS}$):
+\begin{itemize}
+    \item \textbf{Cut-off Region} ($V_{GS} > V_{th,p}$):
+    \begin{equation*}
+        I_D = 0
+    \end{equation*}
+    \item \textbf{Linear Region} ($V_{GS} \leq V_{th,p}$ and $V_{DS} \geq V_{GS} - V_{th,p}$):
+    \begin{equation*}
+        I_D = -\mu_p C_{ox} \frac{W}{L} \left[(V_{GS} - V_{th,p})V_{DS} - \frac{V_{DS}^2}{2}\right]
+    \end{equation*}
+    \item \textbf{Saturation Region} ($V_{GS} \leq V_{th,p}$ and $V_{DS} < V_{GS} - V_{th,p}$):
+    \begin{equation*}
+        I_D = -\frac{1}{2} \mu_p C_{ox} \frac{W}{L} (V_{GS} - V_{th,p})^2
+    \end{equation*}
+\end{itemize}
+
+\subsection{NMOS}
+\begin{figure}[h]
+    \centering
+    \begin{circuitikz}
+        \draw (0,0) node[nmos](N){};
+        \draw (N.gate) to[short] ++(-0.5,0) node[left]{Gate};
+        \draw (N.source) to[short] ++(0,-0.5) node[below]{Source (GND)};
+        \draw (N.drain) to[short] ++(0,0.5) node[above]{Drain};
+    \end{circuitikz}
+    \caption{NMOS transistor circuit symbol}
+    \label{fig:nmos}
+\end{figure}
+
+NMOS transistors consist of:
+\begin{itemize}
+    \item n+ source and drain regions
+    \item p-type substrate (body)
+    \item SiO\textsubscript{2} gate dielectric
+    \item Polysilicon gate electrode
+\end{itemize}
+
+NMOS operates with positive gate-to-source voltage ($V_{GS}$):
+\begin{itemize}
+    \item \textbf{Cut-off Region} ($V_{GS} < V_{th,n}$):
+    \begin{equation*}
+        I_D = 0
+    \end{equation*}
+    \item \textbf{Linear Region} ($V_{GS} \geq V_{th,n}$ and $V_{DS} \leq V_{GS} - V_{th,n}$):
+    \begin{equation*}
+        I_D = \mu_n C_{ox} \frac{W}{L} \left[(V_{GS} - V_{th,n})V_{DS} - \frac{V_{DS}^2}{2}\right]
+    \end{equation*}
+    \item \textbf{Saturation Region} ($V_{GS} \geq V_{th,n}$ and $V_{DS} > V_{GS} - V_{th,n}$):
+    \begin{equation*}
+        I_D = \frac{1}{2} \mu_n C_{ox} \frac{W}{L} (V_{GS} - V_{th,n})^2
+    \end{equation*}
+\end{itemize}
+\begin{table}[h]
+    \centering
+    \begin{tabular}{|l|l|l|}
+        \hline
+        \textbf{Parameter} & \textbf{PMOS} & \textbf{NMOS} \\
+        \hline
+        Majority Carrier & Holes & Electrons \\
+        Substrate Type & n-type & p-type \\
+        Threshold Voltage & Negative & Positive \\
+        Mobility ($\mu$) & Lower ($\approx 150 \frac{cm^2}{V_s}$) & Higher ($\approx 400 \frac{cm^2}{V_s}$) \\
+        Speed & Slower & Faster \\
+        \hline
+    \end{tabular}
+    \caption{PMOS vs NMOS characteristics}
+    \label{tab:comparison}
+\end{table}
