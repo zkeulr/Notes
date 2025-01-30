@@ -1,26 +1,74 @@
 \section{Asymptotic Notation}
 
 \subsection{Big O}
-Big \( O \) notation describes the upper bound 
+Big $O$ notation describes the upper bound 
 of an algorithm's growth rate. It provides an 
 asymptotic measure of the time complexity or 
 space complexity of an algorithm as a function of 
-the input size. Informally, big \( O \) notation
+the input size. Informally, big $O$ notation
 just picks out the highest 
 order term from your runtime expression. 
-Formally, Big \( O \) is defined as follows:
+Formally, Big $O$ is defined as follows:
 \[
 f(n) \in O(g(n)) \iff \exists \, c > 0 \text{ and } n_0 \geq 0 \text{ such that } \forall n \geq n_0, \, 0 \leq f(n) \leq c \cdot g(n).
 \]
 \begin{itemize}
-    \item \( f(n) \): The function representing the actual growth rate of the algorithm.
-    \item \( g(n) \): The comparison function, often representing the dominant term of \( f(n) \).
-    \item \( c > 0 \): A constant that scales \( g(n) \) to bound \( f(n) \).
-    \item \( n_0 \): A constant representing the threshold beyond which the inequality holds.
+    \item $f(n)$: The function representing the actual growth rate of the algorithm.
+    \item $g(n)$: The comparison function, often representing the dominant term of $f(n)$.
+    \item $c > 0$: A constant that scales $g(n)$ to bound $f(n)$.
+    \item $n_0$: A constant representing the threshold beyond which the inequality holds.
 \end{itemize}
 
-Big \( O \) notation focuses on the dominant term of \( g(n) \), 
+Big $O$ notation focuses on the dominant term of $g(n)$, 
 ignoring lower-order terms and constant factors, to provide a 
 simplified representation of the algorithm's efficiency.
 
-% \subsection{Big $\Theta$}
+\subsection{Big $\Omega$}
+Big $\Omega$ notation describes the lower bound 
+of an algorithm's growth rate. It provides an 
+asymptotic measure of the minimum time complexity or 
+space complexity of an algorithm as a function of 
+the input size. While Big $O$ focuses on the upper bound, 
+Big $\Omega$ focuses on the lower bound, ensuring that the 
+algorithm's growth rate is at least as fast as a specified 
+function, up to constant factors. Formally, Big $\Omega$ is defined as follows:
+\[
+f(n) \in \Omega(g(n)) \iff \exists \, c > 0 \text{ and } n_0 \geq 0 \text{ such that } \forall n \geq n_0, \, 0 \leq c \cdot g(n) \leq f(n).
+\]
+\begin{itemize}
+    \item $f(n)$: The function representing the actual growth rate of the algorithm.
+    \item $g(n)$: The comparison function, representing the lower bound on $f(n)$.
+    \item $c > 0$: A constant that scales $g(n)$ to bound $f(n)$ from below.
+    \item $n_0$: A constant representing the threshold beyond which the inequality holds.
+\end{itemize}
+
+Big $\Omega$ notation is used to describe the best-case or 
+minimum growth rate of an algorithm. For example, if an 
+algorithm's runtime is $\Omega(n \log n)$, it means that the 
+algorithm cannot perform better than $n \log n$ in the best case, 
+up to constant factors. This notation is particularly useful 
+when proving lower bounds on the complexity of problems or algorithms.
+
+\subsection{Big $\Theta$}
+Big $\Theta$ notation describes both the upper and lower bounds 
+of an algorithm's growth rate. It provides a tight asymptotic 
+bound on the time complexity or space complexity of an algorithm 
+as a function of the input size. Unlike Big $O$, which only provides 
+an upper bound, Big $\Theta$ ensures that the growth rate of the 
+algorithm is bounded both above and below by the same function, 
+up to constant factors. Formally, Big $\Theta$ is defined as follows:
+\[
+f(n) \in \Theta(g(n)) \iff \exists \, c_1, c_2 > 0 \text{ and } n_0 \geq 0 \text{ such that } \forall n \geq n_0, \, c_1 \cdot g(n) \leq f(n) \leq c_2 \cdot g(n).
+\]
+\begin{itemize}
+    \item $f(n)$: The function representing the actual growth rate of the algorithm.
+    \item $g(n)$: The comparison function, representing the tight bound on $f(n)$.
+    \item $c_1, c_2 > 0$: Constants that scale $g(n)$ to bound $f(n)$ from below and above.
+    \item $n_0$: A constant representing the threshold beyond which the inequality holds.
+\end{itemize}
+
+Big $\Theta$ notation is used when the growth rate of an algorithm 
+is known to be tightly constrained by a specific function, providing 
+a precise characterization of its efficiency. For example, if an 
+algorithm's runtime is both $O(n^2)$ and $\Omega(n^2)$, then its 
+runtime is $\Theta(n^2)$.
