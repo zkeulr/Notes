@@ -72,3 +72,53 @@ is known to be tightly constrained by a specific function, providing
 a precise characterization of its efficiency. For example, if an 
 algorithm's runtime is both $O(n^2)$ and $\Omega(n^2)$, then its 
 runtime is $\Theta(n^2)$.
+
+\subsection{Little $o$}
+Little $o$ notation describes an upper bound that is not tight. 
+It provides a stricter asymptotic measure of the growth rate 
+of an algorithm compared to Big $O$ notation. While Big $O$ 
+allows for the possibility that the growth rates are the same 
+up to constant factors, Little $o$ ensures that the growth rate 
+of the function is strictly less than the comparison function. 
+Formally, Little $o$ is defined as follows:
+\[
+f(n) \in o(g(n)) \iff \forall \, c > 0, \, \exists \, n_0 \geq 0 \text{ such that } \forall n \geq n_0, \, 0 \leq f(n) < c \cdot g(n).
+\]
+\begin{itemize}
+    \item $f(n)$: The function representing the actual growth rate of the algorithm.
+    \item $g(n)$: The comparison function, representing the upper bound on $f(n)$.
+    \item $c > 0$: A constant that scales $g(n)$ to bound $f(n)$ strictly from above.
+    \item $n_0$: A constant representing the threshold beyond which the inequality holds.
+\end{itemize}
+
+Little $o$ notation is used to describe situations where the growth rate 
+of an algorithm is strictly smaller than the comparison function. For example, 
+if $f(n) = 2n + 3$, then $f(n) \in o(n^2)$, because $2n + 3$ grows strictly 
+slower than $n^2$ as $n$ becomes large. This notation is particularly useful 
+when emphasizing that an algorithm's growth rate is asymptotically insignificant 
+compared to another function.
+
+\subsection{Little $\omega$}
+Little $\omega$ notation describes a lower bound that is not tight. 
+It provides a stricter asymptotic measure of the growth rate 
+of an algorithm compared to Big $\Omega$ notation. While Big $\Omega$ 
+allows for the possibility that the growth rates are the same 
+up to constant factors, Little $\omega$ ensures that the growth rate 
+of the function is strictly greater than the comparison function. 
+Formally, Little $\omega$ is defined as follows:
+\[
+f(n) \in \omega(g(n)) \iff \forall \, c > 0, \, \exists \, n_0 \geq 0 \text{ such that } \forall n \geq n_0, \, 0 \leq c \cdot g(n) < f(n).
+\]
+\begin{itemize}
+    \item $f(n)$: The function representing the actual growth rate of the algorithm.
+    \item $g(n)$: The comparison function, representing the lower bound on $f(n)$.
+    \item $c > 0$: A constant that scales $g(n)$ to bound $f(n)$ strictly from below.
+    \item $n_0$: A constant representing the threshold beyond which the inequality holds.
+\end{itemize}
+
+Little $\omega$ notation is used to describe situations where the growth rate 
+of an algorithm is strictly larger than the comparison function. For example, 
+if $f(n) = n^2$, then $f(n) \in \omega(n)$, because $n^2$ grows strictly 
+faster than $n$ as $n$ becomes large. This notation is particularly useful 
+when emphasizing that an algorithm's growth rate is asymptotically dominant 
+compared to another function.
