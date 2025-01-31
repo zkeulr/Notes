@@ -3,8 +3,6 @@
 A system is periodic if $x(t) = x(t + T)$, or 
 in the case of discrete time, if $x[n] = x[n + N]$. 
 
-
-% Periodic Continuous-Time Signal
 \begin{figure}
     \centering
     \begin{tikzpicture}[scale=1]
@@ -14,13 +12,11 @@ in the case of discrete time, if $x[n] = x[n + N]$.
     
         \draw[thick, blue, domain=0:6.5, samples=100] plot (\x, {sin(60*\x)});
     
-        % T markings
         \node[below] at (3, 0) {$T$};
         \draw[dashed] (3, -1.2) -- (3, 1.2);
         \node[below] at (6, 0) {$2T$};
         \draw[dashed] (6, -1.2) -- (6, 1.2);
     
-        % Labels
         \node[above right] at (1, 1) {$x(t) = \sin\left(\frac{2\pi t}{T}\right)$};
     \end{tikzpicture}
     \caption{Periodic CT Signal}
@@ -29,21 +25,17 @@ in the case of discrete time, if $x[n] = x[n + N]$.
 \begin{figure}
     \centering
     \begin{tikzpicture}[scale=1]
-        % Axes
         \draw[->] (-0.5, 0) -- (7, 0) node[right] {$n$};
         \draw[->] (0, -1.5) -- (0, 1.5) node[above] {$x[n]$};
     
-        % Stem plot for a cosine signal
         \foreach \n in {0, 1, ..., 7} {
             \draw[thick, blue] (\n, 0) -- (\n, {cos(60*\n)});
             \filldraw[blue] (\n, {cos(60*\n)}) circle (0.07);
         }
     
-        % T markings
         \node[below] at (6, 0) {$N$};
         \draw[dashed] (6, -1.2) -- (6, 1.2);
     
-        % Labels
         \node[above right] at (2, 1) {$x[n] = \cos\left(\frac{2\pi n}{N}\right)$};
     \end{tikzpicture}
     \caption{Periodic DT Signal}
@@ -87,3 +79,15 @@ we can just calculate the power over one period.
     \end{tikzpicture}
     \caption{Periodic Signals Sum}
 \end{figure}
+
+\subsection{Periodicty in Discrete Time}
+Periods in discrete time differ in some 
+unintuitive ways from the continuous time case. 
+For instance, in CT, two functions with 
+different $\omega$ will never represent 
+the same function. However, in DT, they can 
+if $\omega_2 = \omega_1 + 2\pi$. Functions like 
+$x[n] = \cos(n)$ are aperiodic in discrete time 
+since the period as given by $\frac{2\pi}\omega$
+must be a rational number, and in this case it's 
+$2\pi$. 

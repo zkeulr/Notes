@@ -1,0 +1,89 @@
+\section{Complex Exponential}
+A CT complex exponential signal is of the form 
+$x(t) = Ce^{\alpha t}$, where $C$ and $\alpha$ 
+are in general complex. Alternatively, 
+\begin{equation}
+    x(t) = |C| e^{\sigma t} e^{j(\omega t + \phi)}
+\end{equation}
+where $\phi$ is the angle between the real axis and 
+$C$ when plotted on the complex plane and $\alpha = \sigma + j\omega$. 
+
+The $\sigma$ term determines whether the signal has exponential 
+growth, decay, or neither. If $\sigma = 0$ then we are left 
+with the periodic complex exponential $e^{j(\omega t + \phi)}$ 
+with period $\frac{2\pi}{\omega}$. 
+
+$\omega$ is called the fundemental frequency, 
+$\phi$ is called the phase. 
+
+The signal $x(t) = |C|e^{\sigma t}e^{j(\omega t + \phi)}$
+forms a family of signals called harmonically 
+related complex exponentials (HRCEs), each of the 
+form 
+\begin{equation}
+    x_k(t) = e^{jk\omega_0 t}, k \in \mathbb{Z}.
+\end{equation}
+These signals will serve as our building 
+blocks when we construct Fourier series 
+of complex exponential signals later on. 
+
+Let's now look at the discrete time 
+complex exponential,
+\begin{equation}
+    x[n] = C \alpha^n.
+\end{equation}
+In general, $C$ and $\alpha$ can be complex. 
+This can be rewritten 
+\begin{eqnarray}
+    x[n] = |C|e^{\sigma n} e^{j(\omega n + \phi)}. 
+\end{eqnarray}
+Where the continuous and discrete begin 
+to diverge is when we consider the 
+$e^{j(\omega n + \phi)}$ term. This 
+term is not always periodic, unlike 
+the case of continuous time. For 
+the CT case, the fundemental 
+frequency is $\omega$ and larger 
+values of $\omega$ produce 
+higher rates of oscillation. 
+
+Now say we want to compute the 
+fundemental period of $x[n] = \cos(3\pi n)$. 
+In the continuous case it's easy, $\frac{2}{3}$.
+In the discrete case, we need to 
+find the least common multiple 
+of the fundemental period 
+of the CT signal (in this case, 
+$\frac{2}{3}$) and the sampling 
+period. This is why the 
+discrete case may not be periodic.
+Imagine the sampling period is 1
+and the fundemental period of the 
+CT signal is $2 \pi$. Then the 
+least common multiple does not 
+exist. 
+
+Let's do an example problem. 
+Consider the signal 
+\begin{eqnarray}
+    x(t) = e^{j2t} + e^{j5t}.
+\end{eqnarray}
+We can rewrite this, using 
+the identity 
+\begin{equation}
+    \cos(\omega t) = \frac{e^{-j \omega t}+ e^{j\omega t}}{2}
+\end{equation}
+to the expression 
+\begin{align}
+    e^{j 3.5 t} (e^{j1.5t} + e^{-j 1.5 t}) \\
+    &= 2 e^{j 3.5 t}\cos(1.5t) \\
+    |x(t)| &= 2|\cos(1.5 t)|
+\end{align}
+
+\begin{align}
+    x[n] &= C\alpha^n \\
+    &= Ce^{\beta n}
+\end{align}
+is the general form of a discrete complex exponential and 
+$\beta$ is in general complex. If $\alpha$ is real and less 
+than 0, then $\beta$ must be complex. 
