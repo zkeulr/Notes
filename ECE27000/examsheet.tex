@@ -70,6 +70,16 @@
     \end{tabular}
 \end{table}
 
+\begin{lstlisting}[language=SystemVerilog]
+//    !  : Logical NOT, ~ : Bitwise NOT
+//    && : Logical AND, & : Bitwise AND
+//    || : Logical OR,  | : Bitwise OR
+//    ^  : Bitwise XOR
+//    ~^ : Bitwise XNOR
+//    == : Equality,    === : Case Equality (4-state)
+//    != : Inequality,  !== : Case Inequality (4-state)
+\end{lstlisting}
+
 \begin{lstlisting}
 module my_module (
   input  logic clk,   // clock
@@ -109,14 +119,6 @@ property p_reset;
 endproperty
 
 assert property(p_reset);
-\end{lstlisting}
-
-\begin{lstlisting}
-class Packet;
-  rand bit [7:0]  addr;
-  rand bit [31:0] data;
-  constraint addr_range { addr < 100; }
-endclass
 \end{lstlisting}
 
 \renewcommand{\arraystretch}{1.5}
@@ -249,21 +251,26 @@ endclass
 \end{tabular}
 \end{flushleft}
 
-\begin{tikzpicture}[circuit ee IEC, every node/.style={font=\small}]
-  \draw (0,0) node[pmos, rotate=0] (PMOS) {};
-  \node[below=0.5cm of PMOS] {PMOS};
-  
-  \draw (3,0) node[nmos, rotate=0] (NMOS) {};
-  \node[below=0.5cm of NMOS] {NMOS};
-\end{tikzpicture}
+
+\begin{center}
+    \begin{tikzpicture}[circuit ee IEC, every node/.style={font=\small}]
+        \draw (0,0) node[pmos, rotate=0] (PMOS) {};
+        \node[below=0.5cm of PMOS] {PMOS};
+        
+        \draw (3,0) node[nmos, rotate=0] (NMOS) {};
+        \node[below=0.5cm of NMOS] {NMOS};
+    \end{tikzpicture}
+\end{center}
+
 
 \begin{table}[h]
-    \begin{tabular}{|l|l|}
+    \centering
+    \begin{tabular}{|l|l|l|}
         \hline
-        \textbf{PMOS} & \textbf{NMOS} \\
+        \textbf{Parameter} & \textbf{PMOS} & \textbf{NMOS} \\
         \hline
-        n-type & p-type \\
-        Negative & Positive \\
+        Substrate Type & n-type & p-type \\
+        Threshold Voltage & Negative & Positive \\
         \hline
     \end{tabular}
 \end{table}
