@@ -86,9 +86,18 @@ unintuitive ways from the continuous time case.
 For instance, in CT, two functions with 
 different $\omega$ will never represent 
 the same function. However, in DT, they can 
-if $\omega_2 = \omega_1 + 2\pi$. Functions like 
+if $\omega_2 = \omega_1 + 2\pi n$. Functions like 
 $x[n] = \cos(n)$ are aperiodic in discrete time 
 since the period as given by $\frac{2\pi}\omega$
 must be a rational number, and in this case it's 
 $2\pi$. When $\omega = k\pi$, $k = 1, 3, 5, \dots$ and 
 $e^{jkn} = (-1)^n$. 
+In general, if 
+\begin{equation}
+    x_k[n] = e^{jk \frac{2\pi}{N}n}
+\end{equation}
+then $x_k[n]$ is unique only for $k = 0, 1, \dots, N-1$. 
+Also in general, 
+\begin{equation}
+    N_k = LCM(\frac{N}{k}, 1)
+\end{equation}

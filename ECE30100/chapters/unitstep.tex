@@ -77,3 +77,78 @@ Below is the plot for the continuous-time unit step signal:
 \caption{Continuous-Time Unit Step Signal}
 \end{figure}
 
+\subsection{Discrete-Time Delta Function}
+The discrete-time delta function, known as the Kronecker delta function, is defined as:
+\[
+\delta[n] =
+\begin{cases}
+1 & n = 0, \\
+0 & n \neq 0.
+\end{cases}
+\]
+
+Figure \ref{fig:dt delta} is the plot for the discrete-time delta function:
+
+\begin{figure}[h!]
+\centering
+\begin{tikzpicture}
+    \begin{axis}[
+        xlabel={$n$},
+        ylabel={$\delta[n]$},
+        grid=major,
+        ytick={0,1},
+        xtick={-5,-4,...,5},
+        ymin=-0.5, ymax=1.5,
+        xmin=-5, xmax=5,
+        width=0.8\textwidth,
+        height=6cm,
+        samples=100,
+        domain=-5:5
+    ]
+    \addplot+[only marks, mark=*] coordinates {
+        (-5,0) (-4,0) (-3,0) (-2,0) (-1,0)
+        (0,1) (1,0) (2,0) (3,0) (4,0) (5,0)
+    };
+    \end{axis}
+\end{tikzpicture}
+\caption{Discrete-Time Delta Function}
+\label{fig:dy delta}
+\end{figure}
+
+\subsection{Continuous-Time Delta Function}
+The continuous-time delta function, known as the Dirac delta function, is a distribution rather than a conventional function and is defined as:
+\[
+\delta(t) = \begin{cases} 
+\infty & t = 0, \\
+0 & t \neq 0, 
+\end{cases}
+\]
+with the property that:
+\[
+\int_{-\infty}^{\infty} \delta(t) dt = 1.
+\]
+
+Figure \ref{fig:ct delta} is the plot for the continuous-time delta function:
+
+\begin{figure}[h!]
+\centering
+\begin{tikzpicture}
+    \begin{axis}[
+        xlabel={$t$},
+        ylabel={$\delta(t)$},
+        grid=major,
+        xtick={-5,-4,-3,-2,-1,0,1,2,3,4,5},
+        ymin=-0.5, ymax=2,
+        xmin=-5, xmax=5,
+        width=0.8\textwidth,
+        height=6cm,
+        samples=100
+    ]
+    \addplot[thick, domain=-5:5, samples=2] {0};
+    \addplot[only marks, mark=triangle*, mark size=3pt] coordinates {(0,1.5)};
+    \addplot[thick] coordinates {(0,0) (0,1.5)};
+    \end{axis}
+\end{tikzpicture}
+\caption{Continuous-Time Delta Function}
+\label{fig:ct delta}
+\end{figure}
