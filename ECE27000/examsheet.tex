@@ -81,13 +81,23 @@
 \end{lstlisting}
 
 \begin{lstlisting}
-module my_module (
-  input  logic clk,   // clock
-  input  logic rst,   // reset
-  output logic out
+module top_module (
+  input  logic x1,
+  input  logic y1,
+  output logic f1
 );
   // Module internals here
 endmodule
+
+module sub_module (
+  input  logic x2,
+  input  logic y2,
+  output logic f2
+);
+  // Submodule internals here
+endmodule
+
+sub_module sub_inst(.x2(x1), .y2(y1), .f2(f1));
 \end{lstlisting}
 
 \begin{lstlisting}
@@ -111,14 +121,6 @@ interface simple_if (input logic clk);
   modport master (output data);
   modport slave  (input  data);
 endinterface
-\end{lstlisting}
-
-\begin{lstlisting}
-property p_reset;
-  @(posedge clk) disable iff (rst) (a |-> b);
-endproperty
-
-assert property(p_reset);
 \end{lstlisting}
 
 \renewcommand{\arraystretch}{1.5}
