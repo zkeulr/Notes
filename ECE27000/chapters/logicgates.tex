@@ -1,113 +1,134 @@
-\section{Logic Gates}
-We represent boolean operations in circuit diagrams with gates. Below are their symbols and corresponding truth tables.
+\renewcommand{\arraystretch}{1.5}
+\newcommand{\gateBox}[3]{
+  \begin{minipage}[t]{0.45\textwidth}
+    \centering
+    \textbf{#1}\\[5pt]
+    #2\\[5pt]
+    #3
+  \end{minipage}
+}
 
-\begin{tabular}{c c}
-    \textbf{Buffer}                                                            &
+\section{Logic Gates}
+\begin{center}
+\begin{tabular}{>{\centering\arraybackslash}m{0.5\textwidth} >{\centering\arraybackslash}m{0.5\textwidth}}
+  % First Row
+  \gateBox{Buffer}{%
     \begin{tabular}{|c|c|}
-        \hline
-        A & Output \\
-        \hline
-        0 & 0      \\
-        1 & 1      \\
-        \hline
-    \end{tabular}                                                        \\
+      \hline
+      A & Output \\ \hline
+      0 & 0      \\ \hline
+      1 & 1      \\ \hline
+    \end{tabular}
+  }{%
     \begin{tikzpicture}[circuit logic US]
-        \node (buffer) [buffer gate, draw, logic gate inputs=1, anchor=output] {};
-    \end{tikzpicture} &    \\
-    \textbf{AND}                                                               &
-    \begin{tabular}{|c|c|c|}
-        \hline
-        A & B & Output \\
-        \hline
-        0 & 0 & 0      \\
-        0 & 1 & 0      \\
-        1 & 0 & 0      \\
-        1 & 1 & 1      \\
-        \hline
-    \end{tabular}                                                      \\
-    \begin{tikzpicture}[circuit logic US]
-        \node (and) [and gate, draw, logic gate inputs=nn] {};
-    \end{tikzpicture}                     &                        \\
-    \textbf{OR}                                                                &
-    \begin{tabular}{|c|c|c|}
-        \hline
-        A & B & Output \\
-        \hline
-        0 & 0 & 0      \\
-        0 & 1 & 1      \\
-        1 & 0 & 1      \\
-        1 & 1 & 1      \\
-        \hline
-    \end{tabular}                                                      \\
-    \begin{tikzpicture}[circuit logic US]
-        \node (or) [or gate, draw, logic gate inputs=nn] {};
-    \end{tikzpicture}                       &                          \\
-    \textbf{NOT}                                                               &
+      \node [buffer gate, draw, logic gate inputs=1, anchor=output] {};
+    \end{tikzpicture}
+  }
+  &
+  \gateBox{NOT}{%
     \begin{tabular}{|c|c|}
-        \hline
-        A & Output \\
-        \hline
-        0 & 1      \\
-        1 & 0      \\
-        \hline
-    \end{tabular}                                                        \\
+      \hline
+      A & Output \\ \hline
+      0 & 1      \\ \hline
+      1 & 0      \\ \hline
+    \end{tabular}
+  }{%
     \begin{tikzpicture}[circuit logic US]
-        \node (not) [not gate, draw, logic gate inputs=n] {};
-    \end{tikzpicture}                      &                         \\
-    \textbf{NAND}                                                              &
+      \node [not gate, draw, logic gate inputs=n] {};
+    \end{tikzpicture}
+  }
+  \\[2em]
+  % Second Row
+  \gateBox{OR}{%
     \begin{tabular}{|c|c|c|}
-        \hline
-        A & B & Output \\
-        \hline
-        0 & 0 & 1      \\
-        0 & 1 & 1      \\
-        1 & 0 & 1      \\
-        1 & 1 & 0      \\
-        \hline
-    \end{tabular}                                                      \\
+      \hline
+      A & B & Output \\ \hline
+      0 & 0 & 0      \\ \hline
+      0 & 1 & 1      \\ \hline
+      1 & 0 & 1      \\ \hline
+      1 & 1 & 1      \\ \hline
+    \end{tabular}
+  }{%
     \begin{tikzpicture}[circuit logic US]
-        \node (nand) [nand gate, draw, logic gate inputs=nn] {};
-    \end{tikzpicture}                   &                      \\
-    \textbf{NOR}                                                               &
+      \node [or gate, draw, logic gate inputs=nn] {};
+    \end{tikzpicture}
+  }
+  &
+  \gateBox{AND}{%
     \begin{tabular}{|c|c|c|}
-        \hline
-        A & B & Output \\
-        \hline
-        0 & 0 & 1      \\
-        0 & 1 & 0      \\
-        1 & 0 & 0      \\
-        1 & 1 & 0      \\
-        \hline
-    \end{tabular}                                                      \\
+      \hline
+      A & B & Output \\ \hline
+      0 & 0 & 0      \\ \hline
+      0 & 1 & 0      \\ \hline
+      1 & 0 & 0      \\ \hline
+      1 & 1 & 1      \\ \hline
+    \end{tabular}
+  }{%
     \begin{tikzpicture}[circuit logic US]
-        \node (nor) [nor gate, draw, logic gate inputs=nn] {};
-    \end{tikzpicture}                     &                        \\
-    \textbf{XOR}                                                               &
+      \node [and gate, draw, logic gate inputs=nn] {};
+    \end{tikzpicture}
+  }
+  \\[2em]
+  % Third Row
+  \gateBox{NAND}{%
     \begin{tabular}{|c|c|c|}
-        \hline
-        A & B & Output \\
-        \hline
-        0 & 0 & 0      \\
-        0 & 1 & 1      \\
-        1 & 0 & 1      \\
-        1 & 1 & 0      \\
-        \hline
-    \end{tabular}                                                      \\
+      \hline
+      A & B & Output \\ \hline
+      0 & 0 & 1      \\ \hline
+      0 & 1 & 1      \\ \hline
+      1 & 0 & 1      \\ \hline
+      1 & 1 & 0      \\ \hline
+    \end{tabular}
+  }{%
     \begin{tikzpicture}[circuit logic US]
-        \node (xor) [xor gate, draw, logic gate inputs=nn] {};
-    \end{tikzpicture}                     &                        \\
-    \textbf{XNOR}                                                              &
+      \node [nand gate, draw, logic gate inputs=nn] {};
+    \end{tikzpicture}
+  }
+  &
+  \gateBox{NOR}{%
     \begin{tabular}{|c|c|c|}
-        \hline
-        A & B & Output \\
-        \hline
-        0 & 0 & 1      \\
-        0 & 1 & 0      \\
-        1 & 0 & 0      \\
-        1 & 1 & 1      \\
-        \hline
-    \end{tabular}                                                      \\
+      \hline
+      A & B & Output \\ \hline
+      0 & 0 & 1      \\ \hline
+      0 & 1 & 0      \\ \hline
+      1 & 0 & 0      \\ \hline
+      1 & 1 & 0      \\ \hline
+    \end{tabular}
+  }{%
     \begin{tikzpicture}[circuit logic US]
-        \node (xnor) [xnor gate, draw, logic gate inputs=nn] {};
-    \end{tikzpicture}                   &                      \\
+      \node [nor gate, draw, logic gate inputs=nn] {};
+    \end{tikzpicture}
+  }
+  \\[2em]
+  % Fourth Row
+  \gateBox{XOR}{%
+    \begin{tabular}{|c|c|c|}
+      \hline
+      A & B & Output \\ \hline
+      0 & 0 & 0      \\ \hline
+      0 & 1 & 1      \\ \hline
+      1 & 0 & 1      \\ \hline
+      1 & 1 & 0      \\ \hline
+    \end{tabular}
+  }{%
+    \begin{tikzpicture}[circuit logic US]
+      \node [xor gate, draw, logic gate inputs=nn] {};
+    \end{tikzpicture}
+  }
+  &
+  \gateBox{XNOR}{%
+    \begin{tabular}{|c|c|c|}
+      \hline
+      A & B & Output \\ \hline
+      0 & 0 & 1      \\ \hline
+      0 & 1 & 0      \\ \hline
+      1 & 0 & 0      \\ \hline
+      1 & 1 & 1      \\ \hline
+    \end{tabular}
+  }{%
+    \begin{tikzpicture}[circuit logic US]
+      \node [xnor gate, draw, logic gate inputs=nn] {};
+    \end{tikzpicture}
+  }
 \end{tabular}
+\end{center}

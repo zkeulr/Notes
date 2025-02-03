@@ -1,0 +1,254 @@
+\documentclass[nobib]{tufte-handout}
+\usepackage{amssymb}
+\usepackage{hyperref}
+\usepackage{pgfplots}
+\usepackage{placeins}
+\usepackage{array}
+\usepackage{tikz}
+\usetikzlibrary{circuits.logic.US}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{geometry}
+\geometry{margin=0.2in}
+
+\lstdefinelanguage{SystemVerilog}{
+  morekeywords={module, endmodule, logic, bit, int, enum, struct,
+    always_ff, always_comb, initial, final, interface, modport, property,
+    assert, class, rand, constraint, generate, endgenerate, if, else, begin, end},
+  sensitive=true,
+  morecomment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  morestring=[b]",
+}
+
+\lstset{
+  language=SystemVerilog,
+  basicstyle=\ttfamily\footnotesize,
+  keywordstyle=\color{blue}\bfseries,
+  commentstyle=\color{gray}\itshape,
+  stringstyle=\color{red},
+  frame=single,
+  breaklines=true,
+  postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space},
+}
+
+\begin{document}
+
+\noindent PUID: \makebox[1.5in]{\hrulefill} \\[10pt]
+
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{|l|l|}
+        \hline
+        \textbf{Rule}           & \textbf{Expression}                                                                            \\ \hline
+        Commutativity           & $X + Y = Y + X$                                                                                \\
+                                & $X \cdot Y = Y \cdot X$                                                                        \\ \hline
+        Associativity           & $(X + Y) + Z = X + (Y + Z)$                                                                    \\
+                                & $(X \cdot Y) \cdot Z = X \cdot (Y \cdot Z)$                                                    \\ \hline
+        Distributivity          & $X \cdot Y + X \cdot Z = X \cdot (Y + Z)$                                                      \\
+                                & $(X + Y) \cdot (X + Z) = X + Y \cdot Z$                                                        \\ \hline
+        Covering                & $X + X \cdot Y = X$                                                                            \\
+                                & $X \cdot (X + Y) = X$                                                                          \\ \hline
+        Combining               & $X \cdot Y + X \cdot Y = X$                                                                    \\
+                                & $(X + Y) \cdot (X + Y) = X$                                                                    \\ \hline
+        Consensus               & $X \cdot Y + X \cdot Z + Y \cdot Z = X \cdot Y + X' \cdot Z$                                   \\
+                                & $(X + Y) \cdot (X + Z) \cdot (Y + Z) = (X + Y) \cdot (X + Z)$                                  \\ \hline
+        Generalized Idempotency & $X + X + \dots + X = X$                                                                        \\
+                                & $X \cdot X \cdot \dots \cdot X = X$                                                            \\ \hline
+        DeMorgan's Theorems     & $(X_1 \cdot X_2 \cdot \dots \cdot X_n)' = X_1' + X_2' + \dots + X_n'$                          \\
+                                & $(X_1 + X_2 + \dots + X_n)' = X_1' \cdot X_2' \cdot \dots \cdot X_n'$                          \\ \hline
+        Generalized DeMorgan's  & $F(X_1, X_2, \dots, X_n, +, \cdot) = F(X_1, X_2, \dots, X_n, \cdot, +)'$                       \\ \hline
+        Shannon's Expansion     & $F(X_1, X_2, \dots, X_n) = X_1 \cdot F(1, X_2, \dots, X_n) + X_1' \cdot F(0, X_2, \dots, X_n)$ \\
+                                & $F(X_1, X_2, \dots, X_n) = [X_1 + F(0, X_2, \dots, X_n)] \cdot [X_1' + F(1, X_2, \dots, X_n)]$ \\ \hline
+    \end{tabular}
+\end{table}
+
+\begin{lstlisting}
+module my_module (
+  input  logic clk,   // clock
+  input  logic rst,   // reset
+  output logic out
+);
+  // Module internals here
+endmodule
+\end{lstlisting}
+
+\begin{lstlisting}
+// Sequential (synchronous) logic
+always_ff @(posedge clk or posedge rst) begin
+  if (rst)
+    out <= 0;
+  else
+    out <= ~out;
+end
+
+// Combinational logic
+always_comb begin
+  // assignments that depend solely on input combinatorics
+end
+\end{lstlisting}
+
+\begin{lstlisting}
+interface simple_if (input logic clk);
+  logic data;
+  modport master (output data);
+  modport slave  (input  data);
+endinterface
+\end{lstlisting}
+
+\begin{lstlisting}
+property p_reset;
+  @(posedge clk) disable iff (rst) (a |-> b);
+endproperty
+
+assert property(p_reset);
+\end{lstlisting}
+
+\begin{lstlisting}
+class Packet;
+  rand bit [7:0]  addr;
+  rand bit [31:0] data;
+  constraint addr_range { addr < 100; }
+endclass
+\end{lstlisting}
+
+\renewcommand{\arraystretch}{1.5}
+\newcommand{\gateBox}[3]{
+  \begin{minipage}[t]{0.45\textwidth}
+    \centering
+    \textbf{#1}\\[5pt]
+    #2\\[5pt]
+    #3
+  \end{minipage}
+}
+
+\begin{center}
+\begin{tabular}{>{\centering\arraybackslash}m{0.2\textwidth} >{\centering\arraybackslash}m{0.2\textwidth}}
+  % First Row
+  \gateBox{Buffer}{%
+    \begin{tabular}{|c|c|}
+      \hline
+      A & Output \\ \hline
+      0 & 0      \\ \hline
+      1 & 1      \\ \hline
+    \end{tabular}
+  }{%
+    \begin{tikzpicture}[circuit logic US]
+      \node [buffer gate, draw, logic gate inputs=1, anchor=output] {};
+    \end{tikzpicture}
+  }
+  &
+  \gateBox{NOT}{%
+    \begin{tabular}{|c|c|}
+      \hline
+      A & Output \\ \hline
+      0 & 1      \\ \hline
+      1 & 0      \\ \hline
+    \end{tabular}
+  }{%
+    \begin{tikzpicture}[circuit logic US]
+      \node [not gate, draw, logic gate inputs=n] {};
+    \end{tikzpicture}
+  }
+  \\[2em]
+  % Second Row
+  \gateBox{OR}{%
+    \begin{tabular}{|c|c|c|}
+      \hline
+      A & B & Output \\ \hline
+      0 & 0 & 0      \\ \hline
+      0 & 1 & 1      \\ \hline
+      1 & 0 & 1      \\ \hline
+      1 & 1 & 1      \\ \hline
+    \end{tabular}
+  }{%
+    \begin{tikzpicture}[circuit logic US]
+      \node [or gate, draw, logic gate inputs=nn] {};
+    \end{tikzpicture}
+  }
+  &
+  \gateBox{AND}{%
+    \begin{tabular}{|c|c|c|}
+      \hline
+      A & B & Output \\ \hline
+      0 & 0 & 0      \\ \hline
+      0 & 1 & 0      \\ \hline
+      1 & 0 & 0      \\ \hline
+      1 & 1 & 1      \\ \hline
+    \end{tabular}
+  }{%
+    \begin{tikzpicture}[circuit logic US]
+      \node [and gate, draw, logic gate inputs=nn] {};
+    \end{tikzpicture}
+  }
+  \\[2em]
+  % Third Row
+  \gateBox{NAND}{%
+    \begin{tabular}{|c|c|c|}
+      \hline
+      A & B & Output \\ \hline
+      0 & 0 & 1      \\ \hline
+      0 & 1 & 1      \\ \hline
+      1 & 0 & 1      \\ \hline
+      1 & 1 & 0      \\ \hline
+    \end{tabular}
+  }{%
+    \begin{tikzpicture}[circuit logic US]
+      \node [nand gate, draw, logic gate inputs=nn] {};
+    \end{tikzpicture}
+  }
+  &
+  \gateBox{NOR}{%
+    \begin{tabular}{|c|c|c|}
+      \hline
+      A & B & Output \\ \hline
+      0 & 0 & 1      \\ \hline
+      0 & 1 & 0      \\ \hline
+      1 & 0 & 0      \\ \hline
+      1 & 1 & 0      \\ \hline
+    \end{tabular}
+  }{%
+    \begin{tikzpicture}[circuit logic US]
+      \node [nor gate, draw, logic gate inputs=nn] {};
+    \end{tikzpicture}
+  }
+  \\[2em]
+  % Fourth Row
+  \gateBox{XOR}{%
+    \begin{tabular}{|c|c|c|}
+      \hline
+      A & B & Output \\ \hline
+      0 & 0 & 0      \\ \hline
+      0 & 1 & 1      \\ \hline
+      1 & 0 & 1      \\ \hline
+      1 & 1 & 0      \\ \hline
+    \end{tabular}
+  }{%
+    \begin{tikzpicture}[circuit logic US]
+      \node [xor gate, draw, logic gate inputs=nn] {};
+    \end{tikzpicture}
+  }
+  &
+  \gateBox{XNOR}{%
+    \begin{tabular}{|c|c|c|}
+      \hline
+      A & B & Output \\ \hline
+      0 & 0 & 1      \\ \hline
+      0 & 1 & 0      \\ \hline
+      1 & 0 & 0      \\ \hline
+      1 & 1 & 1      \\ \hline
+    \end{tabular}
+  }{%
+    \begin{tikzpicture}[circuit logic US]
+      \node [xnor gate, draw, logic gate inputs=nn] {};
+    \end{tikzpicture}
+  }
+\end{tabular}
+\end{center}
+
+\end{document}
