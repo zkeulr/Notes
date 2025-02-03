@@ -1,0 +1,74 @@
+\section{Hashing}
+
+Hashing converts input data into a fixed-size string of 
+characters (the "hash") using a hashing algorithm. 
+
+\subsection{Properties}
+
+Effective hashing algorithms and systems typically exhibit several important properties:
+
+\begin{itemize}
+    \item \textbf{Determinism:} A given input will always produce the same hash output, ensuring consistency across operations.
+    \item \textbf{Uniformity:} Hash values are uniformly distributed over the output range. This minimizes the chance of clustering and improves performance in applications like hash tables.
+    \item \textbf{Efficiency:} The hashing process should be computationally efficient, making it feasible to hash large volumes of data quickly.
+    \item \textbf{Irreversibility:} Especially in cryptographic applications, a good hash function should make it infeasible to reconstruct the original input from the hash value.
+    \item \textbf{Collision Resistance:} It should be computationally difficult to find two distinct inputs that produce the same hash output. This property is crucial for maintaining the integrity of the hashing process.
+\end{itemize}
+
+\subsection{Algorithms}
+
+There are many hashing algorithms, each designed with specific use cases and properties in mind. Some common algorithms include:
+
+\begin{itemize}
+    \item \textbf{MD5:} Once popular for its speed and simplicity, MD5 produces a 128-bit hash. However, due to vulnerabilities to collision attacks, it is now considered insecure for cryptographic purposes.
+    \item \textbf{SHA Family:} The Secure Hash Algorithm (SHA) family, including SHA-1, SHA-256, and SHA-3, offers enhanced security over MD5. SHA-256, for example, produces a 256-bit hash and is widely used in various security applications.
+    \item \textbf{CRC (Cyclic Redundancy Check):} Although not used for cryptographic security, CRCs are used for error-checking in data transmission and storage due to their efficiency in detecting accidental changes in data.
+\end{itemize}
+
+\subsection{Hash Tables}
+
+Hash tables (or hash maps) are data structures that utilize hash functions to map keys to values, offering efficient insertion, deletion, and lookup operations. The performance of hash tables heavily depends on the quality of the underlying hash function and the strategies used to handle collisions.
+
+\begin{itemize}
+    \item \textbf{Structure:} A hash table typically consists of an array of buckets, where each bucket can store one or more key-value pairs. The key is processed by the hash function to determine the appropriate bucket.
+    \item \textbf{Collision Resolution:} Common methods for resolving collisions in hash tables include:
+    \begin{itemize}
+        \item \textbf{Chaining:} Each bucket holds a list (or another data structure) of entries that hash to the same value. When a collision occurs, the new entry is simply added to the list.
+        \item \textbf{Open Addressing:} When a collision occurs, the algorithm probes for the next available bucket according to a predetermined sequence (e.g., linear probing, quadratic probing, or double hashing).
+    \end{itemize}
+    \item \textbf{Performance:} In the average case, hash table operations (insertion, deletion, lookup) have a time complexity of \(O(1)\). However, performance can degrade if many collisions occur or if the table is poorly sized relative to the number of stored elements.
+\end{itemize}
+
+
+\subsection{Collisions}
+
+A collision occurs when two different inputs produce the same hash output. While collisions are mathematically inevitable given the fixed size of hash outputs relative to the potentially infinite size of input data, good hash functions minimize their occurrence and make finding collisions computationally difficult. 
+
+\begin{itemize}
+    \item \textbf{Collision Resistance:} A hash function is considered collision-resistant if it is hard to find any two distinct inputs that hash to the same value. This is essential for cryptographic applications where collision attacks can compromise data integrity and security.
+    \item \textbf{Birthday Paradox:} The probability of collisions is often analyzed using the birthday paradox, which shows that the likelihood of a collision increases significantly as more hashes are generated. This paradox emphasizes the need for a sufficiently large hash size.
+    \item \textbf{Mitigation Strategies:} To mitigate the risk of collisions, designers use larger hash sizes, more complex algorithms, or even combine multiple hash functions. In non-cryptographic contexts, collision resolution strategies (such as chaining or open addressing) are implemented in data structures like hash tables.
+\end{itemize}
+
+\subsection{Collision Resolution}
+
+When two distinct keys hash to the same bucket, a collision occurs. Collision resolution strategies are essential to maintain efficient operations in a hash table. Two common methods are separate chaining and open addressing. Here, we focus on an in-depth discussion of separate chaining.
+
+Separate chaining is a widely-used collision resolution method where each bucket in the hash table is not limited to storing a single key-value pair. Instead, each bucket contains a secondary data structure (commonly a linked list, but sometimes a dynamic array, tree, or another structure) that holds all the key-value pairs whose keys hash to that particular bucket.
+
+\paragraph{Mechanism:}  
+\begin{itemize}
+    \item \textbf{Insertion:} When a new key-value pair is inserted, the hash function computes the bucket index for the key. The new pair is then added to the list (or other container) at that index.
+    \item \textbf{Search:} To retrieve a value, the hash function again computes the bucket index from the key. The algorithm then searches through the list in that bucket, comparing the keys until it finds a match.
+    \item \textbf{Deletion:} Similarly, to delete a key-value pair, the hash function locates the bucket, and the algorithm traverses the list to find and remove the matching entry.
+\end{itemize}
+
+\paragraph{Variants and Optimizations:}
+\begin{itemize}
+    \item \textbf{Using Balanced Trees:} Some implementations replace the linked list with a balanced tree (such as a red-black tree) when the chain exceeds a certain length. This change ensures that the worst-case search time improves from \(O(n)\) to \(O(\log n)\).
+    \item \textbf{Dynamic Resizing:} To maintain efficient average-case performance, hash tables using separate chaining often resize (rehash) when the load factor (the average number of entries per bucket) exceeds a predefined threshold. Resizing redistributes the keys across a larger array of buckets, thereby reducing the average chain length.
+    \item \textbf{Hybrid Approaches:} Some hash table implementations combine separate chaining with open addressing. For example, they may use open addressing for buckets with few collisions but switch to separate chaining when the bucket becomes too full.
+\end{itemize}
+
+The time complexity of separate chaining with a well behaved hash function is $O(\frac{n}{m})$, where $m$ is the 
+number of buckets. 
