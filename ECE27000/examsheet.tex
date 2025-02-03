@@ -1,11 +1,12 @@
-\documentclass[nobib]{tufte-handout}
+\documentclass[8pt]{article}
 \usepackage{amssymb}
 \usepackage{hyperref}
 \usepackage{pgfplots}
 \usepackage{placeins}
 \usepackage{array}
 \usepackage{tikz}
-\usetikzlibrary{circuits.logic.US}
+\usepackage{circuitikz}
+\usetikzlibrary{circuits.logic.US, circuits.ee.IEC, positioning}
 \usepackage{amsmath}
 \usepackage{graphicx}
 \usepackage[T1]{fontenc}
@@ -65,6 +66,7 @@
         Generalized DeMorgan's  & $F(X_1, X_2, \dots, X_n, +, \cdot) = F(X_1, X_2, \dots, X_n, \cdot, +)'$                       \\ \hline
         Shannon's Expansion     & $F(X_1, X_2, \dots, X_n) = X_1 \cdot F(1, X_2, \dots, X_n) + X_1' \cdot F(0, X_2, \dots, X_n)$ \\
                                 & $F(X_1, X_2, \dots, X_n) = [X_1 + F(0, X_2, \dots, X_n)] \cdot [X_1' + F(1, X_2, \dots, X_n)]$ \\ \hline
+        Dual                    & Interchange $+$ with $\cdot$, and $0$ with $1$ \\ \hline
     \end{tabular}
 \end{table}
 
@@ -127,9 +129,8 @@ endclass
   \end{minipage}
 }
 
-\begin{center}
-\begin{tabular}{>{\centering\arraybackslash}m{0.2\textwidth} >{\centering\arraybackslash}m{0.2\textwidth}}
-  % First Row
+\begin{flushleft}
+\begin{tabular}{>{\centering\arraybackslash}m{0.2\textwidth} >{\centering\arraybackslash}m{0.2\textwidth} >{\centering\arraybackslash}m{0.2\textwidth} >{\centering\arraybackslash}m{0.2\textwidth}}
   \gateBox{Buffer}{%
     \begin{tabular}{|c|c|}
       \hline
@@ -155,8 +156,7 @@ endclass
       \node [not gate, draw, logic gate inputs=n] {};
     \end{tikzpicture}
   }
-  \\[2em]
-  % Second Row
+  &
   \gateBox{OR}{%
     \begin{tabular}{|c|c|c|}
       \hline
@@ -187,7 +187,6 @@ endclass
     \end{tikzpicture}
   }
   \\[2em]
-  % Third Row
   \gateBox{NAND}{%
     \begin{tabular}{|c|c|c|}
       \hline
@@ -217,8 +216,7 @@ endclass
       \node [nor gate, draw, logic gate inputs=nn] {};
     \end{tikzpicture}
   }
-  \\[2em]
-  % Fourth Row
+  &
   \gateBox{XOR}{%
     \begin{tabular}{|c|c|c|}
       \hline
@@ -249,6 +247,27 @@ endclass
     \end{tikzpicture}
   }
 \end{tabular}
-\end{center}
+\end{flushleft}
+
+\begin{tikzpicture}[circuit ee IEC, every node/.style={font=\small}]
+  \draw (0,0) node[pmos, rotate=0] (PMOS) {};
+  \node[below=0.5cm of PMOS] {PMOS};
+  
+  \draw (3,0) node[nmos, rotate=0] (NMOS) {};
+  \node[below=0.5cm of NMOS] {NMOS};
+\end{tikzpicture}
+
+\begin{table}[h]
+    \begin{tabular}{|l|l|}
+        \hline
+        \textbf{PMOS} & \textbf{NMOS} \\
+        \hline
+        n-type & p-type \\
+        Negative & Positive \\
+        \hline
+    \end{tabular}
+\end{table}
+
+% Noise margins
 
 \end{document}
