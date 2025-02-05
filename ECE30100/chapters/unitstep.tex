@@ -11,12 +11,16 @@ u[n] =
 0 & n < 0.
 \end{cases}
 \]
-
-Below is the plot for the discrete-time unit step signal:
+Or alternatively,
+\begin{equation}
+    u[n] = \sum_{i = -\infty}^{n} \delta[i]
+\end{equation}
+In either definition, 
 \[
 u[n] = 1 \text{ for } n \geq 0, \text{ and } u[n] = 0 \text{ for } n < 0.
 \]
 
+Figure \ref{fig:dt unit} is the plot for the discrete-time unit step signal.
 \begin{figure}[h!]
 \centering
 \begin{tikzpicture}
@@ -40,7 +44,12 @@ u[n] = 1 \text{ for } n \geq 0, \text{ and } u[n] = 0 \text{ for } n < 0.
     \end{axis}
 \end{tikzpicture}
 \caption{Discrete-Time Unit Step Signal}
+\label{fig:dt unit}
 \end{figure}
+
+A useful property for signal sampling is that, if we 
+just want to consider a section of the signal between 
+$0$ and $n_0$, we can just multiply $x[n]$ by $u[n] - u[n - n_0]$.
 
 \subsection{Continuous-Time Unit Step Signal}
 The continuous-time unit step signal is defined as:
@@ -51,8 +60,12 @@ u(t) =
 0 & t < 0.
 \end{cases}
 \]
+Or alternatively, 
+\begin{equation}
+    u(t) = \int_{-\infty}^{t} \delta(t) dt
+\end{equation}
 
-Below is the plot for the continuous-time unit step signal:
+Figure \ref{fig:ct unit} is the plot for the continuous-time unit step signal:
 
 \begin{figure}[h!]
 \centering
@@ -75,6 +88,7 @@ Below is the plot for the continuous-time unit step signal:
     \end{axis}
 \end{tikzpicture}
 \caption{Continuous-Time Unit Step Signal}
+\label{fig:ct unit}
 \end{figure}
 
 \subsection{Discrete-Time Delta Function}
@@ -112,11 +126,18 @@ Figure \ref{fig:dt delta} is the plot for the discrete-time delta function:
     \end{axis}
 \end{tikzpicture}
 \caption{Discrete-Time Delta Function}
-\label{fig:dy delta}
+\label{fig:dt delta}
 \end{figure}
 
+A useful property of the delta function in DT is that, since 
+it is just equal to one when its argument is 0, then 
+\begin{eqnarray}
+    x[n] = \sum_{k=-\infty}^{\infty} x[k]\delta [n-k]
+\end{eqnarray}
+
 \subsection{Continuous-Time Delta Function}
-The continuous-time delta function, known as the Dirac delta function, is a distribution rather than a conventional function and is defined as:
+The continuous-time delta function, known as the Dirac delta 
+function or unit impulse, is defined as:
 \[
 \delta(t) = \begin{cases} 
 \infty & t = 0, \\
@@ -128,7 +149,14 @@ with the property that:
 \int_{-\infty}^{\infty} \delta(t) dt = 1.
 \]
 
-Figure \ref{fig:ct delta} is the plot for the continuous-time delta function:
+An alternative definition for $\delta(t)$ is 
+\begin{equation}
+    \delta(t) = \frac{d}{dt} u(t)
+\end{equation}
+
+Figure \ref{fig:ct delta} is the plot for the continuous-time delta function. 
+The height of the arrow indicates not the value of the function but its area, 
+since the value is technically undefined. 
 
 \begin{figure}[h!]
 \centering
@@ -145,8 +173,8 @@ Figure \ref{fig:ct delta} is the plot for the continuous-time delta function:
         samples=100
     ]
     \addplot[thick, domain=-5:5, samples=2] {0};
-    \addplot[only marks, mark=triangle*, mark size=3pt] coordinates {(0,1.5)};
-    \addplot[thick] coordinates {(0,0) (0,1.5)};
+    \addplot[only marks, mark=triangle*, mark size=3pt] coordinates {(0,1)};
+    \addplot[thick] coordinates {(0,0) (0,1)};
     \end{axis}
 \end{tikzpicture}
 \caption{Continuous-Time Delta Function}

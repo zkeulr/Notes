@@ -1,1 +1,22 @@
 \section{Power Consumption}
+The power consumption of a CMOS circuit whose output is not changing is
+called \emph{static power dissipation}. 
+The power a CMOS circuit consumes during signal transitions is 
+called \emph{dynamic power dissipation}.
+
+In general dynamic power dissipation is much larger than static. 
+One significant source of dissipation is output transitions. The 
+power consumed as the voltage transitions is given by
+\begin{equation}
+    P_T &= C_{PD} V_{CC}^2 f
+\end{equation}
+where 
+\begin{itemize}
+    \item $P_T$ is circuit's internal power dissipation due to output transitions
+    \item $C_{PD}$ is power-dissipation capacitance, normally specified
+    by the device manufacturer
+    \item $V_{CC}$ is power supply voltage
+    \item $f$ is transition frequency of the output signal
+\end{itemize}
+A second (and often more significant) source of CMOS power consumption 
+is the capacitive load ($C_L$ ) on the output. 
