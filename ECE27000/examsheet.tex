@@ -253,17 +253,33 @@ endinterface
 \end{tabular}
 \end{flushleft}
 
-
 \begin{center}
     \begin{tikzpicture}[circuit ee IEC, every node/.style={font=\small}]
+        % PMOS Transistor
         \draw (0,0) node[pmos, rotate=0] (PMOS) {};
         \node[below=0.5cm of PMOS] {PMOS};
-        
+
+        % PMOS Labels
+        \node[left=0.1cm of PMOS.gate] {G};
+        \node[right=0.1cm of PMOS.drain] {D};
+        \node[right=0.1cm of PMOS.source] {S};
+
+        % PMOS Arrows
+        \draw[->] (PMOS.source) -- ++(0, -0.3);
+
+        % NMOS Transistor
         \draw (3,0) node[nmos, rotate=0] (NMOS) {};
         \node[below=0.5cm of NMOS] {NMOS};
+
+        % NMOS Labels
+        \node[left=0.1cm of NMOS.gate] {G};
+        \node[right=0.1cm of NMOS.drain] {D};
+        \node[right=0.1cm of NMOS.source] {S};
+
+        % NMOS Arrows
+        \draw[<-] (NMOS.source) -- ++(0, 0.3);
     \end{tikzpicture}
 \end{center}
-
 
 \begin{table}[h]
     \centering
