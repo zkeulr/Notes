@@ -1,8 +1,17 @@
-\section{Transition Times and Propagation Delays}
+\section{Propagation Delays and Transition Times}
 
-The propagation delay is defined as the time delay between 
+\section{Propagation Delay}
+
+The propagation delay $T_P$ is defined as the time delay between 
 the 50\% crossing of the input and the corresponding 50\% 
-crossing of the output. 
+crossing of the output. There are two kinds:
+
+\begin{itemize}
+    \item[$t_{pHL}$:] The time between an input change and the corresponding output change
+    when the output is changing from HIGH to LOW.
+    \item[$t_{pLH}$:] The time between an input change and the corresponding output change
+    when the output is changing from LOW to HIGH.
+\end{itemize}
 
 \begin{figure}
     \begin{tikzpicture}
@@ -40,7 +49,15 @@ crossing of the output.
     \label{fig:propagationdelay}
 \end{figure}
 
+\section{Transition Time}
 
+The amount of time that the output of a logic circuit 
+takes to change from one
+state to another is called the transition time. 
+An output takes a certain time, called the rise time
+($t_r$ ), to change from LOW to HIGH, and a 
+possibly different time, called the fall
+time ($t_f$ ), to change from HIGH to LOW.
 The rise time and fall time of the output signal are defined as the time 
 required for the voltage to change from its 10\% level to its 90\% level 
 or vice versa. 
