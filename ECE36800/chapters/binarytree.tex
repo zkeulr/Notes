@@ -5,8 +5,101 @@ has at most two children. If each node has either two (in the
 case of an internal node) or zero (in the case of a leaf node),
 it is known as a \emph{strictly binary tree}.
 
-\subsection{Binary Search Tree}
+\subsection{Preorder Traversal}
+Visits nodes in root-left-right order. This traversal is commonly used for creating copies of trees and prefix notation in expression trees.
 
+\begin{lstlisting}[language=C, caption=Preorder Traversal Implementation]
+void preorder(struct Node* node) {
+    if (node == NULL) return;
+    printf("%d ", node->data);  // Process current node
+    preorder(node->left);       // Recurse on left child
+    preorder(node->right);      // Recurse on right child
+}
+// Time Complexity: O(n)
+\end{lstlisting}
+
+\subsection{Inorder Traversal}
+Visits nodes in left-root-right order. Produces sorted output for binary search trees. Essential for expression trees with infix notation.
+
+\begin{lstlisting}[language=C, caption=Inorder Traversal Implementation]
+void inorder(struct Node* node) {
+    if (node == NULL) return;
+    inorder(node->left);        // Recurse on left child
+    printf("%d ", node->data);  // Process current node
+    inorder(node->right);       // Recurse on right child
+}
+// Time Complexity: O(n)
+\end{lstlisting}
+
+\subsection{Postorder Traversal}
+Visits nodes in left-right-root order. Frequently used for tree deletion and postfix notation in expression evaluation.
+
+\begin{lstlisting}[language=C, caption=Postorder Traversal Implementation]
+void postorder(struct Node* node) {
+    if (node == NULL) return;
+    postorder(node->left);      // Recurse on left child
+    postorder(node->right);     // Recurse on right child
+    printf("%d ", node->data);  // Process current node
+}
+// Time Complexity: O(n)
+\end{lstlisting}
+
+\subsection{Binary Search Tree}
 A binary search tree has the key of each internal node
 being greater than all the keys in the respective node's
 left subtree and less than the ones in its right subtree.
+Enables efficient search ($O(\log(n))$ average case), insertion, and deletion operations.
+
+Figure \ref{fig:bst} shows the binary search tree for the array
+\texttt{[1, 12, 36, 43, 51, 52, 83, 87]}
+\begin{figure}
+    \begin{center}
+        \begin{forest}
+            for tree={
+            grow=south,
+            circle, draw,
+            }
+            [51
+                [12
+                        [1]
+                        [43
+                                [36]
+                                [,no edge, draw=none]
+                        ]
+                ]
+                [87
+                        [52
+                                [,no edge, draw=none]
+                                [83]
+                        ]
+                        [,no edge, draw=none]
+                ]
+            ]
+        \end{forest}
+    \end{center}
+    \caption{Binary Search Tree}
+    \label{fig:bst}
+\end{figure}
+
+\begin{lstlisting}[language=C, caption=BST Node Structure and Search]
+struct BSTNode {
+    int key;
+    struct BSTNode *left, *right;
+};
+
+struct BSTNode* search(struct BSTNode* root, int key) {
+    if (root == NULL || root->key == key)
+       return root;
+    if (root->key < key)
+       return search(root->right, key);
+    return search(root->left, key);
+}
+// Time Complexity: O(h) where h = tree height
+\end{lstlisting}
+
+Key properties:
+\begin{itemize}
+    \item All left descendants $\leq$ Current node $<$ All right descendants
+    \item Inorder traversal yields sorted sequence
+    \item Degenerate trees (completely unbalanced) degrade to $O(n)$ search
+\end{itemize}

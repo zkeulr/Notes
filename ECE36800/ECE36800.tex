@@ -1,8 +1,6 @@
 \documentclass[nobib]{tufte-handout}
 
 %\\geometry{showframe}% for debugging purposes -- displays the margins
-
-\newcommand{\bra}[1]{\left(#1\right)}
 \usepackage{amssymb}
 \usepackage{hyperref}
 \usepackage{pgfplots}
@@ -10,15 +8,15 @@
 \usepackage{color}
 \usepackage{steinmetz}
 \usepackage{placeins}
-% Fixes captions and images being cut off
 \usepackage{marginfix}
 \usepackage{array}
 \usepackage{tikz}
-\usepackage{amsmath,amsthm}
+\usepackage{amsmath}
+\usepackage{amsthm}
 \usetikzlibrary{shapes}
 \usetikzlibrary{positioning}
 \usepackage{listings}
-\usepackage{forest}
+\usepackage[edges]{forest}
 \usepackage{caption}
 \DeclareCaptionFont{white}{\color{white}}
 \DeclareCaptionFormat{listing}{\colorbox{gray}{\parbox{\textwidth}{#1#2#3}}}
