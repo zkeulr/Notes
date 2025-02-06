@@ -1,0 +1,36 @@
+\section{Linked List}
+
+\subsection{Singly Linked List}
+A singly linked list is a linear data structure where each node contains data and a pointer to the next node. This unidirectional structure allows efficient insertion/deletion at the head, but requires O(n) time for random access.
+
+\begin{lstlisting}[language=C, caption=Singly Linked List Node Structure]
+struct Node {
+    int data;          // Data storage
+    struct Node* next; // Pointer to next node
+};
+\end{lstlisting}
+
+\subsection{Doubly Linked List}
+A doubly linked list enhances the singly linked version by including both next and previous pointers in each node. This bidirectional linkage enables forward and backward traversal at the cost of increased memory overhead.
+
+\begin{lstlisting}[language=C, caption=Doubly Linked List Node Structure]
+struct Node {
+    int data;          // Data storage
+    struct Node* prev; // Pointer to previous node
+    struct Node* next; // Pointer to next node
+};
+\end{lstlisting}
+
+\subsection{Circular Linked List}
+A circular linked list forms a closed loop where the tail node points back to the head. This structure can be singly or doubly linked, and is particularly useful for cyclic data processing and memory-efficient buffer implementations.
+
+\begin{lstlisting}[language=C, caption=Circular Linked List Node Structure]
+// Singly-linked circular implementation
+struct Node {
+    int data;
+    struct Node* next; // Last node points to head
+};
+
+// Doubly-linked circular would have:
+// struct Node* prev (head's prev points to tail)
+\end{lstlisting}

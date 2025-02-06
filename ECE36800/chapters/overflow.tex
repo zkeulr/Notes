@@ -1,0 +1,72 @@
+\section{Recursion Limit}
+
+Recursive solutions can reach the max recursive depth and
+terminate your program early. The way to avoid this is with
+an iterative solution. Taking the example of the Fibonacci
+sequence, you could implement it as in listing \ref{lst:fib}
+
+\begin{lstlisting}[language=C, caption=Singly Linked List Node Structure]
+    #include <stdio.h>
+
+    // Function to calculate the nth Fibonacci number using recursion
+    int nthFibonacci(int n){
+        // Base case: if n is 0 or 1, return n
+        if (n <= 1){
+            return n;
+        }
+        // Recursive case: sum of the two preceding numbers
+        return nthFibonacci(n - 1) + nthFibonacci(n - 2);
+    }
+
+    int main(){
+        int n = 5;
+        int result = nthFibonacci(n);
+        printf("%d\n", result);
+        return 0;
+    }
+\end{lstlisting}
+\label{lst:fib}
+
+However, the runtime increases exponentially.
+\marginnote{In fact, the runtime increases as $\Phi^n$, where
+    $\Phi$ is the golden ratio.}
+There is a much better solution, an iterative one.
+For listing \ref{lst:fibit} the time complexity is $O(n)$
+instead of $O(2^n)$.
+
+
+\begin{lstlisting}[language=C, caption=Singly Linked List Node Structure]
+    #include <math.h>
+    #include <stdio.h>
+
+    // Approximate value of golden ratio
+    double PHI = 1.6180339;
+
+    // Fibonacci numbers upto n = 5
+    int f[6] = { 0, 1, 1, 2, 3, 5 };
+
+    int fib(int n)
+    {
+        // Fibonacci numbers for n < 6
+        if (n < 6)
+            return f[n];
+
+        // Else start counting from
+        // 5th term
+        int t = 5, fn = 5;
+
+        while (t < n) {
+            fn = round(fn * PHI);
+            t++;
+        }
+
+        return fn;
+    }
+
+    int main()
+    {
+        int n = 9;
+        printf("%d th Fibonacci Number = %d\n", n, fib(n));
+        return 0;
+    }
+\end{lstlisting}
