@@ -1,0 +1,28 @@
+\section{Templates}
+
+A \emph{template} is useful for when you don't want
+to prescribe a specific data type for some class.
+
+For example, a template to create a pair
+of any data types can be defined as
+\begin{lstlisting}[language=C++,caption=-> Operator]
+template <class T1, class T2> 
+// can use 'typename' instead, like <typename T1 ...
+class MyPair{
+        private:
+        T1 a;
+        T2 b;
+        public:
+        T1 first ();
+        T2 second ();
+        MyPair( const T1 &mfirst,
+        const T2 &msecond);
+    };
+
+// Instantiated as 
+MyPair(1, "hello");
+\end{lstlisting}
+
+The convention followed in this class is that template definitions
+go into \texttt{.h} files while the implementations go into \texttt{.hpp}
+files, which must include the \texttt{.h} files.
