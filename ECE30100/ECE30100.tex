@@ -15,8 +15,10 @@
 \usepackage{array}
 \usepackage{tikz}
 \usepackage{amsmath,amsthm}
-\usetikzlibrary{shapes}
-\usetikzlibrary{positioning}
+\usetikzlibrary{shapes, arrows, positioning, calc}
+\tikzset{block/.style={draw, rectangle, minimum height=1.5em, minimum width=3em},
+         sum/.style={draw, circle, inner sep=0pt, minimum size=2mm},
+         >=latex'}
 \usepackage{listings}
 \usepackage{forest}
 \usepackage{caption}
@@ -100,8 +102,8 @@ threshold decomposition. System design examples such as the compact disc player 
 \include{chapters/transformations}
 \include{chapters/periodicity}
 \include{chapters/unitstep}
-
 \include{chapters/complexexp}
+\include{chapters/interconnections}
 
 \include{chapters/reference}
 

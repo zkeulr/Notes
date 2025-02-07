@@ -1,0 +1,76 @@
+\section{System Connections}
+
+Often we analyze a complex system as a set of subsystems
+connected to one another. These connections can take
+many forms, but some of the more common ones are in series,
+parallel, and feedback.
+
+\subsection{Series}
+
+\begin{equation}
+    y(t) = S_2(S_1(x(t)))
+\end{equation}
+
+\begin{figure}[ht]
+    \centering
+    \begin{tikzpicture}[node distance=2cm, auto, >=latex']
+        \node (input) {$x(t)$};
+        \node[block, right= of input] (s1) {$S_1$};
+        \node[block, right= of s1] (s2) {$S_2$};
+        \node[right= of s2] (output) {$y(t)$};
+
+        \draw[->] (input) -- (s1);
+        \draw[->] (s1) -- (s2);
+        \draw[->] (s2) -- (output);
+    \end{tikzpicture}
+    \caption{Series connection block diagram.}
+\end{figure}
+
+\subsection{Parallel}
+
+\begin{equation}
+    y(t) = S_1(x(t)) + S_2(x(t))
+\end{equation}
+
+\begin{figure}[ht]
+    \centering
+    \begin{tikzpicture}[node distance=2cm, auto, >=latex']
+        \node (input) {$x(t)$};
+        \coordinate[right= of input] (split);
+        \node[block, above right= of split] (s1) {$S_1$};
+        \node[block, below right= of split] (s2) {$S_2$};
+        \node[sum, right=4cm of split] (sum) {+};
+
+        \draw[->] (input) -- (split);
+        \draw[->] (split) |- (s1);
+        \draw[->] (split) |- (s2);
+        \draw[->] (s1) -| (sum);
+        \draw[->] (s2) -| (sum);
+        \draw[->] (sum) -- node {$y(t)$} ++(1,0);
+    \end{tikzpicture}
+    \caption{Parallel connection block diagram.}
+\end{figure}
+
+\subsection{Feedback}
+
+\begin{equation}
+    y(t) = S_1\left( x(t) - S_2(y(t)) \right)
+\end{equation}
+
+\begin{figure}[ht]
+    \centering
+    \begin{tikzpicture}[node distance=2cm, auto, >=latex']
+        \node (input) {$x(t)$};
+        \node[sum, right= of input] (sum) {$\Sigma$};
+        \node[block, right= of sum] (s1) {$S_1$};
+        \node[right= of s1] (output) {$y(t)$};
+        \node[block, below= of s1] (s2) {$S_2$};
+
+        \draw[->] (input) -- node[above left] {+} (sum);
+        \draw[->] (sum) -- (s1);
+        \draw[->] (s1) -- (output);
+        \draw[->] (output) |- (s2);
+        \draw[->] (s2) -| node[pos=0.95, left] {-} (sum);
+    \end{tikzpicture}
+    \caption{Feedback connection block diagram.}
+\end{figure}
