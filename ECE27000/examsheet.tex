@@ -305,9 +305,11 @@ endinterface
 \]
 
 
-% Noise margins
-
-% Transition time
+\begin{align*}
+  N_{MH}                  & = V_{OH} - V_{IH}    \\
+  N_{ML}                  & = V_{IL} - V_{OL}    \\
+  N_{MH}(A \rightarrow B) & = V_{OHA} - V_{IHB})
+\end{align*}
 
 \begin{itemize}
   \item[$t_{pHL}$:] The time between an input change and the corresponding output change
@@ -319,8 +321,6 @@ endinterface
   \item[$t_f$:] Time between 90\% of output high and 10\% output low
   \item[$t_r$:] Time between 10\% of output low and 10\% output high
 \end{itemize}
-
-% Power consumption of CMOS
 
 \[  P = cV^2 f \]
 \end{document}
