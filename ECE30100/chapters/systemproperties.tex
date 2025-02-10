@@ -1,14 +1,39 @@
 \section{System Properties}
 
 \subsection{Memoryless}
-A \emph{mempryless} system output is dependent
+A \emph{memoryless} system output is dependent
 only on the input at time $t$, and not previous states.
 
 \subsection{Invertable}
 A system is \emph{invertable} is distinct
 inputs lead to distinct outputs. A system is not
-invertable if there exists any $x(t) \neq x_2(t)$ such
+invertable if there exists any $x_1(t) \neq x_2(t)$ such
 that $y_1(t) = y_2(t)$.
+
+Three practical examples are modulation, sampling,
+and encoding. I do not understand modulation and
+cannot explain it. Encoding isn't always invertable,
+e.g. lossy image compression.
+
+For an invertable system $S_1$, there exist an inverse system
+$S_2$ such that $S_2(S_1(x(t))) = S_1(S_2(x(t))) = x(t)$.
 
 \subsection{Linear}
 
+\subsection{Causality}
+A system is \emph{causal} when the output at any time
+is dependent only on past or present inputs. All memoryless
+systems are trivially causal. An example of a non-causal
+system is the moving average of a signal.
+
+\subsection{Stability}
+A system is stable if small changes in the input
+lead only to small changes in the output. For instance,
+if a pendulum is hanging down, it is stable to displacements.
+But if it's a vertical pendulum, it is not stable.
+
+Mathematically, bounded inputs produce bounded outputs.
+For finite $B$, $M$,
+\begin{equation}
+    |x(t)| < B \rightarrow |y(t)| < M.
+\end{equation}
