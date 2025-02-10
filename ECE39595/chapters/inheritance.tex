@@ -1,0 +1,40 @@
+\section{Inheritance}
+
+The \emph{has-a} relationship describes a class C
+using an object of class H to hold information
+about class C. For instance, consider a \texttt{Car}
+class that has a string \texttt{model} within it.
+\texttt{Car} has \texttt{String}.
+
+The \emph{is-a} relationship is when an object
+of one class is also an object of another class.
+For instance, a \texttt{Student} instance may also be a
+\texttt{Person} class. We say that \texttt{Student}
+\emph{inherits} or \emph{extends} \texttt{Person}.
+
+\begin{lstlisting}[language=C++, caption={Inheritance}]
+    #include <iostream>
+    
+    // Base class
+    class Animal {
+    public:
+        void eat() {
+            std::cout << "This animal eats." << std::endl;
+        }
+    };
+    
+    // Derived class inheriting from Animal
+    class Dog : public Animal {
+    public:
+        void bark() {
+            std::cout << "The dog barks." << std::endl;
+        }
+    };
+    
+    int main() {
+        Dog myDog;
+        myDog.eat();  // Inherited from Animal
+        myDog.bark(); // Defined in Dog
+        return 0;
+    }
+    \end{lstlisting}
