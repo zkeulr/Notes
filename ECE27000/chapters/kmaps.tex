@@ -1,0 +1,47 @@
+\section{K-Maps}
+
+A Karnaugh Map (K-Map) is a visual representation used to simplify Boolean expressions and minimize logic functions. It is a method to perform Boolean algebra simplifications by organizing truth table values into a grid format, allowing easy identification of common terms.
+K-Maps are structured as grids where each cell corresponds to a specific combination of input variables. The number of cells in a K-Map depends on the number of variables:
+
+\begin{itemize}
+    \item 2-variable K-Map: $2^2 = 4$ cells
+    \item 3-variable K-Map: $2^3 = 8$ cells
+    \item 4-variable K-Map: $2^4 = 16$ cells
+\end{itemize}
+
+For a function with two variables ($A$ and $B$), the K-Map is a $2 \times 2$ grid:
+
+\begin{center}
+    \begin{tabular}{|c|c|c|}
+        \hline
+        AB & 0      & 1      \\
+        \hline
+        0  & F(0,0) & F(0,1) \\
+        \hline
+        1  & F(1,0) & F(1,1) \\
+        \hline
+    \end{tabular}
+\end{center}
+
+For three variables ($A$, $B$, $C$), the K-Map has $2^3 = 8$ cells:
+
+\begin{center}
+    \begin{tabular}{|c|c|c|c|}
+        \hline
+        AB \textbackslash C & 0        & 1        \\
+        \hline
+        00                  & F(0,0,0) & F(0,0,1) \\
+        \hline
+        01                  & F(0,1,0) & F(0,1,1) \\
+        \hline
+        11                  & F(1,1,0) & F(1,1,1) \\
+        \hline
+        10                  & F(1,0,0) & F(1,0,1) \\
+        \hline
+    \end{tabular}
+\end{center}
+
+The goal of a K-Map is to group adjacent cells containing 1s into power-of-two groups (1, 2, 4, etc.), forming simplified expressions. Groups can wrap around the edges of the K-Map.
+
+
+\end{document}
