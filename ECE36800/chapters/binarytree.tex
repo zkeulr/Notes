@@ -107,3 +107,24 @@ Key properties:
     \item Inorder traversal yields sorted sequence
     \item Degenerate trees (completely unbalanced) degrade to $O(n)$ search
 \end{itemize}
+
+We can reconstruct a binary search tree from the preorder traversal with the
+algorithm in listing \ref{lst:prbstrb}.
+
+\begin{lstlisting}[language=C, label={lst:prbstrb}, caption=Reconstruct BST]
+Tnode *Preorder_rebuild_BST(int *a, int lidx, int ridx)
+{
+    if (lidx > ridx)
+        return NULL;
+    Tnode *root = malloc(sizeof(*root));
+    if (root != NULL) {
+        root->data = a[lidx];
+        int partition_idx = lidx + 1;
+        while (partition_idx <= ridx && a[partition_idx] < a[lidx])
+            partition_idx++;
+        root->left = Preorder_rebuild_BST(a, lidx+1, partition_idx-1);
+        root->right = Preorder_rebuild_BST(a, partition_idx, ridx);
+    }
+    return root;
+}
+\end{lstlisting}
