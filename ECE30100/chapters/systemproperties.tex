@@ -1,39 +1,51 @@
 \section{System Properties}
 
 \subsection{Memoryless}
-A \emph{memoryless} system output is dependent
-only on the input at time $t$, and not previous states.
-
-\subsection{Invertable}
-A system is \emph{invertable} is distinct
-inputs lead to distinct outputs. A system is not
-invertable if there exists any $x_1(t) \neq x_2(t)$ such
-that $y_1(t) = y_2(t)$.
-
-Three practical examples are modulation, sampling,
-and encoding. I do not understand modulation and
-cannot explain it. Encoding isn't always invertable,
-e.g. lossy image compression.
-
-For an invertable system $S_1$, there exist an inverse system
-$S_2$ such that $S_2(S_1(x(t))) = S_1(S_2(x(t))) = x(t)$.
+A \emph{memoryless} system's output depends only on the input at time \( t \) (or \( n \) for discrete-time systems), and not on past or future states. For example, \( y(t) = 2x(t) \) is memoryless, while \( y[n] = x[n-1] \) has memory.
 
 \subsection{Linear}
+A system is \emph{linear} if it satisfies superposition and homogeneity. Formally, for any inputs \( x_1(t) \rightarrow y_1(t) \) and \( x_2(t) \rightarrow y_2(t) \), and constants \( a, b \), the system satisfies:
+\[
+    S\{a x_1(t) + b x_2(t)\} = a S\{x_1(t)\} + b S\{x_2(t)\} = a y_1(t) + b y_2(t).
+\]
+An example is \( y(t) = kx(t) \), where \( k \) is a constant.
+
+\subsection{Time Invariance}
+A system is \emph{time invariant} if a time shift in the input results in an identical shift in the output. For a discrete-time system \( S \), if:
+\[
+    x[n] \rightarrow y[n],
+\]
+then for any integer \( n_0 \):
+\[
+    x[n - n_0] \rightarrow y[n - n_0].
+\]
+For continuous-time systems, this becomes \( x(t - \tau) \rightarrow y(t - \tau) \). Time-dependent operations (e.g., \( y(t) = x(2t) \)) or explicit time-varying components make a system \emph{time variant}.
+
+\subsection{Linear Time Invariant (LTI)}
+An LTI system satisfies both linearity and time invariance. LTI systems are fully characterized by their impulse response \( h(t) \) or \( h[n] \), enabling analysis via convolution: \( y(t) = x(t) * h(t) \).
+
+\subsection{Invertible}
+A system is \emph{invertible} if distinct inputs produce distinct outputs. If there exist \( x_1(t) \neq x_2(t) \) such that \( y_1(t) = y_2(t) \), the system is not invertible. Examples include:
+\begin{itemize}
+    \item \textbf{Modulation}: \( y(t) = x(t)\cos(\omega t) \) (invertible with synchronous demodulation).
+    \item \textbf{Sampling}: Invertible if the Nyquist criterion is satisfied.
+    \item \textbf{Encoding}: Lossy compression (e.g., JPEG) is non-invertible.
+\end{itemize}
+For an invertible system \( S_1 \), there exists an inverse \( S_2 \) such that:
+\[
+    S_2(S_1(x(t))) = S_1(S_2(x(t))) = x(t).
+\]
 
 \subsection{Causality}
-A system is \emph{causal} when the output at any time
-is dependent only on past or present inputs. All memoryless
-systems are trivially causal. An example of a non-causal
-system is the moving average of a signal.
+A system is \emph{causal} if its output at time \( t \) depends only on present and past inputs. All memoryless systems are causal (e.g., \( y(t) = x(t)^2 \)). A non-causal system (e.g., moving average \( y[n] = \frac{1}{3}(x[n+1] + x[n] + x[n-1]) \)) requires future inputs.
 
 \subsection{Stability}
-A system is stable if small changes in the input
-lead only to small changes in the output. For instance,
-if a pendulum is hanging down, it is stable to displacements.
-But if it's a vertical pendulum, it is not stable.
-
-Mathematically, bounded inputs produce bounded outputs.
-For finite $B$, $M$,
-\begin{equation}
-    |x(t)| < B \rightarrow |y(t)| < M.
-\end{equation}
+A system is \emph{stable} (BIBO stable) if bounded inputs produce bounded outputs. Formally, there exist constants \( B, M > 0 \) such that:
+\[
+    |x(t)| < B \ \forall t \implies |y(t)| < M \ \forall t.
+\]
+Examples:
+\begin{itemize}
+    \item Stable: \( y(t) = e^{-t}x(t) \).
+    \item Unstable: \( y(t) = \int_{-\infty}^t x(\tau) d\tau \) (unbounded integral for a constant input).
+\end{itemize}

@@ -41,7 +41,33 @@ For three variables ($A$, $B$, $C$), the K-Map has $2^3 = 8$ cells:
     \end{tabular}
 \end{center}
 
-The goal of a K-Map is to group adjacent cells containing 1s into power-of-two groups (1, 2, 4, etc.), forming simplified expressions. Groups can wrap around the edges of the K-Map.
+The goal of a K-Map is to group adjacent cells containing
+1s into power-of-two groups (1, 2, 4, etc.), forming simplified expressions.
+Groups can wrap around the edges of the K-Map.
 
+An example would be illustrative. Consider the K-Map
+in figure \ref{fig:kmapexample}.
+\begin{center}
+    \begin{figure}
+        \begin{center}
+            \begin{tabular}{|c|c|c|c|c|c|}
+                \hline
+                A \textbackslash BC & 00 & 01 & 11 & 10 \\
+                \hline
+                0                   & 0  & 1  & 1  & 0  \\
+                \hline
+                1                   & 0  & 0  & 1  & 1  \\
+                \hline
+            \end{tabular}
+        \end{center}
+        \caption{K-Map Example}
+        \label{fig:kmapexample}
+    \end{figure}
+\end{center}
+There are two groups, the two 1s in the first row
+and the two 1s in the second. From the top group
+we get the term $A'B'C + A'BC = A'C$. From the bottom group we
+get the term $ABC + ABC' = AB$, and summing these product terms
+we get the final expression $A'C + AB$.
 
 \end{document}
