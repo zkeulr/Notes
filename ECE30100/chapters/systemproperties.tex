@@ -26,7 +26,17 @@ being shifted the same amount.
 For continuous-time systems, this becomes \( x(t - \tau) \rightarrow y(t - \tau) \). Time-dependent operations (e.g., \( y(t) = x(2t) \)) or explicit time-varying components make a system \emph{time variant}.
 
 \subsection{Linear Time Invariant (LTI)}
-An LTI system satisfies both linearity and time invariance. LTI systems are fully characterized by their impulse response \( h(t) \) or \( h[n] \), enabling analysis via convolution: \( y(t) = x(t) * h(t) \).
+An LTI system satisfies both linearity and time invariance.
+LTI systems are fully characterized by their impulse response
+\( h(t) \) or \( h[n] \), enabling analysis via convolution:
+\( y(t) = x(t) * h(t) \). The impulse response is found by
+plugging in $\delta(t)$ or $\delta[n]$ to the system. The result
+is the impulse response. Mathematically,
+\begin{align}
+    h(t) & = S(\delta(t))  \\
+    h[n] & = S(\delta[n]).
+\end{align}
+
 
 \subsection{Invertible}
 A system is \emph{invertible} if distinct inputs produce distinct outputs. If there exist \( x_1(t) \neq x_2(t) \) such that \( y_1(t) = y_2(t) \), the system is not invertible. Examples include:
@@ -40,11 +50,17 @@ For an invertible system \( S_1 \), there exists an inverse \( S_2 \) such that:
     S_2(S_1(x(t))) = S_1(S_2(x(t))) = x(t).
 \]
 
-\subsection{Causality}
-A system is \emph{causal} if its output at time \( t \) depends only on present and past inputs. All memoryless systems are causal (e.g., \( y(t) = x(t)^2 \)). A non-causal system (e.g., moving average \( y[n] = \frac{1}{3}(x[n+1] + x[n] + x[n-1]) \)) requires future inputs.
 
-\subsection{Stability}
-A system is \emph{stable} (BIBO stable) if bounded inputs produce bounded outputs. Formally, there exist constants \( B, M > 0 \) such that:
+\subsection{Causal}
+A system is \emph{causal} if its output at time \( t \) depends
+only on present and past inputs. All memoryless systems are causal
+(e.g., \( y(t) = x(t)^2 \)). A non-causal system (e.g., moving average
+\( y[n] = \frac{1}{3}(x[n+1] + x[n] + x[n-1]) \)) requires future inputs.
+
+\subsection{Stable}
+A system is \emph{stable} if bounded inputs produce
+bounded outputs. Formally, there exist constants \( B, M > 0 \)
+such that:
 \[
     |x(t)| < B \ \forall t \implies |y(t)| < M \ \forall t.
 \]
