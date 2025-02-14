@@ -1,0 +1,53 @@
+\section{Timing Hazards}
+
+Timing hazards occur in digital circuits when changes in input
+signals cause changes in the output to unexpected values before
+settling to the expected value. They occur because of propagation
+delays.
+
+\subsection{Static Hazards}
+Static hazards occur when an output temporarily glitches to an
+incorrect value before settling. They are classified as:
+\begin{itemize}
+    \item \textbf{Static-1 Hazard}: The output should remain at logic `1`, but briefly drops to `0`.
+    \item \textbf{Static-0 Hazard}: The output should remain at logic `0`, but briefly rises to `1`.
+\end{itemize}
+These hazards arise due to differing propagation delays through alternative logic paths.
+
+The circuit in figure \ref{fig:hazard_example} may exhibit a hazard when
+inputs change due to different propagation delays.
+\begin{figure}[h]
+    \centering
+    \begin{circuitikz}
+        \node[and port, number inputs=1] (A) at (0, 0) {};
+        \node at (A) [ocirc,fill=black] {};
+        \node[left] at (A.in 1) {\(x_1\)};
+        \node at (A.left) [yshift=8pt,ocirc,fill=black] {};
+        \node[left] at (A.in 2) {\(x_2\)};
+
+        \node[or port] (B) at (3,-.65) {};
+        \node[left] at (B.in 2-| A.in 1) (x3) {\(x_3\)};
+        \node[right] at (B.out) {\((x_1'x_2)'+x_3\)};
+
+        \draw (A.out)  --++ (1,0) |-  (B.in 1);
+        \draw (x3)  --  (B.in 2);
+    \end{circuitikz}
+    \caption{Hazardous Circuit}
+    \label{fig:hazard_example}
+\end{figure}
+
+\subsection{Dynamic Hazards}
+Dynamic hazards occur when an output makes multiple transitions
+before settling to the correct value. This happens when there are
+multiple paths with differing delays, leading to oscillations in the
+output before stabilization.
+
+\subsection{Mitigation Techniques}
+
+To minimize timing hazards, designers employ several techniques:
+\begin{itemize}
+    \item \textbf{Redundant Logic}: Adding extra logic gates to ensure that different paths remain synchronized.
+    \item \textbf{Synchronizing Inputs}: Using flip-flops and registers to control when signals change.
+    \item \textbf{Glitch Filtering}: Employing filters or careful circuit layout to suppress transient glitches.
+    \item \textbf{Delay Balancing}: Ensuring all paths experience similar propagation delays to prevent unintended transitions.
+\end{itemize}
