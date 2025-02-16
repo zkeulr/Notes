@@ -16,13 +16,11 @@
 % System properties: Linearity, time-invariance, memory, causality, stability, invertibility
 % What LTI means
 
-
 For periodic functions \(x_1(t)\), \(x_2(t)\) with periods \(T_1\) and
 \(T_2\) respectively, the period of \(x_1(t) + x_2(t)\) is \(LCM(T_1, T_2)\).
 
 For periodic functions \(x_1[n]\), \(x_2[n]\) with periods \(N_1\) and
 \(N_2\) respectively, the period of \(x_1[n] + x_2[n]\) is \(LCM(N_1, N_2)\).
-
 \begin{align*}
     E & = \int_{t_1}^{t_2} |x(t)|^2 dt                     \\
       & = \int_{t_1}^{t_2} (x_{Re}(t)^2 + x_{Im}(t)^2) dt.
@@ -43,7 +41,6 @@ For periodic functions \(x_1[n]\), \(x_2[n]\) with periods \(N_1\) and
 \begin{equation*}
     P_{\infty} = \lim_{N \rightarrow \infty} \frac{1}{2N + 1} \sum_{n=-N}^{N} |x[n]|^2
 \end{equation*}
-
 \begin{align*}
     x(t) & = x_{even}(t) + x_{odd}(t)                        \\
          & = \frac{x(t) + x(-t)}{2} + \frac{x(t) - x(-t)}{2} \\
@@ -52,14 +49,12 @@ For periodic functions \(x_1[n]\), \(x_2[n]\) with periods \(N_1\) and
     x[n] & = x_{even}[n] + x_{odd}[n]                        \\
          & = \frac{x[n] + x[-n]}{2} + \frac{x[n] - x[-n]}{2} \\
 \end{align*}
-
 \begin{align*}
     x_k(t)   & = e^{jk\omega_0 t}, k \in \mathbb{Z} \\
     \omega_0 & = \frac{2\pi}{T}, \text{ period T}   \\
     x_k[n]   & = e^{jk\omega_0 n}, k \in \mathbb{Z} \\
     \omega_0 & = \frac{2\pi}{N}, \text{ period N}   \\
 \end{align*}
-
 \begin{itemize}
     \item A \emph{memoryless} system depends only on input at time
           \( t \) (or \( n \) for DT systems).
@@ -78,14 +73,4 @@ For periodic functions \(x_1[n]\), \(x_2[n]\) with periods \(N_1\) and
           such that
           \(|x(t)| < B \ \forall t \implies |y(t)| < M \ \forall t\).
 \end{itemize}
-
-\begin{table}[]
-    \begin{tabular}{l|l|l}
-        Name       & Series                   & Sum                           \\
-        \hline
-        Geometric  & $\sum_{i=0}^{n} a_0 r^i$ & $a_0 \frac{1 - r^n}{1 - r}$   \\
-        \hline
-        Arithmetic & $\sum_{i=0}^{n} (a+id)$  & $\frac{n}{2} (2a + (n - 1)d)$
-    \end{tabular}
-\end{table}
 \end{document}
