@@ -1,6 +1,46 @@
 \documentclass{article}
 
+\usepackage{amsmath}
+
 \begin{document}
+
+% Signal time transformations and plotting
+% Signal periodicity and fundamental frequency/period
+% Signal power and energy
+% Even and odd decompositions of signals
+% Complex exponential signals, and harmonically-related complex exponentials (HRCEs)
+% System properties: Linearity, time-invariance, memory, causality, stability, invertibility
+% What LTI means
+
+\begin{align*}
+    E & = \int_{t_1}^{t_2} |x(t)|^2 dt                     \\
+      & = \int_{t_1}^{t_2} (x_{Re}(t)^2 + x_{Im}(t)^2) dt.
+\end{align*}
+\begin{align*}
+    E & = \sum_{n=n_1}^{n_2} |x[n]|^2                     \\
+      & = \sum_{n=n_1}^{n_2} (x_{Re}[n]^2 + x_{Im}[n]^2).
+\end{align*}
+\begin{equation*}
+    P_{avg} = \frac{1}{t_2 - t_1} \int_{t_1}^{t_2} |x(t)|^2 dt.
+\end{equation*}
+\begin{equation*}
+    P_{avg} = \frac{1}{n_2 - n_1 + 1} \sum_{n=n_1}^{n_2} |x[n]|^2.
+\end{equation*}
+\begin{equation*}
+    P_{\infty} = \lim_{T \rightarrow \infty} \frac{1}{2T} \int_{-T}^{T} |x(t)|^2 dt
+\end{equation*}
+\begin{equation*}
+    P_{\infty} = \lim_{N \rightarrow \infty} \frac{1}{2N + 1} \sum_{n=-N}^{N} |x[n]|^2
+\end{equation*}
+
+\begin{align*}
+    x(t) & = x_{even}(t) + x_{odd}(t)                        \\
+         & = \frac{x(t) + x(-t)}{2} + \frac{x(t) - x(-t)}{2} \\
+\end{align*}
+\begin{align*}
+    x[n] & = x_{even}[n] + x_{odd}[n]                        \\
+         & = \frac{x[n] + x[-n]}{2} + \frac{x[n] - x[-n]}{2} \\
+\end{align*}
 
 \begin{table}[]
     \begin{tabular}{l|l|l}
