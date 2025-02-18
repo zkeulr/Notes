@@ -1,11 +1,19 @@
-\section{Recursion Limit}
+\section{Recursion}
+
+The fundemental components of recursion are
+\begin{enumerate}
+    \item A base case (or base cases)
+    \item A method to split the problem into smaller, similar problems.
+\end{enumerate}
+
+\subsection{Recursion Limit}
 
 Recursive solutions can reach the max recursive depth and
 terminate your program early. The way to avoid this is with
 an iterative solution. Taking the example of the Fibonacci
 sequence, you could implement it as in listing \ref{lst:fib}
 
-\begin{lstlisting}[language=C, caption=Singly Linked List Node Structure]
+\begin{lstlisting}[language=C, label={lst:fib}, caption=Singly Linked List Node Structure]
     #include <stdio.h>
 
     // Function to calculate the nth Fibonacci number using recursion
@@ -25,7 +33,6 @@ sequence, you could implement it as in listing \ref{lst:fib}
         return 0;
     }
 \end{lstlisting}
-\label{lst:fib}
 
 However, the runtime increases exponentially.
 \marginnote{In fact, the runtime increases as $\Phi^n$, where
@@ -34,7 +41,7 @@ There is a much better solution, an iterative one.
 For listing \ref{lst:fibit} the time complexity is $O(n)$
 instead of $O(2^n)$.
 
-\begin{lstlisting}[language=C, caption=Singly Linked List Node Structure]
+\begin{lstlisting}[language=C, label={lst:fibit}, caption=Singly Linked List Node Structure]
     #include <math.h>
     #include <stdio.h>
 
@@ -69,5 +76,12 @@ instead of $O(2^n)$.
         return 0;
     }
 \end{lstlisting}
-\label{lst:fibit}
 
+\subsection{Space Complexity}
+
+The space complexity of a recursive function is proportional to
+the depth of the computation tree, since that gives us the longest
+possible path (read: the highest number of frames on the call stack).
+For instance, if each frame has a space complexity of $n$, and the
+computation tree has a depth of $\log_2(n)$, the space complexity
+of the algorithm is $O(n\log(n))$.
