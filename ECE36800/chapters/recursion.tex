@@ -6,6 +6,94 @@ The fundemental components of recursion are
     \item A method to split the problem into smaller, similar problems.
 \end{enumerate}
 
+\subsection{Master Theorem}
+
+The Master Theorem provides a method for solving recurrence relations
+of the form:
+\[
+    T(n) = aT\left(\frac{n}{b}\right) + f(n)
+\]
+where:
+\begin{itemize}
+    \item \( a \geq 1 \) is the number of subproblems in the recursion,
+    \item \( b > 1 \) is the factor by which the problem
+          size is reduced in each recursive call,
+    \item \( f(n) \) is the cost of the work done outside
+          the recursive calls, including the cost of dividing the problem and merging results.
+\end{itemize}
+
+The theorem provides asymptotic bounds on \( T(n) \)
+based on the relationship between \( f(n) \) and \( n^{\log_b a} \).
+
+The asymptotic behavior of \( T(n) \) is determined
+by comparing \( f(n) \) with \( n^{\log_b a} \):
+
+\textbf{Case 1: Polynomially Smaller Work at Each Level}
+
+If \( f(n) = O(n^c) \) for some constant \( c < \log_b a \), then:
+
+\[
+    T(n) = \Theta(n^{\log_b a})
+\]
+
+\textbf{Explanation:} The total cost is dominated by the recursive term, meaning the majority of the work is done at the top levels of recursion.
+
+\textbf{Case 2: Balanced Work at All Levels}
+
+If \( f(n) = \Theta(n^{\log_b a}) \), then:
+
+\[
+    T(n) = \Theta(n^{\log_b a} \log n)
+\]
+
+\textbf{Explanation:} The work done at each level is roughly the same, so the logarithmic factor arises from the accumulation of work over all levels.
+
+\textbf{Case 3: Work Dominated by the Non-Recursive Term}
+
+If \( f(n) = \Omega(n^c) \) for some constant \( c > \log_b a \), and if the regularity condition holds:
+
+\[
+    a f\left(\frac{n}{b}\right) \leq c_1 f(n) \quad \text{for some } c_1 < 1 \text{ and sufficiently large } n,
+\]
+
+then:
+
+\[
+    T(n) = \Theta(f(n))
+\]
+
+\textbf{Explanation:} The majority of the work is done at the base
+level of recursion rather than at the top, meaning \( f(n) \)
+dominates the total complexity.
+
+\textbf{Example 1: Merge Sort}
+
+The recurrence relation for Merge Sort is:
+
+\[
+    T(n) = 2T\left(\frac{n}{2}\right) + O(n)
+\]
+
+Here, \( a = 2 \), \( b = 2 \), and \( f(n) = O(n) \). We compare \( f(n) \) with \( n^{\log_2 2} = n \). Since \( f(n) = \Theta(n^{\log_2 2}) \), Case 2 applies:
+
+\[
+    T(n) = \Theta(n \log n)
+\]
+
+\textbf{Example 2: Binary Search}
+
+The recurrence relation for Binary Search is:
+
+\[
+    T(n) = T\left(\frac{n}{2}\right) + O(1)
+\]
+
+Here, \( a = 1 \), \( b = 2 \), and \( f(n) = O(1) \). We compare \( f(n) \) with \( n^{\log_2 1} = n^0 = 1 \). Since \( f(n) = O(n^c) \) with \( c = 0 < \log_2 1 = 0 \), Case 1 applies:
+
+\[
+    T(n) = \Theta(\log n)
+\]
+
 \subsection{Recursion Limit}
 
 Recursive solutions can reach the max recursive depth and
