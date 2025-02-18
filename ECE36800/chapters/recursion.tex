@@ -173,3 +173,68 @@ possible path (read: the highest number of frames on the call stack).
 For instance, if each frame has a space complexity of $n$, and the
 computation tree has a depth of $\log_2(n)$, the space complexity
 of the algorithm is $O(n\log(n))$.
+
+\subsection{Tail Recursion}
+Tail recursion is a special case of recursion where the recursive
+call is the last operation performed in a function before returning
+the result. Tail recursion can be transformed into iteration, and in
+some languages this is done automatically under the hood.
+
+\begin{lstlisting}[language=C, caption={Regular Recursion}]
+    #include <stdio.h>
+
+    int factorial(int n) {
+        if (n == 0)
+            return 1;
+        return n * factorial(n - 1);  
+        // Multiplication happens after recursive call
+    }
+
+    int main() {
+        printf("%d\n", factorial(5)); // Output: 120
+        return 0;
+    }
+\end{lstlisting}
+
+\begin{lstlisting}[language=C, caption={Tail Recursion}, label={lst:tailrecursion}]
+    #include <stdio.h>
+
+    int factorial_helper(int n, int acc) {
+        if (n == 0)
+            return acc;
+        return factorial_helper(n - 1, n * acc);  
+        // Recursive call is the last operation
+    }
+
+    int factorial(int n) {
+        return factorial_helper(n, 1);  
+        // Start with accumulator = 1
+    }
+
+    int main() {
+        printf("%d\n", factorial(5)); // Output: 120
+        return 0;
+    }
+\end{lstlisting}
+
+Listing \ref{lst:tailrecursion} is optimized by the C compiler to
+perform the algorithm in listing \ref{lst:tailloop}.
+
+\begin{lstlisting}[language=C, caption={Iterative Solution}, label={lst:tailloop}]
+    #include <stdio.h>
+
+    int factorial(int n) {
+        int acc = 1;  // Initialize the accumulator
+        while (n > 0) {
+            acc *= n;  // Multiply the accumulator by current n
+            n--;       // Decrease n
+        }
+        return acc;
+    }
+
+    int main() {
+        printf("%d\n", factorial(5)); // Output: 120
+        return 0;
+    }
+
+\end{lstlisting}
