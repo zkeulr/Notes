@@ -1,3 +1,43 @@
 \section{Multiplexers}
+A multiplexer (MUX) is a combinational logic circuit that
+selects one of many input signals and forwards the selected
+input to a single output.
 
-I would rather stick a fork in my ass than sit through this class. I'm out.
+A multiplexer has multiple input lines, a set of selection lines,
+and a single output line. The selection lines determine which
+input is forwarded to the output. For an $n$-to-1 multiplexer,
+there are $n$ input lines and $\log_2 n$ selection lines.
+
+\subsection*{2-to-1 Multiplexer}
+The simplest multiplexer is a 2-to-1 multiplexer, which has two
+inputs ($I_0, I_1$), one selection line ($S$), and one output ($Y$).
+The function of a 2-to-1 MUX is defined as:
+\[
+    Y = S \cdot I_1 + \bar{S} \cdot I_0
+\]
+This means:
+\begin{itemize}
+    \item If $S = 0$, then $Y = I_0$.
+    \item If $S = 1$, then $Y = I_1$.
+\end{itemize}
+
+\subsection*{4-to-1 Multiplexer}
+A 4-to-1 multiplexer has four inputs ($I_0, I_1, I_2, I_3$), two
+selection lines ($S_0, S_1$), and one output ($Y$). The output equation is:
+\[
+    Y = (\bar{S_1} \cdot \bar{S_0} \cdot I_0) + (\bar{S_1} \cdot S_0 \cdot I_1) + (S_1 \cdot \bar{S_0} \cdot I_2) + (S_1 \cdot S_0 \cdot I_3)
+\]
+
+\subsection*{Multiplexers in Digital Systems}
+Multiplexers are used in:
+\begin{itemize}
+    \item Data selection and routing.
+    \item Logic function implementation.
+    \item Memory addressing.
+    \item Communication systems.
+\end{itemize}
+
+\subsection*{Implementation Using Logic Gates}
+A multiplexer can be implemented using basic logic gates such as
+AND, OR, and NOT gates. For example, a 2-to-1 multiplexer can be
+constructed using two AND gates, one OR gate, and one NOT gate.
