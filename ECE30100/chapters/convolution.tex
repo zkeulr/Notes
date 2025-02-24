@@ -36,3 +36,11 @@ Recall the sifting property of the unit impulse,
 This property is useful in that it allows us to represent
 $x(t)$ or $x[n]$ as a series of scaled very simple functions. It also
 tells us that $x$ convolved with $\delta$ yields $x$.
+
+Convolution has the following properties:
+\begin{itemize}
+    \item Commutativity: $x_1(t) * x_2(t) = x_2(t) * x_1(t)$
+    \item Distributivity over addition:
+          $x_1(t) * (x_2(t) + x_3(t)) = x_1(t)*x_2(t) + x_1(t)*x_3(t)$
+    \item Associative: $x_1(t) * (x_2(t) * x_3(t)) = (x_1(t) * x_2(t)) * x_3(t)$
+\end{itemize}

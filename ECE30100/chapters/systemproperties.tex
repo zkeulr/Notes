@@ -1,7 +1,19 @@
 \section{System Properties}
 
 \subsection{Memoryless}
-A \emph{memoryless} system's output depends only on the input at time \( t \) (or \( n \) for discrete-time systems), and not on past or future states. For example, \( y(t) = 2x(t) \) is memoryless, while \( y[n] = x[n-1] \) has memory.
+A \emph{memoryless} system's output depends only on the input at time
+\( t \) (or \( n \) for discrete-time systems), and not on past or
+future states. For example, \( y(t) = 2x(t) \) is memoryless, while
+\( y[n] = x[n-1] \) has memory.
+
+Recall that for any system,
+\begin{equation}
+    y[n] = \sum_{k=-\infty}^{\infty} h[k]x[n-k]
+\end{equation}
+For a memoryless system, $y[n]$ must be dependent only on $x[n]$ and
+not some past or future inputs. That forces $h[n]$ to be 0 for all values
+of $n$ except 0. Thus, for a memoryless system, the impulse response
+is the delta function times some scalar.
 
 \subsection{Linear}
 A system is \emph{linear} if it satisfies superposition and homogeneity. Formally, for any inputs \( x_1(t) \rightarrow y_1(t) \) and \( x_2(t) \rightarrow y_2(t) \), and constants \( a, b \), the system satisfies:
@@ -50,12 +62,24 @@ For an invertible system \( S_1 \), there exists an inverse \( S_2 \) such that:
     S_2(S_1(x(t))) = S_1(S_2(x(t))) = x(t).
 \]
 
+It would be useful to have a general method of determining the inverse,
+so that we can algorithmically find the inverse or prove a system is
+noninvertable. For LTI systems we know that $y[n] = x[n] * h[n]$. When
+this is fed into the inverse system we get $x[n] = x[n] * h[n] * h_I[n]$.
+So the impulse response of the inverse system convolved with the
+impulse response of the original system must be $\delta$. We will find a
+perfectly systematic way of determining $h_I[n]$ when we examine Fourier
+transforms in the section on \nameref{sec:fourier}.
+
 
 \subsection{Causal}
 A system is \emph{causal} if its output at time \( t \) depends
 only on present and past inputs. All memoryless systems are causal
 (e.g., \( y(t) = x(t)^2 \)). A non-causal system (e.g., moving average
 \( y[n] = \frac{1}{3}(x[n+1] + x[n] + x[n-1]) \)) requires future inputs.
+
+For causal systems, the impulse response must be 0 for values of $n$ ($t$)
+less than 0.
 
 \subsection{Stable}
 A system is \emph{stable} if bounded inputs produce
@@ -67,5 +91,16 @@ such that:
 Examples:
 \begin{itemize}
     \item Stable: \( y(t) = e^{-t}x(t) \).
-    \item Unstable: \( y(t) = \int_{-\infty}^t x(\tau) d\tau \) (unbounded integral for a constant input).
+    \item Unstable: \( y(t) = \int_{-\infty}^t x(\tau) d\tau \)
+          (unbounded integral for a constant input).
 \end{itemize}
+
+For a stable LTI system, the impulse response must be absolutely summable.
+That is,
+\begin{equation}
+    \sum_{k=-\infty}^{\infty} |h[k| < \infty.
+\end{equation}
+Or for continuous time, absolutely integrable
+\begin{equation}
+    \int_{-\infty}^{\infty} |h(\tau)| d\tau < \infty.
+\end{equation}
