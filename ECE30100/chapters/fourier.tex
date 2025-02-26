@@ -1,2 +1,35 @@
 \section{Fourier Transforms} \label{sec:fourier}
 
+\subsection{Eigenfunctions and $H(s)$}
+
+An \emph{eigenfunction} $x(t) = e^{j\omega t}$ is a function such that
+$S\{x(t)\} = Ax(t)$ for LTI $S$. A property of functions of the form
+$e^{j\omega t}$ is that convolution with $h(t)$ yields
+\begin{equation}
+    x(t) * h(t) = e^{j\omega t} \int_{-\infty}^{\infty} h(\tau) e^{-j\omega \tau} d\tau.
+\end{equation}
+This is also written as
+\begin{equation}
+    x(t) * h(t) = e^{j\omega t} \left( |H(j\omega)|e^{j \angle H(j\omega)} \right)
+\end{equation}
+$H$ is known as the transfer function as has the property that
+$Y(S) = H(s)X(s)$, where $Y(s)$ and $X(s)$ are the Laplace transforms
+of $y(t)$ and $x(t)$.
+
+\section{Fourier Series}
+
+Consider an arbitrary periodic CT signal $x(t)$ with fundemental
+period $T$ and fundemental frequency $\omega_0$. The Fourier series
+representation of $x(t)$ is
+\begin{align}
+    x(t) = \sum_{k=-\infty}^{\infty} a_k e^{jk\omega_0 t}                         \\
+     & = a_0 + a_1e^{j\omega_0 t} + a_{-1}e^{-j\omega_0 t} + a_2e^{2j\omega_0 t},
+\end{align}
+where $a_k$ is the $k$th Fourier coefficient and can be found with the formula
+\begin{equation}
+    a_k = \frac{1}{T} \int^{<T>} x(t) e^{-jk\omega_0 t} dt
+\end{equation}
+with $<T>: [0, T], [-\frac{T}{2}, \frac{T}{2}, ...]$.
+
+Notably, $a_0$ gives the DC component of the singal. In general the $a_{\pm k}$
+are the $k$th harmonic components.

@@ -128,3 +128,62 @@ Tnode *Preorder_rebuild_BST(int *a, int lidx, int ridx)
     return root;
 }
 \end{lstlisting}
+
+\subsection{Threaded Binary Tree}
+A \emph{threaded binary tree} is a type of binary tree in
+which unused \texttt{NULL} pointers are replaced with special
+links called \emph{threads}. These threads help in performing tree
+traversal more efficiently by providing direct links to the in-order s
+uccessor (or predecessor), reducing the need for stack or recursion.
+
+Threaded binary trees are categorized into two types:
+
+\begin{itemize}
+    \item \textbf{Single Threaded:} Each node has a thread pointing to its \textit{in-order successor} if the right child is \texttt{NULL}.
+    \item \textbf{Double Threaded:} Each node has threads pointing to both its \textit{in-order successor} and \textit{in-order predecessor} if left or right children are \texttt{NULL}.
+\end{itemize}
+
+A typical node in a double-threaded binary tree can be represented as:
+
+\begin{lstlisting}[language=C]
+struct Node {
+    int data;
+    struct Node* left;
+    struct Node* right;
+    bool lthread; // true if left is a thread
+    bool rthread; // true if right is a thread
+};
+\end{lstlisting}
+
+\begin{itemize}
+    \item Eliminates the need for stack or recursion during tree traversal.
+    \item Reduces memory overhead since \texttt{NULL} pointers are replaced with useful links.
+    \item Increases traversal efficiency, making operations like in-order traversal \(\mathcal{O}(n)\) instead of \(\mathcal{O}(n)\) with stack or recursion.
+\end{itemize}
+
+Since each node contains a pointer to its in-order successor,
+we can traverse the tree iteratively:
+
+\begin{lstlisting}[language=C]
+void inOrder(struct Node* root) {
+    struct Node* current = root;
+    
+    // Find the leftmost node
+    while (current->left != NULL && !current->lthread) 
+        current = current->left;
+
+    while (current != NULL) {
+        printf("%d ", current->data);
+
+        // If right thread exists, move to successor
+        if (current->rthread)
+            current = current->right;
+        else {
+            // Else, move to the leftmost child of the right subtree
+            current = current->right;
+            while (current != NULL && !current->lthread)
+                current = current->left;
+        }
+    }
+}
+\end{lstlisting}
