@@ -1,0 +1,130 @@
+\section{Access Levels}
+
+\subsection{Public}
+Public members are accessible from any part of the program
+where the object is visible. They form the interface of the
+class. In inheritance, public members remain public when using
+public inheritance, though they can become private under private
+inheritance.
+
+\begin{lstlisting}[language=C++]
+class MyClass {
+public:
+    int publicVar;
+    void publicMethod();
+};
+
+int main() {
+    MyClass obj;
+    obj.publicVar = 42;   // Accessible from anywhere
+    obj.publicMethod();   // Accessible from anywhere
+    return 0;
+}
+\end{lstlisting}
+
+\subsection{Protected}
+Protected members are accessible within the class that declares
+them, as well as in classes derived from it and friend classes.
+In public inheritance, protected members remain protected in the
+derived class. However, they cannot be accessed from outside the
+class hierarchy.
+
+\begin{lstlisting}[language=C++]
+class Base {
+protected:
+    int protectedVar;
+public:
+    Base() : protectedVar(0) {}
+};
+
+class Derived : public Base {
+public:
+    void modify() {
+        protectedVar = 10;  // Accessible here in the derived class
+    }
+};
+
+int main() {
+    Derived d;
+    // d.protectedVar = 5; // Error: protectedVar is not accessible outside Base or Derived
+    return 0;
+}
+\end{lstlisting}
+
+\subsection{Private}
+Private members are only accessible within the class that declares
+them and by its friend functions or classes. They are not directly
+accessible in derived classes, although they do exist as part of the
+derived object. If a derived class needs to interact with these members,
+it must do so through public or protected member functions of the base class.
+
+\begin{lstlisting}[language=C++]
+class Base {
+private:
+    int privateVar;
+protected:
+    int protectedVar;
+public:
+    Base() : privateVar(0), protectedVar(0) {}
+};
+
+class Derived : public Base {
+public:
+    void tryAccess() {
+        // privateVar = 5;  // Error: privateVar is not accessible here
+        protectedVar = 10;  // OK: protectedVar is accessible in the derived class
+    }
+};
+
+int main() {
+    Base b;
+    // b.privateVar = 5;  // Error: cannot access private member
+    return 0;
+}
+\end{lstlisting}
+
+% Note on Inheritance Nuances:
+% In public inheritance, the access levels of the base class members are preserved:
+%
+%   - Public members remain public.
+%   - Protected members remain protected.
+%
+% In private inheritance, however, both public and protected members of the base class become private in the derived class:
+%
+% \begin{lstlisting}[language=C++]
+% class Base {
+% public:
+%     int pub;
+% protected:
+%     int prot;
+% };
+%
+% class DerivedPublic : public Base {
+%     void access() {
+%         pub = 1;   // OK: remains public
+%         prot = 2;  // OK: remains protected
+%     }
+% };
+%
+% class DerivedPrivate : private Base {
+%     void access() {
+%         pub = 1;   // OK: but pub is now private in DerivedPrivate
+%         prot = 2;  // OK: prot is now private in DerivedPrivate
+%     }
+% };
+%
+% int main() {
+%     DerivedPublic d1;
+%     d1.pub = 1;       // OK
+%     // d1.prot = 2;   // Error: protected in DerivedPublic
+%
+%     DerivedPrivate d2;
+%     // d2.pub = 1;    // Error: pub is private in DerivedPrivate
+%     return 0;
+% }
+% \end{lstlisting}
+%
+% This illustrates that while the access specifiers in 
+% the base class define member accessibility within the 
+% base and derived classes, the type of inheritance can 
+% further restrict external access.
