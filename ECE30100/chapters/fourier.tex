@@ -111,3 +111,33 @@ an example: let $T_1 = \frac{T}{4}$. Then $a_k = \frac{\sin(\pi \frac{k}{2})}{k\
         ] coordinates {((0,0.5) ((1,0.32) (-1, 0.32) (-2,0) (3, -0.1) (-3, -0.1) };
     \end{axis}
 \end{tikzpicture}
+
+\subsection{Properties}
+
+Some useful properties follow from the definition
+of the Fourier series. These are tabulated in Table
+\ref{tab:fourier_properties}.
+
+\begin{table}[ht]
+    \centering
+    \caption{Fourier Properties}
+    \label{tab:fourier_properties}
+    \begin{tabular}{llll}
+        \toprule
+        \textbf{Property}    & \textbf{Time Domain}             &                                 & \textbf{Frequency Domain}                 \\
+        \midrule
+        Linearity            & $A x_1(t) + B x_2(t)$            & $\overset{FS}{\leftrightarrow}$ & $A a_k + B b_k$                           \\
+        Even Symmetry        & $x(t)$ even                      & $\overset{FS}{\leftrightarrow}$ & $a_k$ even                                \\
+        Odd Symmetry         & $x(t)$ odd                       & $\overset{FS}{\leftrightarrow}$ & $a_k$ odd                                 \\
+        Time Shifting        & $x(t - t_0)$                     & $\overset{FS}{\leftrightarrow}$ & $a_k e^{-j k \omega_0 t_0}$               \\
+        Frequency Shifting   & $x(t) e^{j n \omega_0 t}$        & $\overset{FS}{\leftrightarrow}$ & $a_{k - n}$                               \\
+        Time Reversal        & $x(-t)$                          & $\overset{FS}{\leftrightarrow}$ & $a_{-k}$                                  \\
+        Conjugation          & $x^*(t)$                         & $\overset{FS}{\leftrightarrow}$ & $a_{-k}^*$                                \\
+        Periodic Convolution & $(x \ast y)(t)$                  & $\overset{FS}{\leftrightarrow}$ & $a_k b_k$                                 \\
+        Multiplication       & $x(t) y(t)$                      & $\overset{FS}{\leftrightarrow}$ & $\sum_{n=-\infty}^{\infty} a_n b_{k - n}$ \\
+        Differentiation      & $\frac{d}{dt} x(t)$              & $\overset{FS}{\leftrightarrow}$ & $j k \omega_0 a_k$                        \\
+        Integration          & $\int x(t) dt$                   & $\overset{FS}{\leftrightarrow}$ & $\frac{a_k}{j k \omega_0}$ if $a_0 = 0$)  \\
+        Parseval's Theorem   & $\frac{1}{T} \int_T |x(t)|^2 dt$ & $\overset{FS}{\leftrightarrow}$ & $\sum_{k=-\infty}^{\infty} |a_k|^2$       \\
+        \bottomrule
+    \end{tabular}
+\end{table}
