@@ -129,6 +129,51 @@ Tnode *Preorder_rebuild_BST(int *a, int lidx, int ridx)
 }
 \end{lstlisting}
 
+Each node on a binary tree has a \emph{balance}, defined to be
+the difference between the height of the left substree and the
+height of the right subtree. If every node in a binary tree has
+a balance of either -1, 0, or 1, then the binary tree is height-balanced
+\marginnote{Height-balanced binary trees are also known as \textbf{AVL} trees after Adelson-Velsky and Landis, their inventors.}
+
+When a new node is inserted into a height-balanced BST, the tree may
+either stay balanced or become unbalanced and need rebalancing. When the
+tree needs rebalancing, the damage is localized in the sense that you need
+only shuffle around the sibling, parent, and self nodes. The rest of the
+tree remains unchanged. The node that becomes unbalanced must have been
+either -1 or 1, which makes rebalancing the tree simple. The name of
+the node that could become unbalanced is the \emph{youngest ancestor}.
+
+\begin{figure}
+    \begin{center}
+        \begin{forest}
+            for tree={
+            grow=south,
+            circle, draw,
+            }
+            [30
+                [20
+                        []
+                        [25]
+                ]
+                [40
+                        [35]
+                        [50
+                                []
+                                [51]
+                        ]
+                ]
+            ]
+        \end{forest}
+    \end{center}
+    \caption{AVL Tree}
+    \label{fig:avltree}
+\end{figure}
+
+In this class, the action that rebalances the tree is called a \emph{rotation}.
+Rotations are either a clockwise rotation (CRs) or a counterclockwise rotation
+(CCR). A clockwise rotation makes the new youngest ancestor the left child,
+while a counterclockwise rotation makes the new youngest ancestor the right child.
+
 \subsection{Threaded Binary Tree}
 A \emph{threaded binary tree} is a type of binary tree in
 which unused \texttt{NULL} pointers are replaced with special
