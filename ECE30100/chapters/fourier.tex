@@ -18,12 +18,14 @@ of $y(t)$ and $x(t)$.
 
 \section{Fourier Series}
 
+\subsection{Continuous Time}
+
 Consider an arbitrary periodic CT signal $x(t)$ with fundemental
 period $T$ and fundemental frequency $\omega_0$. The Fourier series
 representation of $x(t)$ is
 \begin{align}\label{eq:synthesis}
-    x(t) & = \sum_{k=-\infty}^{\infty} a_k e^{jk\omega_0 t}                           \\
-         & = a_0 + a_1e^{j\omega_0 t} + a_{-1}e^{-j\omega_0 t} + a_2e^{2j\omega_0 t},
+    x(t) & = \sum_{k=-\infty}^{\infty} a_k e^{jk\omega_0 t}                                  \\
+         & = a_0 + a_1e^{j\omega_0 t} + a_{-1}e^{-j\omega_0 t} + a_2e^{2j\omega_0 t} + \dots
 \end{align}
 where $a_k$ is the $k$th Fourier coefficient and can be found with the formula
 \begin{equation}
@@ -88,6 +90,34 @@ This expression for $a_0$ is fine, however, there is a problem. When
 $k = 0$ we have a discontinuity. In general we may have to find $a_0$
 separately. It's not a big deal: $a_0 = \frac{1}{T} \int_{-T_1}^{T_1} 1 dt$.
 
+\subsection{Discrete Time}
+
+In discrete time, an arbitrary periodic signal $x[n]$ with fundemental
+period $N$ and fundemental frequency $\omega_0$. The Fourier series
+representation of $x[n]$ is
+\begin{align}\label{eq:dtsynthesis}
+    x[n] & = \sum_{k=<N>} a_k x_k[n]           \\
+         & = \sum_{k=<N>} a_k e^{jk\omega_0 n}
+\end{align}
+
+This expression yields a system of $n$ linear equations with $n$
+unknowns, namely $x[0]$, $x[1]$, $\dots$, $x[n]$. In theory we
+could solve this, perhaps using computers or linear algebra, but
+in practice there is a simpler way. Multiply equation \ref{eq:dtsynthesis}
+by $e^{-jr\frac{2\pi}{N}n}$ for any $r$ and sum over $N$ terms. Then
+\begin{equation}
+    \sum_{n=<N>} x_k[n] e^{-jr\frac{2\pi}{N}n} = \sum_{n=<N>} a_k \sum_{n=<N>} e^{j(k-r)(\frac{2\pi}{N})n}.
+\end{equation}
+Solving for $a_k$,
+\begin{equation}
+    a_k = \frac{1}{N} \sum_{n=<N>} x[n] e^{-jk\frac{2\pi}{N}n},
+\end{equation}
+which is the synthesis equation in discrete time.
+
+A fun property is that $a_{k+N} = a_k$, so $a_k$ are periodic in $N$.
+
+\subsection{Spectrum Analysis}
+
 $a_k$ as a function of $k$ given the \emph{spectrum} of $x(t)$. Let's see
 an example: let $T_1 = \frac{T}{4}$. Then $a_k = \frac{\sin(\pi \frac{k}{2})}{k\pi}$.
 
@@ -115,13 +145,14 @@ an example: let $T_1 = \frac{T}{4}$. Then $a_k = \frac{\sin(\pi \frac{k}{2})}{k\
 \subsection{Properties}
 
 Some useful properties follow from the definition
-of the Fourier series. These are tabulated in Table
-\ref{tab:fourier_properties}.
+of the Fourier series. The continuous time properties
+are tabulated in Table \ref{tab:ctfourier_properties},
+while the discrete time properties are tabulated in
+\ref{tab:dtfourier_properties}
 
 \begin{table}[ht]
     \centering
-    \caption{Fourier Properties}
-    \label{tab:fourier_properties}
+    \label{tab:ctfourier_properties}
     \begin{tabular}{llll}
         \toprule
         \textbf{Property}    & \textbf{Time Domain}             &                                 & \textbf{Frequency Domain}                 \\
@@ -138,6 +169,28 @@ of the Fourier series. These are tabulated in Table
         Differentiation      & $\frac{d}{dt} x(t)$              & $\overset{FS}{\leftrightarrow}$ & $j k \omega_0 a_k$                        \\
         Integration          & $\int x(t) dt$                   & $\overset{FS}{\leftrightarrow}$ & $\frac{a_k}{j k \omega_0}$ if $a_0 = 0$)  \\
         Parseval's Theorem   & $\frac{1}{T} \int_T |x(t)|^2 dt$ & $\overset{FS}{\leftrightarrow}$ & $\sum_{k=-\infty}^{\infty} |a_k|^2$       \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\begin{table}[ht]
+    \centering
+    \label{tab:dtfourier_properties}
+    \begin{tabular}{llll}
+        \toprule
+        \textbf{Property}    & \textbf{Time Domain}                    &                                     & \textbf{Frequency Domain}                                       \\
+        \midrule
+        Linearity            & \(A\,x_1[n] + B\,x_2[n]\)               & \(\overset{DTFS}{\leftrightarrow}\) & \(A\,a_k + B\,b_k\)                                             \\
+        Even Symmetry        & \(x[n]\) even (i.e., \(x[n]=x[-n]\))    & \(\overset{DTFS}{\leftrightarrow}\) & \(a_k\) even                                                    \\
+        Odd Symmetry         & \(x[n]\) odd (i.e., \(x[n]=-x[-n]\))    & \(\overset{DTFS}{\leftrightarrow}\) & \(a_k\) odd                                                     \\
+        Time Shifting        & \(x[n-n_0]\)                            & \(\overset{DTFS}{\leftrightarrow}\) & \(a_k\,e^{-j\frac{2\pi}{N} k n_0}\)                             \\
+        Frequency Shifting   & \(x[n]\,e^{j\frac{2\pi}{N} n_0 n}\)     & \(\overset{DTFS}{\leftrightarrow}\) & \(a_{(k-n_0)\,\mathrm{mod}\,N}\)                                \\
+        Time Reversal        & \(x[-n]\)                               & \(\overset{DTFS}{\leftrightarrow}\) & \(a_{-k}\) (indices mod \(N\))                                  \\
+        Conjugation          & \(x^*[n]\)                              & \(\overset{DTFS}{\leftrightarrow}\) & \(a^*_{-k}\)                                                    \\
+        Circular Convolution & \((x\circledast y)[n]\)                 & \(\overset{DTFS}{\leftrightarrow}\) & \(a_k\,b_k\)                                                    \\
+        Multiplication       & \(x[n]\,y[n]\)                          & \(\overset{DTFS}{\leftrightarrow}\) & \(\frac{1}{N}\sum_{m=0}^{N-1} a_m\,b_{(k-m)\,\mathrm{mod}\,N}\) \\
+        Difference Operator  & \(x[n]-x[n-1]\)                         & \(\overset{DTFS}{\leftrightarrow}\) & \(a_k\Bigl(1-e^{-j\frac{2\pi}{N} k}\Bigr)\)                     \\
+        Parseval's Theorem   & \(\frac{1}{N}\sum_{n=0}^{N-1}|x[n]|^2\) & \(\overset{DTFS}{\leftrightarrow}\) & \(\sum_{k=0}^{N-1}|a_k|^2\)                                     \\
         \bottomrule
     \end{tabular}
 \end{table}
