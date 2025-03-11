@@ -1,3 +1,82 @@
 \section{Heap}
 
-A \emph{heap}
+A \emph{heap} satisfies the heap property.
+There are two types
+of heaps: max-heaps and min-heaps.
+
+\begin{itemize}
+    \item \textbf{Max-Heap}: In a max-heap, for any
+          given node $i$, the value of $i$ is greater than
+          or equal to the values of its children. The
+          largest element is at the root.
+    \item \textbf{Min-Heap}: In a min-heap, for any
+          given node $i$, the value of $i$ is less than or
+          equal to the values of its children. The smallest
+          element is at the root.
+\end{itemize}
+
+Heaps are commonly used to implement priority queues,
+where the highest (or lowest) priority element is
+always at the root and can be accessed in constant
+time. The typical operations on a heap include:
+
+\begin{itemize}
+    \item \textbf{Insertion}: Adding a new element to the
+          heap while maintaining the heap property.
+    \item \textbf{Deletion}: Removing the root element
+          (the maximum in a max-heap or the minimum in a min-heap)
+          and re-heapifying to maintain the heap property.
+    \item \textbf{Peek}: Accessing the root element without
+          removing it.
+\end{itemize}
+
+Heaps are usually implemented as binary heaps, which are
+binary trees that are complete (all levels are fully
+filled except possibly the last level, which is filled
+from left to right).
+
+\subsection{Tournaments}
+
+Consider a tournament with $n$ players, with a normal
+bracket structure.
+\begin{figure}
+    \begin{center}
+        \begin{forest}
+            for tree={
+            grow=south,
+            circle, draw,
+            }
+            [P
+                [M
+                        [H
+                                [C]
+                                [H]
+                        ]
+                        [M
+                                [A]
+                                [M]
+                        ]
+                ]
+                [P
+                        [P
+                                [P]
+                                [I]
+                        ]
+                        [O
+                                [O]
+                                [N]
+                        ]
+                ]
+            ]
+        \end{forest}
+    \end{center}
+    \caption{Tournament Tree}
+    \label{fig:tournamenttree}
+\end{figure}
+This tournament determines who the winner is with $n-1$
+comparisons, but it does not tell us who second is.
+Second could be any of the players defeated by first.
+To determine second, we need $\log_2(n)$ comparisons.
+This type of sorting is known as tournament
+sort, for obvious reasons, and its
+overall time complexity is $O(n\log(n))$.
