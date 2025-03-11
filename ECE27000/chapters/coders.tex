@@ -1,0 +1,31 @@
+\section{Decoders and Encoders}
+
+\subsection{Decoders}
+Decoders are combinational circuits that
+convert binary information from $n$ input
+lines to a maximum of $2^n$ unique output lines.
+They are used in various applications such as
+memory address decoding, data demultiplexing,
+and seven-segment displays. A common
+type of decoder is the 2-to-4 line decoder,
+which has 2 input lines and 4 output lines.
+The output lines are mutually exclusive,
+meaning only one output line is active (high)
+at any given time based on the binary value of
+the inputs.
+
+\subsection{Encoders}
+Encoders are combinational circuits that perform
+the inverse operation of decoders. They convert
+$2^n$ input lines into an $n$-bit binary code.
+Encoders are used in applications such as priority
+encoding, data compression, and binary coding of
+input signals. A common type of encoder is the 4-to-2
+line encoder, which has 4 input lines and 2 output
+lines. The encoder generates a binary code corresponding
+to the active input line.
+
+In practice, encoders often include additional
+features such as priority encoding, where the
+encoder outputs the binary code of the
+highest-priority active input.
