@@ -83,12 +83,12 @@ We calculate $a_k$ as
     a_k & = \frac{1}{T} \int_{<T>} x(t) e^{-jk\omega_0 t} dt                                         \\
         & = -\frac{1}{jk\omega_0 T} \left[ e^{-jk\omega_0 T_1} -  e^{jk\omega_0 T_1}\right]          \\
         & = \frac{1}{k\omega_0 T} \left[ \frac{e^{jk\omega_0 T_1} -  e^{-jk\omega_0 T_1}}{j} \right] \\
-        & = \frac{2}{omega_0 T} \sin(k \omega_0 T_1)                                                 \\
+        & = \frac{2}{\omega_0 T} \sin(k \omega_0 T_1)                                                \\
         & = \frac{1}{\pi k} \sin(k \omega_0 T_1)
 \end{align}
 This expression for $a_0$ is fine, however, there is a problem. When
 $k = 0$ we have a discontinuity. In general we may have to find $a_0$
-separately. It's not a big deal: $a_0 = \frac{1}{T} \int_{-T_1}^{T_1} 1 dt$.
+separately. It's not a big deal: $a_0 = \frac{1}{T} \int_{-T_1}^{T_1} x(t) dt$ in general`'.
 
 \subsection{Discrete Time}
 
@@ -175,7 +175,7 @@ while the discrete time properties are tabulated in
 
 \begin{table}[ht]
     \centering
-6    \label{tab:dtfourier_properties}
+    6    \label{tab:dtfourier_properties}
     \begin{tabular}{llll}
         \toprule
         \textbf{Property}    & \textbf{Time Domain}                    &                                     & \textbf{Frequency Domain}                                       \\

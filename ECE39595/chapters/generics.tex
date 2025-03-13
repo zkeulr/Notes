@@ -1,0 +1,37 @@
+\section{Generic Programming}
+
+Generic programming is a style of computer programming in which
+algorithms are written in terms of types to-be-specified-later
+that are then instantiated when needed for specific types provided
+as parameters. This approach allows for code reusability and type safety.
+Generic programming is primarily achieved through the use of templates.
+Templates allow functions and classes to operate with generic types,
+which makes it possible to create a function or class to work with
+any data type.
+
+A function template works by defining a pattern for a function that can
+operate on any data type. Here is an example of a simple function template
+that returns the maximum of two values:
+
+\begin{lstlisting}[language=C++]
+template <typename T>
+T max(T a, T b) {
+    return (a > b) ? a : b;
+}
+\end{lstlisting}
+Class templates allow you to define a class that can operate with
+any data type. Here is an example of a simple class template for a
+pair of values:
+
+\begin{lstlisting}[language=C++]
+template <typename T1, typename T2>
+class Pair {
+public:
+    Pair(T1 first, T2 second) : first_(first), second_(second) {}
+    T1 first() const { return first_; }
+    T2 second() const { return second_; }
+private:
+    T1 first_;
+    T2 second_;
+};
+\end{lstlisting}
