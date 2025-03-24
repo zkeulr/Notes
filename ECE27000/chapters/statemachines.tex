@@ -342,30 +342,3 @@ Registers and counters are specialized state machines with specific purposes. A 
     \caption{State diagram of a 3-bit binary counter}
     \label{fig:binary_counter}
 \end{figure}
-
-\subsection*{Finite State Machines with Datapath (FSMD)}
-
-More complex designs combine a state machine controller with a datapath that performs operations on data.
-
-\begin{figure}[h]
-    \centering
-    \begin{tikzpicture}
-        % Controller
-        \node[draw, minimum width=3cm, minimum height=2cm] (controller) at (0,0) {FSM Controller};
-
-        % Datapath
-        \node[draw, minimum width=5cm, minimum height=3cm] (datapath) at (0,-4) {Datapath};
-
-        % Connections
-        \draw[->, rounded corners] (controller.south) -- ++(0,-0.5) -| (datapath.north) node[pos=0.25, right] {Control Signals};
-        \draw[->, rounded corners] (datapath.north east) -- ++(0.5,0) |- (controller.east) node[pos=0.25, right] {Status Signals};
-
-        % External connections
-        \draw[->] (-3,0) -- (controller.west) node[midway, above] {Inputs};
-        \draw[->] (controller.east) -- (3,0) node[midway, above] {Outputs};
-        \draw[->] (-3,-4) -- (datapath.west) node[midway, above] {Data In};
-        \draw[->] (datapath.east) -- (3,-4) node[midway, above] {Data Out};
-    \end{tikzpicture}
-    \caption{Architecture of a Finite State Machine with Datapath (FSMD)}
-    \label{fig:fsmd}
-\end{figure}
