@@ -18,6 +18,24 @@ of $y(t)$ and $x(t)$.
 
 \section{Fourier Series}
 
+Throughout this class we will sometimes see the expression $X(j\omega)$
+or $X(e^{j\omega})$.
+Note that these are defined as
+\begin{equation}
+    X(j\omega) = \int_{-\infty}^{\infty} x(t) e^{-j\omega t} dt
+\end{equation}
+for CT and
+\begin{equation}
+    X(e^{j\omega}) = \sum_{n=-\infty}^{\infty} x[n] e^{-j\omega n}
+\end{equation}
+
+A signal $x(t)$ is well-behaved iff
+\begin{itemize}
+    \item $x(t)$ is absolutely integrable over its domain.
+    \item $x(t)$ has finite maximum and minimum.
+    \item $x(t)$ has finite discontinuities.
+\end{itemize}
+
 \subsection{Continuous Time}
 
 Consider an arbitrary periodic CT signal $x(t)$ with fundemental
@@ -35,7 +53,7 @@ with $<T>: [0, T], [-\frac{T}{2}, \frac{T}{2}, ...]$.
 Equation \ref{eq:synthesis} is known as the synthesis equation. The process of
 of finding $a_k$ is Fourier analysis.
 
-Notably, $a_0$ gives the DC component of the singal. In general the $a_{\pm k}$
+Notably, $a_0$ gives the DC component of the signal. In general the $a_{\pm k}$
 are the $k$th harmonic components.
 
 Let's see an example. Let $x(t)$ be a square wave given by
