@@ -35,3 +35,88 @@ private:
     T2 second_;
 };
 \end{lstlisting}
+
+\subsection{Function Pointers}
+
+Function pointers are variables that store memory addresses of functions. They allow functions to be passed as arguments to other functions, returned from functions, and stored in data structures. In the context of generic programming, function pointers enable writing algorithms that can work with different behaviors specified at runtime.
+
+The syntax for declaring a function pointer involves specifying the return type and parameter types:
+
+\begin{lstlisting}[language=C++]
+// Declaring a function pointer
+return_type (*pointer_name)(parameter_types);
+\end{lstlisting}
+
+Here's a basic example of using function pointers:
+
+\begin{lstlisting}[language=C++]
+#include <iostream>
+
+int add(int a, int b) {
+    return a + b;
+}
+
+int subtract(int a, int b) {
+    return a - b;
+}
+int main() {
+    // Declare function pointer
+    int (*operation)(int, int);
+    
+    // Assign function pointer to add
+    operation = add;
+    std::cout << "Result of add: " << operation(5, 3) << std::endl;
+    
+    // Reassign function pointer to subtract
+    operation = subtract;
+    std::cout << "Result of subtract: " << operation(5, 3) << std::endl;
+    
+    return 0;
+}
+\end{lstlisting}
+
+Function pointers can be combined with templates for powerful generic programming:
+
+\begin{lstlisting}[language=C++]
+template <typename T>
+T processValues(T a, T b, T (*operation)(T, T)) {
+    return operation(a, b);
+}
+
+template <typename T>
+T multiply(T a, T b) {
+    return a * b;
+}
+int main() {
+    // Use the generic function with different types
+    int intResult = processValues<int>(5, 3, multiply);
+    double doubleResult = processValues<double>(2.5, 1.5, multiply);
+    
+    std::cout << "Int result: " << intResult << std::endl;
+    std::cout << "Double result: " << doubleResult << std::endl;
+    
+    return 0;
+}
+\end{lstlisting}
+
+Modern C++ provides std::function from the <functional> header, which offers a more flexible alternative to traditional function pointers:
+
+\begin{lstlisting}[language=C++]
+#include <iostream>
+#include <functional>
+
+template <typename T>
+T processValues(T a, T b, std::function<T(T, T)> operation) {
+    return operation(a, b);
+}
+
+int main() {
+    // Using lambda expressions
+    auto divide = [](double a, double b) { return a / b; };
+    
+    double result = processValues<double>(10.0, 2.0, divide);
+    std::cout << "Result: " << result << std::endl;
+    
+    return 0;
+}
+\end{lstlisting}
