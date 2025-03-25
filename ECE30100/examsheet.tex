@@ -3,6 +3,8 @@
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{geometry}
+\usepackage{array}
+\usepackage{booktabs}
 
 \geometry{margin=0.2in}
 
@@ -73,4 +75,82 @@ For periodic functions \(x_1[n]\), \(x_2[n]\) with periods \(N_1\) and
           such that
           \(|x(t)| < B \ \forall t \implies |y(t)| < M \ \forall t\).
 \end{itemize}
+
+\begin{table}[ht]
+    \centering
+    \label{tab:ctfourier_properties}
+    \begin{tabular}{llll}
+        \textbf{Property}    & \textbf{Time Domain}             &                                 & \textbf{Frequency Domain}                 \\
+        Linearity            & $A x_1(t) + B x_2(t)$            & $\overset{FS}{\leftrightarrow}$ & $A a_k + B b_k$                           \\
+        Even Symmetry        & $x(t)$ even                      & $\overset{FS}{\leftrightarrow}$ & $a_k$ even                                \\
+        Odd Symmetry         & $x(t)$ odd                       & $\overset{FS}{\leftrightarrow}$ & $a_k$ odd                                 \\
+        Time Shifting        & $x(t - t_0)$                     & $\overset{FS}{\leftrightarrow}$ & $a_k e^{-j k \omega_0 t_0}$               \\
+        Frequency Shifting   & $x(t) e^{j n \omega_0 t}$        & $\overset{FS}{\leftrightarrow}$ & $a_{k - n}$                               \\
+        Time Reversal        & $x(-t)$                          & $\overset{FS}{\leftrightarrow}$ & $a_{-k}$                                  \\
+        Conjugation          & $x^*(t)$                         & $\overset{FS}{\leftrightarrow}$ & $a_{-k}^*$                                \\
+        Periodic Convolution & $(x \ast y)(t)$                  & $\overset{FS}{\leftrightarrow}$ & $a_k b_k$                                 \\
+        Multiplication       & $x(t) y(t)$                      & $\overset{FS}{\leftrightarrow}$ & $\sum_{n=-\infty}^{\infty} a_n b_{k - n}$ \\
+        Differentiation      & $\frac{d}{dt} x(t)$              & $\overset{FS}{\leftrightarrow}$ & $j k \omega_0 a_k$                        \\
+        Integration          & $\int x(t) dt$                   & $\overset{FS}{\leftrightarrow}$ & $\frac{a_k}{j k \omega_0}$ if $a_0 = 0$)  \\
+        Parseval's Theorem   & $\frac{1}{T} \int_T |x(t)|^2 dt$ & $\overset{FS}{\leftrightarrow}$ & $\sum_{k=-\infty}^{\infty} |a_k|^2$       \\
+    \end{tabular}
+\end{table}
+
+\begin{table}[ht]
+    \centering
+    6    \label{tab:dtfourier_properties}
+    \begin{tabular}{llll}
+        \textbf{Property}    & \textbf{Time Domain}                    &                                     & \textbf{Frequency Domain}                                       \\
+        Linearity            & \(A\,x_1[n] + B\,x_2[n]\)               & \(\overset{DTFS}{\leftrightarrow}\) & \(A\,a_k + B\,b_k\)                                             \\
+        Even Symmetry        & \(x[n]\) even (i.e., \(x[n]=x[-n]\))    & \(\overset{DTFS}{\leftrightarrow}\) & \(a_k\) even                                                    \\
+        Odd Symmetry         & \(x[n]\) odd (i.e., \(x[n]=-x[-n]\))    & \(\overset{DTFS}{\leftrightarrow}\) & \(a_k\) odd                                                     \\
+        Time Shifting        & \(x[n-n_0]\)                            & \(\overset{DTFS}{\leftrightarrow}\) & \(a_k\,e^{-j\frac{2\pi}{N} k n_0}\)                             \\
+        Frequency Shifting   & \(x[n]\,e^{j\frac{2\pi}{N} n_0 n}\)     & \(\overset{DTFS}{\leftrightarrow}\) & \(a_{(k-n_0)\,\mathrm{mod}\,N}\)                                \\
+        Time Reversal        & \(x[-n]\)                               & \(\overset{DTFS}{\leftrightarrow}\) & \(a_{-k}\) (indices mod \(N\))                                  \\
+        Conjugation          & \(x^*[n]\)                              & \(\overset{DTFS}{\leftrightarrow}\) & \(a^*_{-k}\)                                                    \\
+        Circular Convolution & \((x\circledast y)[n]\)                 & \(\overset{DTFS}{\leftrightarrow}\) & \(a_k\,b_k\)                                                    \\
+        Multiplication       & \(x[n]\,y[n]\)                          & \(\overset{DTFS}{\leftrightarrow}\) & \(\frac{1}{N}\sum_{m=0}^{N-1} a_m\,b_{(k-m)\,\mathrm{mod}\,N}\) \\
+        Difference Operator  & \(x[n]-x[n-1]\)                         & \(\overset{DTFS}{\leftrightarrow}\) & \(a_k\Bigl(1-e^{-j\frac{2\pi}{N} k}\Bigr)\)                     \\
+        Parseval's Theorem   & \(\frac{1}{N}\sum_{n=0}^{N-1}|x[n]|^2\) & \(\overset{DTFS}{\leftrightarrow}\) & \(\sum_{k=0}^{N-1}|a_k|^2\)                                     \\
+    \end{tabular}
+\end{table}
+
+\begin{itemize}
+    \item $x(t)$ real $\rightarrow$ $a_k = a^*_{-k}$
+    \item For a memoryless system, the impulse response
+          is the delta function times a scalar.
+    \item For causal systems, the impulse response must be 0 for values of $n$ ($t$)
+          less than 0.
+    \item For a stable LTI system, the impulse response must be absolutely summable.
+          That is,
+          \begin{equation}
+              \sum_{k=-\infty}^{\infty} |h[k]| < \infty.
+          \end{equation}
+          Or for continuous time, absolutely integrable
+          \begin{equation}
+              \int_{-\infty}^{\infty} |h(\tau)| d\tau < \infty.
+          \end{equation}
+\end{itemize}
+
+\begin{equation}
+    x(t) = \sum_{k=-\infty}^{\infty} a_k e^{jk\omega_0 t}
+\end{equation}
+
+\begin{equation}
+    a_k = \frac{1}{T} \int_{<T>} x(t) e^{-jk\omega_0 t} dt
+\end{equation}
+
+\begin{equation}
+    x[n] = \sum_{k=<N>} a_k x_k[n]
+\end{equation}
+
+\begin{equation}
+    a_k = \frac{1}{N} \sum_{n=<N>} x[n] e^{-jk\frac{2\pi}{N}n},
+\end{equation}
+
+\begin{align}
+    x(t) * h(t) & = \int_{-\infty}^{\infty} x(\tau) h(t - \tau) d\tau \\
+    x[n] * h[n] & = \sum_{k=-\infty}^{\infty} x[k] h[n - k].
+\end{align}
+
 \end{document}
