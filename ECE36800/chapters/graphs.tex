@@ -44,6 +44,7 @@ Some terminology:
           or of the node to which a directed edges enters and the node of the edge's origin.
     \item \textbf{Degree}: Number of edges going out from a node. In a directed graph,
           there are both in and out degrees.
+          \marginnote{Edges that go out from and enter the same node add two degrees to that node.}
     \item \textbf{Cycle}: A path from a node to itself. If there is a cycle in a
           graph, it is a cyclic graph. Else it is acyclic.
     \item \textbf{Connected}: An undirected graph is connected if every node can be reached
@@ -79,3 +80,82 @@ edge, represented by an arrow like in figure \ref{fig:directedgraph}
 A \emph{weighted} graph has weights assocted with each directed edge. The weight
 could represent probability of moving from one node to another, travel times, distances,
 etc.
+
+\subsection{Adjacency Matrix}
+
+An \emph{adjacency matrix} is a way to represent a graph using a
+2D array. For a graph with $n$ nodes, the adjacency matrix is an
+$n \times n$ matrix where:
+
+\begin{itemize}
+    \item Each row and column corresponds to a node.
+    \item The value at position $(i, j)$ is:
+          \begin{itemize}
+              \item $1$ (or the weight of the edge) if there
+                    is an edge from node $i$ to node $j$.
+              \item $0$ if there is no edge between node $i$ and node $j$.
+          \end{itemize}
+\end{itemize}
+
+For an undirected graph, the adjacency matrix is symmetric,
+meaning $A[i][j] = A[j][i]$. For a directed graph, the matrix
+is not necessarily symmetric.
+
+\textbf{Example:} Consider the directed graph in Figure
+\ref{fig:directedgraph}. Its adjacency matrix is:
+
+\[
+    \begin{bmatrix}
+        1 & 1 & 1 \\
+        0 & 0 & 0 \\
+        0 & 0 & 0
+    \end{bmatrix}
+\]
+
+Here:
+\begin{itemize}
+    \item The value $1$ at $(1,1)$ represents the self-loop on $A$.
+    \item The value $1$ at $(1,2)$ and $(1,3)$ represents edges from $A$ to $B$ and $A$ to $C$.
+    \item All other entries are $0$ because there are no other edges.
+\end{itemize}
+
+\subsection{Linked List}
+
+A \emph{linked list} representation of a graph uses an array of linked lists. Each node in the array represents a vertex, and the linked list at each index contains the neighbors of that vertex.
+
+\textbf{Example:} Consider the directed graph in Figure \ref{fig:directedgraph}. Its linked list representation is:
+
+\begin{itemize}
+    \item $A \to A \to B \to C$
+    \item $B \to \emptyset$
+    \item $C \to \emptyset$
+\end{itemize}
+
+Here:
+\begin{itemize}
+    \item The first list represents the neighbors of $A$:
+          a self-loop to $A$, and edges to $B$ and $C$.
+    \item The second and third lists are empty because $B$ and
+          $C$ have no outgoing edges.
+\end{itemize}
+
+The original nodes $A$, $B$, and $C$ can be stored in another
+linked list, array, or whatever data structure is convenient.
+
+\subsection{Graph Searching}
+
+There are tow methods to traverse a graph.
+
+\begin{itemize}
+    \item Breadth First Search:
+          A \emph{breadth first search} (BFS) visits all edges of distance $k$ from
+          the source before visiting edges of distance $k+1$ from the source.
+          Think of the waves rippling from a pebble thrown into a pond.
+    \item Depth First Search:
+          A \emph{depth first search} (DFS) visits one edge to the next node, then one edge from
+          that node to the next. It goes downa  given path as far as possible
+          before returning.
+\end{itemize}
+
+Breadth first lends itself to iteration, while depth first lends itself
+to recursion.
