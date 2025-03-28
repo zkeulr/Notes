@@ -16,8 +16,7 @@ $H$ is known as the transfer function as has the property that
 $Y(S) = H(s)X(s)$, where $Y(s)$ and $X(s)$ are the Laplace transforms
 of $y(t)$ and $x(t)$.
 
-\section{Fourier Series}
-
+\section{Fourier Transform}
 Throughout this class we will sometimes see the expression $X(j\omega)$
 or $X(e^{j\omega})$.
 Note that these are defined as
@@ -28,15 +27,74 @@ for CT and
 \begin{equation}
     X(e^{j\omega}) = \sum_{n=-\infty}^{\infty} x[n] e^{-j\omega n}
 \end{equation}
-
+for DT. This transformation is known as the \emph{Fourier Transform}
+and works for well-behaved signals.
 A signal $x(t)$ is well-behaved iff
 \begin{itemize}
     \item $x(t)$ is absolutely integrable over its domain.
     \item $x(t)$ has finite maximum and minimum.
     \item $x(t)$ has finite discontinuities.
 \end{itemize}
+The original signal can be recovered with
+\begin{equation}
+    x(t) = \frac{1}{2\pi} \int_{-\infty}^{\infty} X(j\omega) e^{j\omega t} d\omega
+\end{equation}
+in CT and
+\begin{equation}
+    x[n] = \frac{1}{2\pi} \int_{-\pi}^{\pi} X(e^{j\omega}) e^{j\omega n} d\omega
+\end{equation}
+in DT.
 
-\subsection{Continuous Time}
+Table \ref{tab:ctfourier_transforms} tabulates the
+Fourier transform of common continuous time functions.
+
+\begin{table}[ht]
+    \centering
+    \caption{CT Fourier Transforms}
+    \label{tab:ctfourier_transforms}
+    \begin{tabular}{ll}
+        \toprule
+        \textbf{Time Domain Function} & \textbf{Fourier Transform}                                                    \\
+        \midrule
+        $\delta(t)$                   & $1$                                                                           \\[1mm]
+        $1$                           & $2\pi\,\delta(\omega)$                                                        \\[1mm]
+        $u(t)$                        & $\pi\,\delta(\omega) + \frac{1}{j\omega}$                                     \\[1mm]
+        $e^{-at}u(t),\quad \Re(a)>0$  & $\dfrac{1}{a+j\omega}$                                                        \\[1mm]
+        $\cos(\omega_0 t)$            & $\pi\Bigl[\delta(\omega-\omega_0) + \delta(\omega+\omega_0)\Bigr]$            \\[1mm]
+        $\sin(\omega_0 t)$            & $\dfrac{\pi}{j}\Bigl[\delta(\omega-\omega_0) - \delta(\omega+\omega_0)\Bigr]$ \\[1mm]
+        $\mathrm{rect}(t/T)$          & $T\,\mathrm{sinc}\Bigl(\dfrac{\omega T}{2}\Bigr)$                             \\[1mm]
+        $e^{-t^2}$                    & $\sqrt{\pi}\,e^{-\omega^2/4}$                                                 \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+Table \ref{tab:dtfourier_transforms} tabulates the
+Fourier transform of common discrete time functions.
+
+\begin{table}[ht]
+    \centering
+    \caption{DT Fourier Transforms}
+    \label{tab:dtfourier_transforms}
+    \begin{tabular}{ll}
+        \toprule
+        \textbf{Time Domain Function}          & \textbf{Fourier Transform}                                                                                             \\
+        \midrule
+        $\delta[n]$                            & $1$                                                                                                                    \\[1mm]
+        $1$                                    & $2\pi\,\sum_{k=-\infty}^{\infty}\delta(\omega-2\pi k)$                                                                 \\[1mm]
+        $a^n u[n],\quad |a|<1$                 & $\dfrac{1}{1-ae^{-j\omega}}$                                                                                           \\[1mm]
+        $\cos(\omega_0 n)$                     & $\pi\,\sum_{k=-\infty}^{\infty}\Bigl[\delta(\omega-\omega_0-2\pi k) + \delta(\omega+\omega_0-2\pi k)\Bigr]$            \\[1mm]
+        $\sin(\omega_0 n)$                     & $\dfrac{\pi}{j}\,\sum_{k=-\infty}^{\infty}\Bigl[\delta(\omega-\omega_0-2\pi k) - \delta(\omega+\omega_0-2\pi k)\Bigr]$ \\[1mm]
+        $\mathrm{rect}\Bigl(\frac{n}{N}\Bigr)$ & $\dfrac{\sin\Bigl(\frac{\omega N}{2}\Bigr)}{\sin\Bigl(\frac{\omega}{2}\Bigr)}\,e^{-j\omega\frac{N-1}{2}}$              \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+An interesting property of Fourier transforms is that if the Fourier
+transform of function $A$ gives $B$, then the Fourier transform of $B$
+will yield $A$. This property, known as duality, means that the Fourier
+transform is its own inverse.
+
+\subsection{Continuous Time Fourier Series}
 
 Consider an arbitrary periodic CT signal $x(t)$ with fundemental
 period $T$ and fundemental frequency $\omega_0$. The Fourier series
@@ -108,7 +166,7 @@ This expression for $a_0$ is fine, however, there is a problem. When
 $k = 0$ we have a discontinuity. In general we may have to find $a_0$
 separately. It's not a big deal: $a_0 = \frac{1}{T} \int_{-T_1}^{T_1} x(t) dt$ in general`'.
 
-\subsection{Discrete Time}
+\subsection{Discrete Time Fourier Series}
 
 In discrete time, an arbitrary periodic signal $x[n]$ with fundemental
 period $N$ and fundemental frequency $\omega_0$. The Fourier series
