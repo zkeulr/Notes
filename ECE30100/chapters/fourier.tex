@@ -45,6 +45,79 @@ in CT and
 \end{equation}
 in DT.
 
+If the Fourier series of
+\begin{equation}
+    x(t) = \sum_{k=-\infty}^{\infty} a_k e^{jk\omega_0 t}
+\end{equation}
+then the Fourier transform is
+\begin{equation}
+    X(j\omega) = \sum_{k=-\infty}^{\infty} 2\pi a_k \delta(\omega - k\omega_0).
+\end{equation}
+
+This property quickly tells us that the Fourier transform
+of $e^{jk\omega_0 t}$ is $2\pi \delta(\omega-k\omega_0)$.
+From this the Fourier transforms of sinusoidals quickly follow.
+
+Another important periodic signal is the impulse train,
+\begin{equation}
+    \sum_{k=-\infty}^{\infty} \delta(t - kT).
+\end{equation}
+The Fourier series coefficients for
+the impulse train are simply $a_k = \frac{1}{T}$,
+so the Fourier transform is
+$X(j\omega) = \frac{2\pi}{T} \sum_{k=-\infty}^{\infty} \delta(\omega - \frac{2\pi k}{T})$
+
+Note that as $T$ increases, the impulse train gets wider
+and wider while its Fourier transform gets narrower and
+narrower. This is because, as we will see often, time and
+frequency are inversely related. In general, we will find
+that
+\begin{equation}
+    x(at) \leftrightarrow \frac{1}{|a|}X(\frac{j\omega}{a}).
+\end{equation}
+
+If $x(t)$ is real, then $|X(j\omega)|$ is even and
+$\angle X(j\omega)$ is odd. Moreover, if $x(t)$ is real
+and even, then $X(j\omega)$ must be purely real and even,
+and if $x(t)$ is real and odd, $X(j\omega)$ is purely
+imaginary and odd.
+
+Arguably the most important property we will see is duality.
+As an example, a sinc function in time is a rectangular pulse
+in frequency, while a rectangular pulse in time is a sinc
+function in frequency. Formally,
+\begin{equation}
+    F\left\{ X(t) \right\} = 2\pi x(-\omega).
+\end{equation}
+
+\section{Fourier Transform Properties}
+
+Table \ref{tab:fourier_transform_properties} tabulates
+useful properties of Fourier transforms.
+
+\begin{table}[ht]
+    \centering
+    \caption{Properties of Fourier Transforms}
+    \label{tab:fourier_transform_properties}
+    \begin{tabular}{llll}
+        \toprule
+        \textbf{Property}  & \textbf{Time Domain}                &                                          & \textbf{Frequency Domain}                                     \\
+        \midrule
+        Linearity          & $A x_1(t) + B x_2(t)$               & $\overset{\mathcal{F}}{\leftrightarrow}$ & $A X_1(j\omega) + B X_2(j\omega)$                             \\[1mm]
+        Time Shifting      & $x(t - t_0)$                        & $\overset{\mathcal{F}}{\leftrightarrow}$ & $X(j\omega)e^{-j\omega t_0}$                                  \\[1mm]
+        Frequency Shifting & $x(t)e^{j\omega_0 t}$               & $\overset{\mathcal{F}}{\leftrightarrow}$ & $X(j(\omega - \omega_0))$                                     \\[1mm]
+        Time Scaling       & $x(at)$, $a > 0$                    & $\overset{\mathcal{F}}{\leftrightarrow}$ & $\frac{1}{|a|}X\left(\frac{j\omega}{a}\right)$                \\[1mm]
+        Time Reversal      & $x(-t)$                             & $\overset{\mathcal{F}}{\leftrightarrow}$ & $X(-j\omega)$                                                 \\[1mm]
+        Conjugation        & $x^*(t)$                            & $\overset{\mathcal{F}}{\leftrightarrow}$ & $X^*(-j\omega)$                                               \\[1mm]
+        Differentiation    & $\frac{d^n}{dt^n}x(t)$              & $\overset{\mathcal{F}}{\leftrightarrow}$ & $(j\omega)^n X(j\omega)$                                      \\[1mm]
+        Integration        & $\int_{-\infty}^t x(\tau) d\tau$    & $\overset{\mathcal{F}}{\leftrightarrow}$ & $\frac{X(j\omega)}{j\omega} + \pi X(0)\delta(\omega)$         \\[1mm]
+        Convolution        & $(x_1 * x_2)(t)$                    & $\overset{\mathcal{F}}{\leftrightarrow}$ & $X_1(j\omega) X_2(j\omega)$                                   \\[1mm]
+        Multiplication     & $x_1(t)x_2(t)$                      & $\overset{\mathcal{F}}{\leftrightarrow}$ & $\frac{1}{2\pi}(X_1 * X_2)(j\omega)$                          \\[1mm]
+        Parseval's Theorem & $\int_{-\infty}^\infty |x(t)|^2 dt$ & $\overset{\mathcal{F}}{\leftrightarrow}$ & $\frac{1}{2\pi} \int_{-\infty}^\infty |X(j\omega)|^2 d\omega$ \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
 Table \ref{tab:ctfourier_transforms} tabulates the
 Fourier transform of common continuous time functions.
 
@@ -88,11 +161,6 @@ Fourier transform of common discrete time functions.
         \bottomrule
     \end{tabular}
 \end{table}
-
-An interesting property of Fourier transforms is that if the Fourier
-transform of function $A$ gives $B$, then the Fourier transform of $B$
-will yield $A$. This property, known as duality, means that the Fourier
-transform is its own inverse.
 
 \subsection{Continuous Time Fourier Series}
 
@@ -218,7 +286,7 @@ an example: let $T_1 = \frac{T}{4}$. Then $a_k = \frac{\sin(\pi \frac{k}{2})}{k\
     \end{axis}
 \end{tikzpicture}
 
-\subsection{Properties}
+\subsection{Fourier Series Properties}
 
 Some useful properties follow from the definition
 of the Fourier series.
