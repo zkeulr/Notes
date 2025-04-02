@@ -90,6 +90,51 @@ function in frequency. Formally,
     F\left\{ X(t) \right\} = 2\pi x(-\omega).
 \end{equation}
 
+\subsection{Duality}
+
+The Fourier transform displays an interesting symmetry known as duality. 
+Figure \ref{fig:duality} shows this graphically. 
+\begin{figure}
+    \begin{center}
+        \includegraphics{images/duality.png}
+    \end{center}
+    \caption{Duality of the Fourier Transform}
+    \label{fig:duality}
+\end{figure}
+Mathematically, if 
+\begin{align}
+    x(t) \overset{F}{\leftrightarrow} X(j\omega)
+\end{align}
+then 
+\begin{align}
+    X(t) \overset{F}{\leftrightarrow} 2\pi x(-\omega).
+\end{align}
+It doesn't \emph{quite} give you the original function, 
+but up to scaling and a reversal you get the original back. 
+
+Some interesting properties derive from duality. Notable ones are:
+
+\begin{itemize}
+    \item Differentiation in frequency: If $x(t) \overset{F}{\leftrightarrow} X(j\omega)$, 
+    then 
+    \begin{equation}
+        tx(t)  \overset{F}{\leftrightarrow} j\frac{dX(j\omega)}{d\omega}.
+    \end{equation}
+    This is the dual property of differentiation in time, 
+    \begin{equation}
+        \frac{dx(t)}{dt} \overset{F}{\leftrightarrow} j\omega X(j\omega).
+    \end{equation}
+    \item Frequency shifting: this is the dual of shifting in time. 
+    \begin{equation}
+        x(t)e^{j\omega_0 t} \overset{F}{\leftrightarrow} X(j(\omega-\omega_0)).
+    \end{equation}
+    \item Parseval's relation: 
+    \begin{align}
+        E &= \int_{-\infty}^{\infty} |x(t)|^2 dt \\
+        &= \frac{1}{2\pi} \int_{-\infty}^{\infty} |X(j\omega)|^2 d\omega
+    \end{align}
+\end{itemize}
+
 \subsection{Fourier Transform Properties}
 
 Table \ref{tab:fourier_transform_properties} tabulates
