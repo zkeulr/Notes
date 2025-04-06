@@ -206,3 +206,14 @@ Fourier transform of common discrete time functions.
         \bottomrule
     \end{tabular}
 \end{table}
+
+The most important part of this entire course is the \emph{convolution property}, which states that 
+for an LTI system with impulse response $h(t)$, if 
+\begin{equation}
+    y(t) = x(t) * h(t),
+\end{equation}
+then
+\begin{equation}
+    Y(j\omega) = X(j\omega)H(j\omega).
+\end{equation}
+Essentially, convolution in the time domain is equivalent to multiplication in the frequency domain. 

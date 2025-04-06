@@ -1,0 +1,129 @@
+\section{Threading}
+
+A \emph{process} is an independent program in execution, with its own 
+memory space, while a \emph{thread} is a smaller unit of execution 
+within a process that shares the same memory space as other threads 
+in the same process. Threads are lightweight and allow multiple tasks 
+to run concurrently within a single process.
+
+Threads are commonly used to perform tasks in parallel, such as handling 
+multiple client requests in a server or performing background computations 
+while keeping the main application responsive. However, threads don't 
+return anything, so variables that need modified should be passed by reference. 
+
+\subsection{Creating Threads in C++}
+C++ provides support for multithreading through the \texttt{<thread>} header. 
+A thread can be created by instantiating a \texttt{std::thread} object 
+and passing a callable (such as a function, lambda, or functor) to its 
+constructor.
+
+Here is an example of creating and joining threads:
+
+\begin{lstlisting}[language=C++]
+#include <iostream>
+#include <thread>
+
+// Function to be executed by a thread
+void printMessage(const std::string& message) {
+    std::cout << "Thread says: " << message << std::endl;
+}
+
+int main() {
+    // Create a thread and pass a function to it
+    std::thread t1(printMessage, "Hello from thread!");
+
+    // Wait for the thread to finish
+    t1.join();
+
+    std::cout << "Main thread finished." << std::endl;
+    return 0;
+}
+\end{lstlisting}
+
+In this example, a thread \texttt{t1} is created to execute the \texttt{printMessage} function.
+The \texttt{join()} method ensures that the main thread waits for \texttt{t1} to complete before proceeding.
+
+\subsection{Using Lambda Functions with Threads}
+Lambda functions are often used with threads for simplicity and 
+flexibility. Here's an example:
+
+\begin{lstlisting}[language=C++]
+#include <iostream>
+#include <thread>
+
+int main() {
+    // Create a thread using a lambda function
+    std::thread t([]() {
+        std::cout << "Hello from a lambda thread!" << std::endl;
+    });
+
+    // Wait for the thread to finish
+    t.join();
+
+    std::cout << "Main thread finished." << std::endl;
+    return 0;
+}
+\end{lstlisting}
+
+\subsection{Thread Synchronization}
+When multiple threads access shared resources, synchronization is required to avoid race conditions. C++ provides synchronization primitives like \texttt{std::mutex} to protect shared data.
+
+Here is an example of using a mutex to synchronize threads:
+
+\begin{lstlisting}[language=C++]
+#include <iostream>
+#include <thread>
+#include <mutex>
+
+std::mutex mtx; // Mutex for synchronization
+int sharedCounter = 0;
+
+void incrementCounter() {
+    for (int i = 0; i < 1000; ++i) {
+        std::lock_guard<std::mutex> lock(mtx); // Lock the mutex
+        ++sharedCounter;
+    }
+}
+
+int main() {
+    std::thread t1(incrementCounter);
+    std::thread t2(incrementCounter);
+
+    t1.join();
+    t2.join();
+
+    std::cout << "Final counter value: " << sharedCounter << std::endl;
+    return 0;
+}
+\end{lstlisting}
+
+In this example, \texttt{std::mutex} ensures that only one thread modifies \texttt{sharedCounter} at a time.
+\texttt{std::lock\_guard} automatically locks and unlocks the mutex within its scope.
+
+\subsection{Detaching Threads}
+A thread can be detached to run independently of the main thread. 
+However, care must be taken to ensure that the thread does not access 
+resources that may go out of scope.
+
+\begin{lstlisting}[language=C++]
+#include <iostream>
+#include <thread>
+#include <chrono>
+
+void backgroundTask() {
+    std::this_thread::sleep_for(std::chrono::seconds(2));
+    std::cout << "Background task completed." << std::endl;
+}
+
+int main() {
+    std::thread t(backgroundTask);
+    t.detach(); // Detach the thread
+
+    std::cout << "Main thread continues execution." << std::endl;
+    std::this_thread::sleep_for(std::chrono::seconds(3)); // Ensure main thread lives long enough
+    return 0;
+}
+\end{lstlisting}
+
+In this example, the \texttt{detach()} method allows the thread to run independently.
+The main thread ensures it lives long enough for the detached thread to complete.
