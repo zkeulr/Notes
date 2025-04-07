@@ -1,22 +1,5 @@
 \section{Fourier Transforms} \label{sec:fouriertransforms}
 
-\subsection{Eigenfunctions and $H(s)$}
-
-An \emph{eigenfunction} $x(t) = e^{j\omega t}$ is a function such that
-$S\{x(t)\} = Ax(t)$ for LTI $S$. A property of functions of the form
-$e^{j\omega t}$ is that convolution with $h(t)$ yields
-\begin{equation}
-    x(t) * h(t) = e^{j\omega t} \int_{-\infty}^{\infty} h(\tau) e^{-j\omega \tau} d\tau.
-\end{equation}
-This is also written as
-\begin{equation}
-    x(t) * h(t) = e^{j\omega t} \left( |H(j\omega)|e^{j \angle H(j\omega)} \right)
-\end{equation}
-$H$ is known as the transfer function as has the property that
-$Y(S) = H(s)X(s)$, where $Y(s)$ and $X(s)$ are the Laplace transforms
-of $y(t)$ and $x(t)$.
-
-\section{Fourier Transform}
 Throughout this class we will sometimes see the expression $X(j\omega)$
 or $X(e^{j\omega})$.
 Note that these are defined as
@@ -217,3 +200,53 @@ then
     Y(j\omega) = X(j\omega)H(j\omega).
 \end{equation}
 Essentially, convolution in the time domain is equivalent to multiplication in the frequency domain. 
+
+We can use this property to easily calculate the impulse response to  
+LTI systems. Consider
+\begin{equation}
+    y(t) = x(t - t_0).
+\end{equation}
+Say we want to find $H(j\omega)$. One way would could do this is to find 
+$h(t)$ and calculate the Fourier transform. However, with the convolution 
+property we could also just do this:
+\begin{align}
+    H(j\omega) &= \frac{Y(j\omega)}{X(j\omega)} \\
+    &= \frac{X(j\omega)e^{-j\omega t_0}}{X(j\omega)} \\
+    &= e^{-j\omega t_0}
+\end{align}
+The caveat to this is that $X(j\omega)$ must be nonzero for all 
+$\omega$. Popular choices for $x(t)$ include the rectangular pulse, 
+scaled exponentials, and $\delta$ function. 
+
+Suppose we have an input to an LTI system with $x(t) = e^{-bt}u(t)$, 
+and $h(t) = e^{-at}u(t)$, with $b > 0$ and $a > 0$. Then 
+\begin{align}
+    Y(j\omega) &= X(j\omega)H(j\omega) \\
+    &= \frac{1}{b + j\omega} \frac{1}{a + j\omega} \\
+    &= \frac{1}{(b + j\omega)(a + j\omega)} 
+\end{align}
+Use partial fraction decomposition to perform a reverse Fourier 
+transform on $Y(j\omega)$ and you'll get 
+\begin{equation}
+    y(t) = \frac{1}{b - a} \left( e^{-at} - e^{-bt}\right)u(t)
+\end{equation}
+provided $a \neq b$. If $a = b$, then 
+\begin{align}
+    Y(j\omega) &= \frac{1}{(a + j\omega)^2} \\
+    y(t) &= te^{-at}u(t)
+\end{align}
+
+This property finally lets us determine if a system is invertible. 
+Previously, we said that a system is invertible if $h(t) * h^{-1}(t) = \delta(t)$
+for some inverse $h^{-1}(t)$. Essentially, saying a system is invertible 
+if an inverse exists. Really begs the question of how to determine if 
+an inverse exists. Taking the Fourier transform of both sides gives us
+\begin{equation}
+    H(j\omega)H^{-1}(j\omega) = 1.
+\end{equation}
+Rearranging, 
+\begin{equation}
+    H^{-1}(j\omega) = \frac{1}{H(j\omega)}.
+\end{equation}
+This only works if $H(j\omega) \neq 0$ for all $\omega$. Therefore, 
+an LTI system is only invertible if $H(j\omega) \neq 0 \forall \omega$. 
