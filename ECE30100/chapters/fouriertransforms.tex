@@ -75,8 +75,8 @@ function in frequency. Formally,
 
 \subsection{Duality}
 
-The Fourier transform displays an interesting symmetry known as duality. 
-Figure \ref{fig:duality} shows this graphically. 
+The Fourier transform displays an interesting symmetry known as duality.
+Figure \ref{fig:duality} shows this graphically.
 \begin{figure}
     \begin{center}
         \includegraphics{images/duality.png}
@@ -84,38 +84,38 @@ Figure \ref{fig:duality} shows this graphically.
     \caption{Duality of the Fourier Transform}
     \label{fig:duality}
 \end{figure}
-Mathematically, if 
+Mathematically, if
 \begin{align}
     x(t) \overset{F}{\leftrightarrow} X(j\omega)
 \end{align}
-then 
+then
 \begin{align}
     X(t) \overset{F}{\leftrightarrow} 2\pi x(-\omega).
 \end{align}
-It doesn't \emph{quite} give you the original function, 
-but up to scaling and a reversal you get the original back. 
+It doesn't \emph{quite} give you the original function,
+but up to scaling and a reversal you get the original back.
 
 Some interesting properties derive from duality. Notable ones are:
 
 \begin{itemize}
-    \item Differentiation in frequency: If $x(t) \overset{F}{\leftrightarrow} X(j\omega)$, 
-    then 
-    \begin{equation}
-        tx(t)  \overset{F}{\leftrightarrow} j\frac{dX(j\omega)}{d\omega}.
-    \end{equation}
-    This is the dual property of differentiation in time, 
-    \begin{equation}
-        \frac{dx(t)}{dt} \overset{F}{\leftrightarrow} j\omega X(j\omega).
-    \end{equation}
-    \item Frequency shifting: this is the dual of shifting in time. 
-    \begin{equation}
-        x(t)e^{j\omega_0 t} \overset{F}{\leftrightarrow} X(j(\omega-\omega_0)).
-    \end{equation}
-    \item Parseval's relation: 
-    \begin{align}
-        E &= \int_{-\infty}^{\infty} |x(t)|^2 dt \\
-        &= \frac{1}{2\pi} \int_{-\infty}^{\infty} |X(j\omega)|^2 d\omega
-    \end{align}
+    \item Differentiation in frequency: If $x(t) \overset{F}{\leftrightarrow} X(j\omega)$,
+          then
+          \begin{equation}
+              tx(t)  \overset{F}{\leftrightarrow} j\frac{dX(j\omega)}{d\omega}.
+          \end{equation}
+          This is the dual property of differentiation in time,
+          \begin{equation}
+              \frac{dx(t)}{dt} \overset{F}{\leftrightarrow} j\omega X(j\omega).
+          \end{equation}
+    \item Frequency shifting: this is the dual of shifting in time.
+          \begin{equation}
+              x(t)e^{j\omega_0 t} \overset{F}{\leftrightarrow} X(j(\omega-\omega_0)).
+          \end{equation}
+    \item Parseval's relation:
+          \begin{align}
+              E & = \int_{-\infty}^{\infty} |x(t)|^2 dt                           \\
+                & = \frac{1}{2\pi} \int_{-\infty}^{\infty} |X(j\omega)|^2 d\omega
+          \end{align}
 \end{itemize}
 
 \subsection{Fourier Transform Properties}
@@ -190,8 +190,8 @@ Fourier transform of common discrete time functions.
     \end{tabular}
 \end{table}
 
-The most important part of this entire course is the \emph{convolution property}, which states that 
-for an LTI system with impulse response $h(t)$, if 
+The most important part of this entire course is the \emph{convolution property}, which states that
+for an LTI system with impulse response $h(t)$, if
 \begin{equation}
     y(t) = x(t) * h(t),
 \end{equation}
@@ -199,54 +199,54 @@ then
 \begin{equation}
     Y(j\omega) = X(j\omega)H(j\omega).
 \end{equation}
-Essentially, convolution in the time domain is equivalent to multiplication in the frequency domain. 
+Essentially, convolution in the time domain is equivalent to multiplication in the frequency domain.
 
-We can use this property to easily calculate the impulse response to  
+We can use this property to easily calculate the impulse response to
 LTI systems. Consider
 \begin{equation}
     y(t) = x(t - t_0).
 \end{equation}
-Say we want to find $H(j\omega)$. One way would could do this is to find 
-$h(t)$ and calculate the Fourier transform. However, with the convolution 
+Say we want to find $H(j\omega)$. One way would could do this is to find
+$h(t)$ and calculate the Fourier transform. However, with the convolution
 property we could also just do this:
 \begin{align}
-    H(j\omega) &= \frac{Y(j\omega)}{X(j\omega)} \\
-    &= \frac{X(j\omega)e^{-j\omega t_0}}{X(j\omega)} \\
-    &= e^{-j\omega t_0}
+    H(j\omega) & = \frac{Y(j\omega)}{X(j\omega)}                 \\
+               & = \frac{X(j\omega)e^{-j\omega t_0}}{X(j\omega)} \\
+               & = e^{-j\omega t_0}
 \end{align}
-The caveat to this is that $X(j\omega)$ must be nonzero for all 
-$\omega$. Popular choices for $x(t)$ include the rectangular pulse, 
-scaled exponentials, and $\delta$ function. 
+The caveat to this is that $X(j\omega)$ must be nonzero for all
+$\omega$. Popular choices for $x(t)$ include the rectangular pulse,
+scaled exponentials, and $\delta$ function.
 
-Suppose we have an input to an LTI system with $x(t) = e^{-bt}u(t)$, 
-and $h(t) = e^{-at}u(t)$, with $b > 0$ and $a > 0$. Then 
+Suppose we have an input to an LTI system with $x(t) = e^{-bt}u(t)$,
+and $h(t) = e^{-at}u(t)$, with $b > 0$ and $a > 0$. Then
 \begin{align}
-    Y(j\omega) &= X(j\omega)H(j\omega) \\
-    &= \frac{1}{b + j\omega} \frac{1}{a + j\omega} \\
-    &= \frac{1}{(b + j\omega)(a + j\omega)} 
+    Y(j\omega) & = X(j\omega)H(j\omega)                        \\
+               & = \frac{1}{b + j\omega} \frac{1}{a + j\omega} \\
+               & = \frac{1}{(b + j\omega)(a + j\omega)}
 \end{align}
-Use partial fraction decomposition to perform a reverse Fourier 
-transform on $Y(j\omega)$ and you'll get 
+Use partial fraction decomposition to perform a reverse Fourier
+transform on $Y(j\omega)$ and you'll get
 \begin{equation}
     y(t) = \frac{1}{b - a} \left( e^{-at} - e^{-bt}\right)u(t)
 \end{equation}
-provided $a \neq b$. If $a = b$, then 
+provided $a \neq b$. If $a = b$, then
 \begin{align}
-    Y(j\omega) &= \frac{1}{(a + j\omega)^2} \\
-    y(t) &= te^{-at}u(t)
+    Y(j\omega) & = \frac{1}{(a + j\omega)^2} \\
+    y(t)       & = te^{-at}u(t)
 \end{align}
 
-This property finally lets us determine if a system is invertible. 
+This property finally lets us determine if a system is invertible.
 Previously, we said that a system is invertible if $h(t) * h^{-1}(t) = \delta(t)$
-for some inverse $h^{-1}(t)$. Essentially, saying a system is invertible 
-if an inverse exists. Really begs the question of how to determine if 
+for some inverse $h^{-1}(t)$. Essentially, saying a system is invertible
+if an inverse exists. Really begs the question of how to determine if
 an inverse exists. Taking the Fourier transform of both sides gives us
 \begin{equation}
     H(j\omega)H^{-1}(j\omega) = 1.
 \end{equation}
-Rearranging, 
+Rearranging,
 \begin{equation}
     H^{-1}(j\omega) = \frac{1}{H(j\omega)}.
 \end{equation}
-This only works if $H(j\omega) \neq 0$ for all $\omega$. Therefore, 
-an LTI system is only invertible if $H(j\omega) \neq 0 \forall \omega$. 
+This only works if $H(j\omega) \neq 0$ for all $\omega$. Therefore,
+an LTI system is only invertible if $H(j\omega) \neq 0 \forall \omega$.

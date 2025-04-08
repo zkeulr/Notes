@@ -162,14 +162,14 @@ to recursion.
 
 \subsection{Shortest Path Algorithms}
 
-There is a class of algorithms dedicated to finding the shortest 
+There is a class of algorithms dedicated to finding the shortest
 path between two nodes, which broadly fall into two categories:
 \begin{itemize}
     \item \emph{Greedy} algorithms
     \item \emph{Dynamic} algorithms
 \end{itemize}
-Greedy algorithms take the locally optimal choice at each step until they get to the 
-node they're trying to reach, i.e. taking the shortest of two choices to get somewhere 
+Greedy algorithms take the locally optimal choice at each step until they get to the
+node they're trying to reach, i.e. taking the shortest of two choices to get somewhere
 at each step. Dijkstra's algorithm is one such example of a greedy algorithm.
 \begin{lstlisting}[caption={Dijkstra's algorithm}]
     Dijkstra(G, w, s) // s: starting node
@@ -184,10 +184,10 @@ at each step. Dijkstra's algorithm is one such example of a greedy algorithm.
                     d[v] <- d[u] + w<u,v>;
                     pred[v] <- u
 \end{lstlisting}
-Dijkstra's algorithm has a time complexity of $(V + E)\log(V)$. 
+Dijkstra's algorithm has a time complexity of $(V + E)\log(V)$.
 
-Dynamic algorithms create a decision tree and take the optimal path after exhaustively 
-searching all possible paths. The Bellman-Ford algorithm is an example of a dynamic 
+Dynamic algorithms create a decision tree and take the optimal path after exhaustively
+searching all possible paths. The Bellman-Ford algorithm is an example of a dynamic
 algorithm, and must be used to find the shortest path when negative edges are present.
 \begin{lstlisting}[caption={Bellman-Ford algorithm}]
     Bellman-Ford(G, w, s) // s: source
@@ -207,3 +207,6 @@ algorithm, and must be used to find the shortest path when negative edges are pr
             return FALSE
         return TRUE
 \end{lstlisting}
+Bellman-Ford can be optimized to stop early once the optimal paths have
+been reached. If there is no change after two iterations in a row, then
+the best solution has been found and the algorithm can terminate early.
