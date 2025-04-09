@@ -1,0 +1,111 @@
+\section{Arithmetic}
+
+\subsection{Signed Numbers}
+In SystemVerilog to this point, we have been working with \emph{unsigned}
+(positive) numbers. We now introduce the concept of \emph{signed} binary
+numbers, which will enable us to perform subtraction and other useful
+operations.
+
+Signed numbers are typically represented using the
+\emph{two's complement} method. In this representation:
+\begin{itemize}
+    \item The most significant bit (MSB) is the \emph{sign bit},
+          where 0 indicates a positive number and 1 indicates a negative
+          number.
+    \item The value of a signed number can be calculated as:
+          \[
+              \text{Value} = -2^{n-1} \cdot b_{n-1} + \sum_{i=0}^{n-2} 2^i \cdot b_i
+          \]
+          where $b_i$ represents the bits of the binary number.
+\end{itemize}
+
+For example, in a 4-bit two's complement system:
+\begin{itemize}
+    \item $0110$ represents $6$ (positive).
+    \item $1010$ represents $-6$ (negative).
+\end{itemize}
+
+\subsection{Adders and Subtractors}
+Adders and subtractors are fundamental components in digital
+arithmetic. They are used to perform addition and subtraction
+operations on binary numbers.
+
+A \emph{half adder} is a combinational circuit that adds two
+binary digits and produces a sum and a carry. The truth table
+for a half adder is:
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{|c|c|c|c|}
+        \hline
+        \textbf{A} & \textbf{B} & \textbf{Sum} & \textbf{Carry} \\
+        \hline
+        0          & 0          & 0            & 0              \\
+        0          & 1          & 1            & 0              \\
+        1          & 0          & 1            & 0              \\
+        1          & 1          & 0            & 1              \\
+        \hline
+    \end{tabular}
+    \caption{Truth table for a half adder}
+\end{table}
+
+The logic equations for the sum and carry are:
+\[
+    \text{Sum} = A \oplus B, \quad \text{Carry} = A \cdot B
+\]
+
+A \emph{full adder} extends the half adder by including a carry-in bit.
+It adds three binary digits (A, B, and Carry-in) and produces a sum and
+a carry-out. The logic equations for the full adder are:
+\[
+    \text{Sum} = A \oplus B \oplus \text{Carry-in}
+\]
+\[
+    \text{Carry-out} = (A \cdot B) + (\text{Carry-in} \cdot (A \oplus B))
+\]
+
+Subtraction can be performed using an adder by taking the two's
+complement of the number to be subtracted. For example, to compute
+$A - B$, we calculate $A + (-B)$, where $-B$ is the two's complement
+of $B$.
+
+\subsection{Comparators}
+Comparators are used to compare two binary numbers and determine
+their relationship. The outputs of a comparator typically indicate
+whether one number is less than, equal to, or greater than the other.
+
+For two numbers $A$ and $B$:
+\begin{itemize}
+    \item $A < B$: Output is 1 if $A$ is less than $B$.
+    \item $A = B$: Output is 1 if $A$ is equal to $B$.
+    \item $A > B$: Output is 1 if $A$ is greater than $B$.
+\end{itemize}
+
+A simple 1-bit comparator can be implemented using logic gates:
+\[
+    A < B = \overline{A} \cdot B, \quad A = B = A \oplus B, \quad A > B = A \cdot \overline{B}
+\]
+
+\subsection{Shifters and Multipliers}
+Shifters and multipliers are used for more complex arithmetic operations.
+
+Shifters move the bits of a binary number to the left or right.
+There are three main types of shifters:
+\begin{itemize}
+    \item \textbf{Logical Shift}: Shifts the bits left or right,
+          filling the vacated positions with 0s.
+    \item \textbf{Arithmetic Shift}: Preserves the sign bit when
+          shifting right, filling the vacated positions with the sign bit.
+    \item \textbf{Circular Shift (Rotate)}: Rotates the bits,
+          wrapping around the bits that are shifted out.
+\end{itemize}
+
+For example, a logical left shift of $1010$ by 1 position results
+in $0100$.
+
+Multipliers perform binary multiplication. The simplest method is
+repeated addition, but more efficient algorithms like the Booth
+multiplier or Wallace tree are used in hardware implementations.
+
+For example, multiplying $101$ (5 in decimal) by $11$ (3 in decimal)
+yields $1111$ (15 in decimal).
