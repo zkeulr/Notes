@@ -210,3 +210,36 @@ algorithm, and must be used to find the shortest path when negative edges are pr
 Bellman-Ford can be optimized to stop early once the optimal paths have
 been reached. If there is no change after two iterations in a row, then
 the best solution has been found and the algorithm can terminate early.
+
+Given a directed acyclic graph (DAG), finding the shortest path is as
+easy as following these steps:
+\marginnote{A topological sort of an acyclic directed graph is an ordering of its
+    vertices such that for every directed edge $<u,v>$ from vertex $u$ to
+    vertex $v$, $u$ comes before $v$ in the ordering. Both depth-first and
+    breadth-first sorting works.}
+\begin{lstlisting}[label={DAG Shortest Path Algorithm}]
+    DAG-Shortest-Paths(G, w, s) // s: source
+    Topologically sort V[G]
+    for each node u in V[G]
+        d[u] <- INFTY; pred[u] <- NULL
+    d[s] <- 0
+    for each node u in topological order
+        for each v in adj[u]
+            if (d[v] > d[u] + w<u,v>)
+                d[v] <- d[u] + w<u,v>
+                pred[v] <- u
+\end{lstlisting}
+
+Finding the longest path is as easy as initializing distances to negative infinity
+and changing the $>$ to a $<$.
+\marginnote{In general, finding the longest path is an NP hard problem. DAGs are
+    a special case.}
+
+
+\subsection{PERT Diagrams}
+Project Evaluation and Review Technique (PERT) diagrams are represented as graphs.
+Each project has a number of tasks, each with duration D.
+Each task is a node in the graph. An edge $<i, j>$ represents that the task $j$ is a
+successor of task $i$ and cannot begin until task $i$ is completed. A critical path
+is one where each task is critical. A critical task is one that if its completion is
+delayed, project completion is delayed.

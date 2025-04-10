@@ -1,0 +1,57 @@
+\documentclass[8pt]{article}
+\usepackage{amssymb}
+\usepackage{hyperref}
+\usepackage{pgfplots}
+\usepackage{placeins}
+\usepackage{array}
+\usepackage{tikz}
+\usepackage{circuitikz}
+\usetikzlibrary{circuits.logic.US, circuits.ee.IEC, positioning}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{geometry}
+\input{kvmacros.tex}
+\geometry{margin=0.4in}
+
+\lstdefinelanguage{SystemVerilog}{
+  morekeywords={module, endmodule, logic, bit, int, enum, struct,
+    always_ff, always_comb, initial, final, interface, modport, property,
+    assert, class, rand, constraint, generate, endgenerate, if, else, begin, end},
+  sensitive=true,
+  morecomment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  morestring=[b]",
+}
+
+\lstset{
+  language=SystemVerilog,
+  basicstyle=\ttfamily\footnotesize,
+  keywordstyle=\color{blue}\bfseries,
+  commentstyle=\color{gray}\itshape,
+  stringstyle=\color{red},
+  frame=single,
+  breaklines=true,
+  postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space},
+}
+
+\begin{document}
+
+\begin{itemize}
+    \item Setup time $t_{setup}$: time before clock edge that data must be
+          stable.
+    \item Hold time $t_{hold}$: time after clock edge that data must be stable.
+    \item Propagation delay $t_{pcq}$: time after clock edge that output
+          is guaranteed to be stable.
+    \item Contamination delay $t_{ccq}$: time after clock edge that output
+          might be unstable.
+\end{itemize}
+
+\begin{align}
+    T_{clk} \geq t_{pcq} + t_{pd} + t_{setup} & \text{Setup Time Constraint} \\
+    t_{hold} < t_{ccq} + t_{cd}               & \text{Hold Time Constraint}
+\end{align}
+\end{document}
