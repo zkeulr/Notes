@@ -42,9 +42,14 @@ $-\omega_1$ and $\omega_1$, with $s(0) = A$ being the max amplitude.
     \caption{Spectrum of $s(t)$}
 \end{figure}
 
-Now, consider a carrier signal
+The modulation property is thus:
 \begin{equation}
-    p(t) = \cos(\omega t).
+    x(t)\cos(\omega_0 t) \overset{\mathcal{F}}{\leftrightarrow} \frac{1}{2}\left( X(j(\omega-\omega_0)) + X(j(\omega-\omega_0))\right)
 \end{equation}
+for CT and
+\begin{equation}
+    x[n]\cos(\omega_0 n)  \overset{\mathcal{F}}{\leftrightarrow}  \frac{1}{2}\left( X(e^{j(\omega-\omega_0)}) + X(e^{j(\omega-\omega_0)})\right)
+\end{equation}
+for DT.
 
 \subsection{Amplitude Modulation}
