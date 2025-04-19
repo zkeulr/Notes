@@ -15,17 +15,6 @@
 \begin{document}
 \begin{multicols}{2}
 
-
-
-
-
-
-
-
-
-
-
-
     \noindent\textbf{CTFT Analysis Equation}
     \begin{equation} \label{eq:ctft_analysis}
         X(j\omega) = \int_{-\infty}^{\infty} x(t) e^{-j\omega t} dt
@@ -93,10 +82,8 @@
             Time Scaling       & $x(at)$, $a \neq 0$                 & $\frac{1}{|a|}X\left(\frac{j\omega}{a}\right)$                & ---                                & ---                                                                                                     \\ [1mm]
             Time Reversal      & $x(-t)$                             & $X(-j\omega)$                                                 & $x[-n]$                            & $X(e^{-j\omega})$                                                                                       \\ [1mm]
             Conjugation        & $x^*(t)$                            & $X^*(-j\omega)$                                               & $x^*[n]$                           & $X^*(e^{-j\omega})$                                                                                     \\ [1mm]
-            Differentiation    & $\frac{d^n}{dt^n}x(t)$              & $(j\omega)^n X(j\omega)$                                      & ---                                & ---                                                                                                     \\ [1mm]
-            Integration        & $\int_{-\infty}^t x(\tau) d\tau$    & $\frac{X(j\omega)}{j\omega} + \pi X(0)\delta(\omega)$         & ---                                & ---                                                                                                     \\ [1mm]
-            Differencing       & ---                                 & ---                                                           & $x[n] - x[n-1]$                    & $(1 - e^{-j\omega})X(e^{j\omega})$                                                                      \\ [1mm]
-            Accumulation       & ---                                 & ---                                                           & $\sum_{k=-\infty}^n x[k]$          & $\frac{X(e^{j\omega})}{1-e^{-j\omega}} + \pi X(e^{j0})\sum_{k=-\infty}^{\infty}\delta(\omega - 2\pi k)$ \\ [1mm]
+            Differentiation    & $\frac{d^n}{dt^n}x(t)$              & $(j\omega)^n X(j\omega)$                                      & $x[n] - x[n-1]$                    & $(1 - e^{-j\omega})X(e^{j\omega})$                                                                      \\ [1mm]
+            Integration        & $\int_{-\infty}^t x(\tau) d\tau$    & $\frac{X(j\omega)}{j\omega} + \pi X(0)\delta(\omega)$         & $\sum_{k=-\infty}^n x[k]$          & $\frac{X(e^{j\omega})}{1-e^{-j\omega}} + \pi X(e^{j0})\sum_{k=-\infty}^{\infty}\delta(\omega - 2\pi k)$ \\ [1mm]
             Convolution        & $(x_1 * x_2)(t)$                    & $X_1(j\omega) X_2(j\omega)$                                   & $(x_1 * x_2)[n]$                   & $X_1(e^{j\omega}) X_2(e^{j\omega})$                                                                     \\ [1mm]
             Multiplication     & $x_1(t)x_2(t)$                      & $\frac{1}{2\pi}(X_1 * X_2)(j\omega)$                          & $x_1[n]x_2[n]$                     & $\frac{1}{2\pi}\int_{-\pi}^{\pi} X_1(e^{j\theta}) X_2(e^{j(\omega-\theta)}) d\theta$                    \\ [1mm]
             Parseval's Theorem & $\int_{-\infty}^\infty |x(t)|^2 dt$ & $\frac{1}{2\pi} \int_{-\infty}^\infty |X(j\omega)|^2 d\omega$ & $\sum_{n=-\infty}^\infty |x[n]|^2$ & $\frac{1}{2\pi} \int_{-\pi}^{\pi} |X(e^{j\omega})|^2 d\omega$                                           \\
@@ -111,15 +98,15 @@
         \small
         \begin{tabular}{@{}llll@{}}
             \toprule
-            \textbf{CT Time Domain} $x(t)$ & \textbf{CT Fourier Transform} $X(j\omega)$                                    & \textbf{DT Time Domain} $x[n]$         & \textbf{DT Fourier Transform} $X(e^{j\omega})$                                                                         \\
+            \textbf{CT Time Domain} $x(t)$                                 & \textbf{CT Fourier Transform} $X(j\omega)$                                    & \textbf{DT Time Domain} $x[n]$                                          & \textbf{DT Fourier Transform} $X(e^{j\omega})$                                                                         \\
             \midrule
-            $\delta(t)$                    & $1$                                                                           & $\delta[n]$                            & $1$                                                                                                                    \\ [1mm]
-            $1$                            & $2\pi\,\delta(\omega)$                                                        & $1$                                    & $2\pi\,\sum_{k=-\infty}^{\infty}\delta(\omega-2\pi k)$                                                                 \\ [1mm]
-            $u(t)$                         & $\pi\,\delta(\omega) + \frac{1}{j\omega}$                                     & $u[n]$                                 & $\frac{1}{1-e^{-j\omega}} + \pi \sum_{k=-\infty}^{\infty} \delta(\omega - 2\pi k)$                                     \\ [1mm] % Added DT u[n] pair
-            $e^{-at}u(t),\quad \Re(a)>0$   & $\dfrac{1}{a+j\omega}$                                                        & $a^n u[n],\quad |a|<1$                 & $\dfrac{1}{1-ae^{-j\omega}}$                                                                                           \\ [1mm]
-            $\cos(\omega_0 t)$             & $\pi\Bigl[\delta(\omega-\omega_0) + \delta(\omega+\omega_0)\Bigr]$            & $\cos(\omega_0 n)$                     & $\pi\,\sum_{k=-\infty}^{\infty}\Bigl[\delta(\omega-\omega_0-2\pi k) + \delta(\omega+\omega_0-2\pi k)\Bigr]$            \\ [1mm]
-            $\sin(\omega_0 t)$             & $\dfrac{\pi}{j}\Bigl[\delta(\omega-\omega_0) - \delta(\omega+\omega_0)\Bigr]$ & $\sin(\omega_0 n)$                     & $\dfrac{\pi}{j}\,\sum_{k=-\infty}^{\infty}\Bigl[\delta(\omega-\omega_0-2\pi k) - \delta(\omega+\omega_0-2\pi k)\Bigr]$ \\ [1mm]
-            $\mathrm{rect}(t/T)$           & $T\,\mathrm{sinc}\Bigl(\dfrac{\omega T}{2\pi}\Bigr)$                          & $\mathrm{rect}\Bigl(\frac{n}{N}\Bigr)$ & $\dfrac{\sin\Bigl(\omega (N+1)/2\Bigr)}{\sin\Bigl(\omega/2\Bigr)}\,e^{-j\omega N/2}$                                   \\ [1mm] % Adjusted DT rect definition/transform slightly for common usage
+            $\delta(t)$                                                    & $1$                                                                           & $\delta[n]$                                                             & $1$                                                                                                                    \\ [1mm]
+            $1$                                                            & $2\pi\,\delta(\omega)$                                                        & $1$                                                                     & $2\pi\,\sum_{k=-\infty}^{\infty}\delta(\omega-2\pi k)$                                                                 \\ [1mm]
+            $u(t)$                                                         & $\pi\,\delta(\omega) + \frac{1}{j\omega}$                                     & $u[n]$                                                                  & $\frac{1}{1-e^{-j\omega}} + \pi \sum_{k=-\infty}^{\infty} \delta(\omega - 2\pi k)$                                     \\ [1mm] % Added DT u[n] pair
+            $e^{-at}u(t),\quad \Re(a)>0$                                   & $\dfrac{1}{a+j\omega}$                                                        & $a^n u[n],\quad |a|<1$                                                  & $\dfrac{1}{1-ae^{-j\omega}}$                                                                                           \\ [1mm]
+            $\cos(\omega_0 t)$                                             & $\pi\Bigl[\delta(\omega-\omega_0) + \delta(\omega+\omega_0)\Bigr]$            & $\cos(\omega_0 n)$                                                      & $\pi\,\sum_{k=-\infty}^{\infty}\Bigl[\delta(\omega-\omega_0-2\pi k) + \delta(\omega+\omega_0-2\pi k)\Bigr]$            \\ [1mm]
+            $\sin(\omega_0 t)$                                             & $\dfrac{\pi}{j}\Bigl[\delta(\omega-\omega_0) - \delta(\omega+\omega_0)\Bigr]$ & $\sin(\omega_0 n)$                                                      & $\dfrac{\pi}{j}\,\sum_{k=-\infty}^{\infty}\Bigl[\delta(\omega-\omega_0-2\pi k) - \delta(\omega+\omega_0-2\pi k)\Bigr]$ \\ [1mm]
+            $\begin{cases} 1, & |t| \le T/2 \\ 0, & |t| > T/2 \end{cases}$ & $T\,\mathrm{sinc}\Bigl(\dfrac{\omega T}{2\pi}\Bigr)$                          & $\begin{cases} 1, & 0 \le n \le N \\ 0, & \text{otherwise} \end{cases}$ & $\dfrac{\sin\Bigl(\omega (N+1)/2\Bigr)}{\sin\Bigl(\omega/2\Bigr)}\,e^{-j\omega N/2}$                                   \\ [1mm]
             \bottomrule
         \end{tabular}
     \end{table*}
