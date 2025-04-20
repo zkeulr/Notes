@@ -1,4 +1,4 @@
-\documentclass[8pt]{article}
+\documentclass{article}
 
 \usepackage{amsmath}
 \usepackage{amssymb}
@@ -145,8 +145,8 @@
             Frequency Shifting   & $x(t) e^{j M \omega_0 t}$        & $a_{k - M}$                               & $x[n]\,e^{j\frac{2\pi}{N} M n}$       & $a_{(k-M)\,\mathrm{mod}\,N}$                       \\ [1mm]
             Time Reversal        & $x(-t)$                          & $a_{-k}$                                  & $x[-n]$                               & $a_{-k}$ (indices mod $N$)                         \\ [1mm]
             Conjugation          & $x^*(t)$                         & $a_{-k}^*$                                & $x^*[n]$                              & $a^*_{-k}$ (indices mod $N$)                       \\ [1mm]
-            Periodic Convolution & $(x \ast y)(t)$                  & $T a_k b_k$                               & $(x\circledast y)[n]$                 & $N a_k\,b_k$                                       \\ [1mm] % Note: Added T and N factors for convolution
-            Multiplication       & $x(t) y(t)$                      & $\sum_{l=-\infty}^{\infty} a_l b_{k - l}$ & $x[n]\,y[n]$                          & $\sum_{m=0}^{N-1} a_m\,b_{(k-m)\,\mathrm{mod}\,N}$ \\ [1mm] % Note: DT multiplication is circular convolution in freq domain
+            Periodic Convolution & $(x \ast y)(t)$                  & $T a_k b_k$                               & $(x\circledast y)[n]$                 & $N a_k\,b_k$                                       \\ [1mm]
+            Multiplication       & $x(t) y(t)$                      & $\sum_{l=-\infty}^{\infty} a_l b_{k - l}$ & $x[n]\,y[n]$                          & $\sum_{m=0}^{N-1} a_m\,b_{(k-m)\,\mathrm{mod}\,N}$ \\ [1mm]
             Differentiation      & $\frac{d}{dt} x(t)$              & $j k \omega_0 a_k$                        & $x[n]-x[n-1]$                         & $a_k\Bigl(1-e^{-j\frac{2\pi}{N} k}\Bigr)$          \\ [1mm]
             Integration          & $\int x(t) dt$                   & $\frac{a_k}{j k \omega_0}$ ($a_0 = 0$)    & ---                                   & ---                                                \\ [1mm]
             Parseval's Theorem   & $\frac{1}{T} \int_T |x(t)|^2 dt$ & $\sum_{k=-\infty}^{\infty} |a_k|^2$       & $\frac{1}{N}\sum_{n=0}^{N-1}|x[n]|^2$ & $\sum_{k=0}^{N-1}|a_k|^2$                          \\ [1mm]
