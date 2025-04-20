@@ -15,32 +15,27 @@
 \begin{document}
 \begin{multicols}{2}
 
-    \noindent\textbf{CTFT Analysis Equation}
-    \begin{equation} \label{eq:ctft_analysis}
-        X(j\omega) = \int_{-\infty}^{\infty} x(t) e^{-j\omega t} dt
-    \end{equation}
-    \noindent\textbf{DTFT Analysis Equation}
-    \begin{equation} \label{eq:dtft_analysis}
-        X(e^{j\omega}) = \sum_{n=-\infty}^{\infty} x[n] e^{-j\omega n}
-    \end{equation}
-    \noindent\textbf{CTFT Synthesis Equation}
-    \begin{equation} \label{eq:ctft_synthesis}
-        x(t) = \frac{1}{2\pi} \int_{-\infty}^{\infty} X(j\omega) e^{j\omega t} d\omega
-    \end{equation}
-    \noindent\textbf{DTFT Synthesis Equation}
-    \begin{equation} \label{eq:dtft_synthesis}
-        x[n] = \frac{1}{2\pi} \int_{-\pi}^{\pi} X(e^{j\omega}) e^{j\omega n} d\omega
-    \end{equation}
+    \noindent\textbf{Poisson Summation Formula}
+    \begin{align} \label{eq:poisson}
+        X(j\omega)     & = 2\pi\sum_{k=-\infty}^{\infty} a_k \delta\left( \omega - \frac{2\pi k}{T} \right) \\
+        X(e^{j\omega}) & = 2\pi\sum_{k=-\infty}^{\infty} a_k \delta\left( \omega - \frac{2\pi k}{N} \right)
+    \end{align}
 
-    \noindent\textbf{Fourier Series to Transform} \\
-    If the Fourier series of $x(t)$ is
-    \begin{equation} \label{eq:fourier_series}
-        x(t) = \sum_{k=-\infty}^{\infty} a_k e^{jk\omega_0 t}
-    \end{equation}
-    then the Fourier transform is
-    \begin{equation} \label{eq:fs_to_ft}
-        X(j\omega) = \sum_{k=-\infty}^{\infty} 2\pi a_k \delta(\omega - k\omega_0).
-    \end{equation}
+    \noindent\textbf{Analysis Equation}
+    \begin{align} \label{eq:analysis}
+        X(j\omega)     & = \int_{-\infty}^{\infty} x(t) e^{-j\omega t} dt \\
+        X(e^{j\omega}) & = \sum_{n=-\infty}^{\infty} x[n] e^{-j\omega n}
+    \end{align}
+
+    \noindent\textbf{Synthesis Equation}
+    \begin{align} \label{eq:synthesis}
+        a_k  & = \frac{1}{T} \int_{<T>} x(t) e^{-jk\frac{2\pi}{T} t} dt                  \\
+        x(t) & = \sum_{k=-\infty}^{\infty} a_k e^{jk\frac{2\pi}{T} t}                    \\
+             & = \frac{1}{2\pi} \int_{-\infty}^{\infty} X(j\omega) e^{j\omega t} d\omega \\
+        a_k  & = \frac{1}{N} \sum_{n=<N>} x[n] e^{-jk\frac{2\pi}{N}n}                    \\
+        x[n] & = \sum_{k=<N>} a_k e^{jk\frac{2\pi}{N} n}                                 \\
+             & = \frac{1}{2\pi} \int_{-\pi}^{\pi} X(e^{j\omega}) e^{j\omega n} d\omega
+    \end{align}
 
     \noindent\textbf{Symmetry Properties} \\
     If $x(t)$ is real, then $|X(j\omega)|$ is even and
@@ -64,6 +59,31 @@
     invertible if and only if $H(j\omega) \neq 0$ for all $\omega$ (CT) or $H(e^{j\omega})
         \neq 0$ for all $\omega \in [-\pi, \pi]$ (DT).
 
+    \noindent\textbf{LTI System Input/Output}
+    \begin{align}
+        Y(j\omega)     & = H(j\omega)X(j\omega)         \\
+        Y(e^{j\omega}) & = H(e^{j\omega})X(e^{j\omega})
+    \end{align}
+
+    \noindent\textbf{Differential Equations} \\
+    For a system described by:
+    \begin{equation*}
+        \sum_{k=0}^{N} a_k \frac{d^k y(t)}{dt^k} = \sum_{k=0}^{M} b_k \frac{d^k x(t)}{dt^k}
+    \end{equation*}
+    The frequency response is:
+    \begin{equation} \label{eq:diff_eq_Hjw}
+        H(j\omega) = \frac{Y(j\omega)}{X(j\omega)} = \frac{\sum_{k=0}^{M} b_k (j\omega)^k}{\sum_{k=0}^{N} a_k (j\omega)^k}
+    \end{equation}
+
+    \noindent\textbf{Difference Equations} \\
+    For a system described by:
+    \begin{equation*}
+        \sum_{k=0}^{N} a_k y[n-k] = \sum_{k=0}^{M} b_k x[n-k]
+    \end{equation*}
+    The frequency response is:
+    \begin{equation} \label{eq:diff_eq_Hejomega}
+        H(e^{j\omega}) = \frac{Y(e^{j\omega})}{X(e^{j\omega})} = \frac{\sum_{k=0}^{M} b_k e^{-j\omega k}}{\sum_{k=0}^{N} a_k e^{-j\omega k}}
+    \end{equation}
 
     \newpage
 
