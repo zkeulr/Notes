@@ -50,9 +50,10 @@
     \end{equation}
 
     \noindent\textbf{Modulation Property} \\
-    \begin{equation}
-        x(t)\cos(\omega_0 t) \overset{\mathcal{F}}{\leftrightarrow} \frac{1}{2}\left( X(j(\omega-\omega_0)) + X(j(\omega-\omega_0))\right)
-    \end{equation}
+    \begin{align}
+        x(t)\cos(\omega_0 t) & \overset{\mathcal{F}}{\leftrightarrow} \frac{1}{2}\left( X(j(\omega-\omega_0)) + X(j(\omega+\omega_0))\right)          \\
+        x[n]\cos(\omega_0 n) & \overset{\mathcal{F}}{\leftrightarrow}  \frac{1}{2}\left( X(e^{j(\omega-\omega_0)}) + X(e^{j(\omega+\omega_0)})\right)
+    \end{align}
 
     \noindent\textbf{LTI System Invertibility Criterion} \\
     An LTI system with frequency response $H(j\omega)$ (CT) or $H(e^{j\omega})$ (DT) is
@@ -67,9 +68,9 @@
 
     \noindent\textbf{Differential Equations} \\
     For a system described by:
-    \begin{equation*}
+    \begin{equation}
         \sum_{k=0}^{N} a_k \frac{d^k y(t)}{dt^k} = \sum_{k=0}^{M} b_k \frac{d^k x(t)}{dt^k}
-    \end{equation*}
+    \end{equation}
     The frequency response is:
     \begin{equation} \label{eq:diff_eq_Hjw}
         H(j\omega) = \frac{Y(j\omega)}{X(j\omega)} = \frac{\sum_{k=0}^{M} b_k (j\omega)^k}{\sum_{k=0}^{N} a_k (j\omega)^k}
@@ -77,15 +78,13 @@
 
     \noindent\textbf{Difference Equations} \\
     For a system described by:
-    \begin{equation*}
+    \begin{equation}
         \sum_{k=0}^{N} a_k y[n-k] = \sum_{k=0}^{M} b_k x[n-k]
-    \end{equation*}
+    \end{equation}
     The frequency response is:
     \begin{equation} \label{eq:diff_eq_Hejomega}
         H(e^{j\omega}) = \frac{Y(e^{j\omega})}{X(e^{j\omega})} = \frac{\sum_{k=0}^{M} b_k e^{-j\omega k}}{\sum_{k=0}^{N} a_k e^{-j\omega k}}
     \end{equation}
-
-    \newpage
 
     \begin{table*}[ht]
         \centering
@@ -122,11 +121,38 @@
             \midrule
             $\delta(t)$                                                    & $1$                                                                           & $\delta[n]$                                                             & $1$                                                                                                                    \\ [1mm]
             $1$                                                            & $2\pi\,\delta(\omega)$                                                        & $1$                                                                     & $2\pi\,\sum_{k=-\infty}^{\infty}\delta(\omega-2\pi k)$                                                                 \\ [1mm]
-            $u(t)$                                                         & $\pi\,\delta(\omega) + \frac{1}{j\omega}$                                     & $u[n]$                                                                  & $\frac{1}{1-e^{-j\omega}} + \pi \sum_{k=-\infty}^{\infty} \delta(\omega - 2\pi k)$                                     \\ [1mm] % Added DT u[n] pair
+            $u(t)$                                                         & $\pi\,\delta(\omega) + \frac{1}{j\omega}$                                     & $u[n]$                                                                  & $\frac{1}{1-e^{-j\omega}} + \pi \sum_{k=-\infty}^{\infty} \delta(\omega - 2\pi k)$                                     \\ [1mm]
             $e^{-at}u(t),\quad \Re(a)>0$                                   & $\dfrac{1}{a+j\omega}$                                                        & $a^n u[n],\quad |a|<1$                                                  & $\dfrac{1}{1-ae^{-j\omega}}$                                                                                           \\ [1mm]
+            $e^{-a|t|},\, a>0$                                             & $\dfrac{2a}{a^2+\omega^2}$                                                    & $a^{|n|},\quad |a|<1$                                                   & $\dfrac{1-a^2}{1-2a\cos\omega+a^2}$                                                                                    \\ [1mm]
             $\cos(\omega_0 t)$                                             & $\pi\Bigl[\delta(\omega-\omega_0) + \delta(\omega+\omega_0)\Bigr]$            & $\cos(\omega_0 n)$                                                      & $\pi\,\sum_{k=-\infty}^{\infty}\Bigl[\delta(\omega-\omega_0-2\pi k) + \delta(\omega+\omega_0-2\pi k)\Bigr]$            \\ [1mm]
             $\sin(\omega_0 t)$                                             & $\dfrac{\pi}{j}\Bigl[\delta(\omega-\omega_0) - \delta(\omega+\omega_0)\Bigr]$ & $\sin(\omega_0 n)$                                                      & $\dfrac{\pi}{j}\,\sum_{k=-\infty}^{\infty}\Bigl[\delta(\omega-\omega_0-2\pi k) - \delta(\omega+\omega_0-2\pi k)\Bigr]$ \\ [1mm]
             $\begin{cases} 1, & |t| \le T/2 \\ 0, & |t| > T/2 \end{cases}$ & $2\frac{\sin\left(\frac{\omega T}{2}\right)}{\omega}$                         & $\begin{cases} 1, & 0 \le n \le N \\ 0, & \text{otherwise} \end{cases}$ & $\dfrac{\sin\Bigl(\omega (N+1)/2\Bigr)}{\sin\Bigl(\omega/2\Bigr)}\,e^{-j\omega N/2}$                                   \\ [1mm]
+            \bottomrule
+        \end{tabular}
+    \end{table*}
+
+    \begin{table*}[ht]
+        \centering
+        \caption{Properties of Fourier Series}
+        \label{tab:fourier_series_properties}
+        \small
+        \begin{tabular}{@{}lllll@{}}
+            \toprule
+            \textbf{Property}    & \textbf{CT Time Domain}          & \textbf{CT Frequency Domain} ($a_k$)      & \textbf{DT Time Domain}               & \textbf{DT Frequency Domain} ($a_k$)               \\
+            \midrule
+            Linearity            & $A x_1(t) + B x_2(t)$            & $A a_k + B b_k$                           & $A\,x_1[n] + B\,x_2[n]$               & $A\,a_k + B\,b_k$                                  \\ [1mm]
+            Time Shifting        & $x(t - t_0)$                     & $a_k e^{-j k \omega_0 t_0}$               & $x[n-n_0]$                            & $a_k\,e^{-j\frac{2\pi}{N} k n_0}$                  \\ [1mm]
+            Frequency Shifting   & $x(t) e^{j M \omega_0 t}$        & $a_{k - M}$                               & $x[n]\,e^{j\frac{2\pi}{N} M n}$       & $a_{(k-M)\,\mathrm{mod}\,N}$                       \\ [1mm]
+            Time Reversal        & $x(-t)$                          & $a_{-k}$                                  & $x[-n]$                               & $a_{-k}$ (indices mod $N$)                         \\ [1mm]
+            Conjugation          & $x^*(t)$                         & $a_{-k}^*$                                & $x^*[n]$                              & $a^*_{-k}$ (indices mod $N$)                       \\ [1mm]
+            Periodic Convolution & $(x \ast y)(t)$                  & $T a_k b_k$                               & $(x\circledast y)[n]$                 & $N a_k\,b_k$                                       \\ [1mm] % Note: Added T and N factors for convolution
+            Multiplication       & $x(t) y(t)$                      & $\sum_{l=-\infty}^{\infty} a_l b_{k - l}$ & $x[n]\,y[n]$                          & $\sum_{m=0}^{N-1} a_m\,b_{(k-m)\,\mathrm{mod}\,N}$ \\ [1mm] % Note: DT multiplication is circular convolution in freq domain
+            Differentiation      & $\frac{d}{dt} x(t)$              & $j k \omega_0 a_k$                        & $x[n]-x[n-1]$                         & $a_k\Bigl(1-e^{-j\frac{2\pi}{N} k}\Bigr)$          \\ [1mm]
+            Integration          & $\int x(t) dt$                   & $\frac{a_k}{j k \omega_0}$ ($a_0 = 0$)    & ---                                   & ---                                                \\ [1mm]
+            Parseval's Theorem   & $\frac{1}{T} \int_T |x(t)|^2 dt$ & $\sum_{k=-\infty}^{\infty} |a_k|^2$       & $\frac{1}{N}\sum_{n=0}^{N-1}|x[n]|^2$ & $\sum_{k=0}^{N-1}|a_k|^2$                          \\ [1mm]
+            Symmetry (Real)      & $x(t)$ real                      & $a_k = a_{-k}^*$                          & $x[n]$ real                           & $a_k = a_{-k}^*$                                   \\ [1mm]
+            Symmetry (Real+Even) & $x(t)$ real and even             & $a_k$ real and even                       & $x[n]$ real and even                  & $a_k$ real and even                                \\ [1mm]
+            Symmetry (Real+Odd)  & $x(t)$ real and odd              & $a_k$ purely imaginary and odd            & $x[n]$ real and odd                   & $a_k$ purely imaginary and odd                     \\
             \bottomrule
         \end{tabular}
     \end{table*}
