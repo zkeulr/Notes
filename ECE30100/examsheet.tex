@@ -113,8 +113,8 @@
 
     \begin{table*}[ht]
         \centering
-        \caption{Common Fourier Transform Pairs}
-        \label{tab:common_fourier_transforms}
+        \caption{Fourier Transform Pairs}
+        \label{tab:fourier_transform_pairs}
         \small
         \begin{tabular}{@{}llll@{}}
             \toprule
@@ -126,7 +126,7 @@
             $e^{-at}u(t),\quad \Re(a)>0$                                   & $\dfrac{1}{a+j\omega}$                                                        & $a^n u[n],\quad |a|<1$                                                  & $\dfrac{1}{1-ae^{-j\omega}}$                                                                                           \\ [1mm]
             $\cos(\omega_0 t)$                                             & $\pi\Bigl[\delta(\omega-\omega_0) + \delta(\omega+\omega_0)\Bigr]$            & $\cos(\omega_0 n)$                                                      & $\pi\,\sum_{k=-\infty}^{\infty}\Bigl[\delta(\omega-\omega_0-2\pi k) + \delta(\omega+\omega_0-2\pi k)\Bigr]$            \\ [1mm]
             $\sin(\omega_0 t)$                                             & $\dfrac{\pi}{j}\Bigl[\delta(\omega-\omega_0) - \delta(\omega+\omega_0)\Bigr]$ & $\sin(\omega_0 n)$                                                      & $\dfrac{\pi}{j}\,\sum_{k=-\infty}^{\infty}\Bigl[\delta(\omega-\omega_0-2\pi k) - \delta(\omega+\omega_0-2\pi k)\Bigr]$ \\ [1mm]
-            $\begin{cases} 1, & |t| \le T/2 \\ 0, & |t| > T/2 \end{cases}$ & $T\,\mathrm{sinc}\Bigl(\dfrac{\omega T}{2\pi}\Bigr)$                          & $\begin{cases} 1, & 0 \le n \le N \\ 0, & \text{otherwise} \end{cases}$ & $\dfrac{\sin\Bigl(\omega (N+1)/2\Bigr)}{\sin\Bigl(\omega/2\Bigr)}\,e^{-j\omega N/2}$                                   \\ [1mm]
+            $\begin{cases} 1, & |t| \le T/2 \\ 0, & |t| > T/2 \end{cases}$ & $2\frac{\sin\left(\frac{\omega T}{2}\right)}{\omega}$                         & $\begin{cases} 1, & 0 \le n \le N \\ 0, & \text{otherwise} \end{cases}$ & $\dfrac{\sin\Bigl(\omega (N+1)/2\Bigr)}{\sin\Bigl(\omega/2\Bigr)}\,e^{-j\omega N/2}$                                   \\ [1mm]
             \bottomrule
         \end{tabular}
     \end{table*}
