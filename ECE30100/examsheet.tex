@@ -15,6 +15,97 @@
 \begin{document}
 \begin{multicols}{2}
 
+    \noindent\textbf{Memoryless}\\
+    A \emph{memoryless} system's output depends only on the input at time
+    \( t \) (or \( n \) for discrete-time systems), and not on past or
+    future states. For example, \( y(t) = 2x(t) \) is memoryless, while
+    \( y[n] = x[n-1] \) has memory.
+
+    \noindent\textbf{Linearity}\\
+    A system is \emph{linear} if it satisfies superposition and homogeneity.
+    Formally, for any inputs \( x_1(t) \rightarrow y_1(t) \) and
+    \( x_2(t) \rightarrow y_2(t) \), and constants \( a, b \), the system
+    satisfies:
+    \[
+        S\{a x_1(t) + b x_2(t)\} = a S\{x_1(t)\} + b S\{x_2(t)\} = a y_1(t) + b y_2(t).
+    \]
+    An example is \( y(t) = kx(t) \), where \( k \) is a constant.
+
+    \noindent\textbf{Time Invariance}\\
+    A system is \emph{time invariant} if a time shift in the input results in
+    an identical shift in the output. For a discrete-time system \( S \), if:
+    \[
+        x[n] \rightarrow y[n],
+    \]
+    then for any integer \( n_0 \):
+    \[
+        x[n - n_0] \rightarrow y[n - n_0].
+    \]
+
+    \noindent\textbf{Linear Time Invariance}\\
+    An LTI system satisfies both linearity and time invariance.
+    LTI systems are fully characterized by their impulse response
+    \( h(t) \) or \( h[n] \), enabling analysis via convolution:
+    \( y(t) = x(t) * h(t) \). The impulse response is found by
+    plugging in $\delta(t)$ or $\delta[n]$ to the system. The result
+    is the impulse response. Mathematically,
+    \begin{align}
+        h(t) & = S(\delta(t))  \\
+        h[n] & = S(\delta[n]).
+    \end{align}
+
+    \noindent\textbf{Causality}\\
+    A system is \emph{causal} if its output at time \( t \) depends
+    only on present and past inputs.
+    For causal systems, the impulse response must be 0 for values of $n$ ($t$)
+    less than 0.
+
+    \noindent\textbf{Stability}\\
+    A system is \emph{stable} if bounded inputs produce
+    bounded outputs. Formally, there exist constants \( B, M > 0 \)
+    such that:
+    \begin{equation}
+        |x(t)| < B \ \forall t \implies |y(t)| < M \ \forall t.
+    \end{equation}
+    \begin{equation}
+        \sum_{k=-\infty}^{\infty} |h[k]| < \infty.
+    \end{equation}
+    \begin{equation}
+        \int_{-\infty}^{\infty} |h(\tau)| d\tau < \infty.
+    \end{equation}
+
+    \noindent\textbf{HRCE}
+    \begin{equation}
+        x_k(t) = e^{jk\omega_0 t}, k \in \mathbb{Z}.
+    \end{equation}
+    \begin{equation}
+        x_k[n] = e^{jk\omega_0 n}, k \in \{0, 1, ..., N\}.
+    \end{equation}
+
+    \noindent\textbf{Energy}
+    \begin{align}
+        E & = \int_{t_1}^{t_2} |x(t)|^2 dt                     \\
+          & = \int_{t_1}^{t_2} (x_{Re}(t)^2 + x_{Im}(t)^2) dt.
+    \end{align}
+    \begin{align}
+        E & = \sum_{n=n_1}^{n_2} |x[n]|^2                     \\
+          & = \sum_{n=n_1}^{n_2} (x_{Re}[n]^2 + x_{Im}[n]^2).
+    \end{align}
+
+    \noindent\textbf{Power}
+    \begin{equation}
+        P_{avg} = \frac{1}{t_2 - t_1} \int_{t_1}^{t_2} |x(t)|^2 dt.
+    \end{equation}
+    \begin{equation}
+        P_{avg} = \frac{1}{n_2 - n_1 + 1} \sum_{n=n_1}^{n_2} |x[n]|^2.
+    \end{equation}
+    \begin{equation}
+        P_{\infty} = \lim_{T \rightarrow \infty} \frac{1}{2T} \int_{-T}^{T} |x(t)|^2 dt
+    \end{equation}
+    \begin{equation}
+        P_{\infty} = \lim_{N \rightarrow \infty} \frac{1}{2N + 1} \sum_{n=-N}^{N} |x[n]|^2
+    \end{equation}
+
     \noindent\textbf{Poisson Summation Formula}
     \begin{align} \label{eq:poisson}
         X(j\omega)     & = 2\pi\sum_{k=-\infty}^{\infty} a_k \delta\left( \omega - \frac{2\pi k}{T} \right) \\
@@ -124,9 +215,12 @@
             $u(t)$                                                         & $\pi\,\delta(\omega) + \frac{1}{j\omega}$                                     & $u[n]$                                                                  & $\frac{1}{1-e^{-j\omega}} + \pi \sum_{k=-\infty}^{\infty} \delta(\omega - 2\pi k)$                                     \\ [1mm]
             $e^{-at}u(t),\quad \Re(a)>0$                                   & $\dfrac{1}{a+j\omega}$                                                        & $a^n u[n],\quad |a|<1$                                                  & $\dfrac{1}{1-ae^{-j\omega}}$                                                                                           \\ [1mm]
             $e^{-a|t|},\, a>0$                                             & $\dfrac{2a}{a^2+\omega^2}$                                                    & $a^{|n|},\quad |a|<1$                                                   & $\dfrac{1-a^2}{1-2a\cos\omega+a^2}$                                                                                    \\ [1mm]
+            $t e^{at} u(t),\quad \Re(a)<0$                                 & $\dfrac{1}{(a+j\omega)^2}$                                                    & $n a^n u[n],\quad |a|<1$                                                & $\dfrac{a e^{-j\omega}}{(1-a e^{-j\omega})^2}$                                                                         \\ [1mm]
+            $\frac{t^{n-1}}{(n-1)!}e^{a t}u(t),\;\Re(a)<0$                 & $\frac{1}{(a + j\omega)^n}$                                                   & $n\,a^n\,u[n],\;|a|<1$                                                  & $\frac{a\,e^{-j\omega}}{\bigl(1 - a\,e^{-j\omega}\bigr)^2}$                                                            \\ [1mm]
             $\cos(\omega_0 t)$                                             & $\pi\Bigl[\delta(\omega-\omega_0) + \delta(\omega+\omega_0)\Bigr]$            & $\cos(\omega_0 n)$                                                      & $\pi\,\sum_{k=-\infty}^{\infty}\Bigl[\delta(\omega-\omega_0-2\pi k) + \delta(\omega+\omega_0-2\pi k)\Bigr]$            \\ [1mm]
             $\sin(\omega_0 t)$                                             & $\dfrac{\pi}{j}\Bigl[\delta(\omega-\omega_0) - \delta(\omega+\omega_0)\Bigr]$ & $\sin(\omega_0 n)$                                                      & $\dfrac{\pi}{j}\,\sum_{k=-\infty}^{\infty}\Bigl[\delta(\omega-\omega_0-2\pi k) - \delta(\omega+\omega_0-2\pi k)\Bigr]$ \\ [1mm]
             $\begin{cases} 1, & |t| \le T/2 \\ 0, & |t| > T/2 \end{cases}$ & $2\frac{\sin\left(\frac{\omega T}{2}\right)}{\omega}$                         & $\begin{cases} 1, & 0 \le n \le N \\ 0, & \text{otherwise} \end{cases}$ & $\dfrac{\sin\Bigl(\omega (N+1)/2\Bigr)}{\sin\Bigl(\omega/2\Bigr)}\,e^{-j\omega N/2}$                                   \\ [1mm]
+            $\frac{\sin\left(Wt\right)}{\pi t}$                            & $\begin{cases} 1, & |\omega| \le W \\ 0, & |\omega| > W \end{cases}$          & $\frac{\sin\left(Wn\right)}{\pi n}$                                     & $\begin{cases} 1, & |\omega| \le W \\ 0, & |\omega| > W \end{cases}$                                                   \\ [1mm]
             \bottomrule
         \end{tabular}
     \end{table*}
@@ -138,21 +232,22 @@
         \small
         \begin{tabular}{@{}lllll@{}}
             \toprule
-            \textbf{Property}    & \textbf{CT Time Domain}          & \textbf{CT Frequency Domain} ($a_k$)      & \textbf{DT Time Domain}               & \textbf{DT Frequency Domain} ($a_k$)               \\
+            \textbf{Property}    & \textbf{CT Time Domain}                               & \textbf{CT Frequency Domain} ($a_k$)                            & \textbf{DT Time Domain}                       & \textbf{DT Frequency Domain} ($a_k$)                                       \\
             \midrule
-            Linearity            & $A x_1(t) + B x_2(t)$            & $A a_k + B b_k$                           & $A\,x_1[n] + B\,x_2[n]$               & $A\,a_k + B\,b_k$                                  \\ [1mm]
-            Time Shifting        & $x(t - t_0)$                     & $a_k e^{-j k \omega_0 t_0}$               & $x[n-n_0]$                            & $a_k\,e^{-j\frac{2\pi}{N} k n_0}$                  \\ [1mm]
-            Frequency Shifting   & $x(t) e^{j M \omega_0 t}$        & $a_{k - M}$                               & $x[n]\,e^{j\frac{2\pi}{N} M n}$       & $a_{(k-M)\,\mathrm{mod}\,N}$                       \\ [1mm]
-            Time Reversal        & $x(-t)$                          & $a_{-k}$                                  & $x[-n]$                               & $a_{-k}$ (indices mod $N$)                         \\ [1mm]
-            Conjugation          & $x^*(t)$                         & $a_{-k}^*$                                & $x^*[n]$                              & $a^*_{-k}$ (indices mod $N$)                       \\ [1mm]
-            Periodic Convolution & $(x \ast y)(t)$                  & $T a_k b_k$                               & $(x\circledast y)[n]$                 & $N a_k\,b_k$                                       \\ [1mm]
-            Multiplication       & $x(t) y(t)$                      & $\sum_{l=-\infty}^{\infty} a_l b_{k - l}$ & $x[n]\,y[n]$                          & $\sum_{m=0}^{N-1} a_m\,b_{(k-m)\,\mathrm{mod}\,N}$ \\ [1mm]
-            Differentiation      & $\frac{d}{dt} x(t)$              & $j k \omega_0 a_k$                        & $x[n]-x[n-1]$                         & $a_k\Bigl(1-e^{-j\frac{2\pi}{N} k}\Bigr)$          \\ [1mm]
-            Integration          & $\int x(t) dt$                   & $\frac{a_k}{j k \omega_0}$ ($a_0 = 0$)    & ---                                   & ---                                                \\ [1mm]
-            Parseval's Theorem   & $\frac{1}{T} \int_T |x(t)|^2 dt$ & $\sum_{k=-\infty}^{\infty} |a_k|^2$       & $\frac{1}{N}\sum_{n=0}^{N-1}|x[n]|^2$ & $\sum_{k=0}^{N-1}|a_k|^2$                          \\ [1mm]
-            Symmetry (Real)      & $x(t)$ real                      & $a_k = a_{-k}^*$                          & $x[n]$ real                           & $a_k = a_{-k}^*$                                   \\ [1mm]
-            Symmetry (Real+Even) & $x(t)$ real and even             & $a_k$ real and even                       & $x[n]$ real and even                  & $a_k$ real and even                                \\ [1mm]
-            Symmetry (Real+Odd)  & $x(t)$ real and odd              & $a_k$ purely imaginary and odd            & $x[n]$ real and odd                   & $a_k$ purely imaginary and odd                     \\
+            Linearity            & $A x_1(t) + B x_2(t)$                                 & $A a_k + B b_k$                                                 & $A\,x_1[n] + B\,x_2[n]$                       & $A\,a_k + B\,b_k$                                                          \\ [1mm]
+            Time Shifting        & $x(t - t_0)$                                          & $a_k e^{-j k \omega_0 t_0}$                                     & $x[n-n_0]$                                    & $a_k\,e^{-j\frac{2\pi}{N} k n_0}$                                          \\ [1mm]
+            Frequency Shifting   & $x(t) e^{j M \omega_0 t}$                             & $a_{k - M}$                                                     & $x[n]\,e^{j\frac{2\pi}{N} M n}$               & $a_{(k-M)\,\mathrm{mod}\,N}$                                               \\ [1mm]
+            Time Reversal        & $x(-t)$                                               & $a_{-k}$                                                        & $x[-n]$                                       & $a_{-k}$ (indices mod $N$)                                                 \\ [1mm]
+            Conjugation          & $x^*(t)$                                              & $a_{-k}^*$                                                      & $x^*[n]$                                      & $a^*_{-k}$ (indices mod $N$)                                               \\ [1mm]
+            Periodic Convolution & $(x \ast y)(t)$                                       & $T a_k b_k$                                                     & $(x\circledast y)[n]$                         & $N a_k\,b_k$                                                               \\ [1mm]
+            Multiplication       & $x(t) y(t)$                                           & $\sum_{l=-\infty}^{\infty} a_l b_{k - l}$                       & $x[n]\,y[n]$                                  & $\sum_{m=0}^{N-1} a_m\,b_{(k-m)\,\mathrm{mod}\,N}$                         \\ [1mm]
+            Differentiation      & $\frac{d}{dt} x(t)$                                   & $j k \omega_0 a_k$                                              & $x[n]-x[n-1]$                                 & $a_k\Bigl(1-e^{-j\frac{2\pi}{N} k}\Bigr)$                                  \\ [1mm]
+            Integration          & $\int x(t) dt$                                        & $\frac{a_k}{j k \omega_0}$ ($a_0 = 0$)                          & ---                                           & ---                                                                        \\ [1mm]
+            Parseval's Theorem   & $\frac{1}{T} \int_T |x(t)|^2 dt$                      & $\sum_{k=-\infty}^{\infty} |a_k|^2$                             & $\frac{1}{N}\sum_{n=0}^{N-1}|x[n]|^2$         & $\sum_{k=0}^{N-1}|a_k|^2$                                                  \\ [1mm]
+            Running Sum          & $\displaystyle y(t)=\int_{-\infty}^{t}x(\tau)\,d\tau$ & $\displaystyle \frac{a_k}{j\,k\,\omega_0}\quad(k\neq0,\;a_0=0)$ & $\displaystyle y[n]=\sum_{m=-\infty}^{n}x[m]$ & $\displaystyle \frac{a_k}{1 - e^{-j\frac{2\pi}{N}k}}\quad(k\neq0,\;a_0=0)$ \\ [1mm]
+            Symmetry (Real)      & $x(t)$ real                                           & $a_k = a_{-k}^*$                                                & $x[n]$ real                                   & $a_k = a_{-k}^*$                                                           \\ [1mm]
+            Symmetry (Real+Even) & $x(t)$ real and even                                  & $a_k$ real and even                                             & $x[n]$ real and even                          & $a_k$ real and even                                                        \\ [1mm]
+            Symmetry (Real+Odd)  & $x(t)$ real and odd                                   & $a_k$ purely imaginary and odd                                  & $x[n]$ real and odd                           & $a_k$ purely imaginary and odd                                             \\
             \bottomrule
         \end{tabular}
     \end{table*}
