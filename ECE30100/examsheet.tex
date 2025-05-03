@@ -18,6 +18,21 @@
 \begin{document}
 \begin{multicols}{2}
 
+    \noindent\textbf{Sum of Squares}\\
+    \begin{equation*}
+        \sum_{k=0}^{n} k^2 = \frac{n(n+1)(2n+1)}{6}
+    \end{equation*}
+
+    \noindent\textbf{Sum of Geometric Series}\\
+    \begin{equation*}
+        \sum_{k=0}^{n} ar^k = a\frac{1-r^n}{1-r}
+    \end{equation*}
+
+    \noindent\textbf{Sum of Weighted Geometric Series}\\
+    \begin{equation*}
+        \sum_{k=0}^{n} kr^k = r\frac{1- (n + 1)r^n +nr^{n + 1}}{(1-r)^2}
+    \end{equation*}
+
     \noindent\textbf{Memoryless}\\
     A \emph{memoryless} system's output depends only on the input at time
     \( t \) (or \( n \) for discrete-time systems), and not on past or
@@ -52,10 +67,10 @@
     \( y(t) = x(t) * h(t) \). The impulse response is found by
     plugging in $\delta(t)$ or $\delta[n]$ to the system. The result
     is the impulse response. Mathematically,
-    \begin{align}
+    \begin{align*}
         h(t) & = S(\delta(t))  \\
         h[n] & = S(\delta[n]).
-    \end{align}
+    \end{align*}
 
     \noindent\textbf{Causality}\\
     A system is \emph{causal} if its output at time \( t \) depends
@@ -67,69 +82,69 @@
     A system is \emph{stable} if bounded inputs produce
     bounded outputs. Formally, there exist constants \( B, M > 0 \)
     such that:
-    \begin{equation}
+    \[
         |x(t)| < B \ \forall t \implies |y(t)| < M \ \forall t.
-    \end{equation}
-    \begin{equation}
+    \]
+    \[
         \sum_{k=-\infty}^{\infty} |h[k]| < \infty.
-    \end{equation}
-    \begin{equation}
+    \]
+    \[
         \int_{-\infty}^{\infty} |h(\tau)| d\tau < \infty.
-    \end{equation}
+    \]
 
     \noindent\textbf{HRCE}
-    \begin{equation}
+    \[
         x_k(t) = e^{jk\omega_0 t}, k \in \mathbb{Z}.
-    \end{equation}
-    \begin{equation}
+    \]
+    \[
         x_k[n] = e^{jk\omega_0 n}, k \in \{0, 1, ..., N\}.
-    \end{equation}
+    \]
 
     \noindent\textbf{Energy}
-    \begin{align}
+    \begin{align*}
         E & = \int_{t_1}^{t_2} |x(t)|^2 dt                     \\
           & = \int_{t_1}^{t_2} (x_{Re}(t)^2 + x_{Im}(t)^2) dt.
-    \end{align}
-    \begin{align}
+    \end{align*}
+    \begin{align*}
         E & = \sum_{n=n_1}^{n_2} |x[n]|^2                     \\
           & = \sum_{n=n_1}^{n_2} (x_{Re}[n]^2 + x_{Im}[n]^2).
-    \end{align}
+    \end{align*}
 
     \noindent\textbf{Power}
-    \begin{equation}
+    \[
         P_{avg} = \frac{1}{t_2 - t_1} \int_{t_1}^{t_2} |x(t)|^2 dt.
-    \end{equation}
-    \begin{equation}
+    \]
+    \[
         P_{avg} = \frac{1}{n_2 - n_1 + 1} \sum_{n=n_1}^{n_2} |x[n]|^2.
-    \end{equation}
-    \begin{equation}
+    \]
+    \[
         P_{\infty} = \lim_{T \rightarrow \infty} \frac{1}{2T} \int_{-T}^{T} |x(t)|^2 dt
-    \end{equation}
-    \begin{equation}
+    \]
+    \[
         P_{\infty} = \lim_{N \rightarrow \infty} \frac{1}{2N + 1} \sum_{n=-N}^{N} |x[n]|^2
-    \end{equation}
+    \]
 
     \noindent\textbf{Poisson Summation Formula}
-    \begin{align} \label{eq:poisson}
+    \begin{align*}
         X(j\omega)     & = 2\pi\sum_{k=-\infty}^{\infty} a_k \delta\left( \omega - \frac{2\pi k}{T} \right) \\
         X(e^{j\omega}) & = 2\pi\sum_{k=-\infty}^{\infty} a_k \delta\left( \omega - \frac{2\pi k}{N} \right)
-    \end{align}
+    \end{align*}
 
     \noindent\textbf{Analysis Equation}
-    \begin{align} \label{eq:analysis}
+    \begin{align*}
         X(j\omega)     & = \int_{-\infty}^{\infty} x(t) e^{-j\omega t} dt \\
         X(e^{j\omega}) & = \sum_{n=-\infty}^{\infty} x[n] e^{-j\omega n}
-    \end{align}
+    \end{align*}
 
     \noindent\textbf{Synthesis Equation}
-    \begin{align} \label{eq:synthesis}
+    \begin{align*}
         a_k  & = \frac{1}{T} \int_{<T>} x(t) e^{-jk\frac{2\pi}{T} t} dt                  \\
         x(t) & = \sum_{k=-\infty}^{\infty} a_k e^{jk\frac{2\pi}{T} t}                    \\
              & = \frac{1}{2\pi} \int_{-\infty}^{\infty} X(j\omega) e^{j\omega t} d\omega \\
         a_k  & = \frac{1}{N} \sum_{n=<N>} x[n] e^{-jk\frac{2\pi}{N}n}                    \\
         x[n] & = \sum_{k=<N>} a_k e^{jk\frac{2\pi}{N} n}                                 \\
              & = \frac{1}{2\pi} \int_{-\pi}^{\pi} X(e^{j\omega}) e^{j\omega n} d\omega
-    \end{align}
+    \end{align*}
 
     \noindent\textbf{Symmetry Properties} \\
     If $x(t)$ is real, then $|X(j\omega)|$ is even and
@@ -139,15 +154,15 @@
     imaginary and odd.
 
     \noindent\textbf{Duality Property}
-    \begin{equation} \label{eq:duality}
+    \[ \label{eq:duality}
         \mathcal{F}\left\{ X(t) \right\} = 2\pi x(-\omega).
-    \end{equation}
+    \]
 
     \noindent\textbf{Modulation Property} \\
-    \begin{align}
+    \begin{align*}
         x(t)\cos(\omega_0 t) & \overset{\mathcal{F}}{\leftrightarrow} \frac{1}{2}\left( X(j(\omega-\omega_0)) + X(j(\omega+\omega_0))\right)          \\
         x[n]\cos(\omega_0 n) & \overset{\mathcal{F}}{\leftrightarrow}  \frac{1}{2}\left( X(e^{j(\omega-\omega_0)}) + X(e^{j(\omega+\omega_0)})\right)
-    \end{align}
+    \end{align*}
 
     \noindent\textbf{LTI System Invertibility Criterion} \\
     An LTI system with frequency response $H(j\omega)$ (CT) or $H(e^{j\omega})$ (DT) is
@@ -155,30 +170,37 @@
         \neq 0$ for all $\omega \in [-\pi, \pi]$ (DT).
 
     \noindent\textbf{LTI System Input/Output}
-    \begin{align}
+    \begin{align*}
         Y(j\omega)     & = H(j\omega)X(j\omega)         \\
         Y(e^{j\omega}) & = H(e^{j\omega})X(e^{j\omega})
-    \end{align}
+    \end{align*}
+
+    \noindent\textbf{LTI with Periodic Complex Exponential Input} \\
+    Let the input to an LTI system be $e^{j\omega_0 t}$, and let the
+    impulse response be $h(t)$. Then
+    \[
+        y(t) = H(j\omega_0)e^{j\omega_0 t}.
+    \]
 
     \noindent\textbf{Differential Equations} \\
     For a system described by:
-    \begin{equation}
+    \[
         \sum_{k=0}^{N} a_k \frac{d^k y(t)}{dt^k} = \sum_{k=0}^{M} b_k \frac{d^k x(t)}{dt^k}
-    \end{equation}
+    \]
     The frequency response is:
-    \begin{equation} \label{eq:diff_eq_Hjw}
+    \[ \label{eq:diff_eq_Hjw}
         H(j\omega) = \frac{Y(j\omega)}{X(j\omega)} = \frac{\sum_{k=0}^{M} b_k (j\omega)^k}{\sum_{k=0}^{N} a_k (j\omega)^k}
-    \end{equation}
+    \]
 
     \noindent\textbf{Difference Equations} \\
     For a system described by:
-    \begin{equation}
+    \[
         \sum_{k=0}^{N} a_k y[n-k] = \sum_{k=0}^{M} b_k x[n-k]
-    \end{equation}
+    \]
     The frequency response is:
-    \begin{equation} \label{eq:diff_eq_Hejomega}
+    \[ \label{eq:diff_eq_Hejomega}
         H(e^{j\omega}) = \frac{Y(e^{j\omega})}{X(e^{j\omega})} = \frac{\sum_{k=0}^{M} b_k e^{-j\omega k}}{\sum_{k=0}^{N} a_k e^{-j\omega k}}
-    \end{equation}
+    \]
 
     \begin{table*}[ht]
         \centering
@@ -204,6 +226,7 @@
         \end{tabular}
     \end{table*}
 
+    % add line for Fourier transform of e^{j\omega_0 t}
     \begin{table*}[ht]
         \centering
         \caption{Fourier Transform Pairs}
