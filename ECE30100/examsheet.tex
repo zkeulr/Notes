@@ -8,6 +8,7 @@
 \usepackage{booktabs}
 \usepackage{multicol} 
 \usepackage{amsfonts} 
+\usepackage{pgfplots}
 
 % the exam will have one question from modulation 
 % and one from sampling
@@ -164,6 +165,30 @@
         x[n]\cos(\omega_0 n) & \overset{\mathcal{F}}{\leftrightarrow}  \frac{1}{2}\left( X(e^{j(\omega-\omega_0)}) + X(e^{j(\omega+\omega_0)})\right)
     \end{align*}
 
+    \noindent\textbf{Frequency Spectrum}\\
+    The plot of the magnitude of a signal's Fourier transform is its
+    frequency spectrum.
+    For example, the Fourier transform of $\cos(2 t)$ is
+    $\pi \left[\delta(\omega - 2) + \delta(\omega + 2)\right]$
+    so its frequency spectrum is
+    \begin{center}
+        \begin{tikzpicture}
+            \begin{axis}[
+                    width=6cm, height=4cm,
+                    xlabel={$\omega$},
+                    ylabel={Magnitude},
+                    title={Frequency Spectrum},
+                    ymin=0, ymax=4,
+                    xmin=-3, xmax=3,
+                    xtick={-2, 0, 2},
+                    ytick={0,pi/2,pi},
+                ]
+                % Two impulses at f=5 and f=15 (for illustration)
+                \addplot+[ycomb, mark=*, thick, blue] coordinates {(-2,pi) (2,pi)};
+            \end{axis}
+        \end{tikzpicture}
+    \end{center}
+
     \noindent\textbf{LTI System Invertibility Criterion} \\
     An LTI system with frequency response $H(j\omega)$ (CT) or $H(e^{j\omega})$ (DT) is
     invertible if and only if $H(j\omega) \neq 0$ for all $\omega$ (CT) or $H(e^{j\omega})
@@ -223,6 +248,17 @@
     with gain $T$ and cutoff frequency greater than $\omega_M$ and
     less than $\omega_s - \omega_M$.
     The resulting output signal will exactly equal $x(t)$.
+    If $\omega_s<2\omega_M$, spectral replicas overlap (aliasing),
+    and $x(t)$ cannot be recovered exactly, though samples coincide:
+    $x_r(nT)=x(nT)$.
+
+    \noindent\textbf{Interpolation and Holds}\\
+    Reconstruction via LTI filters or "holds":
+    \begin{itemize}
+        \item Zero-Order Hold (ZOH): impulse response $h_0(t)=u(t)-u(t-T)$, output holds each sample constant.
+        \item First-Order Hold (Linear Interpolation): triangular impulse $h_1(t)=\frac{1}{T}(1-\frac{|t|}{T})$ for $|t|<T$, cascaded ZOHs.
+        \item Ideal Band-Limited Interpolation (Sinc): $h_{\rm ideal}(t)=\frac{\omega_s}{\pi}~\mathrm{sinc}(\omega_s t/2)$ gives perfect reconstruction when conditions met.
+    \end{itemize}
 
     \begin{table*}[ht]
         \centering
