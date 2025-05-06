@@ -165,6 +165,40 @@
         x[n]\cos(\omega_0 n) & \overset{\mathcal{F}}{\leftrightarrow}  \frac{1}{2}\left( X(e^{j(\omega-\omega_0)}) + X(e^{j(\omega+\omega_0)})\right)
     \end{align*}
 
+    \noindent\textbf{Amplitude Modulation}\\
+    Modulate $x(t)$ with carrier $e^{j\omega_c t}$ or $\cos(\omega_c t)$.
+    For complex exponential modulation,
+    \[
+        x_{\text{AM}}(t) = x(t) e^{j\omega_c t}
+    \]
+    In frequency domain:
+    \[
+        X_{\text{AM}}(j\omega) = X(j(\omega - \omega_c))
+    \]
+    To demodulate, multiply by $e^{-j\omega_c t}$ and lowpass filter.
+    For sinusoidal modulation, modulate $x(t)$ with $\cos(\omega_c t)$:
+    \[
+        x_{\text{AM}}(t) = x(t) \cos(\omega_c t)
+    \]
+    In frequency domain:
+    \[
+        X_{\text{AM}}(j\omega) = \frac{1}{2}\left[X(j(\omega-\omega_c)) + X(j(\omega+\omega_c))\right]
+    \]
+    To demodulate, multiply received AM signal by $\cos(\omega_c t)$ and lowpass filter:
+    \[
+        y(t) = x_{\text{AM}}(t) \cdot \cos(\omega_c t)
+    \]
+    This yields terms at baseband and $2\omega_c$; lowpass filtering recovers $x(t)$.
+    Alternatively, for $x(t)$ slowly varying and $x_{\text{AM}}(t) = [A + x(t)]\cos(\omega_c t)$,
+    the envelope (magnitude) of $x_{\text{AM}}(t)$ approximates $A + x(t)$.
+
+    \noindent\textbf{Frequency Division Multiplexing}\\
+    Multiple signals $x_k(t)$ modulated onto different carrier frequencies $\omega_k$:
+    \[
+        s(t) = \sum_{k} x_k(t) \cos(\omega_k t)
+    \]
+    Each $x_k(t)$ occupies a unique frequency band; signals are separated at the receiver by bandpass filtering and demodulation.
+
     \noindent\textbf{Frequency Spectrum}\\
     The plot of the magnitude of a signal's Fourier transform is its
     frequency spectrum.
