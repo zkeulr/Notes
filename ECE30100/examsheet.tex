@@ -203,6 +203,27 @@
         H(e^{j\omega}) = \frac{Y(e^{j\omega})}{X(e^{j\omega})} = \frac{\sum_{k=0}^{M} b_k e^{-j\omega k}}{\sum_{k=0}^{N} a_k e^{-j\omega k}}
     \]
 
+    \noindent\textbf{Sampling Theorem} \\
+    Let $x(t)$ be a band-limited signal with
+    $X(j\omega) = 0$ for $|\omega| > \omega_M$.
+    Then $x(t)$ is uniquely determined by its samples
+    $x(nT)$, $n = 0, \pm 1, \pm 2, \dots$ if
+    \begin{equation*}
+        \omega_s > 2 \omega_M,
+    \end{equation*}
+    where
+    \begin{equation*}
+        \omega_s = \frac{2\pi}{T}.
+    \end{equation*}
+    Given these samples, we can reconstruct
+    $x(t)$ by generating a periodic impulse
+    train in which succesive impulses have amplitudes that are
+    successive sample values. This impulse train is
+    then processed through an ideal lowpass filter
+    with gain $T$ and cutoff frequency greater than $\omega_M$ and
+    less than $\omega_s - \omega_M$.
+    The resulting output signal will exactly equal $x(t)$.
+
     \begin{table*}[ht]
         \centering
         \caption{Properties of Fourier Transforms}
