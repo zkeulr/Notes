@@ -1,0 +1,31 @@
+\section{Background}
+
+The following concepts and formulas will be instrumental and may be familar.
+
+\subsection{Sequences and Series}
+\begin{equation}
+    \sum_{k=0}^{n} r^k = \frac{1 - r^{n + 1}}{1 - r}
+\end{equation}
+\begin{equation}
+    \sum_{n=1}^{\infty} \frac{1}{n^2} = \frac{\pi^2}{6}
+\end{equation}
+\begin{equation}
+    \sum_{k=1}^{\infty}kr^{k - 1} = \frac{1}{(1 - r)^2}
+\end{equation}
+
+\subsection{Binomial Theorem}
+\begin{equation}
+    {n\choose k} = \frac{n!}{k!(n - k)!}
+\end{equation}
+\begin{equation}
+    (a + b)^n = \sum_{k=0}^{n} {n\choose k} a^{n - k}b^k
+\end{equation}
+\begin{equation}
+    {n\choose k} + {n\choose k-1} = {n + 1\choose k}
+\end{equation}
+
+\subsection{Taylor Approximation}
+\begin{align}
+    f(x) & = f(a) + f'(a)(x - a) + \frac{f''(a)}{2!}(x - a)^2 + \dots \\
+         & = \sum_{n=0}^{\infty} \frac{f^{(n)}(a)}{n!}(x - a)^n
+\end{align}

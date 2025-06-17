@@ -1,0 +1,66 @@
+\documentclass[nobib]{tufte-handout}
+
+\newcommand{\bra}[1]{\left(#1\right)}
+\usepackage{amssymb}
+\usepackage{hyperref}
+\usepackage{pgfplots}
+\usepackage[activate={true,nocompatibility},final,tracking=true,kerning=true,spacing=true,factor=1100,stretch=10,shrink=10]{microtype}
+\usepackage{color}
+\usepackage{steinmetz}
+\usepackage{placeins}
+\usepackage{marginfix}
+\usepackage{array}
+\usepackage{tikz}
+\usepackage{amsmath,amsthm}
+\usetikzlibrary{shapes, arrows, positioning, calc}
+\tikzset{block/.style={draw, rectangle, minimum height=1.5em, minimum width=3em},
+         sum/.style={draw, circle, inner sep=0pt, minimum size=2mm},
+         >=latex'}
+\usepackage{listings}
+\usepackage{forest}
+\usepackage{caption}
+\DeclareCaptionFont{white}{\color{white}}
+\DeclareCaptionFormat{listing}{\colorbox{gray}{\parbox{\textwidth}{#1#2#3}}}
+\captionsetup[lstlisting]{format=listing,labelfont=white,textfont=white}
+\usepackage{graphicx}
+\setkeys{Gin}{width=\linewidth,totalheight=\textheight,keepaspectratio}
+\graphicspath{{.}}
+
+\title{ECE 30200 - Probabilistic Methods in Electrical and Computer Engineering}
+\author{Zeke Ulrich}
+\date{\today}  % if the \date{} command is left out, the current date will be used
+
+\usepackage{booktabs}
+\usepackage{units}
+\usepackage{fancyvrb}
+\fvset{fontsize=\normalsize}
+\usepackage{multicol}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+
+\pagebreak
+
+\include{chapters/background}
+
+\appendix
+
+\section{Reference}
+\setcounter{equation}{0}
+
+\subsection{Sequences and Series}
+\begin{equation}
+    \sum_{k=0}^{n} r^k = \frac{1 - r^{n + 1}}{1 - r}
+\end{equation}
+\begin{equation}
+    \sum_{n=1}^{\infty} \frac{1}{n^2} = \frac{\pi^2}{6}
+\end{equation}
+\begin{equation}
+    \sum_{k=1}^{\infty}kr^{k - 1} = \frac{1}{(1 - r)^2}
+\end{equation}
+
+
+\end{document}
