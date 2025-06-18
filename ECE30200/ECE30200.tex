@@ -52,7 +52,8 @@
 \section{Reference}
 \setcounter{equation}{0}
 
-\subsection{Sequences and Series}
+
+\subsection{Series}
 \begin{equation}
     \sum_{k=0}^{n} r^k = \frac{1 - r^{n + 1}}{1 - r}
 \end{equation}
@@ -63,5 +64,84 @@
     \sum_{k=1}^{\infty}kr^{k - 1} = \frac{1}{(1 - r)^2}
 \end{equation}
 
+\subsection{Combinatorics}
+\begin{equation}
+    {n\choose k} = \frac{n!}{k!(n - k)!}
+\end{equation}
+\begin{equation}
+    (a + b)^n = \sum_{k=0}^{n} {n\choose k} a^{n - k}b^k
+\end{equation}
+\begin{equation}
+    {n\choose k} + {n\choose k-1} = {n + 1\choose k}
+\end{equation}
+\begin{equation}
+    P(n, k) = \frac{n!}{(n-k)!}
+\end{equation}
+where $P(n, k)$ is the number of ways to arrange $k$ objects out of $n$ (permutations).
+\begin{equation}
+    C(n, k) = {n\choose k} = \frac{n!}{k!(n-k)!}
+\end{equation}
+where $C(n, k)$ is the number of ways to choose $k$ objects out of $n$ (combinations).
+
+\subsection{Approximations}
+\begin{align}
+    f(x) & = f(a) + f'(a)(x - a) + \frac{f''(a)}{2!}(x - a)^2 + \dots \\
+         & = \sum_{n=0}^{\infty} \frac{f^{(n)}(a)}{n!}(x - a)^n
+\end{align}
+\begin{align}
+    1 + x + \frac{x^2}{2!} + \frac{x^3}{3!} + \dots & = \sum_{k=0}^{\infty} \frac{x^k}{k!} \\
+                                                    & = e^x
+\end{align}
+\begin{align}
+    \sin(x) & = x - \frac{x^3}{3!} + \frac{x^5}{5!} - \frac{x^7}{7!} + \dots \\
+            & = \sum_{n=0}^{\infty} (-1)^n \frac{x^{2n+1}}{(2n+1)!}
+\end{align}
+\begin{align}
+    \cos(x) & = 1 - \frac{x^2}{2!} + \frac{x^4}{4!} - \frac{x^6}{6!} + \dots \\
+            & = \sum_{n=0}^{\infty} (-1)^n \frac{x^{2n}}{(2n)!}
+\end{align}
+\begin{align}
+    \ln(1 + x) & = x - \frac{x^2}{2} + \frac{x^3}{3} - \frac{x^4}{4} + \dots \\
+               & = \sum_{n=1}^{\infty} (-1)^{n+1} \frac{x^n}{n}
+\end{align}
+
+\subsection{Calculus}
+\begin{equation}
+    \frac{d}{dx} \int_{a}^{x} f(t)\,dt = f(x)
+\end{equation}
+\begin{equation}
+    \int_{a}^{b} f'(x)\,dx = f(b) - f(a)
+\end{equation}
+\begin{equation}
+    \int f(g(x))g'(x)\,dx = \int f(u)\,du
+\end{equation}
+\begin{equation}
+    \int u\,dv = uv - \int v\,du
+\end{equation}
+\begin{equation}
+    \int \frac{1}{(x-a)(x-b)}\,dx = \frac{1}{b-a} \ln\left|\frac{x-a}{x-b}\right| + C
+\end{equation}
+
+\subsection{Linear Algebra}
+\begin{equation}
+    \vec{y} = \beta_1 \vec{x_1} + \beta_2 \vec{x_2} + \cdots + \beta_N \vec{x_N}
+\end{equation}
+\begin{align}
+    \langle \vec{a}, \vec{b} \rangle & = \vec{a}\vec{b}^{T}     \\
+                                     & = \sum_{i=1}^{n} a_i b_i
+\end{align}
+where $\langle \vec{a}, \vec{b} \rangle$ denotes the inner product of vectors $\vec{a}$ and $\vec{b}$.
+\begin{equation}
+    \|\vec{x}\|_p = \left( \sum_{i=1}^{n} |x_i|^p \right)^{1/p}
+\end{equation}
+where $\|\vec{x}\|_p$ is the $p$-norm (or $\ell_p$-norm) of vector $\vec{x}$.
+\begin{equation}
+    \cos(\theta) = \frac{\langle \vec{a}, \vec{b} \rangle}{\|\vec{a}\|_2 \|\vec{b}\|_2}
+\end{equation}
+where $\theta$ is the angle between vectors $\vec{a}$ and $\vec{b}$.
+\begin{equation}
+    \hat{\beta} = (\mathbf{X}^T \mathbf{X})^{-1} \mathbf{X}^T \vec{y}
+\end{equation}
+where $\hat{\beta}$ is the vector of least squares coefficients, $\mathbf{X}$ is the data matrix, and $\vec{y}$ is the target vector
 
 \end{document}

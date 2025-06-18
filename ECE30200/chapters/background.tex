@@ -92,3 +92,24 @@ where $\theta$ is the angle between vectors $\vec{a}$ and $\vec{b}$.
     \hat{\beta} = (\mathbf{X}^T \mathbf{X})^{-1} \mathbf{X}^T \vec{y}
 \end{equation}
 where $\hat{\beta}$ is the vector of least squares coefficients, $\mathbf{X}$ is the data matrix, and $\vec{y}$ is the target vector
+
+\subsection{Probability Laws}
+A probability law must satisfy three axioms:
+\begin{enumerate}
+    \item Non-negativity: $P(A) \geq 0 \forall A \in F$
+    \item Normalization: $P(\Omega) = 1$
+    \item Additivity: For any disjoint subsets $\{A_1, A_2, \dots\}$,
+          it holds that
+          \[P\left[\bigcup_{n=1}^{\infty}A_n\right] = \sum_{n=1}^{\infty}P\left[A_n\right]\]
+\end{enumerate}
+
+\subsection{Probability Properties}
+\begin{equation}
+    P\left[A \cup B\right] = P\left[A\right] + P\left[B\right] - P\left[A \cap B\right]
+\end{equation}
+\begin{equation}
+    P\left[A \cup B\right] \leq P\left[A\right] + P\left[B\right]
+\end{equation}
+\begin{equation}
+    A \subseteq B \implies P\left[A\right] \leq P\left[B\right]
+\end{equation}
