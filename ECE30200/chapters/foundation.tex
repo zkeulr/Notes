@@ -1,0 +1,44 @@
+\section{Formal Definitions}
+
+\subsection{Outcomes}
+An \emph{outcome} is the result of some \emph{experiment}.
+If that experiment is flipping a coin, the outcome is either
+heads or tails. We could express the outcome of heads as $H$,
+and the outcome of tails as $T$. The set of all possible
+outcomes for an experiment is known as a sample space and is
+denoted by $\Omega$. In this case $\Omega = \{H, T\}$.
+
+\subsection{Events}
+An \emph{event} $F$ is a subset of the probability space $\Omega$.
+The formal definitions of probability are expressed with set
+notation. So the event where we have neither heads nor tails is
+written as $\{\}$. The event of heads could be expressed as
+$\{H\}$, and the event of tails could be expressed as $\{T\}$.
+The event of either heads or tails is $\{\Omega\}$.
+
+\subsection{Probability Laws}
+A \emph{probability law} is a function $P$ that maps an event $A$
+to a real number in $[0, 1]$. For the coin example, the probability
+law might be $P(\{\}) = 0$, $P(\{H\}) = 0.5$, $P(\{T\}) = 0.5$, and
+$P(\{\Omega\}) = 1$. A probability law must satisfy three axioms:
+\begin{enumerate}
+    \item Non-negativity: $P(A) \geq 0 \forall A \in F$
+    \item Normalization: $P(\Omega) = 1$
+    \item Additivity: For any disjoint subsets $\{A_1, A_2, \dots\}$,
+          it holds that
+          \[P\left[\bigcup_{n=1}^{\infty}A_n\right] = \sum_{n=1}^{\infty}P\left[A_n\right]\]
+\end{enumerate}
+
+\subsection{Probability Space}
+A probability space is a triplet $\Omega, F, P$.
+
+\subsection{Probability Properties}
+\begin{equation}
+    P\left[A \cup B\right] = P\left[A\right] + P\left[B\right] - P\left[A \cap B\right]
+\end{equation}
+\begin{equation}
+    P\left[A \cup B\right] \leq P\left[A\right] + P\left[B\right]
+\end{equation}
+\begin{equation}
+    A \subseteq B \implies P\left[A\right] \leq P\left[B\right]
+\end{equation}
