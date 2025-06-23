@@ -1,0 +1,127 @@
+\section{Random Variables}
+
+A \emph{random variable} $X$ is a function $X : \Omega \implies \Re$
+that maps an outcome $\epsilon \in \Omega$ to a number $X(\epsilon)$ on the real line.
+We call it a variable because it has multiple states.
+
+A \emph{Bernoulli random variable} has a state
+of either 0 or 1. The probability of getting 1 is $p$ and
+the probability of getting 0 is $1 - p$. We write
+\begin{equation}
+    X ~ Bernoulli(p)
+\end{equation}
+to say that $X$ is drawn from a Bernoulli distribution
+with a parameter $p$. For a Bernoulli distribution,
+\begin{align}
+    E[X]   & = p \\
+    E[X^2] & = p \\
+    Var[X] = p(1 - p)
+\end{align}
+
+A \emph{Rademacher random variable} has two states, -1 and 1.
+The probability of getting each is 0.5.
+
+A \emph{binomial random variable} has a PMF of
+\begin{equation}
+    p_X(k) = {n\choose k} p^k (1 - p)^{n - k}, k = 0, 1, \dots n
+\end{equation}
+where $0 < p < 1$ is the binomial parameter, and $n$ is the total
+number of states. We write
+\begin{equation}
+    X ~ Binomial(n, p)
+\end{equation}
+to say that $X$ is drawn from a binomial distribution with a
+parameter $p$ of size $n$.
+If $X ~ Binomial(n, p)$, then
+\begin{align}
+    E[X]   & = np               \\
+    E[X^2] & = np(np + (1 - p)) \\
+    Var[X] & = np(1 - p)
+\end{align}
+
+Let $X$ be a \emph{geometric random variable}. Then the
+PMF of $X$ is
+\begin{equation}
+    p_X(k) = (1 - p)^{k - 1}p, k=1,2,\dots
+\end{equation}
+We write
+\begin{equation}
+    X ~ Geometric(p)
+\end{equation}
+to say that $X$ was drawn from a geometric
+distribution with a parameter $p$.
+If $X ~ Geometric(p)$ then
+\begin{align}
+    E[X]   & = \frac{1}{p}                 \\
+    E[X^2] & = \frac{2}{p^2} - \frac{1}{p} \\
+    Var[X] & = \frac{1 - p}{p^2}
+\end{align}
+
+Let $X$ be a \emph{Poisson random variable}. Then the PMF
+of $X$ is
+\begin{equation}
+    p_X(k) = \frac{\lambda^k}{k!}e^{-\lambda}, k=0, 1, 2,\dots
+\end{equation}
+where $\lambda > 0$ is the Poisson rate. We write
+$X ~ Poisson(\lambda)$ to say that $X$ was drawn from
+a Poisson distribution with a parameter $\lambda$.
+If $X ~ Poisson(\lambda)$ then
+\begin{align}
+    E[X]   & = \lambda             \\
+    E[X^2] & = \lambda + \lambda^2 \\
+    Var[X] = \lambda
+\end{align}
+
+The \emph{expectation} of a random variable $X$ is
+\begin{equation}
+    E[X] = \sum_{x\in X(\Omega)} xp_X(x)
+\end{equation}
+
+The difference between $E[X]$ and the mean is
+that $E[X]$ is computed from the ideal histogram,
+while mean is computed from the empirical histogram.
+
+The \emph{variance} of a random variable $X$ is
+\begin{equation}
+    Var[X] = E\left[(X-\mu)^2\right]
+\end{equation}
+
+The \emph{probability mass function} (PMF) $p_X(a)$
+of a random variable $X$ specifies the probability of
+obtaining a number $X(\epsilon) = a$. We denote a PMF as
+\begin{equation}
+    p_X(a) = P[X = a]
+\end{equation}
+PMFs are represented with histograms.
+\begin{figure}[h]
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}[
+                ybar,
+                bar width=15pt,
+                xlabel={Value},
+                ylabel={Frequency},
+                xtick=data,
+                ymin=0,
+                ymax=0.4,
+                nodes near coords,
+                width=8cm,
+                height=6cm
+            ]
+            \addplot coordinates {(1,0.21) (2,0.25) (3,0.35) (4,0.19)};
+        \end{axis}
+    \end{tikzpicture}
+    \caption{PMF}
+\end{figure}
+A PMF should satisfy
+\begin{equation}
+    \sum_{x\in X(\Omega)} p_X(x) = 1
+\end{equation}
+
+The \emph{cumulative distribution function} is given by
+\begin{align}
+    F_X(x) & = P\left[X \leq x\right] \\
+           & = \sum_{u \leq x} p_X(u)
+\end{align}
+and represents the sum of every impulse
+of the PMF up to $x$.
