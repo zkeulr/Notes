@@ -88,13 +88,17 @@ In general for any functions $g$ and $h$,
     E[g(X)]        & = \sum_{x} g(x)p_X(x) \\
     E[g(X) + h(X)] & = E[g(X)] + E[h(X)]   \\
     E[cX]          & = cE[X]               \\
-    E[X + c] = E[X] + c
+    E[X + c]       & = E[X] + c
 \end{align}
-
 
 The \emph{variance} of a random variable $X$ is
 \begin{equation}
     Var[X] = E\left[(X-\mu)^2\right]
+\end{equation}
+or alternatively, the second moment
+minus the first moment squared.
+\begin{equation}
+    E[X^2] - E[X]^2
 \end{equation}
 
 The \emph{probability mass function} (PMF) $p_X(a)$
