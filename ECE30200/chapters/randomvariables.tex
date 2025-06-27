@@ -4,78 +4,6 @@ A \emph{random variable} $X$ is a function $X : \Omega \implies \Re$
 that maps an outcome $\epsilon \in \Omega$ to a number $X(\epsilon)$ on the real line.
 We call it a variable because it has multiple states.
 
-A \emph{Bernoulli random variable} has a state
-of either 0 or 1. The probability of getting 1 is $p$ and
-the probability of getting 0 is $1 - p$. We write
-\begin{equation}
-    X ~ Bernoulli(p)
-\end{equation}
-to say that $X$ is drawn from a Bernoulli distribution
-with a parameter $p$. For a Bernoulli distribution,
-\begin{align}
-    E[X]   & = p \\
-    E[X^2] & = p \\
-    Var[X] = p(1 - p)
-\end{align}
-
-A \emph{Rademacher random variable} has two states, -1 and 1.
-The probability of getting each is 0.5.
-
-A \emph{binomial random variable} has a PMF of
-\begin{equation}
-    p_X(k) = {n\choose k} p^k (1 - p)^{n - k}, k = 0, 1, \dots n
-\end{equation}
-where $0 < p < 1$ is the binomial parameter, and $n$ is the total
-number of states. We write
-\begin{equation}
-    X ~ Binomial(n, p)
-\end{equation}
-to say that $X$ is drawn from a binomial distribution with a
-parameter $p$ of size $n$.
-If $X ~ Binomial(n, p)$, then
-\begin{align}
-    E[X]   & = np               \\
-    E[X^2] & = np(np + (1 - p)) \\
-    Var[X] & = np(1 - p)
-\end{align}
-
-Let $X$ be a \emph{geometric random variable}. Then the
-PMF of $X$ is
-\begin{equation}
-    p_X(k) = (1 - p)^{k - 1}p, k=1,2,\dots
-\end{equation}
-We write
-\begin{equation}
-    X ~ Geometric(p)
-\end{equation}
-to say that $X$ was drawn from a geometric
-distribution with a parameter $p$.
-If $X ~ Geometric(p)$ then
-\begin{align}
-    E[X]   & = \frac{1}{p}                 \\
-    E[X^2] & = \frac{2}{p^2} - \frac{1}{p} \\
-    Var[X] & = \frac{1 - p}{p^2}
-\end{align}
-
-Let $X$ be a \emph{Poisson random variable}. Then the PMF
-of $X$ is
-\begin{equation}
-    p_X(k) = \frac{\lambda^k}{k!}e^{-\lambda}, k=0, 1, 2,\dots
-\end{equation}
-where $\lambda > 0$ is the Poisson rate. We write
-$X ~ Poisson(\lambda)$ to say that $X$ was drawn from
-a Poisson distribution with a parameter $\lambda$.
-If $X ~ Poisson(\lambda)$ then
-\begin{align}
-    E[X]   & = \lambda             \\
-    E[X^2] & = \lambda + \lambda^2 \\
-    Var[X] = \lambda
-\end{align}
-For small $p$ and large $n$,
-\begin{equation}
-    {n\choose k}p^k(1-p)^{n-k} \approx \frac{\lambda^k}{k!}e^{-\lambda}
-\end{equation}
-
 The \emph{expectation} of a random variable $X$ is
 \begin{equation}
     E[X] = \sum_{x\in X(\Omega)} xp_X(x)
@@ -140,6 +68,78 @@ The \emph{cumulative distribution function} is given by
 \end{align}
 and represents the sum of every impulse
 of the PMF up to $x$.
+
+A \emph{Bernoulli random variable} has a state
+of either 0 or 1. The probability of getting 1 is $p$ and
+the probability of getting 0 is $1 - p$. We write
+\begin{equation}
+    X \sim Bernoulli(p)
+\end{equation}
+to say that $X$ is drawn from a Bernoulli distribution
+with a parameter $p$. For a Bernoulli distribution,
+\begin{align}
+    E[X]   & = p \\
+    E[X^2] & = p \\
+    Var[X] = p(1 - p)
+\end{align}
+
+A \emph{Rademacher random variable} has two states, -1 and 1.
+The probability of getting each is 0.5.
+
+A \emph{binomial random variable} has a PMF of
+\begin{equation}
+    p_X(k) = {n\choose k} p^k (1 - p)^{n - k}, k = 0, 1, \dots n
+\end{equation}
+where $0 < p < 1$ is the binomial parameter, and $n$ is the total
+number of states. We write
+\begin{equation}
+    X \sim Binomial(n, p)
+\end{equation}
+to say that $X$ is drawn from a binomial distribution with a
+parameter $p$ of size $n$.
+If $X \sim Binomial(n, p)$, then
+\begin{align}
+    E[X]   & = np               \\
+    E[X^2] & = np(np + (1 - p)) \\
+    Var[X] & = np(1 - p)
+\end{align}
+
+Let $X$ be a \emph{geometric random variable}. Then the
+PMF of $X$ is
+\begin{equation}
+    p_X(k) = (1 - p)^{k - 1}p, k=1,2,\dots
+\end{equation}
+We write
+\begin{equation}
+    X \sim Geometric(p)
+\end{equation}
+to say that $X$ was drawn from a geometric
+distribution with a parameter $p$.
+If $X \sim Geometric(p)$ then
+\begin{align}
+    E[X]   & = \frac{1}{p}                 \\
+    E[X^2] & = \frac{2}{p^2} - \frac{1}{p} \\
+    Var[X] & = \frac{1 - p}{p^2}
+\end{align}
+
+Let $X$ be a \emph{Poisson random variable}. Then the PMF
+of $X$ is
+\begin{equation}
+    p_X(k) = \frac{\lambda^k}{k!}e^{-\lambda}, k=0, 1, 2,\dots
+\end{equation}
+where $\lambda > 0$ is the Poisson rate. We write
+$X \sim Poisson(\lambda)$ to say that $X$ was drawn from
+a Poisson distribution with a parameter $\lambda$.
+If $X \sim Poisson(\lambda)$ then
+\begin{align}
+    E[X]   & = \lambda             \\
+    E[X^2] & = \lambda + \lambda^2 \\
+    Var[X] = \lambda
+\end{align}
+For small $p$ and large $n$,
+\begin{equation}
+    {n\choose k}p^k(1-p)^{n-k} \approx \frac{\lambda^k}{k!}e^{-\lambda}
+\end{equation}
 
 \emph{Joint Distributions} are higher-dimensional
 PDFs, PMFs, or CDFs. We write

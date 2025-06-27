@@ -93,6 +93,36 @@ where $\theta$ is the angle between vectors $\vec{a}$ and $\vec{b}$.
 \end{equation}
 where $\hat{\beta}$ is the vector of least squares coefficients, $\mathbf{X}$ is the data matrix, and $\vec{y}$ is the target vector
 
+\subsection{Set Theory}
+Some important properties of set operations are:
+\begin{itemize}
+    \item \textbf{Commutativity:}
+          \begin{align}
+              A \cup B & = B \cup A \\
+              A \cap B & = B \cap A
+          \end{align}
+    \item \textbf{Associativity:}
+          \begin{align}
+              (A \cup B) \cup C & = A \cup (B \cup C) \\
+              (A \cap B) \cap C & = A \cap (B \cap C)
+          \end{align}
+    \item \textbf{Distributivity:}
+          \begin{align}
+              A \cup (B \cap C) & = (A \cup B) \cap (A \cup C) \\
+              A \cap (B \cup C) & = (A \cap B) \cup (A \cap C)
+          \end{align}
+    \item \textbf{Identity:}
+          \begin{align}
+              A \cup \emptyset & = A \\
+              A \cap \Omega    & = A
+          \end{align}
+    \item \textbf{Complement:}
+          \begin{align}
+              A \cup A^c & = \Omega    \\
+              A \cap A^c & = \emptyset
+          \end{align}
+\end{itemize}
+
 \subsection{Probability Laws}
 A probability law must satisfy three axioms:
 \begin{enumerate}
