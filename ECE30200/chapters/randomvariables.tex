@@ -75,13 +75,34 @@ the probability of getting 0 is $1 - p$. We write
 \begin{equation}
     X \sim Bernoulli(p)
 \end{equation}
+or
+\begin{equation}
+    X \sim B(p)
+\end{equation}
 to say that $X$ is drawn from a Bernoulli distribution
 with a parameter $p$. For a Bernoulli distribution,
 \begin{align}
-    E[X]   & = p \\
-    E[X^2] & = p \\
-    Var[X] = p(1 - p)
+    E[X]   & = p        \\
+    E[X^2] & = p        \\
+    Var[X] & = p(1 - p)
 \end{align}
+Say $S \sim B(1-p)$.
+Let
+\begin{align}
+    P(R=0|S=0) & = 1 - \epsilon_0 \\
+    P(R=1|S=0) & = \epsilon_0
+\end{align}
+then $R|S=0 \sim B(\epsilon_0)$.
+Let
+\begin{align}
+    P(R=0|S=1) & = \epsilon_1     \\
+    P(R=1|S=0) & = 1 - \epsilon_1
+\end{align}
+then $R|S=0 \sim B(1 - \epsilon_1)$.
+Overall,
+\begin{equation}
+    R|S \sim B(\epsilon_0^{1-S}(1-\epsilon_1)^S)
+\end{equation}
 
 A \emph{Rademacher random variable} has two states, -1 and 1.
 The probability of getting each is 0.5.
@@ -150,7 +171,7 @@ PDFs, PMFs, or CDFs. We write
 The \emph{joint PMF} of two random variables
 $X$ and $Y$ is notated by
 \begin{equation}
-    p_{X,Y}(x,y)=P[X=x and Y=y]
+    p_{X,Y}(x,y)=P[X=x \text{ and } Y=y]
 \end{equation}
 and represents the probability of both.
 
