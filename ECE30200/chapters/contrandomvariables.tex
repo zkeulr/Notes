@@ -19,7 +19,6 @@ relative to $\Omega$.
     \end{tikzpicture}
     \begin{tikzpicture}[scale=1]
         \draw[thick,->] (0,0) -- (5,0);
-        \node[below] at (0,0) {0};
         \node[below] at (5,0) {$\Omega$};
         \draw[very thick,blue] (1,0) -- (3,0);
         \node[below,blue] at (2,0) {$A$};
@@ -87,3 +86,126 @@ $X$ is
            & = \int_{\Omega} (x-\mu)^2f_X(x)dx \\
            & = E[X^2] - \mu^2
 \end{align}
+
+A continuous \emph{uniform random variable}
+has a PDF of
+\begin{equation}
+    f_X(x) = \begin{cases}
+        \frac{1}{b-a} & a \leq x \leq b \\
+        0             & \text{else}
+    \end{cases}
+\end{equation}
+We write
+\begin{equation}
+    X \sim Uniform(a,b)
+\end{equation}
+to mean that $X$ is drawn from a uniform
+distribution on an interval $[a, b]$.
+It has a CDF given by
+\begin{equation}
+    F_X(x) = \begin{cases}
+        0               & a < a           \\
+        \frac{x-a}{b-a} & a \leq x \leq b \\
+        1               & x > b
+    \end{cases}
+\end{equation}
+If $X \sim Uniform(a,b)$ then
+\begin{align}
+    E[X]   & = \frac{a + b}{2}      \\
+    Var[X] & = \frac{(b - a)^2}{12}
+\end{align}
+
+A continuous \emph{exponential random variable}
+has a PDF of
+\begin{equation}
+    f_X(x) = \begin{cases}
+        \lambda e^{-\lambda x} & x \geq 0    \\
+        0                      & \text{else}
+    \end{cases}
+\end{equation}
+\marginnote{An exponential random variable
+    is the interarrival time between two consecutive
+    Poisson events}
+We write
+\begin{equation}
+    X \sim Exponential(\lambda)
+\end{equation}
+to mean that $X$ is drawn from an
+exponential distribution of parameter
+$\lambda$. It has a CDF given by
+\begin{equation}
+    F_X(x) = 1 - e^{-\lambda x}
+\end{equation}
+If $X \sim Exponential(\lambda)$, then
+\begin{align}
+    E[X]   & = \frac{1}{\lambda}   \\
+    Var[X] & = \frac{1}{\lambda^2}
+\end{align}
+
+A \emph{Gaussian random variable} is a
+random variable $X$ such that its PDF
+is
+\begin{equation}
+    f_X(x) = \frac{1}{\sqrt{2\pi \sigma^2}}\exp\left(-\frac{(x-\mu)^2}{2\sigma^2}\right)
+\end{equation}
+We write
+\begin{equation}
+    X \sim Gaussian(\mu, \sigma^2)
+\end{equation}
+or
+\begin{equation}
+    X \sim \mathcal{N}\left(\mu, \sigma^2\right)
+\end{equation}
+to mean that $X$ is drawn from a Gaussian
+of parameter $(\mu, \sigma^2)$.
+If $X \sim \mathcal{N}(\mu, \sigma^2)$, then
+\begin{align}
+    E[X]   & = \mu      \\
+    Var[X] & = \sigma^2
+\end{align}
+
+The \emph{standard Gaussian} random variable has a
+PDF given by
+\begin{equation}
+    f_X(x) = \frac{1}{\sqrt{2\pi}} e^{-\frac{x^2}{2}}
+\end{equation}
+The CDF of the standard Gaussian is defined
+as the $\Phi$ function.
+\begin{equation}
+    \Phi(x) = \frac{1}{\sqrt{2\pi}}\int_{-\infty}^{\infty} e^{-\frac{t^2}{2}}dt
+\end{equation}
+The CDF of the standard Gaussian is related to the
+\emph{error function}, which is defined as
+\begin{equation}
+    \text{erf}(x) = \frac{2}{\sqrt{\pi}} \int_{0}^{x} e^{-t^2} dt
+\end{equation}
+by the relation
+\begin{equation}
+    \Phi(x) = \frac{1}{2} \left(1 + \text{erf}\left(\frac{x}{\sqrt{2}}\right)\right)
+\end{equation}
+The CDF of an arbitrary Gaussian is related via
+the transformation
+\begin{equation}
+    F_X(x) = \phi\left(\frac{x - \mu}{\sigma}\right)
+\end{equation}
+
+In addition to mean and variance, we introduce
+two more useful quantities, \emph{skewness} and
+\emph{kurtosis}.
+\begin{align}
+    E\left[X\right]                                   & = \mu      \\
+    E\left[(X - \mu)^2\right]                         & = \sigma^2 \\
+    E\left[\left(\frac{X-\mu}{\sigma}\right)^3\right] & = \gamma   \\
+    E\left[\left(\frac{X-\mu}{\sigma}\right)^4\right] & = \kappa
+\end{align}
+\marginnote{\emph{Excess kurtosis} is defined
+    as $\kappa - 3$}
+
+Skewness measures the asymmetry of a
+distribution. A Gaussian distribution has
+skewness 0. Kurtosis measures how heavy-tailed
+the distribution is. If the kurtosis is
+positive, then the tails decay faster than a
+Gaussian. If the kurtosis is negative, then
+the distribution has a tail that
+decays more slowly than a Gaussian.
