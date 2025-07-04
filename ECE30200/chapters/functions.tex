@@ -1,0 +1,36 @@
+\section{Functions of Random Variables}
+
+In general, given some random variable
+$X$, we may wish to know the properties
+of $Y = g(X)$, where $g$ is a function.
+
+To find the PDF of $Y = g(X)$, the first
+step is to find the CDF
+\begin{equation}
+    F_Y(y) = F_X(g^{-1}(y))
+\end{equation}
+The next step is to find the PDF, given by
+\begin{equation}
+    f_Y(y) = \left(\frac{d}{dy}g^{-1}(y)\right)f_X(g^{-1}(y))
+\end{equation}
+
+Suppose $X$ is an exponential random variable
+with parameter $\lambda$, and let $Y  = aX + b$.
+Then the CDF and PDF of Y are respectively
+\begin{align}
+    F_Y(y) & = 1 - e^{-\frac{\lambda}{a}(y - b)}, y \geq b              \\
+    f_Y(y) & = \frac{\lambda}{a}e^{-\frac{\lambda}{a}(y - b)}, y \geq b
+\end{align}
+
+Suppose $X$ is a uniform random variable in $\left[a, b\right], a > 0$,
+and let $Y = X^2$. Then the CDF and PDF of Y are respectively
+\begin{align}
+    F_Y(y) & = \frac{\sqrt{y} - a}{b - a}, a^2 \leq y \leq b^2 \\
+    f_Y(y) & = \frac{1}{\sqrt{y}(b - a)}, a^2 \leq y \leq b^2
+\end{align}
+
+To generate random numbers from an arbitrary
+distribution $F_X$, first generate a random
+number $U \sim Uniform(0,1)$, then let
+$Y = F^{-1}_X(U)$. The distribution of $Y$ is
+$F_X$.
