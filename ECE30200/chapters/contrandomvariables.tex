@@ -209,3 +209,65 @@ positive, then the tails decay faster than a
 Gaussian. If the kurtosis is negative, then
 the distribution has a tail that
 decays more slowly than a Gaussian.
+
+The definition of a CDF is
+\begin{equation}
+    F_X(x) = P[X \leq x]
+\end{equation}
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.5]{images/normal_distribution_plot.png}
+    \caption{PDF and CDF}
+\end{figure}
+Let $X$ be a continuous random variable. if the CDF
+$F_X$ is continuous at any $a\leq x \leq b$, then
+\begin{equation}
+    P[a \leq X \leq b] = F_X(b) - F_X(a)
+\end{equation}
+A function $F_X(x)$ is said to be left
+continuous if at $x=b$
+\begin{equation}
+    F_X(b) - \lim_{h\implies 0} F_X(b-h)
+\end{equation}
+and right continuous if
+\begin{equation}
+    F_X(b) - \lim_{h\implies 0} F_X(b+h)
+\end{equation}
+and continuous if $F_X(x)$ is both left
+and right continuous.
+All CDFs are right continuous.
+
+For any random variable $X$, discrete or continuous,
+\begin{equation}
+    P[X=b] = \begin{cases}
+        F_X(b) - F_X(b^-) & \text{if $F_X$ is discontinuous at $x=b$} \\
+        0                 & \text{else}
+    \end{cases}
+\end{equation}
+
+The PDf is the derivative of the CDF.
+\begin{equation}
+    f_X(x) = \frac{d}{dx} \int_{-\infty}^{x} f_X(t)dt
+\end{equation}
+provided $F_X$ is differentiable at $x$. If not, then
+\begin{equation}
+    f_X(x) = F_X(x) - \lim_{h\implies 0} F_X(x-h)
+\end{equation}
+
+Let $X$ be a continuous random variable with PDF
+$f_X$. The median of $X$ is a point $c \in \Re$ such that
+\begin{equation}
+    \int_{-\infty}^{c} f_X(x) dx = \int_{c}^{\infty}f_X(x) dx
+\end{equation}
+
+Let $X$ be a continuous random variable. The mode is
+the point $c$ such that $f_X(x)$ attains the maximum.
+\begin{equation}
+    x = \text{argmax}_{x \in \Omega} f_X(x)
+\end{equation}
+
+The mean $E[X]$ can be computed from
+$F_X$ as
+\begin{equation}
+    E[X] = \int_{0}^{\infty} (1-F_X(t))dt
+\end{equation}
