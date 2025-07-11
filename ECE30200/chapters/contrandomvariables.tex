@@ -188,6 +188,12 @@ the transformation
 \begin{equation}
     F_X(x) = \phi\left(\frac{x - \mu}{\sigma}\right)
 \end{equation}
+Let $X \sim \mathcal{N}(\mu, \sigma^2)$, then
+\begin{itemize}
+    \item $\Phi(y) = 1 -\Phi(-y)$
+    \item $P[X\geq b] = 1 - \Phi(\frac{b-\mu}{\sigma})$
+    \item $P[|X| \geq b] = 1 - \Phi(\frac{b-\mu}{\sigma}) + \Phi(\frac{-b-\mu}{\sigma})$
+\end{itemize}
 
 In addition to mean and variance, we introduce
 two more useful quantities, \emph{skewness} and
@@ -271,3 +277,87 @@ $F_X$ as
 \begin{equation}
     E[X] = \int_{0}^{\infty} (1-F_X(t))dt
 \end{equation}
+
+Recall that joint distributions are
+higher-dimensional PDFs, PMFs, or CDFs.
+\begin{equation}
+    f_{\textbf{X}}(\vec{x}) = f_{X_1, \dots, X_N}(x_1, \dots, x_n)
+\end{equation}
+Let $X$ and $Y$ be two continuous random variables.
+
+The \emph{joint PDF} of $X$ and $Y$ is a function
+$f_{X,Y}(x,y)$ that can be integrated to yield a probability
+\begin{equation}
+    P[A] = \int_{A} f_{X,Y}(x,y)dxdy
+\end{equation}
+for any event $A \subseteq \Omega_X \times \Omega_Y$.
+
+The \emph{marginal PDF} is defined as
+\begin{equation}
+    f_X(x) = \int_{\Omega_Y} f_{X,Y}(x,y)dy
+\end{equation}
+and
+\begin{equation}
+    f_Y(y) = \int_{\Omega_X} f_{X,Y}(x,y)dx
+\end{equation}
+
+The \emph{marginal CDF is}
+\begin{align}
+    F_X(x) & = F_{X,Y}(x, \infty) \\
+    F_Y(y) & = F_{X,Y}(\infty, y)
+\end{align}
+
+Let $F_{X,Y}(x,y)$ be the joint CDF of $X$ and $Y$.
+Then the joint PDF can be obtained through
+\begin{equation}
+    f_{X,Y}(x,y) = \frac{\partial^2}{\partial_y\partial_x} F_{X,Y}(x,y)
+\end{equation}
+
+If two random variables are \emph{independent},
+then
+\begin{equation}
+    p_{X,Y}(x,y) = p_X(x)p_Y(y)
+\end{equation}
+and
+\begin{equation}
+    f_{X,Y}(x,y) = f_X(x)f_Y(y)
+\end{equation}
+
+If a sequence of random variables
+$X_1, \dots, X_N$ are independent,
+then their joint PDF can be factorized.
+\begin{equation}
+    f_{X_1,\dots,X_N}(x_1,\dots,x_n) = \prod_{n=1}^{N}f_{X_n}(x)n
+\end{equation}
+
+A collection of random variables $X_1, \dots, X_N$ are called
+\emph{independent and identically distributed} (i.i.d.) if
+all are independent and have the same distribution, i.e.
+$f_{X_1}(x) = \dots = f_{X_N}(x)$.
+
+The \emph{joint expectation} is
+\begin{equation}
+    E[XY] = \int_{y\in \Omega_y}\int_{x\in \Omega_x} xy f_{X,Y}(x,y)dxdy
+\end{equation}
+
+For an arbitrary $g(X,Y)$,
+\begin{equation}
+    E[g(X,Y)] = \int_{y\in \Omega_y}\int_{x\in \Omega_x} g(x,y) f_{X,Y}(x,y)dxdy
+\end{equation}
+
+Recall
+\begin{equation}
+    \text{Cov}(X,Y) = E[XY] - E[X]E[Y]
+\end{equation}
+and now we also state that
+\begin{equation}
+    \text{Var}[X+Y] = \text{Var}[X] + 2\text{Cov}(X,Y) + \text{Var}[Y]
+\end{equation}
+
+If $X$ and $Y$ are independent, then
+\begin{equation}
+    E[XY] = E[X]E[Y]
+\end{equation}
+This implies that $X$ and $Y$ are
+uncorrelated (i.e. $\text{Cov}(X,Y) = 0$),
+but the converse is not true.
