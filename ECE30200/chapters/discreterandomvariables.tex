@@ -191,10 +191,33 @@ The \emph{conditional PMF} is given by
     p_{X|Y}(x|y) = \frac{p_{X,Y}(x,y)}{p_{Y}(y)}
 \end{equation}
 
+Let $X$ and $Y$ be two discrete random variables, and
+let $A$ be an event. Then
+\begin{equation}
+    P[X\in A | Y = y] = \sum_{x\in A} p_{X|Y}(x|y)
+\end{equation}
+\begin{equation}
+    P[X\in A] = \sum_{x \in A} \sum_{y \in \Omega_Y} p_{X|Y}(x|y)p_Y(
+\end{equation}
+\begin{align}
+    P[X \in A] & = \sum_{x \in A}^{y \in \Omega_Y} p_{X|Y}(x|y)p_Y(y) \\
+               & = \sum_{y\in \Omega_Y} P[X\in A|Y = y]p_Y(y)
+\end{align}
+
+The \emph{conditional expectation} of $X$ given $Y=y$ is
+\begin{equation}
+    E[X|Y=y] = \sum_{x} xp_{X|Y}(x|y)
+\end{equation}
+
+The \emph{law of total expectation} is
+\begin{equation}
+    E[X] = \sum_{y}E[X|Y=y]p_Y(y)
+\end{equation}
+
 If two random variables $X$ and $Y$ are independent,
 then
 \begin{align}
-    p_{X,Y}  & = p_X(x)p_Y(y) \\
+    p_{X,Y}  & = p_X(x)p_Y(y) \\)
     f_{X, Y} & = f_X(x)f_Y(y)
 \end{align}
 If a sequence of random variables

@@ -361,3 +361,32 @@ If $X$ and $Y$ are independent, then
 This implies that $X$ and $Y$ are
 uncorrelated (i.e. $\text{Cov}(X,Y) = 0$),
 but the converse is not true.
+
+Let $X$ and $Y$ be two continuous random variables.
+The \emph{conditional PDF} of $X$ given $Y$ is
+\begin{equation}
+    f_{X|Y}(x|y) = \frac{f_{X,Y}(x,y)}{f_Y(y)}
+\end{equation}
+
+Let $X$ and $Y$ be continuous random variables and
+$A$ be an event. Then
+\begin{equation}
+    P[X \in A | Y=y] = \int_{A} f_{X|Y}(x|y)dx
+\end{equation}
+\begin{equation}
+    P[X\in A] = \int_{\Omega_Y} P[X\in A|Y = y]f_Y(y)dy
+\end{equation}
+
+The \emph{conditional expectation} of $X$ given $Y=y$ is
+\begin{equation}
+    E[X|Y=y] = \int_{-\infty}^{\infty}cf_{X|Y}(x|y)dx
+\end{equation}
+
+The \emph{law of total expectation} is
+\begin{equation}
+    E[X] = \int_{-\infty}^{\infty} E[X|Y=y]f_Y(y)dy
+\end{equation}
+The theorem is sometimes also written
+\begin{equation}
+    E[X] = E_Y[E_{X|Y}[X|Y]]
+\end{equation}
