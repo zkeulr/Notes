@@ -34,3 +34,20 @@ distribution $F_X$, first generate a random
 number $U \sim Uniform(0,1)$, then let
 $Y = F^{-1}_X(U)$. The distribution of $Y$ is
 $F_X$.
+
+Given two random variables $X$ and $Y$, the
+PDF of $Z = X + Y$ is given by
+\begin{align}
+    f_Z(z) & = f_X(x) * f_Y(y)                          \\
+           & = \int_{-\infty}^{\infty} f_X(z-y)f_Y(y)dy
+\end{align}
+
+As more random variablaes are summed, their
+distribution (no matter the distribution) of each
+individual variable) approaches a Gaussian.
+
+Let $X_1 \sim \text{Gauss}(\mu_1, \sigma_1^2)$ and
+$X_2 \sim \text{Gauss}(\mu_2, \sigma_2^2)$, then
+\begin{equation}
+    X_1 + X_2 \sim \text{Gauss}\left( \mu_1 + \mu_2, \sigma_1^2 + \sigma_2^2 \right)
+\end{equation}
