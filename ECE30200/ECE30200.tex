@@ -1,6 +1,5 @@
 \documentclass[nobib]{tufte-handout}
 
-\newcommand{\bra}[1]{\left(#1\right)}
 \usepackage{amssymb}
 \usepackage{hyperref}
 \usepackage{pgfplots}
@@ -13,28 +12,17 @@
 \usepackage{tikz}
 \usepackage{amsmath,amsthm}
 \usetikzlibrary{shapes, arrows, positioning, calc}
-\tikzset{block/.style={draw, rectangle, minimum height=1.5em, minimum width=3em},
-         sum/.style={draw, circle, inner sep=0pt, minimum size=2mm},
-         >=latex'}
 \usepackage{listings}
 \usepackage{forest}
 \usepackage{caption}
-\DeclareCaptionFont{white}{\color{white}}
-\DeclareCaptionFormat{listing}{\colorbox{gray}{\parbox{\textwidth}{#1#2#3}}}
-\captionsetup[lstlisting]{format=listing,labelfont=white,textfont=white}
 \usepackage{graphicx}
-\setkeys{Gin}{width=\linewidth,totalheight=\textheight,keepaspectratio}
-\graphicspath{{.}}
-
-\title{ECE 30200 - Probabilistic Methods in Electrical and Computer Engineering}
-\author{Zeke Ulrich}
-\date{\today}  % if the \date{} command is left out, the current date will be used
-
 \usepackage{booktabs}
 \usepackage{units}
 \usepackage{fancyvrb}
-\fvset{fontsize=\normalsize}
 \usepackage{multicol}
+
+\title{ECE 30200 - Probabilistic Methods in Electrical and Computer Engineering}
+\author{Zeke Ulrich}
 
 \begin{document}
 
@@ -55,7 +43,6 @@
 
 \section{Reference}
 \setcounter{equation}{0}
-
 
 \subsection{Series}
 \begin{equation}
@@ -147,5 +134,199 @@ where $\theta$ is the angle between vectors $\vec{a}$ and $\vec{b}$.
     \hat{\beta} = (\mathbf{X}^T \mathbf{X})^{-1} \mathbf{X}^T \vec{y}
 \end{equation}
 where $\hat{\beta}$ is the vector of least squares coefficients, $\mathbf{X}$ is the data matrix, and $\vec{y}$ is the target vector
+
+\subsection{Set Theory}
+\begin{equation}
+    A \setminus B = \{ x \mid x \in A \text{ and } x \notin B \}
+\end{equation}
+\begin{itemize}
+    \item \textbf{Commutativity:}
+          \begin{align}
+              A \cup B & = B \cup A \\
+              A \cap B & = B \cap A
+          \end{align}
+    \item \textbf{Associativity:}
+          \begin{align}
+              (A \cup B) \cup C & = A \cup (B \cup C) \\
+              (A \cap B) \cap C & = A \cap (B \cap C)
+          \end{align}
+    \item \textbf{Distributivity:}
+          \begin{align}
+              A \cup (B \cap C) & = (A \cup B) \cap (A \cup C) \\
+              A \cap (B \cup C) & = (A \cap B) \cup (A \cap C)
+          \end{align}
+    \item \textbf{Identity:}
+          \begin{align}
+              A \cup \emptyset & = A \\
+              A \cap \Omega    & = A
+          \end{align}
+    \item \textbf{Complement:}
+          \begin{align}
+              A \cup A^c & = \Omega    \\
+              A \cap A^c & = \emptyset
+          \end{align}
+\end{itemize}
+
+\subsection{Probability Laws}
+\begin{enumerate}
+    \item Non-negativity: $P(A) \geq 0 \forall A \in F$
+    \item Normalization: $P(\Omega) = 1$
+    \item Additivity: For any disjoint subsets $\{A_1, A_2, \dots\}$,
+          it holds that
+          \[P\left[\bigcup_{n=1}^{\infty}A_n\right] = \sum_{n=1}^{\infty}P\left[A_n\right]\]
+\end{enumerate}
+
+\subsection{Probability Properties}
+\begin{equation}
+    P\left[A \cup B\right] = P\left[A\right] + P\left[B\right] - P\left[A \cap B\right]
+\end{equation}
+\begin{equation}
+    P\left[A \cup B\right] \leq P\left[A\right] + P\left[B\right]
+\end{equation}
+\begin{equation}
+    A \subseteq B \implies P\left[A\right] \leq P\left[B\right]
+\end{equation}
+
+\subsection{Discrete Random Variables}
+\begin{align}
+    E[g(X)]        & = \sum_{x} g(x)p_X(x) \\
+    E[g(X) + h(X)] & = E[g(X)] + E[h(X)]   \\
+    E[cX]          & = cE[X]               \\
+    E[X + c]       & = E[X] + c
+\end{align}
+\begin{align}
+    \text{Var}[X] & = E\left[(X-\mu)^2\right] \\
+                  & = E[X^2] - (E[X])^2
+\end{align}
+\begin{equation}
+    P[X\in A | Y = y] = \sum_{x\in A} p_{X|Y}(x|y)
+\end{equation}
+\begin{align}
+    P[X \in A] & = \sum_{x \in A} \sum_{y \in \Omega_Y} p_{X|Y}(x|y)p_Y(y) \\
+               & = \sum_{y\in \Omega_Y} P[X\in A|Y = y]p_Y(y)
+\end{align}
+\begin{equation}
+    E[X|Y=y] = \sum_{x} xp_{X|Y}(x|y)
+\end{equation}
+\begin{equation}
+    E[X] = \sum_{y}E[X|Y=y]p_Y(y)
+\end{equation}
+\begin{equation}
+    F_{X,Y}(x,y) = P\left[X \leq x \cap Y \leq y\right]
+\end{equation}
+\begin{equation}
+    F_{X,Y}(x,y) = \sum_{y'\leq y}\sum_{x' \leq x} p_{X,Y}(x',y')
+\end{equation}
+\begin{equation}
+    \text{Cov}(X, Y) = E[XY] - E[X]E[Y]
+\end{equation}
+\begin{equation}
+    \rho = \frac{\text{Cov}(X, Y)}{\sqrt{\text{Var}(X)\text{Var}(Y)}}
+\end{equation}
+
+\subsection{Continuous Random Variables}
+Conditions of a PDF $f_X$:
+\begin{itemize}
+    \item Non-negativity: $f_X(x) \geq 0 \forall x \in \Omega$
+    \item Unity: $\int_{\Omega} f_X(x)dx = 1$
+    \item Measure of a set: $P[\{x \in A\}] = \int_{A}f_X(x) dx$
+\end{itemize}
+\begin{equation}
+    f_X(x) = \frac{d}{dx}p(X \leq x)
+\end{equation}
+\begin{align}
+    E[g(X)]        & = \int_{\Omega} g(x)p_X(x) \\
+    E[g(X) + h(X)] & = E[g(X)] + E[h(X)]        \\
+    E[cX]          & = cE[X]                    \\
+    E[X + c]       & = E[X] + c
+\end{align}
+\begin{align}
+    \text{Var}[X] & = E\left[(X-\mu)^2\right] \\
+                  & = E[X^2] - (E[X])^2
+\end{align}
+\begin{equation}
+    \Phi(x) = \frac{1}{\sqrt{2\pi}}\int_{-\infty}^{\infty} e^{-\frac{t^2}{2}}dt
+\end{equation}
+All CDFs are monotonically increasing, and additionally right continuous. That is,
+\begin{equation}
+    F_X(b) = \lim_{h\implies 0} F_X(b+h)
+\end{equation}
+\begin{equation}
+    P[X=b] = \begin{cases}
+        F_X(b) - F_X(b^-) & \text{if $F_X$ is discontinuous at $x=b$} \\
+        0                 & \text{else}
+    \end{cases}
+\end{equation}
+\begin{equation}
+    f_X(x) = \frac{d}{dx} \int_{-\infty}^{x} f_X(t)dt
+\end{equation}
+provided $F_X$ is differentiable at $x$. If not, then
+\begin{equation}
+    f_X(x) = F_X(x) - \lim_{h\implies 0} F_X(x-h)
+\end{equation}
+Let $X$ be a continuous random variable with PDF
+$f_X$. The median of $X$ is a point $c \in \Re$ such that
+\begin{equation}
+    \int_{-\infty}^{c} f_X(x) dx = \int_{c}^{\infty}f_X(x) dx
+\end{equation}
+Let $X$ be a continuous random variable. The mode is
+the point $c$ such that $f_X(x)$ attains the maximum.
+\begin{equation}
+    x = \text{argmax}_{x \in \Omega} f_X(x)
+\end{equation}
+The mean $E[X]$ can be computed from
+$F_X$ as
+\begin{equation}
+    E[X] = \int_{0}^{\infty} (1-F_X(t))dt
+\end{equation}
+\begin{equation}
+    E[g(X,Y)] = \int_{y\in \Omega_y}\int_{x\in \Omega_x} g(x,y) f_{X,Y}(x,y)dxdy
+\end{equation}
+\begin{equation}
+    \text{Var}[X+Y] = \text{Var}[X] + 2\text{Cov}(X,Y) + \text{Var}[Y]
+\end{equation}
+\begin{equation}
+    f_{X|Y}(x|y) = \frac{f_{X,Y}(x,y)}{f_Y(y)}
+\end{equation}
+\begin{equation}
+    P[X \in A | Y=y] = \int_{A} f_{X|Y}(x|y)dx
+\end{equation}
+\begin{equation}
+    P[X\in A] = \int_{\Omega_Y} P[X\in A|Y = y]f_Y(y)dy
+\end{equation}
+\begin{equation}
+    E[X|Y=y] = \int_{-\infty}^{\infty}xf_{X|Y}(x|y)dx
+\end{equation}
+\begin{align}
+    E[X] & = \int_{-\infty}^{\infty} E[X|Y=y]f_Y(y)dy \\
+         & = E_Y[E_{X|Y}[X|Y]]
+\end{align}
+\begin{equation}
+    \text{Cov}(X,Y) = 0 \implies \text{Corr}(X,y) = 0
+\end{equation}
+
+\subsection{Functions of Random Variables}
+To find the PDF of $Y = g(X)$, the first
+step is to find the CDF
+\begin{equation}
+    F_Y(y) = F_X(g^{-1}(y))
+\end{equation}
+The next step is to find the PDF, given by
+\begin{equation}
+    f_Y(y) = \left(\frac{d}{dy}g^{-1}(y)\right)f_X(g^{-1}(y))
+\end{equation}
+Given two random variables $X$ and $Y$, the
+PDF of $Z = XY$ is given by
+\begin{equation}
+    f_Z(z) = \int_{-\infty}^{\infty} \frac{1}{|y|} f_X(\frac{z}{y}) f_Y(y) dy
+\end{equation}
+The PDF of $Z = X - Y$ is given by
+\begin{equation}
+    f_Z(z) = \int_{-\infty}^{\infty} f_X(z + y) f_Y(y) \, dy
+\end{equation}
+The PDF of $Z = \frac{X}{Y}$ is given by
+\begin{equation}
+    f_Z(z) = \int_{-\infty}^{\infty} |y| \, f_X(z y) f_Y(y) \, dy
+\end{equation}
 
 \end{document}

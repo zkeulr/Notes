@@ -233,11 +233,11 @@ $F_X$ is continuous at any $a\leq x \leq b$, then
 A function $F_X(x)$ is said to be left
 continuous if at $x=b$
 \begin{equation}
-    F_X(b) - \lim_{h\implies 0} F_X(b-h)
+    F_X(b) = \lim_{h\implies 0} F_X(b-h)
 \end{equation}
 and right continuous if
 \begin{equation}
-    F_X(b) - \lim_{h\implies 0} F_X(b+h)
+    F_X(b) = \lim_{h\implies 0} F_X(b+h)
 \end{equation}
 and continuous if $F_X(x)$ is both left
 and right continuous.
@@ -352,6 +352,11 @@ Recall
 and now we also state that
 \begin{equation}
     \text{Var}[X+Y] = \text{Var}[X] + 2\text{Cov}(X,Y) + \text{Var}[Y]
+\end{equation}
+We also state that covariance is zero, then so is the correlation.
+However if the correlation is zero, the covariance is not necesarily zero.
+\begin{equation}
+    \text{Cov}(X,Y) = 0 \implies \text{Corr}(X,y) = 0
 \end{equation}
 
 If $X$ and $Y$ are independent, then

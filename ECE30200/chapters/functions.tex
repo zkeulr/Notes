@@ -51,3 +51,30 @@ $X_2 \sim \text{Gauss}(\mu_2, \sigma_2^2)$, then
 \begin{equation}
     X_1 + X_2 \sim \text{Gauss}\left( \mu_1 + \mu_2, \sigma_1^2 + \sigma_2^2 \right)
 \end{equation}
+
+Given two random variables $X$ and $Y$, the
+PDF of $Z = XY$ is given by
+\begin{equation}
+    f_Z(z) = \int_{-\infty}^{\infty} \frac{1}{|y|} f_X(\frac{z}{y}) f_Y(y) dy
+\end{equation}
+The PDF of $Z = X - Y$ is given by
+\begin{equation}
+    f_Z(z) = \int_{-\infty}^{\infty} f_X(z + y) f_Y(y) \, dy
+\end{equation}
+The PDF of $Z = \frac{X}{Y}$ is given by
+\begin{equation}
+    f_Z(z) = \int_{-\infty}^{\infty} |y| \, f_X(z y) f_Y(y) \, dy
+\end{equation}
+
+For variables $X_1, X_2, \dots, X_n$, all
+independent, let
+\begin{equation}
+    Z = \prod_{i = 1}^{n} X_i
+\end{equation}
+The density is given recursively
+\begin{equation}
+    f_Z(z) = \int_{-\infty}^{\infty} \frac{1}{|y|} f_W(\frac{z}{y}) f_{X_n}(y) dy
+\end{equation}
+where $W = \prod_{i=1}^{n-1}$ and $f_W$ is the
+density of the product of the first $n - 1$ variables.
+

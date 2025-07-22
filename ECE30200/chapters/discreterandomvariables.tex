@@ -162,7 +162,7 @@ For small $p$ and large $n$,
     {n\choose k}p^k(1-p)^{n-k} \approx \frac{\lambda^k}{k!}e^{-\lambda}
 \end{equation}
 
-\emph{Joint Distributions} are higher-dimensional
+\emph{Joint distributions} are higher-dimensional
 PDFs, PMFs, or CDFs. We write
 \begin{equation}
     f_{X_1, X_2, \dots, X_n}(x_1, x_2, \dots, x_n) \equiv f_{\vec{X}}(\vec{x})
@@ -196,11 +196,8 @@ let $A$ be an event. Then
 \begin{equation}
     P[X\in A | Y = y] = \sum_{x\in A} p_{X|Y}(x|y)
 \end{equation}
-\begin{equation}
-    P[X\in A] = \sum_{x \in A} \sum_{y \in \Omega_Y} p_{X|Y}(x|y)p_Y(
-\end{equation}
 \begin{align}
-    P[X \in A] & = \sum_{x \in A}^{y \in \Omega_Y} p_{X|Y}(x|y)p_Y(y) \\
+    P[X \in A] & = \sum_{x \in A} \sum_{y \in \Omega_Y} p_{X|Y}(x|y)p_Y(y) \\
                & = \sum_{y\in \Omega_Y} P[X\in A|Y = y]p_Y(y)
 \end{align}
 
@@ -217,7 +214,7 @@ The \emph{law of total expectation} is
 If two random variables $X$ and $Y$ are independent,
 then
 \begin{align}
-    p_{X,Y}  & = p_X(x)p_Y(y) \\)
+    p_{X,Y}  & = p_X(x)p_Y(y) \\
     f_{X, Y} & = f_X(x)f_Y(y)
 \end{align}
 If a sequence of random variables
