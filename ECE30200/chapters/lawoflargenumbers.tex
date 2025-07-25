@@ -1,0 +1,54 @@
+\section{Law of Large Numbers}
+The law of large numbers is a
+probabilistic statement about
+the sample average. Suppose that
+we have a collection of i.i.d.
+random variables $X_1, \dots, X_N$.
+The sample average of these $N$
+random variables is defined as
+follows:
+
+\begin{equation}
+    \bar{X}_N = \frac{1}{N}\sum_{n=1}^{N}X_n
+\end{equation}
+If the random variables $X_1, \dots, X_N$
+are i.i.d. so that they have the same
+population mean $E[X_n] = \mu$ then
+\begin{align}
+    E\left[\bar{X}_N\right] & = \frac{1}{N} \sum_{n=1}^{N} E\left[X_n\right] \\
+                            & = \mu
+\end{align}
+Therefore the mean of $\bar{X}_N$ is the population
+mean.
+
+If $X_1, \dots, X_N$ have the
+same variance $\text{Var}(\bar{X}_N)$
+then
+\begin{align}
+    \text{Var}(\bar{X}_N) & = \frac{1}{N^2} \sum_{n=1}^{N} \text{Var}(X_N) \\
+                          & = \frac{1}{N^2} \sum_{n=1}^{N} \sigma^2        \\
+                          & = \frac{\sigma^2}{N}
+\end{align}
+Therefore the variance shinks to 0 as $N$ grows.
+
+The \emph{weak law of large numbers} says that if
+$X_1, \dots, X_N$ is a set of i.i.d. random
+variables with mean $\mu$ and variance $\sigma^2$
+and $E\left[X^2\right] < \infty$, then if we let
+\begin{equation}
+    \bar{X}_N = \frac{1}{N} \sum_{n=1}^{N} X_n
+\end{equation}
+for any $\epsilon > 0$
+\begin{equation}
+    \lim_{N\rightarrow \infty} P\left[|\bar{X_N} - \mu| > \epsilon\right] = 0
+\end{equation}
+
+We say that a sequence of random variables
+$A_1, \dots, A_N$ \emph{converges in probability}
+to a deterministic number $\alpha$ for every
+$\epsilon > 0$. That is,
+\begin{equation}
+    \lim_{N\rightarrow \infty} P\left[|A_N - \alpha| > \epsilon\right] =
+\end{equation}
+We write $A_N \overset{P}{\rightarrow} \alpha$ to
+denote convergence in probability.

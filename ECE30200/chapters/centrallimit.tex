@@ -1,0 +1,28 @@
+\section{Central Limit Theorem}
+Let $\bar{X}_N$ be the sample average,
+and let
+\begin{equation}
+    Z_N = \sqrt{N} \left(\frac{\bar{X}_N-\mu}{\sigma}\right)
+\end{equation}
+be the normalized variable. The \emph{central limit theorem}
+is: the CDF of $Z_N$ converges pointwise to the
+CDF of Gaussian(0,1). The choice of language
+is extremely careful here. We are not saying that the
+PDF of $Z_N$ converges to the PDF of a Gaussian, nor that
+the random variable $Z_N$ converges to a Gaussian random variable.
+Formally, we write
+\begin{equation}
+    \lim_{N\rightarrow \infty} F_{\bar{Z_N}(z)} = F_Z(z)
+\end{equation}
+
+Consider $X_n \sim \text{Exponential}(\lambda)$, and let
+$X_1, \dots, X_N$ be i.i.d. copies. Define
+$Z_N = \sum_{n=1}^{N} X_n$. Then
+\begin{equation}
+    E[Z_N] = \frac{N}{\lambda}
+\end{equation}
+and
+\begin{equation}
+    \text{Var}[Z_N] = \frac{N}{\lambda^2}
+\end{equation}
+
