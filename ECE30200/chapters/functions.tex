@@ -1,5 +1,6 @@
-\section{Functions of Random Variables}
+\section{Functions}
 
+\subsection{Functions of Random Variables}
 In general, given some random variable
 $X$, we may wish to know the properties
 of $Y = g(X)$, where $g$ is a function.
@@ -78,3 +79,47 @@ The density is given recursively
 where $W = \prod_{i=1}^{n-1}$ and $f_W$ is the
 density of the product of the first $n - 1$ variables.
 
+\subsection{Moment Generating Functions}
+For any random variable $X$, the \emph{moment generating function}
+(MGF) is
+\begin{equation}
+    M_X(s) = E\left[e^{sX}\right]
+\end{equation}
+For discrete $X$
+\begin{equation}
+    M_X(s) = \sum_{x\in \Omega} e^{sx} p_X(x)
+\end{equation}
+For continuous $X$
+\begin{equation}
+    M_X(s) = \int_{-\infty}^{\infty} e^{sx}f_X(x)dx
+\end{equation}
+MGFs have the following properties:
+\begin{itemize}
+    \item $M_X(0) = 1$ \\
+    \item $\frac{d^k}{ds^k} M_X(s)\Big|_{s=0} = E\left[X^k\right], \quad k \in \mathcal{Z}^+$
+\end{itemize}
+The "moment generating" title comes
+from the ability to determine any order
+moment by evaluating the derivative at $s=0$.
+
+Let $X$ and $Y$ be independent random variables.
+Let $Z = X + Y$. Then
+\begin{equation}
+    M_Z(s) = M_X(s)M_Y(s)
+\end{equation}
+In general, let $Z = \sum_{n=1}^{N} X_n$. Then the
+MGF of $Z$ is
+\begin{equation}
+    M_Z(s) = \prod_{n=1}^{N}M_{X_n}(s)
+\end{equation}
+
+Let $X_1, \dots, X_N$ be a sequence of i.i.d. Bernoulli
+random variables with parameter $p$, then $Z = \sum_{i=1}^{N}X_i$
+is a binomial random variable with parameters $(N, p)$.
+
+\subsection{Characteristic Functions}
+For this course, the \emph{characteristic function} of a
+random variable $X$ is
+\begin{equation}
+    \Phi_X(j\omega) = E\left[e^{-j\omega X}\right]
+\end{equation}

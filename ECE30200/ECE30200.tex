@@ -328,5 +328,10 @@ The PDF of $Z = \frac{X}{Y}$ is given by
 \begin{equation}
     f_Z(z) = \int_{-\infty}^{\infty} |y| \, f_X(z y) f_Y(y) \, dy
 \end{equation}
+The PDF of $Z = X + Y$ is given by
+\begin{align}
+    f_Z(z) & = f_X(x) * f_Y(y)                          \\
+           & = \int_{-\infty}^{\infty} f_X(z-y)f_Y(y)dy
+\end{align}
 
 \end{document}
