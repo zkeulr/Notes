@@ -1,0 +1,128 @@
+\section{Maximum Likelihood Estimation}
+Estimation seeks to recover an unknown parameter $\theta$ of a distribution $f_X(x;\theta)$ from observed samples $X_1,\dots,X_N$.  Formally, if the forward model generates samples
+\begin{equation}
+    X_1,\dots,X_N \sim f_X(\,\cdot\,;\theta),
+\end{equation}
+then estimation inverts this to find $\theta$ given realizations $x_1,\dots,x_N$.
+
+As an example,
+\begin{itemize}
+    \item \textbf{Bernoulli:}
+          \begin{equation}
+              X_n \sim \mathrm{Bernoulli}(\theta),\qquad
+              p_X(x;\theta)=\theta^x(1-\theta)^{1-x},\;x\in\{0,1\}.
+          \end{equation}
+    \item \textbf{Gaussian:}
+          \begin{equation}
+              X_n \sim \mathcal{N}(\mu,\sigma^2),\qquad
+              f_X(x;(\mu,\sigma^2))
+              =\frac1{\sqrt{2\pi\sigma^2}}
+              \exp\!\Big(-\tfrac{(x-\mu)^2}{2\sigma^2}\Big).
+          \end{equation}
+          One may treat $\theta=(\mu,\sigma^2)$ or fix one parameter and infer the other.
+\end{itemize}
+
+\subsection{Likelihood and Log-Likelihood}
+Given i.i.d.\ samples $X_1,\dots,X_N$ with joint density
+\begin{equation}
+    f(x_1,\dots,x_N;\theta),
+\end{equation}
+the \emph{likelihood} of $\theta$ is
+\begin{equation}
+    L(\theta\mid x_1,\dots,x_N)
+    \;=\;\prod_{n=1}^N f_X(x_n;\theta)\,.
+\end{equation}
+The \emph{log-likelihood} is
+\begin{equation}
+    \ell(\theta)
+    \;=\;\log L(\theta)
+    =\sum_{n=1}^N \log f_X(x_n;\theta)\,.
+\end{equation}
+
+For $X_n\sim\mathcal{N}(\mu,\sigma^2)$,
+\begin{equation}
+    L(\mu,\sigma^2)
+    =\prod_{n=1}^N \frac{1}{\sqrt{2\pi\sigma^2}}
+    \exp\!\Big(-\tfrac{(x_n-\mu)^2}{2\sigma^2}\Big),
+\end{equation}
+so
+\begin{equation}
+    \ell(\mu,\sigma^2) = -\frac{N}{2}\log(2\pi\sigma^2)
+    -\frac{1}{2\sigma^2}\sum_{n=1}^N (x_n-\mu)^2.
+\end{equation}
+
+For $X_n\sim\mathrm{Bernoulli}(\theta)$, let $S=\sum_{n=1}^N x_n$.  Then
+\begin{equation}
+    \ell(\theta) = S\log\theta + (N-S)\log(1-\theta).
+\end{equation}
+
+The \emph{maximum-likelihood} (ML) estimate maximizes the likelihood:
+\begin{align}
+    \widehat\theta_{\rm ML} & = \arg\max_{\theta} L(\theta\mid x_1,\dots,x_N) \\
+                            & = \arg\max_{\theta}\,\ell(\theta).
+\end{align}
+
+\subsection{Closed-Form Solutions}
+
+\begin{itemize}
+    \item \textbf{Bernoulli:}
+          \begin{equation}
+              \frac{d\ell}{d\theta}=0
+              \;\Longrightarrow\;
+              \widehat\theta_{\rm ML}
+              = \frac{1}{N}\sum_{n=1}^N x_n.
+          \end{equation}
+    \item \textbf{Gaussian Mean (known \(\sigma^2\)):}
+          \begin{equation}
+              \widehat\mu_{\rm ML}
+              = \frac{1}{N}\sum_{n=1}^N x_n.
+          \end{equation}
+    \item \textbf{Gaussian Variance (known \(\mu\)):}
+          \begin{equation}
+              \widehat{\sigma}^2_{\rm ML}
+              = \frac{1}{N}\sum_{n=1}^N (x_n-\mu)^2.
+          \end{equation}
+\end{itemize}
+
+\subsection{Erdős-Rényi Social Network}
+
+In the single-membership Erdős-Rényi graph on $N$ nodes, each edge indicator
+$X_{ij}\sim\mathrm{Bernoulli}(p)$ independently.  Let
+\begin{equation}
+    S=\sum_{i=1}^N\sum_{j=1}^N x_{ij}.
+\end{equation}
+The log-likelihood is
+\begin{equation}
+    \ell(p)=S\log p + (N^2 - S)\log(1-p),
+\end{equation}
+so the ML estimate is
+\begin{equation}
+    \widehat p_{\rm ML}
+    = \frac{S}{N^2}.
+\end{equation}
+
+\subsection{Single-Photon Imaging}
+
+A 1-bit photon sensor reports
+\begin{equation}
+    Y_n = \begin{cases}
+        1, & X_n\ge1, \\
+        0, & X_n=0,
+    \end{cases}
+    \quad
+    X_n\sim\mathrm{Poisson}(\lambda).
+\end{equation}
+Thus
+\begin{equation}
+    P[Y_n=1]=1-e^{-\lambda},\quad P[Y_n=0]=e^{-\lambda},
+\end{equation}
+and for measurements $y_1,\dots,y_N$ with $S=\sum_n y_n$,
+\begin{equation}
+    \ell(\lambda)
+    = S\log(1-e^{-\lambda}) - (N-S)\,\lambda.
+\end{equation}
+Setting $d\ell/d\lambda=0$ yields
+\begin{equation}
+    \widehat\lambda_{\rm ML}
+    = -\ln\!\Bigl(1 - \tfrac{S}{N}\Bigr).
+\end{equation}

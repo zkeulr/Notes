@@ -1,0 +1,14 @@
+\section{Kullback-Leibler Divergence}
+
+The \emph{Kullback-Leibler} (KL) divergence
+measures how much information is lost when a
+model distribution $Q$ is used to approximate
+a true distribution $P$. It
+is defined in the discrete case as
+\begin{equation}
+    KL(P||Q) = \sum_{x\in \mathcal{X}} P(x)\log \frac{P(x)}{Q(x)}
+\end{equation}
+and in the continuous case as
+\begin{equation}
+    KL(P||Q) = \int_{-\infty}^{\infty} p(x) \log \frac{p(x)}{q(x)} dx
+\end{equation}
