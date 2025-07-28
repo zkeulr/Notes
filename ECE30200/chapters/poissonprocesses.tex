@@ -1,0 +1,66 @@
+\section{Poisson Processes}
+If
+\begin{equation}
+    S_n = \sum_{i=1}^{n}X_i
+\end{equation}
+where $X_i \sim \text{Exponential}(\lambda)$
+then
+\begin{equation}
+    S_n \sim \text{Gamma}(n, \lambda)
+\end{equation}
+and
+\begin{equation}
+    f_{S_n}(s) = \frac{\lambda^n s^{n-1} e^{-\lambda s}}{(n-1)!}
+\end{equation}
+
+If
+\begin{equation}
+    S_n = \sum_{i=1}^{n}X_i
+\end{equation}
+where $X_i \sim \text{Poisson}(\lambda_i)$
+then
+\begin{equation}
+    S_n \sim \text{Poisson}(\sum_{i=1}^{n}, \lambda_i)
+\end{equation}
+
+When we say that exponential random variables
+are memoryless, we mean that if
+\begin{equation}
+    X \sim \text{Exponential}(\lambda)
+\end{equation}
+then
+\begin{equation}
+    P(X > t + s | X > s) = P(X > t)
+\end{equation}
+
+A \emph{Poisson process} can be defined thus:
+If $X_n \sim \text{Exponential}(\lambda)$ for
+$n = 1, 2, 3, \dots$ then
+\begin{equation}
+    N(t) = \max \left\{n: \sum_{i=1}^{n} X_i \leq t\right\}
+\end{equation}
+is called a Poisson process with rate $\lambda$.
+In more words, if the interarrival times follow
+an exponential distribution with rate $\lambda$,
+then the number of arrivals by time $t$ is called
+a Poisson process with rate $\lambda$.
+
+The number of arrivals by time $s$ follows
+a Poisson distribution
+\begin{equation}
+    N(s) \sim \text{Poisson}(\lambda s)
+\end{equation}
+
+A Poisson process has two important
+properties:
+\begin{equation}
+    N(t+s) - N(s) \sim \text{Poisson}(\lambda t)
+\end{equation}
+and
+$N(t_1) - N(t_0), \dots, N(t_n) - N(t_{n-1})$ are
+independent.
+
+This is rather surprising. It is surprising that
+if $N(t)$ is a Poisson process with rate $\lambda$
+then $\tilde{N}(t) = N(t + r) - N(r)$ is a Poisson
+process with rate $\lambda$ and is independent of $N(r)$.
