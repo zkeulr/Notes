@@ -123,3 +123,39 @@ random variable $X$ is
 \begin{equation}
     \Phi_X(j\omega) = E\left[e^{-j\omega X}\right]
 \end{equation}
+
+\subsection{Autocorrelation Functions}
+The \emph{autocorrelation function} of a
+random process X(t) is
+\begin{equation}
+    R_X(t_1, t_2) = E\left[X(t_1)X(t_2)\right]
+\end{equation}
+for two time instants $t_1$ and $t_2$.
+
+The \emph{cross-correlation function}
+of $X(t)$ and $Y(t)$ is
+\begin{equation}
+    R_{X,Y}(t_1, t_2) = E[X(t_1)Y(t_2)]
+\end{equation}
+\subsection{Autocovariance Functions}
+The \emph{autocovariance function} of a random
+process $X(t)$ is
+\begin{equation}
+    C_X(t_1, t_2) = E\left[(X(t_1)-\mu_X(t_1))(X(t_2)-\mu_X(t_2))\right]
+\end{equation}
+Two useful properties are
+\begin{itemize}
+    \item $C_X(t_1, t_2) = R_X(t_1,t_2) - \mu_X(t_1)\mu_X(t_2)$
+    \item $C_X(t, t) = \text{Var}(X(t))$
+\end{itemize}
+
+The \emph{cross-variance function} of
+$X(t)$ and $Y(t)$ is
+\begin{equation}
+    C_{X,Y}(t_1, t_2) = E\left[(X(t_1)-\mu_X(t_1))(Y(t_2) - \mu_Y(t_2))\right]
+\end{equation}
+
+Note that if $\mu_X(t_1) = \mu_Y(t_2) = 0$, then
+\begin{equation}
+    C_{X,Y}(t_1, t_2) = R_{X,Y}(t_1, t_2)
+\end{equation}
