@@ -15,14 +15,13 @@ Formally, we write
     \lim_{N\rightarrow \infty} F_{\bar{Z_N}(z)} = F_Z(z)
 \end{equation}
 
-Consider $X_n \sim \text{Exponential}(\lambda)$, and let
-$X_1, \dots, X_N$ be i.i.d. copies. Define
-$Z_N = \sum_{n=1}^{N} X_n$. Then
+In practice, what this means is that if $X_1, X_2, \dots, X_N$
+are random variables with means $\mu_1, \mu_2, \dots, \mu_N$ and
+variances $\sigma_1^2, \sigma_2^2, \dots, \sigma_N^2$, then
 \begin{equation}
-    E[Z_N] = \frac{N}{\lambda}
+    \frac{1}{N} \sum_{i=1}^{N} X_i \sim \mathcal{N}(\frac{1}{N} \sum_{i=1}^{N} \mu_i, \frac{1}{N^2} \sum_{i=1}^{N} \sigma_i^2).
 \end{equation}
-and
+If $\{X_i\}$ are i.i.d. with mean $\mu$ and variance $\sigma^2$, then
 \begin{equation}
-    \text{Var}[Z_N] = \frac{N}{\lambda^2}
+    \frac{1}{N} \sum_{i=1}^{N} X_i \sim \mathcal{N}\left(\mu, \frac{\sigma^2}{N}\right)
 \end{equation}
-

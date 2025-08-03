@@ -96,32 +96,57 @@ For continuous $X$
 MGFs have the following properties:
 \begin{itemize}
     \item $M_X(0) = 1$ \\
-    \item $\frac{d^k}{ds^k} M_X(s)\Big|_{s=0} = E\left[X^k\right], \quad k \in \mathcal{Z}^+$
+    \item $\frac{d^k}{ds^k} M_X(s)\Big|_{s=0} = E\left[X^k\right], \quad k \in \mathcal{Z}^+$ \\
+    \item $M_{aX}(s) = M_X(as)$
 \end{itemize}
 The "moment generating" title comes
 from the ability to determine any order
 moment by evaluating the derivative at $s=0$.
 
 Let $X$ and $Y$ be independent random variables.
-Let $Z = X + Y$. Then
+Let $Z = X + Y$. Then by the properties of exponents
 \begin{equation}
     M_Z(s) = M_X(s)M_Y(s)
 \end{equation}
-In general, let $Z = \sum_{n=1}^{N} X_n$. Then the
+In general, let $Z = \sum_{n=0}^{N} X_n$. Then the
 MGF of $Z$ is
 \begin{equation}
-    M_Z(s) = \prod_{n=1}^{N}M_{X_n}(s)
+    M_Z(s) = \prod_{n=0}^{N}M_{X_n}(s)
 \end{equation}
 
-Let $X_1, \dots, X_N$ be a sequence of i.i.d. Bernoulli
-random variables with parameter $p$, then $Z = \sum_{i=1}^{N}X_i$
-is a binomial random variable with parameters $(N, p)$.
+\begin{center}
+    \renewcommand{\arraystretch}{1.5}
+    \begin{tabular}{|c|c|c|}
+        \hline
+        \textbf{Distribution} & \textbf{Parameter(s)}  & \textbf{MGF: $M_X(s) = E[e^{sX}]$}                            \\
+        \hline
+        Bernoulli             & $p$                    & $M_X(s) = (1-p) + pe^s$                                       \\
+        \hline
+        Binomial              & $n, p$                 & $M_X(s) = \left(1 - p + pe^s\right)^n$                        \\
+        \hline
+        Geometric             & $p$ (number of trials) & $M_X(s) = \frac{pe^s}{1 - (1 - p)e^s}, \quad s < -\ln(1 - p)$ \\
+        \hline
+        Poisson               & $\lambda$              & $M_X(s) = \exp\left(\lambda(e^s - 1)\right)$                  \\
+        \hline
+        Gaussian (Normal)     & $\mu, \sigma^2$        & $M_X(s) = \exp\left(\mu s + \frac{1}{2}\sigma^2 s^2\right)$   \\
+        \hline
+        Exponential           & $\lambda$              & $M_X(s) = \frac{\lambda}{\lambda - s}, \quad s < \lambda$     \\
+        \hline
+        Uniform               & $a, b$                 & $M_X(s) = \frac{e^{sb} - e^{sa}}{s(b - a)}, \quad s \ne 0$    \\
+        \hline
+    \end{tabular}
+\end{center}
 
 \subsection{Characteristic Functions}
 For this course, the \emph{characteristic function} of a
 random variable $X$ is
 \begin{equation}
-    \Phi_X(j\omega) = E\left[e^{-j\omega X}\right]
+    \Phi_X(j\omega) = E\left[e^{-j\omega X}\right].
+\end{equation}
+Note that by this definition, the characteristic function
+of a random variable is the same as its Fourier transform.
+\begin{equation}
+    \Phi_X(j\omega) = \mathcal{F}(X)
 \end{equation}
 
 \subsection{Autocorrelation Functions}

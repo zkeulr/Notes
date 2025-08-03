@@ -141,6 +141,17 @@ If $X \sim Exponential(\lambda)$, then
     E[X]   & = \frac{1}{\lambda}   \\
     Var[X] & = \frac{1}{\lambda^2}
 \end{align}
+Consider $X_n \sim \text{Exponential}(\lambda)$, and let
+$X_1, \dots, X_N$ be i.i.d. copies. Define
+$Z_N = \sum_{n=1}^{N} X_n$. Then
+\begin{equation}
+    E[Z_N] = \frac{N}{\lambda}
+\end{equation}
+and
+\begin{equation}
+    \text{Var}[Z_N] = \frac{N}{\lambda^2}
+\end{equation}
+
 
 A \emph{Gaussian random variable} is a
 random variable $X$ such that its PDF
@@ -186,7 +197,7 @@ by the relation
 The CDF of an arbitrary Gaussian is related via
 the transformation
 \begin{equation}
-    F_X(x) = \phi\left(\frac{x - \mu}{\sigma}\right)
+    F_X(x) = \Phi\left(\frac{x - \mu}{\sigma}\right)
 \end{equation}
 Let $X \sim \mathcal{N}(\mu, \sigma^2)$, then
 \begin{itemize}
