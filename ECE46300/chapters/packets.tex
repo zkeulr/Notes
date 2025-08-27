@@ -1,6 +1,60 @@
-\section{Routing and Packets}
-
+\section{Packets}
 In our abstraction of routers, we leave the problem of finding
 a path from end hosts unanswered. Since we can represent a computer
 network as a graph, a shortest-path algorithm like Dijkstra's is a
 relatively simple way to find a good path between Alice and Bob.
+
+We wish to answer the question "how do users access shared network
+resources?" Assume no coordination between users and assume users
+initiate access.
+
+There are two ways to answer this:
+\begin{itemize}
+    \item Reserving resources (circuit switching).
+    \item On-demand (packet switching)
+\end{itemize}
+
+\subsection{Circuit Switching}
+The idea at the core of this method is that if Alice wants to communicate
+with Bob, then they reserve a path through the network to do that. The
+reserved path is called a \emph{circuit}. They then send data along the
+reserved path.
+
+A pro of circuit switching is that users are guaranteed to have a path
+through the network. No queuing, no waiting. The routers along the path
+also don't need to make any decisions in real time. They know the path
+in advance.
+
+A con is that a resource could be reserved but not used. When users don't
+coordinate, circuit switching leads to very inefficient use of resources.
+Another con is that circuits need to be set up and torn down. Imagine the
+overhead of old telephone networks, where workers had to manually connect
+telephone wires from one caller to another.
+
+In classical circuit switching, all the resources along the path are reserved
+for a single circuit and there is no path sharing amongst multiple circuits.
+In virtual circuit switching, each circuit reserves a subset of resources
+along its path. It's still reservation based, but two or more circuits can share
+a same resource (e.g. if two users want to send data that takes up half the
+bandwidth of a connection, they can both send it at once).
+
+\subsection{Packet Switching}
+To overcome the shortcomings of circuit switching, packet switching was invented.
+The way this works is data is broken into small units called \emph{packets}.
+You send packets over the network whenever you have them and trust the routers
+to figure out the path your packets take on the fly.
+
+Each packet needs to have metadata that describes things like the destination
+of the packets, the order of the packets, and so on.
+
+A pro of packet switching is that we have much better resource utilization.
+Also, there's no overhead of circuit setup and teardown.
+
+A con of packet switching is that there's no guarantee that a given user
+will have the resources to send their data. Now we also have overhead from
+the packet headers, and routers now need to process packet headers and find paths
+on the fly.
+
+Although both have advantages and disadvantages, modern networks almost
+exclusively use packet switching and unless otherwise specified all
+networks in this class are assumed to be packet switched.
