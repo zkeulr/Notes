@@ -1,0 +1,136 @@
+\section{Computer Networks}
+
+The high-level question this course will answer is "how do computers reliably
+communicate?"
+
+The answer is through computer networks, a group
+of interconnected nodes or computing devices that
+exchange data and resources with each other.
+
+\begin{figure}[htbp]
+    \centering
+    \begin{tikzpicture}[
+            node distance=2cm,
+            router/.style={rectangle, draw, fill=blue!20, minimum width=1cm, minimum height=0.6cm},
+            switch/.style={rectangle, draw, fill=green!20, minimum width=1cm, minimum height=0.6cm},
+            computer/.style={circle, draw, fill=yellow!20, minimum size=0.8cm},
+            server/.style={rectangle, draw, fill=red!20, minimum width=1cm, minimum height=1cm},
+            internet/.style={cloud, draw, fill=gray!20, minimum width=2cm, minimum height=1cm}
+        ]
+
+        % Internet cloud
+        \node[internet] (internet) at (0,4) {Internet};
+
+        % Core router
+        \node[router] (core) at (0,2) {R1};
+
+        % Distribution layer
+        \node[router] (r2) at (-3,0) {R2};
+        \node[router] (r3) at (3,0) {R3};
+
+        % Access layer switches
+        \node[switch] (s1) at (-4.5,-2) {S1};
+        \node[switch] (s2) at (-1.5,-2) {S2};
+        \node[switch] (s3) at (1.5,-2) {S3};
+        \node[switch] (s4) at (4.5,-2) {S4};
+
+        % End devices
+        \node[computer] (pc1) at (-5.5,-4) {PC1};
+        \node[computer] (pc2) at (-3.5,-4) {PC2};
+        \node[server] (srv1) at (-2,-4) {Web};
+        \node[server] (srv2) at (-1,-4) {DB};
+        \node[computer] (pc3) at (1,-4) {PC3};
+        \node[computer] (pc4) at (2.5,-4) {PC4};
+        \node[server] (srv3) at (4,-4) {File};
+        \node[computer] (pc5) at (5.5,-4) {PC5};
+
+        % Connections
+        % Internet to core
+        \draw[thick] (internet) -- (core);
+
+        % Core to distribution
+        \draw[thick] (core) -- (r2);
+        \draw[thick] (core) -- (r3);
+
+        % Distribution to access
+        \draw[thick] (r2) -- (s1);
+        \draw[thick] (r2) -- (s2);
+        \draw[thick] (r3) -- (s3);
+        \draw[thick] (r3) -- (s4);
+
+        % Redundant connections between distribution routers
+        \draw[thick, dashed] (r2) -- (r3);
+
+        % Access to end devices
+        \draw (s1) -- (pc1);
+        \draw (s1) -- (pc2);
+        \draw (s2) -- (srv1);
+        \draw (s2) -- (srv2);
+        \draw (s3) -- (pc3);
+        \draw (s3) -- (pc4);
+        \draw (s4) -- (srv3);
+        \draw (s4) -- (pc5);
+
+        % Some cross-connections for redundancy
+        \draw[dotted] (s1) -- (s2);
+        \draw[dotted] (s3) -- (s4);
+
+    \end{tikzpicture}
+    \caption{Computer Network}
+    \label{fig:computer-network}
+\end{figure}
+
+A computer network enables communication between users and their devices.
+
+\begin{figure}[htbp]
+    \centering
+    \begin{tikzpicture}[
+            node distance=2.5cm,
+            user/.style={ellipse, draw, fill=blue!20, minimum width=1.5cm, minimum height=0.8cm},
+            device/.style={rectangle, draw, fill=yellow!20, minimum width=1cm, minimum height=0.6cm},
+            router/.style={diamond, draw, fill=green!20, minimum width=1cm, minimum height=1cm},
+            switch/.style={regular polygon, regular polygon sides=6, draw, fill=orange!20, minimum size=0.8cm}
+        ]
+
+        \node[user] (alice) at (-4,0) {Alice's PC};
+
+        \node[user] (bob) at (4,0) {Bob's tablet};
+
+        % Intermediate nodes
+        \node[router] (r1) at (-1,0) {R1};
+        \node[switch] (s1) at (0,1) {S1};
+        \node[router] (r2) at (1,0) {R2};
+
+        % Network path between Alice and Bob
+        \draw[thick, blue] (alice) -- (r1);
+        \draw[thick, blue] (r1) -- (s1);
+        \draw[thick, blue] (s1) -- (r2);
+        \draw[thick, blue] (r2) -- (bob);
+
+        % Alternative path (dashed)
+        \draw[thick, dashed, red] (r1) -- (r2);
+
+    \end{tikzpicture}
+    \caption{Simple Network}
+    \label{fig:simple-network}
+\end{figure}
+
+The first stop that most home devices take in connecting to other
+devices is the router. From there, the router can route data and
+find a path for Alice's PC to get to Bob's tablet. The core of any
+network is routers, which figure out the best way to get data from
+one device to another device.
+
+This process can get complex, with cell tower connections, different ISPs,
+different edge devices, and more. Let's abstract the important elements
+of the network.
+
+\begin{itemize}
+    \item Links: carry data from one endpoint to another
+    \item End hosts: sitting at the edge of a network. Generate and receive data.
+    \item Routers: forward data through the network.
+\end{itemize}
+
+Any network can be abstracted as a connection of links, end hosts, and routers.
+We can thus represent any computer network as a graph, in the mathematical
+sense, and apply all our graph algorithms to it.
