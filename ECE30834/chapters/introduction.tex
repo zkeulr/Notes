@@ -4,3 +4,40 @@ This class will be focused on \emph{interactive} computer graphics over
 non-interactive graphics. In this class we will implement an interactive
 computer graphics engine in a basic programming language like C. A good
 understanding of professional and debugging and unit testing is required.
+
+Let's look at a basic example of a GUI with some fundamental
+components.
+
+\begin{lstlisting}[language=C, caption=GUI, label=lst:gui]
+    #pragma once 
+    #include gui.h
+    #include frambuffer.h
+
+    class Scene {
+        GUI *gui;
+        FrameBuffer *fb;
+        Scene();
+        void DBG();
+        void NewButton(); // when this is clicked, 
+        // there is a callback to the 
+        // code that made the scene
+    }
+
+    extern Scene *scene;
+\end{lstlisting}
+
+\subsection{Frame Buffer}
+
+% insert FrameBuffer code from course website here
+The frame buffer stores the data that is going to be displayed
+on the screen. In the case of Listing \ref{lst:gui} is a 1d array of unsigned integers.
+
+\subsection{Callback}
+
+% insert DBG code
+
+\subsection{Scene}
+
+\subsection{Drawing}
+
+\subsection{Animation}
