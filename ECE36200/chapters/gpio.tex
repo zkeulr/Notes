@@ -72,7 +72,7 @@ trigger is high. It stays high until the input signal crosses the low threshold,
 at which point the output of the Schmitt trigger goes low.
 
 Electricity in the real world is unfortunately messy.
-Consider the circuit in Figure \ref{fig:led-circuit}.
+Consider the circuit in Figure \ref{fig:faulty-led-circuit}.
 
 \begin{figure}[h]
     \centering
@@ -100,10 +100,149 @@ Consider the circuit in Figure \ref{fig:led-circuit}.
         \draw (4,1) to[short] (4,0.5);
         \node[ground] at (4,0.5) {};
     \end{circuitikz}
-    \caption{LED Control Circuit}
-    \label{fig:led-circuit}
+    \caption{Faulty LED Control Circuit}
+    \label{fig:faulty-led-circuit}
 \end{figure}
 
 You would expect that the circuit turns off when
 the switch is open. However, the input to the buffer
 would be floating, so the output of the buffer is unpredictable.
+
+We can remedy this by adding a pull-down resistor, as in Figure
+\ref{fig:led-circuit}.
+
+\begin{figure}[h]
+    \centering
+    \begin{circuitikz}[american]
+        % VDD power supply
+        \draw (1.5,2.5) node[buffer] (mybuffer) {};
+        \node at (0,4) {VDD};
+        \draw (0,4) to[short] (0,3.5);
+
+        % Switch
+        \draw (0,3.5) to[nos] (0,2.5);
+        \node at (-0.5,3) {};
+
+        % Buffer (simple triangle)
+        \draw (0,2.5) to[short] (1,2.5);
+        \draw (2,2.5) to[short] (2.5,2.5);
+
+        % Resistor
+        \draw (2.5,2.5) to[R] (4,2.5);
+
+        % LED
+        \draw (4,2.5) to[led] (4,1);
+
+        % Ground
+        \draw (4,1) to[short] (4,0.5);
+        \node[ground] at (4,0.5) {};
+
+        % Pull-down Resistor
+        \draw (0.5,2.5) to[R] (0.5,0);
+        \node[ground] at (0.5,0) {};
+    \end{circuitikz}
+    \caption{LED Control Circuit}
+    \label{fig:led-circuit}
+\end{figure}
+
+Pins face a similar issue. A floating pin's voltage is unknown.
+We need to add a pull-up or pull-down resistor so that when the
+voltage isn't actively being driven low or high then the pin is
+at a known voltage. The resistors have to be weaker than however
+the pins are being driven, or the pin would always be high/low,
+but if it's too weak then the pin will be slow and unresponsive.
+
+Many MCUs have on-chip PU/PD resistors, which are software configurable.
+Off-chip PU/PD can also be on the PCB instead, in which case it is
+not configurable.
+
+We have two options or using software to set up a pin.
+\begin{itemize}
+    \item Port-mapped I/O, which uses special instructions in the processor
+          where every device is assigned a unique port number (used in x86).
+    \item Memory-mapped I/O, which has special addresses which can be read
+          from or written to in order to perform I/O.
+\end{itemize}
+This is true for all on-chip modules, not just GPIO.
+
+\subsection{Memory-mapped I/O}
+If we have a 32-bit CPU, each address is 1 byte and there are up
+to 4 GBs of addressable memory in a 32 bit system.
+\marginnote{Most modern computers are 64-bit, but MCUs are still
+    mainly 32-bit.}
+MCUs have limited read/write memory (less than a few MB).
+Memory is \emph{byte-addressable}. Each byte has a unique address.
+Addresses go from 0x00000000 to OxFFFFFFFF. The bottom sections have
+on-chip flash memory, for code and data. The next sections have SRAM,
+on-chip RAM, for the heap, stack, and some code. At the top is system
+memory dedicated to external devices like NVIC, system timer, SCB, other
+vendor-specific memory. Also in high memory (but not the highest) is
+memory for external devices like SD cards. In the middle is external
+RAM, off-chip memory for data. See Figure \ref{fig:mcu-memory-layout}.
+
+\begin{figure}[h]
+    \centering
+    \begin{tikzpicture}[scale=1]
+
+        % Define style
+        \tikzstyle{memblock} = [rectangle, draw, minimum width=5cm, minimum height=1.2cm, align=center]
+
+        % Blocks (top to bottom)
+        \node[memblock, fill=blue!15] (system) {System memory \\ (NVIC, SysTick, SCB, peripherals)};
+        \node[memblock, fill=green!15, below=of system] (extdev) {External devices \\ (e.g. SD cards)};
+        \node[memblock, fill=yellow!20, below=of extdev] (extram) {External RAM \\ (off-chip memory)};
+        \node[memblock, fill=orange!20, below=of extram] (sram) {On-chip SRAM \\ (stack, heap, data)};
+        \node[memblock, fill=red!20, below=of sram] (flash) {On-chip Flash \\ (code, constants)};
+
+        % Addresses
+        \node[left=0.3cm of system.west] (addr1) {0xFFFFFFFF};
+        \node[left=0.3cm of extdev.west] (addr2) {};
+        \node[left=0.3cm of extram.west] (addr3) {};
+        \node[left=0.3cm of sram.west] (addr4) {};
+        \node[left=0.3cm of flash.west] (addr5) {0x00000000};
+
+        % Brackets for column
+        \draw[decorate,decoration={brace,amplitude=10pt}] (flash.south west) -- (system.north west) node[midway,xshift=-1.2cm,rotate=90] {32-bit Address Space (4 GB)};
+
+    \end{tikzpicture}
+    \caption{32-bit MCU Memory Layout}
+    \label{fig:mcu-memory-layout}
+\end{figure}
+
+When the CPU needs to talk to RAM (read/write variables) it's connected
+via the address bus and data bus. It reads from ROM (read-only memory).
+When the CPU wants to write to the RAM, it gives an address to the address
+bus and data to the data bus. The RAM looks at the address bus and if it
+sees an address that belongs in RAM space, the RAM will take the data
+from the data bus (if's it's a write signal) and write it at the specified
+address. When the CPU wants to read it puts an address on the address bus
+and signals read. The RAM sees the read signal and puts data at the specified
+address on the data bus.
+
+While RAM is read and write, ROM is read-only. The reason for this separation
+is that ROM is cheaper. If you turn off your computer, anything in RAM is lost.
+However, anything is ROM is non-volatile and anything flashed there will remain
+even if power is lost.
+
+GPIO modules are on the same address and data buses as the ROM and RAM. Each
+periperphal has a set of control registers, including direction and data registers.
+Each register has a unique memory address. If you want to write something
+to the data register, get its address by looking at the data sheet, and write
+there. Reading is similar. By writing a one or zero into the direction register,
+you can configure the GPIO as either input or output.
+
+To turn on an LED, for instance, we need to know what port and pin it's connected
+to. We then consult the data sheet to get the addresses of the registers for
+that pin and port, and then we just need to write some value to the registers.
+
+Although the GPIO pins are not really memory, the CPU treats them like memory.
+That's why this method is called memory-mapped I/O.
+
+Memory is accessed at a minimum granularity of one byte, but typically 4.
+
+\begin{lstlisting}
+    char* controlRegisterPtr = 0x50000000;
+    *controlRegisterPtr = 1;
+\end{lstlisting}
+
+\subsection{Port-mapped I/O}
