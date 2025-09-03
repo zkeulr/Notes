@@ -291,6 +291,11 @@ The flow of an interrupt is thus:
 \end{figure}
 
 \marginnote{A common exam question is "how many times was the interrupt handler interrupted?"
-or "how many times was the CPU state restored?".
+    or "how many times was the CPU state restored?".}
 
 \subsection{Exceptions}
+We mentioned several other types of exceptions. While interrupts are
+usually handled at the end of instructions and the CPU resumes at the
+next instruction, faults happen in the middle of an instruction and
+execution resumes in the same instruction. Just as with interrupts,
+higher-priority exceptions may preempt lower-priority exceptions.
