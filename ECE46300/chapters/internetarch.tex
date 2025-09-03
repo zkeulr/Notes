@@ -37,3 +37,30 @@ sends the packet over the output port.
 How do a network of routers collectively find a path between each
 source and destination host? The answer is a routing protocol,
 a distributed algorithm that runs independently at each router.
+
+\subsection{Reliability}
+The goal of reliability is to ensure every packet sent will
+eventually reach the destination uncorrupted. Unfortunately,
+routers can drop packets or packets can get corrupted. The idea
+behind all reliability protocols is after sending data, await an
+ACK from the destination. If ACK was received, everything is good!
+If not, resend the data.
+
+\subsection{Application Multiplexing}
+Each app that communicates over a network needs some subset of
+basic functionalities, like a reliability protocol. We could ask
+each app developer to implement the protocol themselves, but this
+is burdensome on the developer and prone to errors. Instead, on
+modern computers, there is a common OS service that handles
+packing data into packets, creating packet headers, and handling ACKs.
+
+Typically, each host has a program running inside the OS called
+"host network stack". In addition to the responsibilities above it
+also handles getting data from the network and sending it to the right
+application.
+
+When an app wants to access the network, it opens a \emph{socket} which
+is associated with a \emph{port}. A socket is an OS mechanism that connects
+applications to the network stack. A port is a number that specifies a
+particular socket. The port number is used by the OS for app multiplexing
+to direct incoming packets to the right applications.

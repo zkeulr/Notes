@@ -58,3 +58,14 @@ on the fly.
 Although both have advantages and disadvantages, modern networks almost
 exclusively use packet switching and unless otherwise specified all
 networks in this class are assumed to be packet switched.
+
+\subsection{Packet Headers}
+Packet headers require, at least, the following:
+\begin{itemize}
+    \item Destination address, used by network to send packet to destination
+    \item Destination port, used by network stack at the destination for
+          application multiplexing
+    \item Source address, used by network to send packet back to source
+    \item Source port, used by network stack at the source for application
+          multiplexing
+\end{itemize}
