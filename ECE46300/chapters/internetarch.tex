@@ -1,0 +1,39 @@
+\section{Internet Architecture}
+
+We need to solve these problems:
+\begin{itemize}
+    \item Name and addressing: identifiers for network nodes
+    \item Destination discovery: finding the destination address
+    \item Forwarding: sending received data to the next hop (neighbor)
+    \item Routing: finding the path from source to destination
+    \item Reliability: handling failures, packet drops, packet corruption
+    \item Application multiplexing: delivering data from multiple host
+          applications to the network and vice versa
+\end{itemize}
+
+\subsection{Name and Addressing}
+Name is the human-readable name for each node (e.g., URL www.google.com).
+Address is where node is located (e.g., IP address 172.21.4.110).
+
+\subsection{Destination discovery}
+When you go to a web page, you type the name in your browser. You
+need to get the address still. The way names are resolved into
+addresses is via the Domain Name System (DNS), a set of global
+servers that maintain the mappings between host names and addresses.
+When you type a URL, the browser contacts a DNS server to get the address.
+
+\subsection{Forwarding}
+A router has many ports. Each port in a router acts as both input
+and output, i.e., you can both send and receive packets on each port
+simultaneously.
+When a packet arrives at a router, the router looks at the destination address
+in the header. Based on destination address, the router consults the routing
+table, determines the right output port, and sends the packet to that port's queue.
+For each output port in parallel, when the port is free, the router picks
+a packet from the corresponding output queue in some order (e.g. FIFO) and
+sends the packet over the output port.
+
+\subsection{Routing}
+How do a network of routers collectively find a path between each
+source and destination host? The answer is a routing protocol,
+a distributed algorithm that runs independently at each router.
