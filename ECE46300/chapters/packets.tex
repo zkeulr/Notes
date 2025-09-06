@@ -69,3 +69,10 @@ Packet headers require, at least, the following:
     \item Source port, used by network stack at the source for application
           multiplexing
 \end{itemize}
+
+We'll learn more about the OSI model in a later section, but for now suffice
+to say that each layer has its own header that it stacks onto and strips
+from user data, starting with the application layer attaching its own
+header to user data, to the transport layer sticking a header on, and so on.
+As the package travels from host to destination the layers get added, and
+then stripped off in the order they were added.

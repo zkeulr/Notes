@@ -64,3 +64,26 @@ is associated with a \emph{port}. A socket is an OS mechanism that connects
 applications to the network stack. A port is a number that specifies a
 particular socket. The port number is used by the OS for app multiplexing
 to direct incoming packets to the right applications.
+
+\subsection{Modularity}
+The internet is inherently hierarchical. There are big networks at high levels,
+e.g. AT\&T, which connect smaller networks at a lower hierarchy e.g. Purdue.
+We break the task of sending data into five layers, known as the
+\emph{Open Systems Interconnect} (OSI) model.
+
+\begin{enumerate}
+    \item Physical: bits sent over a physical connection. Involves
+          signal processing, analog-to-digital conversions, etc.
+    \item Data Link: "best-effort" data delivery within a local network.
+          Involves naming, addressing, destination discovery, routing, forwarding
+    \item Network: "best-effort" data delivery between networks.
+          Involves naming, addressing, destination discovery, routing, forwarding
+    \item Transport: reliable end-to-end data delivery.
+          Involves reliability and application multiplexing.
+    \item Application: network service to users or applications.
+          Involves read/write data from applications, encrypt/decrypt, etc.
+\end{enumerate}
+
+Each layer only talks with the layers directly above and below.
+
+Where should these subtasks be implemented?

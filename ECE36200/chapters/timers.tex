@@ -1,0 +1,63 @@
+\section{Timers}
+In MCUs, we often want a way to periodically do something or
+many somethings. Every useful MCU has a hardware timer system.
+A \emph{system ticker} (systick) is a special timer reserved for OS
+operations, but there is always a timer subsystem outside the CPU
+for general use.
+
+The systick timer is a piece of hardware inside the MCU that generates an
+systick interrupt signal at fixed intervals. Every interrupt has a dedicated
+ISR to handle it, and in the case of systick the ISR is \texttt{SysTick\_Handler}.
+
+In the ARM Cortex-M, the system timer is built into the hardware of the
+CPU. Every time an IRQ is raised, the Nested Vectored Interrupt
+Controller (NVIC) hardware will determine whether or not to handle the
+systick interrupt.
+
+\begin{figure}
+    \centering
+    \begin{tikzpicture}[node distance=2.2cm and 2.2cm, font=\small]
+        \tikzset{
+        block/.style   = {draw, thick, rectangle, rounded corners=2pt, minimum width=3.2cm, minimum height=1.2cm, align=center},
+        decision/.style= {draw, thick, diamond, aspect=2, inner sep=2pt, align=center},
+        line/.style    = {thick, -{Latex[length=3mm]}}
+        }
+
+        % Counter and logic
+        \node[block] (counter) {Counter\\(24-bit down)};
+        \node[decision, right=of counter] (iszero) {count == 0?};
+        \node[block, below=1.8cm of iszero] (reload) {Reload original\\value};
+
+        % Connections
+        \draw[line] (counter.east) -- (iszero.west);
+        \draw[line] (iszero.east) -- ++(1.6,0) node[above, pos=0.45]{No} -- ++(0,1.4) -- ($ (counter.north) + (0,0.8) $) -- (counter.north);
+        \draw[line] (iszero.south) -- node[right]{Yes} (reload.north);
+        \draw[line] (reload.west) -| (counter.south);
+
+        % Clock waveform feeding the counter
+        \coordinate (clkstart) at ($(counter.west)+(-3.2,0)$);
+        \node[left] at (clkstart) {Clock};
+        \draw[thick]
+        (clkstart)
+        -- ++(0.6,0) -- ++(0,0.6) -- ++(0.6,0) -- ++(0,-0.6)
+        -- ++(0.6,0) -- ++(0,0.6) -- ++(0.6,0);
+        \draw[line] ($(clkstart)+(2.4,0)$) -- (counter.west);
+    \end{tikzpicture}
+    \caption{System Timer}
+    \label{fig:systemtimerflowchart}
+\end{figure}
+
+When the counter hits zero, \texttt{COUNTFLAG} is set to 1.
+The choice of clock input can vary, as most MCUs have multiple.
+The clock input is ANDed with a flag to enable and disable.
+
+Let's do an example. Suppose the clock tick frequency $f$ is
+80MHz and the goal is a systick
+interval $s$ of 10ms. What must the reload value $R$ be?
+\begin{align}
+    R & = sf - 1                \\
+      & = 10ms \times 80MHz - 1 \\
+      & = 800000 - 1            \\
+      & = 799999
+\end{align}
+
