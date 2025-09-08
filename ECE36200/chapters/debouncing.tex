@@ -1,0 +1,48 @@
+\section{Debouncing}
+
+When a mechanical button is pressed, there is a
+period where the signal is neither high nor low,
+because of vibrations in the conducting plate it
+connects or other non-ideal physical effects. This
+is known as \emph{bouncing}, and it's rectified by
+adding a Schmitt trigger and RC circuit to smooth
+out the signal.
+
+However, in real world systems we rarely have just one
+button. We often have a matrix input, like a keypad.
+Our Schmitt trigger setup doesn't work here, but
+luckily a software solution exists. Set up the CPU
+connected to the keypad to scan each key for being pressed.
+It doesn't need to check constantly, just often enough that
+it will catch a button press.
+
+The work of scanning can be done incrementally using a timer interrupt.
+On each interrupt, the ISR will:
+\begin{itemize}
+    \item read all the columns
+    \item put the value read for each key of the current row into its own history byte
+    \item turn off the voltage for the row
+    \item turn on the voltage for the next row (for the next ISR invocation)
+    \item return
+\end{itemize}
+
+The keys on a keypad can still bounce. Pressing and letting go of a
+button may look something like \texttt{00000001001011111...1111101000000}.
+In this example, the button bounces on press and release. However, the
+history byte eventually stabilizes and is full of entirely \texttt{1}s
+or \texttt{0}s. To detect a press or release, we search all the history
+bytes that represent the keys. The first time we detect a change, like in
+\texttt{00000001}, we say that is the start of a press or release. We say
+the press or release is done when the history byte queue is back to only
+one number.
+
+We want to scan the keys faster than they can be pressed or released, but
+slower than the total bounce time for any key. Say a button can bounce for
+10ms, and we scan one row of the 4-row keypad every 1ms. Then when you
+press the button, the instance you read a one, you do not know if the
+input is stabilized. It could still bounce, since it has been 0ms.
+The second time you read a bit, it could still be bouncing, since 4ms is
+within the 10ms bounce time. The third time you read a bit, it could still
+be bouncing, since it has only been 8ms. By the fourth bit you read, you are
+certain it is a one.
+
