@@ -1,0 +1,68 @@
+\section{Sockets}
+
+A \emph{socket} is an OS mechanism for inter-process communication.
+It allows two processes or applications on the same (loopback) or
+different machines to communicate with each other. The communication path
+goes through the network stack of machines running the processes.
+
+The socket interface sits between the application and transport layer.
+It has send and recieve buffers for each app, which apps access via
+\texttt{send()} and \texttt{recieve()}. Each application is attached to
+a socket that has a unique port number and send-recieve buffers.
+
+\subsection{Connection}
+
+A \emph{connection} is identified with a 5-tuple:
+\begin{itemize}
+    \item Local IP address
+    \item Remote IP address
+    \item Local port
+    \item Remote port
+    \item Transport protocol type
+\end{itemize}
+These 5 things in combination make a connection. A local and
+remote socket make a connection.
+\marginnote{Any address that begins with \texttt{127.} is
+    on the local machine, i.e. on loopback.}
+
+Creating a socket is the first step in socket programming.
+Use the \texttt{socket()} system call, which returns a file
+descriptor. This is interesting, because it abstracts the difficulties
+of sending data over a network to the same process as writing
+to a file.
+
+There are three things needed to open a socket, which is done with a
+call like \texttt{int fd = socket(int family, int type, int protocol)}
+\begin{itemize}
+    \item \texttt{family}: protocol family used for communication. E.g. \texttt{AF\_INET}.
+    \item \texttt{type}: defines the communications semantics used. There are two
+          popular choices, \texttt{SOCK\_STREAM} which is reliable, and \texttt{SOCK\_DGRAM}
+          which is unreliable.
+    \item \texttt{protocol}: specifies a particular transport protocol. Setting to 0
+          will choose the default protocol implemented in the OS. E.g. TCP, UDP.
+\end{itemize}
+
+SOCK\_DGRAM is connectionless, i.e. no handshake required before sending data.
+This is a packet or \emph{datagram} abstraction. SOCK\_DGRAM offers unreliable
+communication in the sense that there is no promise that every packet is
+delivered.
+
+SOCK\_STREAM is connection-oriented, i.e. explicit handshake happens before
+data is sent. This is a byte stream abstraction. SOCK\_STREAM offers reliable
+communication, which means that all the data reaches its destination reliably and
+in-order.
+
+A recap of important function calls:
+
+\begin{itemize}
+    \item \texttt{socket()}: creates a socket
+    \item \texttt{bind()}: bind socket to an address <IP, port>
+    \item \texttt{connect()}: initiate connection to server
+    \item \texttt{listen()}: listen for and queue incoming client connections
+    \item \texttt{accept()}: accept incoming client connections
+    \item \texttt{send()}: send data over a connected socket (TCP)
+    \item \texttt{recv()}: receive data from a connected socket (TCP)
+    \item \texttt{sendto()}: send data to a specific address (UDP)
+    \item \texttt{recvfrom()}: receive data and sender's address (UDP)
+    \item \texttt{close()}: close the socket and release resources
+\end{itemize}
