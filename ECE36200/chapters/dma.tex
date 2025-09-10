@@ -1,0 +1,28 @@
+\section{Direct Memory Access}
+
+Moving memory from one location to another makes poor use of your CPU.
+Moving data is so common that we build a co-processor called a
+\emph{Direct Memory Access} (DMA)
+controller to do this without our CPU.
+\marginnote{DMA is also useful for allowing peripherals to
+    use memory independent of the CPU}
+
+The workflow for reading data from a peripheral with a CPU is:
+\begin{enumerate}
+    \item Copy data from peripheral data register to buffer in memory
+    \item Copy data from buffer in memory to CPU
+\end{enumerate}
+
+A DMA can just copy data directly from the register to the buffer. There
+are two kinds:
+\begin{itemize}
+    \item Flow-through: DMA controller is used as an
+          intermediate buffer (useful if we
+          need to change the size of data type)
+    \item Fly-by: DMA controller only sets up the bus
+          between the source and destination
+\end{itemize}
+
+A DMA sits on the bus, stores a list of source/destination
+pairs being serviced, and is triggered by software, peripherals,
+timers, or other interrupts.
