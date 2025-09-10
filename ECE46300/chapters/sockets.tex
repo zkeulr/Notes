@@ -45,12 +45,28 @@ call like \texttt{int fd = socket(int family, int type, int protocol)}
 SOCK\_DGRAM is connectionless, i.e. no handshake required before sending data.
 This is a packet or \emph{datagram} abstraction. SOCK\_DGRAM offers unreliable
 communication in the sense that there is no promise that every packet is
-delivered.
+delivered. For datagram abstraction, any data sent with
+\texttt{send()} just has a UDP header slapped on and that's sent off as a packet.
+Whatever transport layer on the other side just strips off the UDP header and
+forwards the payload to the recieving app.
 
 SOCK\_STREAM is connection-oriented, i.e. explicit handshake happens before
 data is sent. This is a byte stream abstraction. SOCK\_STREAM offers reliable
 communication, which means that all the data reaches its destination reliably and
-in-order.
+in-order. For bytestream abstraction, there is a buffer. Bytes sent are stored
+in the buffer. The TCP protocol decides how many bytes go into packet.
+
+In either case, excess bytes are dropped if the receive buffer is full.
+In the datagram case nothing is done. In the bytestream case, the sender
+is notified and presumably resends the bytes.
+
+In the datagram abstraction, if the sending app makes five send calls,
+the receiving app should make five receive calls. Nothing similar is
+promised in the bytestream abstraction.
+
+Note that the actual data going over the network is packets, regardless of
+if a byte stream abstraction or datagram abstraction is used. The abstraction
+is just for programming convenience.
 
 A recap of important function calls:
 
@@ -66,3 +82,4 @@ A recap of important function calls:
     \item \texttt{recvfrom()}: receive data and sender's address (UDP)
     \item \texttt{close()}: close the socket and release resources
 \end{itemize}
+
