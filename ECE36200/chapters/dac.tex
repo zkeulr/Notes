@@ -1,0 +1,40 @@
+\section{Digital-to-analog Converter}
+
+A digital-to-analog converter (DAC) converts digital data
+into a voltage signal.
+\begin{equation}
+    \text{DAC}_{\text{output}} = V_{\text{ref}} \frac{\text{Digital Value}}{2^N - 1}
+\end{equation}
+$N$ is the \emph{resolution} of the DAC, and $2^N$ is the number of voltage levels
+the DAC can generate.
+
+Applications of DACs include digital audio, video display, and waveform generation.
+
+A 5-bit DAC looks like Figure \ref{fig:dacfivebit}.
+
+\begin{figure}
+    \begin{circuitikz}[american]
+        \def\N{5} % change this number for N-bit DAC
+
+        \draw (0,0) node[left]{$V_{out}$} coordinate(out);
+
+        \foreach \i [evaluate=\i as \bit using int(\N-1-\i)] in {0,...,4} {
+                \draw ( \i*2,0) to[R,l=$R$] ( {(\i+1)*2},0);
+                \draw ( {(\i+1)*2},0)
+                to[R,l=$2R$] ++(0,2) node[above]{$x_{\bit}$};
+                \coordinate (node\i) at ({(\i+1)*2},0);
+            }
+
+        \draw (node4) to[R,l=$2R$] ++(0,-2) node[ground]{};
+    \end{circuitikz}
+    \caption{5-bit DAC}
+    \label{fig:dacfivebit}
+\end{figure}
+
+The DAC conversion is nearly instantaneous. Some settling time is required
+due to capacitance and inductance in the circuit. No iteration or
+convergence is needed. However, resistor tolerance is a limitation.
+The higher $N$ of the DAC, the more precise the resistors must be.
+
+In place of a resistor ladder, a $2^N$-to-1 mux can be used to select
+one voltage level instead.
