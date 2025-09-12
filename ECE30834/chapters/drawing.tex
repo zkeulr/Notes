@@ -1,0 +1,19 @@
+\section{Drawing}
+
+Drawing more complex shapes just requires connecting
+vectors together and displaying them on screen. We can
+translate them, rotate vectors, and shift the camera.
+
+\subsection{Triangles}
+
+In computer graphics, everything is made of triangles.
+A \emph{shared-vertex triangle mesh} is a bunch of triangles
+who can have the same vertices that forms some shape. A
+triangle is fully specified with a triple of unsigned ints
+that specify which indices in the array of vertices belong
+to that triangle. For instance, with a cube made of 8 vectors,
+each triangle needs only specify which three of the vectors
+that form the vertices it has.
+
+Once we have the ability to draw triangles, it would be
+useful to be able to draw points and wire frames.
