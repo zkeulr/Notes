@@ -39,3 +39,54 @@ as in Figure \ref{fig:saradc}.
     \caption{SAR ADC}
     \label{fig:saradc}
 \end{figure}
+
+\emph{Jitter} is small rapid variations in a waveform resulting from
+fluctuations in the voltage supply or mechanical vibrations or other
+sources. Jitter is noise from the surroundings, from the microcontroller,
+and from the ADC itself. One of the most reliable ways of defeating noise
+is taking more samples than needed and averaging them out.
+
+One type of this averaging out is called "moving window" sampling, so named
+because one averages $N$ samples in a small section (window) of a signal,
+then moves the window by one and repeats the process.
+
+\begin{lstlisting}
+    #define HISTSIZE 128
+
+    int his1[HISTSIZE] = { 0 };
+    int sum1 = 0;
+    int pos1 = 0;
+    
+    int his2[HISTSIZE] = { 0 };
+    int sum2 = 0;
+    int pos2 = 0;
+
+    ... 
+
+    reading = ADC1->DR;
+    sum1 -= hist1[pos1];
+    sum1 += hist1[pos1] = reading;
+    pos1 = (pos1 + 1) % HISTSIZE;
+    val = sum1/HISTSIZE;
+    sprintf(line, "%2.3f", val * 3 / 4095.0);
+    display1(line);
+
+    ADC1->CHSELR = 0;
+    ADC1->CHSELR |= 1 << 5;
+    while(!(ADC1->ISR & ADC_ISR_ADRDY));
+    ADC1->CR |= ADC_CR_ADSTART;
+    while(!(ADC1->ISR & ADC_ISR_EOC));
+
+    reading = ADC1->DR;
+    sum2 -= hist2[pos2];
+    sum2 += hist2[pos2] = reading;
+    pos2 = (pos2 + 1) & (HISTSIZE - 1);
+    val = sum2 >> 7;
+    // division is painfully slow
+    // if HISTSIZE is a power of 2
+    // replace divisions with a 
+    // bitwise AND operation and 
+    // right shift
+    sprintf(line, "%2.3f", val * 3 / 4095.0);
+    display2(line);
+\end{lstlisting}
