@@ -134,3 +134,11 @@ of the network.
 Any network can be abstracted as a connection of links, end hosts, and routers.
 We can thus represent any computer network as a graph, in the mathematical
 sense, and apply all our graph algorithms to it.
+
+A communication link can either be \emph{full} or \emph{half} duplex.
+In a half duplex, a link can carry data in only one direction at a time.
+In a full duplex, data transmission is bidirectional.
+\marginnote{In this class, all links are assumed to be full duplex
+    unless otherwise stated. }
+If a link bandwidth is $B$, then a full-duplex link can carry $B$
+in both directions simultaneously.
