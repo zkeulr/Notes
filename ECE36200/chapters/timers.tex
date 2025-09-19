@@ -61,3 +61,56 @@ interval $s$ of 10ms. What must the reload value $R$ be?
       & = 799999
 \end{align}
 
+Timers can do far more than just triggering interrupts.
+They can also
+\begin{itemize}
+    \item Capture external events
+    \item Drive certain peripherals like GPIO
+    \item Output precisely timed signals
+\end{itemize}
+In output mode, hardware constantly compares the
+counter with a value stored in the \emph{compare and capture register}
+(CCR), as in figure
+\ref{fig:outputmodetimer}.
+
+\begin{figure}
+    \includegraphics{images/outputmodetimer.png}
+    \caption{Timer Output Mode}
+    \label{fig:outputmodetimer}
+\end{figure}
+
+In general purposes timers, you can count down, up, or up and
+down.
+
+The output mode determines what happens when the CCR and counter
+are equal. One output mode is active high. When the
+timer value equals the CCR, then the timer output is set to high
+and stays there. Another output mode is toggle, where the
+output switches whenever the timer reaches the CCR value.
+
+\emph{Pulse width modulation} (PWM) is a convenient way to
+generate variable duty cycles. You just toggle the output
+each time it reaches a given value of the CCR.
+\begin{equation}
+    \text{Duty Cycle} = \frac{\text{CCR}}{\text{ARR} + 1}
+\end{equation}
+\begin{equation}
+    \text{Period} = (1 + \text{ARR}) \times \text{Clock Period}
+\end{equation}
+PWM outputs a digital waveform (i.e. either 0 or 1),
+with a specific frequency and duty cycle.
+
+We'd like to be able to have a DAC with a strong drive
+strength like we have with GPIO.
+We don't just want on/off states. We want multiple voltage levels.
+Consider a square wave with a varying duty cycle:
+We average the area under the curve.
+The duty cycle of the wave is then the analog level.
+We can average using a low-pass filter.
+As long as the wave frequency is much higher than
+the signal we want to model, no one will notice
+the averaging. We can accomplish averaging with low-pass filters.
+Each timer has a PWM mode where the output starts high, and goes low
+when CNT == CCRx. The higher the duty cycle, the higher the average.
+If the pulse frequency is much higher than that of the
+desired signal, the noise will be imperceptible.
