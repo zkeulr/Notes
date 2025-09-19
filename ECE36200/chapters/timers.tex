@@ -51,6 +51,11 @@ When the counter hits zero, \texttt{COUNTFLAG} is set to 1.
 The choice of clock input can vary, as most MCUs have multiple.
 The clock input is ANDed with a flag to enable and disable.
 
+For a timer, the desired interval $T$ is
+\begin{equation}
+    T = \frac{(\text{Prescalar} + 1) \times (\text{Reload} + 1)}{f}
+\end{equation}
+
 Let's do an example. Suppose the clock tick frequency $f$ is
 80MHz and the goal is a systick
 interval $s$ of 10ms. What must the reload value $R$ be?

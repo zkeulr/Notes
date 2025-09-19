@@ -115,7 +115,30 @@ There are different delays when packet routing:
           processing speed, nature of processing, etc.
 \end{itemize}
 
-The total delay for a single packet is
+The total delay for a single packet going over 2 hops in a
+store-and-forward packet-switched network is
 \begin{equation}
     2(TD + PD) + QD + PrD
 \end{equation}
+
+For $M$ hops ($M-1$ routers) the end-to-end delay is
+\begin{equation}
+    M (TD + PD) + (M - 1) (QD + PrD)
+\end{equation}
+
+For a store-and-forward model with $N$ packets over 1 hop,
+the time from 1st bit leaving A to last bit of last packet
+reaching B is
+\begin{equation}
+    N\times TD + PD
+\end{equation}
+
+For a store-and-forward model sending $N$ packets over $M$
+hops, the total end-to-end delay is
+\begin{equation}
+    M \times (TD + PD) + (M-1) \times (QD + PrD) + (N-1) \times TD
+\end{equation}
+
+Queuing occurs at the router when the packet arrival rate
+exceeds the packet drain rate.
+
