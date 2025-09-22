@@ -1,0 +1,143 @@
+\section{OSI Model}
+
+The Open Systems Interconnection (OSI) model describes
+communications from the physical implementation of
+transmitting bits across a transmission medium to the
+highest-level representation of data of a distributed
+application. Each layer has well-defined functions and
+semantics and serves a class of functionality to the
+layer above it and is served by the layer below it.
+
+\subsection{Physical}
+
+The realm of electrical and computer engineers.
+Deals with converting between digital and analog signals or
+electrical and optical signals. Beyond the purview of
+this course.
+
+\subsection{Data Link}
+The data link layer runs on top of the physical layer.
+It transfers data between nodes on a network segment
+across the physical layer. Whereas the internet as a whole
+runs on a global standard (IP) to allow subnetworks to
+communicate, the data link layer allows autonomy
+within each local area network (LAN).
+Each LAN can run its own network
+protocol for communication within LAN,
+e.g., Ethernet, Wi-Fi, 5G, CSMA, Sonet, etc.
+The data link layers handles addressing,
+destination discovery, forwarding, and routing within
+a local network. We will study data link layer mechanisms in the
+context of the most popular data link layer protocol
+called “Ethernet”
+Ethernet is an example of a wired data link layer protocol,
+i.e., nodes are connected using physical cables
+\marginnote{
+    Another very popular data link layer protocol is Wi-Fi,
+    which is an example of a wireless data link layer protocol.
+    Wi-Fi is not covered in this class}
+
+\paragraph{MAC Addresses}
+
+All network devices are connected to the network via a
+“Network Interface” or “Port”. A network interface can be
+“physical” (wired or wireless), such as an actual connection
+on a server in some closet, or it can be “virtual”, i.e., a
+piece of software emulating a network interface.
+Each network interface, physical or virtual, has a Media Access
+Control (MAC) address. MAC addresses are 48 bits or 6 bytes long and
+typically represented in hexadecimal format, e.g., \texttt{ab:00:05:2c:e4:34}.
+MAC address of each interface within a given network must be unique,
+but MAC addresses are not necessarily globally unique.
+
+There are three ways to transmit information from a sender to a
+recipient:
+\begin{itemize}
+    \item Unicast: one-to-one transmission
+    \item Multicast: many-to-many transmission
+    \item Broadcast: one-to-all transmission
+\end{itemize}
+
+Naive implementations of
+broadcast might have the sender send its packet to every of the
+$N-1$ hosts in the network, but a more efficient implementation
+is to send the packet to the router and have it send it out
+to everyone else.
+A special destination MAC address of \texttt{ff:ff:ff:ff:ff:ff} is used
+to indicate a broadcast packet.
+
+To see the list of interfaces on your computer, run the following
+command in the terminal: \texttt{ifconfig} (mac/Linux) or
+\texttt{ipconfig} (Windows).
+
+In Ethernet, the Ethernet data (payload) and header is carried in an “Ethernet Frame”.
+The structure of an Ethernet frame is as follows:
+All Ethernet packets start with a “Preamble” - 7 bytes of alternating 1s and 0s
+used for clock synchronization between sender and receiver.
+This is followed by the Start Frame Delimiter (SFD), the one byte
+\texttt{10101011}, then the destination MAX address, 6 bytes, and
+then the source MAC address, 6 bytes. These are followed by the
+Ethernet type, 2 bytes, which specifies the protocol carried in
+the payload of the packet (e.g. IP), and finally the data itself.
+The data has a minimum size of 46 bytes and a maximum size specified
+by the Maximum Transmission Unit (MTU), which is configurable.
+Everything is capped off with a Frame Check Sequence (FCS) of
+four bytes, used for bit error correction and detection, and an
+Inter Packet Gap (IPG), which is minimum 12 bytes of all 0s.
+
+\paragraph{ARP}
+
+The Address Resolution Protocol (ARP) is used to get the MAC
+address of a destination host
+within the same local network as the source host. It
+assumes you know the IP address of the destination host.
+Each host maintains a local table called ARP table
+which stores a mapping between an IP address and MAC address.
+Run \texttt{arp -a} on mac/Linux to view the table,
+If the entry is found in the table, done!
+Else run ARP to get the MAC address.
+
+The ARP protocol has three stages. Say a host needs the MAC address
+of some machine that it has the IP address of. The host broadcasts
+an Ethernet frame with an ARP request. The structure of an ARP request
+is as follows:
+\begin{enumerate}
+    \item Hardware type
+    \item Protocol type
+    \item Hardware size
+    \item Protocol size
+    \item Opcode
+    \item Sender MAC
+    \item Target MAC (all 0s)
+    \item Target IP
+\end{enumerate}
+
+Everyone on a local network gets the
+request. If the target IP matches the host
+IP, it sends an ARP reply packet.
+
+The structure of an ARP reply is
+\begin{enumerate}
+    \item Hardware type
+    \item Protocol type
+    \item Hardware size
+    \item Protocol size
+    \item Opcode
+    \item Sender MAC
+    \item Sender IP
+    \item Target MAC
+    \item Target IP
+\end{enumerate}
+
+On getting the ARP reply packet back,
+the originating host updates its ARP
+table with a new mapping from the target
+IP address to target MAC address.
+
+\subsection{Network}
+
+\subsection{Transport}
+
+\subsection{Application}
+
+

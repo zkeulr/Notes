@@ -11,7 +11,6 @@ This repository contains lecture notes for several classes at Purdue University.
 - [ECE 29595PD](ECE29595PD/ECE29595PDnotes.pdf) - Digital System Design (Honors)
 - [ECE 30100](ECE30100/ECE30100.pdf) - Signals and Systems
 - [ECE 30200](ECE30200/ECE30200.pdf) - Probabilistic Methods in Electrical and Computer Engineering
-- [ECE 30834](ECE30834/ECE30834.pdf) - Fundamentals of Computer Graphics
 - [ECE 36200](ECE36200/ECE36200.pdf) - Microprocessor Systems And Interfacing
 - [ECE 36800](ECE36800/ECE36800.pdf) - Data Structures and Algorithms
 - [ECE 36900](ECE36900/ECE36900.pdf) - Discrete Mathematics for Computer Engineers
