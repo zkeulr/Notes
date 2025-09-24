@@ -134,6 +134,92 @@ the originating host updates its ARP
 table with a new mapping from the target
 IP address to target MAC address.
 
+There are two ways of connecting nodes.
+\begin{itemize}
+    \item Shared medium: All nodes connected via single common medium,
+          such as a wire or space itself in the case of wireless transmissions.
+          Each packet sent over the shared medium is received by each host.
+          On receiving a packet, a host checks destination MAC address
+          and discards if it does not match host's MAC address
+    \item Point-to-Point: Dedicated pairwise connections.
+\end{itemize}
+
+An issue with shared medium is that there can be collisions.
+The solutions are somewhat technology-dependent, so
+we will discuss the solution in the context of
+Broadcast Ethernet where the shared medium is a wire.
+
+There are two classes of techniques:
+\begin{itemize}
+    \item Reservation, including frequency division multiple access (FDMA) and
+          time division multiple access (TDMA)
+    \item On-demand, including random access
+\end{itemize}
+
+In FDMA, we divide the medium into frequencies.
+Each source is assigned a subset of frequencies and
+sends on its assigned frequency. With TDMA, divide time
+into time slots. Each source is assigned a subset of time slots and
+sends on its assigned time slot. The benefit of these
+strategies is that we avoid collision.
+However, if source is idle, then its frequency/time slot is wasted.
+In FDMA, noise interference may cause disruption
+In TDMA, if source has data to send, can't send immediately,
+wait for its slot. TDMA also requires clocks of all hosts to be
+synchronized.
+
+With random access, when a source has a packet to send,
+it sends it out. Unfortunately this leads to corruption
+when two packets collide. T
+
+here are methods to detect mitigate
+corruption. One is to have the sender keep listening to
+the medium while transmitting. If sender senses collision
+(e.g., excess current on the wire), it aborts transmission
+and broadcasts a “Jam” signal. A Jam signal is a random
+32-bit signal that ensures that all receiving nodes fail
+CRC checksum and discard the frame. The sender then
+waits for a random time and resends to avoid instantly
+colliding again.
+
+Another method to mitigate corruption is
+Carrier Sense Multiple Access (CSMA). In CSMA, the sender
+listens to the shared medium before transmitting.
+If idle, it starts transmitting. If busy, it waits.
+This does not eliminate collision because of non-zero
+signal propagation delay.
+
+Together this collision detection and CSMA are called CSMA/CD.
+CSMA listens to the medium and waits for it to be idle before
+transmitting. CD sends a Jam signal if a collision is detected.
+For re-transmission, most implementations use random
+exponential backoff.
+After a packet collision, sender tries to re-transmit
+packet after a wait time. After $k$ collisions for a packet,
+choose wait time randomly from $\{0,...,2^k - 1\}$ time slots.
+$k$ resets to 0 after a packet transmission succeeds. This
+gives exponentially increasing wait time with each attempt, but
+also exponentially larger success probability with each attempt.
+
+CSMA/CD does not scale to large number of hosts.
+It gets a higher collision rate, wastes more bandwidth
+re-transmitting the same packets, and has high and unpredictable
+delay due to variable back-off times.
+In practice, shared LANs don't have more than 1000 hosts
+Another issue is that CSMA/CD assumes hosts send packets intermittently.
+If everyone is sending steadily at all times there will be
+more collisions. In addition, for CD to work, the sender must be
+able to detect collision (if it
+happens) before it is finished transmitting the entire packet.
+If that's not true then the sender might have sent out multiple
+packets before receiving the Jam signal. On re-transmit,
+some receivers might receive duplicate packets. This
+imposes a constraint on the
+minimum packet size or maximum network length.
+At high bandwidth, CSMA/CD requires either
+large min packet size (wasted bandwidth when less data to send!)
+or small network length.
+
 \subsection{Network}
 
 \subsection{Transport}
