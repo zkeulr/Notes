@@ -220,6 +220,114 @@ At high bandwidth, CSMA/CD requires either
 large min packet size (wasted bandwidth when less data to send!)
 or small network length.
 
+So how do we overcome the scalability issue?
+With a point-to-point forwarding device, as in Figure
+\ref{fig:forwardingdevice}.
+\begin{figure}
+    \includegraphics{images/forwarding-device.png}
+    \caption{Forwarding Device}
+    \label{fig:forwardingdevice}
+\end{figure}
+A point-to-point forwarding device
+typically comprises multiple ports (or network interfaces).
+Each port connects to a single host or multiple hosts sharing a
+medium or some other forwarding device, using point-to-point links.
+It forwards packets received on one port out on some other port.
+
+There are three layers for forwarding devices, although a given
+device can function at multiple layers:
+\begin{itemize}
+    \item Layer 1: operates at Physical layer, i.e.,
+          forwards using physical layer
+          packet header fields. Example: a Hub
+    \item Layer 2: operates at Data Link layer, i.e.,
+          forwards using Data Link layer
+          packet header fields (e.g., using destination MAC address).
+          Example: a bridge or switch.
+    \item operates at Network layer, i.e., forwards using Network layer
+          packet header fields (e.g., using destination IP address).
+          Example: a router.
+\end{itemize}
+
+\paragraph{Layer 1} A layer 1 device, the hub, is the simplest possible
+forwarding device. It broadcasts frame received on a given port to all
+other ports except the port the frame was received on.
+Physical layer headers contain no address information, so broadcast is
+the only option. Typically a hub connects multiple Broadcast Ethernet segments.
+and helps extend Broadcast Ethernet to larger distance
+by providing signal amplification and signal re-generation. Nobody really uses
+hubs these days because they just create bigger Ethernet segments,
+which still have collisions.
+
+\paragraph{Layer 2} The simplest layer 2 device is a bridge. It understands
+MAC addresses and creates two half-duplex point-to-point connections
+between its two ports. A generalized version of the bridge, the switch,
+is the most commonly used device. A switch is a multi-port bridge, i.e.,
+has $N > 2$ ports. It creates $N$ half-duplex point-to-point connections
+(a \emph{matching}) between input and output ports using a crossbar,
+which is just a bunch of wires going between input and output ports.
+A matching is a bipartite graph
+where every edge has a unique endpoint.
+
+An algorithm
+called iSLIP decides the matching configuration.
+iSLIP looks at the current \emph{demand}, i.e., for each input packet
+what is the output port.
+iSLIP then configures the crossbar to create the matching that satisfies
+the most demands.
+It repeats the above two steps iteratively till all demands are satisfied.
+
+Ethernet running inside a switch is called “Switched Ethernet”.
+Modern Ethernet LANs run Switched Ethernet
+instead of Broadcast Ethernet.
+
+In switched ethernet, each switch maintains a “Forwarding Table”
+Which keeps track of which hosts are reachable via each output port.
+For the network in Figure \ref{fig:switchedethernetnetwork}, the
+forwarding table is given by the table below.
+\begin{figure}
+    \includegraphics{images/switchedethernetnetwork.png}
+    \caption{Switched Ethernet Network}
+    \label{fig:switchedethernetnetwork}
+\end{figure}
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{|c|c|}
+        \hline
+        \textbf{Destination MAC Address} & \textbf{Output Port} \\ \hline
+        A.mac                            & 1                    \\ \hline
+        B.mac                            & 1                    \\ \hline
+        C.mac                            & 1                    \\ \hline
+        D.mac                            & 2                    \\ \hline
+        E.mac                            & 2                    \\ \hline
+        F.mac                            & 2                    \\ \hline
+        G.mac                            & 3                    \\ \hline
+    \end{tabular}
+\end{table}
+
+To populate the forwarding table, use the following algorithm.
+When a switch receives a frame on port p, it checks the source
+MAC address in the frame. Let it be $s$.
+The switch learns that host with MAC address $s$ is reachable via port $p$,
+so it adds the entry $<s, p>$ to its forwarding table.
+If a switch never receives a frame sourced from a host, it
+will never learn which port the host is reachable on.
+
+The way MAC forwarding works is that, upon receiving a frame with destination
+MAC $d$ and if \texttt{d = ff:ff:ff:ff:ff:ff}, copy and send frame on every
+port except the port on which the frame was received on. This is a broadcast.
+If $d$ is not \texttt{ff:ff:ff:ff:ff:ff}, then check the forwarding table
+for an entry $<d, p>$. If entry $<d, p>$ exists, then if $p$ is same as the
+port on which frame was received, then drop the frame. Otherwise send frame
+out on port $p$. Else if no entry corresponding to $d$ exists, the switch
+copies and sends frame on every port except the port on
+which the frame was received on, again a broadcast. If there is a loop
+in the network graph, then a broadcast packet can cause infinite loops
+and consume all resources in a broadcast storm. The way to avoid this
+is to structure networks as spanning trees with no loops. Doing this
+in a distributed way is extremely complex.
+
 \subsection{Network}
 
 \subsection{Transport}
