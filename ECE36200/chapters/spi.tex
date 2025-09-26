@@ -1,0 +1,103 @@
+\section{Serial Peripheral Interface}
+
+MCUs often need to communicate with
+another MCU or peripheral, on the
+same board or across boards. Parallel
+interfaces can send and receive multiple
+bits at the same time. Serial interfaces,
+however, send and receive one bit at
+a time.
+
+It may seem like parallel is the obvious
+choice, but of course we wouldn't
+introduce serial interfaces if they didn't
+have some advantages. Parallel interfaces
+require more pins, wires and larger
+PCB footprint. Wires next to one another
+leads to crosstalk, electromagnetic
+interference.
+\marginnote{Cross-talk can be mitigated
+    with twisted wires, but not eliminated}
+In practice systems tend to use serial
+interfaces. Since such interfaces send
+and receive only one bit at a time,
+there can either be one wire for both
+directions or one wire in each direction.
+
+There are two kinds of peripherals,
+\emph{synchronous} and \emph{asynchronous}.
+Synchronous protocols have a clock
+that dictates the send/receive rate.
+Examples include Serial Peripheral Interface
+(SPI) and Inter-Integrated Circuit (I2C).
+Asynchronous protocols have no clock.
+The most famous example of an asynchronous
+protocol is Universal Asynchronous
+Receiver and Transmitter.
+
+SPI is one of the most common serial
+interfaces. It operates in Master/Slave
+mode. There must be at least one master,
+while there can be multiple slaves. The
+master defines the clock and delivers a
+clock signal to each data recipient.
+It operates by shifting in bits each
+clock cycle.
+
+API devices are designated as masters
+or slaves. A master device initiates
+all data transfer operations. It drives
+the clock pin and data pin. It also
+drives slave select pins if slaves are
+selectively enabled. A slave device
+responds to transfer operations. Signals
+are named according to the devices' standpoint.
+E.g. MOSI: master out, slave in is the
+data transmitted by a master device
+and received by a slave device.
+
+What does this look like in practice? Say
+we wish to send \texttt{0xB1}. Each rising
+clock edge latches one bit into the slave.
+First, the master selects the slave by asserting
+the slave select signal. We send 8 bits,
+so there are 8 clock pulses. Finally, one
+each clock pulse, one bit is transferred.
+
+The master-slave terminology is being
+phased out in industry. Updated datasheets
+might refer to SPI pins with terminology such as
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{|c|c|}
+        \hline
+        \textbf{Legacy Pin Name}    & \textbf{Updated Pin Name}                    \\ \hline
+        MOSI (Master Out, Slave In) & SDO (Serial Data Out), TX/TXD (Transmission) \\ \hline
+        MISO (Master In, Slave Out) & SDI (Serial Data In), RX/RXD (Reception)     \\ \hline
+        SCK (Serial Clock)          & SCK (Serial Clock)                           \\ \hline
+        NSS (Negative Slave Select) & CS (Chip Select)                             \\ \hline
+    \end{tabular}
+    \caption{SPI Pin Names}
+    \label{tab:spi_pin_names}
+\end{table}
+
+The API clock doesn't need to be perfectly
+periodic and continuous. As long as it's not
+too fast, it can pause as needed since
+the slave takes the data bits only
+at clock pulses anyway.
+
+SPI supports multiple slaves, which can share
+MOSI, MISO, and clock lines. However,
+each slave needs its own select signal line.
+The slave selected drives the MISO line. No
+more than one slave may be selected at a
+time. SPI also supports more than one
+master. It is an error for multiple master
+devices to assert CS at the same time.
+Some coordination is needed to ensure
+that one master device reads/writes at any time.
+
+SPI is supported by LCD displays,
+OLED displays, SD card interfaces, and
+hundreds of other devices.
