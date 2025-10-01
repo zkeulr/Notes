@@ -391,6 +391,46 @@ receipt of a control packet.
             
 \end{lstlisting}
 
+The protocol must react to failures and link cost changes in
+the network. Switches, including the root, can fail. Links can
+fail or their cost can change.
+Each switch $X$ tracks the status of
+its current next hop $H$ and link
+$X-H$. On detecting failure of $X$ or
+$X-H$, $X$ updates its view to
+$(X, 0, X, X)$.
+Each switch $X$
+periodically sends its view $R, \text{cost}(X, R), X, H)$
+to all its neighbors. This is
+needed for convergence under certain
+failure scenarios and makes STP robust
+to control packet corruption and loss.
+
+The final Spanning Tree Protocol
+operates as follows: Initially,
+each switch proposes itself as the root,
+setting its view to $(X, 0, X, X)$ and
+sending a control packet $(X, 0, X, X)$
+to all neighbors. Upon detecting a failure
+of its next hop ($H$) or the link $X-H$,
+switch $X$ updates its view to $(X, 0, X, X)$
+and advertises this new view to all neighbors.
+Each switch periodically sends its current
+view $(R, \text{cost}(X, R), X, H)$ to all neighbors.
+When receiving a control packet $(R, \text{cost}(Y, R), Y, H)$
+from neighbor $Y$, switch $X$ updates its view according to
+predefined cases (Case 0, 1, and 2). If $X$'s view changes,
+it sends its new view in a control packet to all neighbors.
+Additionally, $X$ checks the next hop of neighbor $Y$ each
+time a control packet is received from $Y$. A link $X-Y$ is
+made "inactive" if and only if the next hop of $X$ is not $Y$
+and the next hop of $Y$ ($H$) is not $X$, at which point $X$
+stops forwarding data packets on that link, removes related
+entries from the forwarding table, and ignores data packets
+received on $X-Y$ for MAC learning and forwarding. The
+algorithm converges when no switch updates its view upon
+receiving a control packet.
+
 \subsection{Network}
 
 \subsection{Transport}
