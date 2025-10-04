@@ -432,6 +432,77 @@ algorithm converges when no switch updates its view upon
 receiving a control packet.
 
 \subsection{Network}
+The network layer runs on top of runs on top of the
+“best-effort” local area delivery service data link
+layer. While the data link layer allows
+information to be relayed within a local
+network, the network layer connects
+different local networks. As with all
+layers, we must solve the problems
+of addressing, destination discovery,
+forwarding, and routing. The problems
+are the same, but the scale is different
+so the solutions must be different.
+The IP address replaces the MAC
+address, IP forwarding replaces MAC
+forwarding, network routing protocols
+(DV, LS, BGP) replace MAC learning
+with STP, and destination discovery
+with DNS replaces ARP.
+
+As the most popular protocol with the
+data link layer is Ethernet, the most
+popular protocol with the network
+layer is \emph{internet protocol}
+(IP).
+
+While the MAC tells the identity
+of the host, the IP address tells
+the location of the host. The MAC
+address of a host does not change
+(in most cases), and so can provide
+host-based services such as allowing
+access to a network service to an
+authorized computer, regardless of
+the location of a computer. IP
+addresses allow reaching distant
+devices. IP address do this by
+constructing a hierarchy so that
+each router only needs to store
+the IP address of the networks
+immediately above and below it
+in the network hierarchy.
+
+STP doesn't work as a routing
+protocol at the network since
+it finds the shortest path to
+the root and not the destinations.
+STP also has higher latency and
+wasted bandwidth. The pros of
+simplicity and quick convergence
+outweigh the cons of higher
+latency and wasted bandwidth
+for small networks, but not for
+large. With network routing
+protocols, each router finds
+the shortest path to each
+destination, and there is no
+root. The pros are better
+latency and better bandwidth
+utilization, but at the cost
+of higher complexity and
+taking longer to converge. The
+pros outweigh the cons for
+large networks.
+
+ARP doesn't work for large networks
+because it requires broadcast
+requests to every host on the
+network. DNS requires dedicated
+infrastructure and extra mechanisms
+for fault tolerance, but doesn't
+require broadcasts, which is
+good for large networks.
 
 \subsection{Transport}
 
