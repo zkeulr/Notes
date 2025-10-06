@@ -92,7 +92,13 @@ address of a destination host
 within the same local network as the source host. It
 assumes you know the IP address of the destination host.
 Each host maintains a local table called ARP table
-which stores a mapping between an IP address and MAC address.
+which stores a mapping between an IP address and MAC address,
+as in Figure \ref{fig:arptable}.
+\begin{figure}
+    \includegraphics{images/arptable.png}
+    \caption{ARP Table}
+    \label{fig:arptable}
+\end{figure}
 Run \texttt{arp -a} on mac/Linux to view the table,
 If the entry is found in the table, done!
 Else run ARP to get the MAC address.

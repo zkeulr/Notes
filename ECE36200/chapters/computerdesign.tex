@@ -30,3 +30,46 @@ applies to electrical engineering, computer engineering,
 and programming. A high-level language like Python is
 an abstraction of C, which is an abstraction of assembly
 language, which is an abstraction of binary machine language.
+\begin{lstlisting}[language=C]
+    // Consider the C statement
+    f = (g + h) - (i + j);
+    // The corresponding 
+    // assembly could be
+    add t0, g, h  // t0 = g + h
+    add t1, i, j  // t1 = j + j
+    sub f, t0, t1 // f = t0 - t1
+    // The corresponding machine 
+    // instruction would be 0s 
+    // and 1s
+\end{lstlisting}
+The assembly code corresponding to a given statement in
+C depends on the device. Devices may run x86, ARM, or RISC-V,
+which are known as \emph{instruction set architectures} (ISAs).
+There are three different types of ISAs:
+\begin{itemize}
+    \item CISC (Complex Instruction Set Computer)
+    \item RISC (Reduced Instruction Set Computer)
+    \item DSPs (Digital Signal Processors)
+\end{itemize}
+In this class we focus on RISC, specifically RISC-V.
+
+The general instruction cycle for what a computer is doing under the
+hood is:
+\begin{enumerate}
+    \item Fetch: retrieve the next instruction from memory.
+    \item Decode: figure out what the instruction needs to do
+          by determining what operations and additional operands
+          are required for execution and sends respective signals
+          to respective components within the CPU, such as the ALU
+          or FPU, to prepare for the execution of the instruction.
+    \item Execute: the stage where the actual operation
+          specified by the instruction is carried out by the relevant
+          functional units of the CPU. Logical or arithmetic operations
+          may be run by the ALU, data may be read from or written to
+          memory, and the results are stored in registers or memory as
+          required by the instruction. Based on output from the ALU,
+          the PC might branch.
+    \item Update PC: point the program counter at the next instruction.
+\end{enumerate}
+All CPUs use a pipeline, which could have as few steps as these four
+steps or as many as twelve.
