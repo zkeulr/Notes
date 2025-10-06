@@ -510,6 +510,98 @@ for fault tolerance, but doesn't
 require broadcasts, which is
 good for large networks.
 
+IP is really the only protocol for the network layer.
+This is in stark contrast to every other layer, which
+have a proliferation. In this class we'll focus on IPv4
+instead of the newer IPv6. In IPv4,
+IP addresses have 32 bits and are
+represented as \texttt{X.X.X.X} where
+\texttt{X} is an 8-bit decimal, e.g.
+\texttt{192.168.3.29}.
+
+Hosts within a subnet share the same
+subnet address prefix. So perhaps
+devices in the same subnet have IP
+addresses \texttt{X.X.X.92},
+\texttt{X.X.X.23}, and \texttt{X.X.X.01}.
+Any hierarchy can be encoded in the IP
+address; perhaps the first $n_0$ bits
+correspond to a given country, the next
+$n_1$ to an internet provider in that
+country, the next $n_2$ to an organization,
+the next $n_3$ to a location, etc.
+
+We use a subnet mask to extract the
+subnet address from the IP address.
+The subnet mask a 32 bit long series
+of 1s followed by a series of 0s.
+For example, \texttt{255.255.240.0}
+is 20 1s followed by 12 0s. The subnet
+address is the bitwise AND of the
+IP address and subnet mask. For the
+previous example, with an IP address
+of \texttt{192.168.3.29} the subnet
+address would be
+\texttt{192.168.3.29 \& 255.255.240.0 = 192.168.0.0}.
+
+Under classful addressing, IP addresses
+are divided into a set of classes.
+Each class has $n$ bits statically
+allocated for a subnet address and the
+remaining $32-n$ bits are for the
+host identifier. Depending on the
+value of $n$, there are three
+popular classes.
+\begin{itemize}
+    \item A: $n=8$, MSB \texttt{0}, 8 subnet bits, 24 host bits, 128 subnets, $2^24$ hosts.
+    \item B: $n=16$, MSB \texttt{10}, 16 subnet bits, 16 host bits, 16K subnets, $2^16$ hosts.
+    \item C: $n=24$, MSB \texttt{110}, 24 subnet bits, 8 host bits, 2M subnets, $2^8$ hosts.
+\end{itemize}
+The issue with classful IP addressing is that the division of bits between subnet
+and host addresses are not flexible. So to support 129 subnets one should need
+only 8 bits for subnet address, but with classful IP addressing, one will need a B
+class address, which uses 16 bits for the subnet address, wasting 8 bits.
+
+The more widely implemented method is called \emph{Classless Inter-Domain Routing}
+(CIDR). CIDR allows a flexible number of bits to be allocated for the subnet
+address. In CIDR notation, a subnet address is represented as \texttt{X.X.X.X/n}.
+The first \texttt{n} bits are allocated for the subnet address, meaning the subnet can
+support $2^{32-n}$ IP addresses. For example, the subnet address \texttt{128.32.0.0/11}
+can support $2^21$ IP addresses in the range \texttt{128.32.0.0} to \texttt{128.63.255.255}.
+
+Hosts have two options for configuring their IP addresses. They can either do it manually
+and pick whatever IP address they want, or they can implement the \emph{Dynamic Host
+    Configuration Protocol} (DHCP) and have an IP automatically assigned to them. The way
+this works is that DHCP typically runs on the router and maintains a pool of allowed
+IP addresses for a network, and when a host connects, the router assigns it an IP
+address.
+
+There are public IP address, used for routing over the internet, and private IP
+addresses, for communication within a private network. Public IP addresses are
+assigned by the Internet Corporation for Assigned Names and Numbers (ICANN).
+ICANN allocates large IP blocks to regional internet registries, e.g. the middle East,
+Europe, central Asia. Each internet registry allocates address blocks to large \emph{internet
+    service providers} (ISPs) within that region. The ISP allocates addresses to individuals
+and smaller institutions. For instance, ICANN allocates some \texttt{X.0.0.0/8} addresses
+to ARIN, which allocates one /8 address to AT\&T, which allocates
+one /16 address to Purdue, which allocates one /24 address to ECE, which gives your
+computer an IP.
+
+Hosts over the internet need a unique public IP address for correct routing, but
+there are only $2^{32} \approx 4000000000$ unique IPv4 addresses. The number of
+modern devices would exhaust this very quickly if not for private IP addressing.
+
+Private IP addresses can be used for communication only within a private network,
+and packets with private IP addresses as destinations are dropped by public internet
+routers. Hosts in different private networks can have the same private IP address,
+which helps with the problem of IPv4 address exhaustion. The reserved private IP
+address ranges are
+\begin{itemize}
+    \item \texttt{10.0.0.0/8} (\texttt{10.0.0.0} to \texttt{10.255.255.255})
+    \item \texttt{172.16.0.0/12} (\texttt{172.16.0.0} to \texttt{172.31.255.255})
+    \item \texttt{192.168.0.0/16} (\texttt{192.168.0.0} to \texttt{192.168.255.255})
+\end{itemize}
+
 \subsection{Transport}
 
 \subsection{Application}
