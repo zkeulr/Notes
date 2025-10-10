@@ -174,3 +174,73 @@ byte at the largest. In \emph{little-endian}, the least
 significant byte is stored at the smallest address,
 like \texttt{0x400, 0x401, 0x402, 0x403}. RISC-V can be
 either, but in this class we'll stick with little-endian.
+\marginnote{The location of the sign bit is
+    always at the MSB for either little or big endian.}
+
+Consider the number \texttt{0xffffffff}.
+The decimal number this represents depends
+on if we interpret it as signed or unsigned.
+If it is a signed integer, it is -1.
+If it is an unsigned integer, it is
+4294967295. Recall for unsigned integers,
+$n$ bits gives $2^n$ combinations. We
+can treat unsigned integers as normal
+binary numbers, so the maximum is
+$2^32 - 1$ and the minimum is 0.
+Signed integers are slightly more
+complex. Because one bit is taken
+as the sign bit, their range is
+$-2^{31}$ to $2^{31 - 1}$. To negate
+a 2's compliment signed number, flip
+all bits and add 1. To load a 16-bit
+representation of a signed number into
+a 32-bit register, replicate the MSB
+into the empty space.
+
+All instructions in RISC-V are just 32 bits.
+Fields of the instructions are kept as
+consistent as possible.
+
+R-type instructions have the
+form in Figure \ref{fig:riscvinstruction}.
+\begin{figure}
+    \includegraphics{images/rtype.png}
+    \caption{R-type Instructions}
+    \label{fig:rtype}
+\end{figure}
+\begin{itemize}
+    \item \texttt{opcode}: partially specifies instruction
+    \item \texttt{funct7 + funct3}: combined with opcode, specifies what operation
+    \item \texttt{rs1}: first operand (source register 1)
+    \item \texttt{rs2}: second operand (source register 2)
+    \item \texttt{rd}: destination register (receives the result of the computation)
+\end{itemize}
+For example, the operation \texttt{x9, x20, x21}
+is \texttt{0x015A04B3}.
+
+I-type instructions are immediate arithmetic
+and load instructions, and have the form given
+in Figure \ref{fig:itype}.
+\begin{figure}
+    \includegraphics{images/itype.png}
+    \caption{I-type Instructions}
+    \label{fig:itype}
+\end{figure}
+\begin{itemize}
+    \item \texttt{rs1}: source or base address register number.
+    \item \texttt{immediate}: constant operand, or offset added to base address.
+\end{itemize}
+
+S-type instructions have the form in
+Figure \ref{fig:stype}
+\begin{figure}
+    \includegraphics{images/stype.png}
+    \caption{S-type Instructions}
+    \label{fig:stype}
+\end{figure}
+\begin{itemize}
+    \item \texttt{rs1}: base address register number
+    \item \texttt{rs2}: source operand register number
+    \item \texttt{immediate}: offset added to base address
+\end{itemize}
+
