@@ -602,6 +602,81 @@ address ranges are
     \item \texttt{192.168.0.0/16} (\texttt{192.168.0.0} to \texttt{192.168.255.255})
 \end{itemize}
 
+Network Address Translation (NAT)
+enables hosts on private networks to
+communicate with hosts on the Internet.
+A NAT device sits at the boundary of a private network and the
+public Internet (typically implemented inside a gateway router)
+and manages a pool of public IP addresses allocated to the
+private network.
+When a host from the private network wants to send an IP packet
+to a host in public Internet, NAT picks a public IP from the pool and
+re-writes the (private) source IP in the packet with public IP.
+It also stores the private IP to public IP mapping in a table to re-
+translate the (public) destination IP of an incoming reply packet
+from the Internet with the corresponding private IP.
+On its own, this doesn't help with the problem of IP address exhaustion.
+Ideally, NAT should share a small number of public IPs
+between a large number of private hosts. This is done with IP
+masquerading.
+\marginnote{
+    IP masquerading is also called Network Address and Port
+    Translation (NAPT) or Port Address Translation (PAT).
+}
+With IP masquerading, a single public IP is mapped to multiple
+hosts in a private network.
+Hosts mapped to the same public IP are assigned different
+port numbers to distinguish them from one another.
+A port number is 16 bits, meaning one can support $2^16$ hosts
+using a single public IP address.
+
+This comes with a cost. NAT destroys universal end-to-end
+reachability of hosts on the Internet. A host on public
+Internet cannot initiate direct communication to a
+host with a private IP address. Applications that carry IP
+address in the payload of the application data
+(e.g., HTTP) generally do not work across a private-public
+network boundary.
+\marginnote{
+    Some NAT devices inspect the payload of widely used application layer
+    protocols, and if an IP address is detected, they do the translation.
+}
+
+An IP packet, also called an IP datagram, is the fundamental unit of data exchanged at the network layer. Each packet consists of a header and a payload. The header contains all necessary information for routing and delivery, while the payload carries the data from the transport layer (e.g., TCP or UDP segment).
+
+The structure of an IPv4 packet is as follows:
+
+\begin{itemize}
+    \item \textbf{Version (4 bits)}: Specifies the IP version. For IPv4, this value is \texttt{4}.
+    \item \textbf{Header Length (4 bits)}: Specifies the length of the header in 32-bit words. The minimum value is \texttt{5}, corresponding to 20 bytes.
+    \item \textbf{Type of Service (8 bits)}: Indicates the priority and quality of service desired for the packet, such as low delay or high reliability.
+    \item \textbf{Total Length (16 bits)}: The total size of the IP packet in bytes, including both header and payload. The maximum value is \texttt{65535}.
+    \item \textbf{Identification (16 bits)}: A unique identifier assigned to each packet so fragments of the same packet can be reassembled.
+    \item \textbf{Flags (3 bits)}: Controls or identifies fragments. The most important flag is the "More Fragments" bit, which is set if more fragments follow.
+    \item \textbf{Fragment Offset (13 bits)}: Indicates the position of the fragment relative to the start of the original packet.
+    \item \textbf{Time to Live (TTL) (8 bits)}: The maximum number of hops (routers) the packet can traverse before being discarded. Each router decrements the TTL by one; if it reaches zero, the packet is dropped.
+    \item \textbf{Protocol (8 bits)}: Specifies the protocol carried in the payload, such as \texttt{6} for TCP or \texttt{17} for UDP.
+    \item \textbf{Header Checksum (16 bits)}: Used for error detection on the header only. Each router verifies and recomputes it.
+    \item \textbf{Source IP Address (32 bits)}: The IP address of the originating host.
+    \item \textbf{Destination IP Address (32 bits)}: The IP address of the intended recipient.
+    \item \textbf{Options (variable length)}: Optional field used for features such as record route, timestamp, or security.
+    \item \textbf{Padding (variable length)}: Added to ensure the header length is a multiple of 32 bits.
+    \item \textbf{Data (variable length)}: The payload, usually a transport-layer segment such as TCP or UDP data.
+\end{itemize}
+
+A typical IPv4 header without options is 20 bytes long.
+The payload size depends on the Maximum Transmission Unit
+(MTU) of the underlying data link layer. If an IP packet
+is larger than the MTU, it is divided into smaller fragments.
+Each fragment is then reassembled by the destination host
+using the Identification, Flags, and Fragment Offset fields.
+
+IP provides a best-effort delivery service, meaning it does
+not guarantee reliability, ordering, or data integrity beyond
+basic error detection on the header. These functions are
+handled by higher-layer protocols such as TCP in the transport layer.
+
+% put LPM here
 \subsection{Transport}
 
 \subsection{Application}
