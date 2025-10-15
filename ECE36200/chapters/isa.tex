@@ -244,3 +244,74 @@ Figure \ref{fig:stype}
     \item \texttt{immediate}: offset added to base address
 \end{itemize}
 
+What separates a computer from a calculator is its ability
+to take different actions based on a comparison, e.g. \texttt{if ... else}.
+
+In RISC-V, two conditional branch instructions are
+\begin{itemize}
+    \item \texttt{beq}: compare two values and branch if equal. What
+          happens behind the scenes is that the instruction
+          reads the values in the registers and if they are
+          equal, jumps program to label
+    \item \texttt{bne}: compare and branch if not equal.
+\end{itemize}
+In both cases, if the comparison is not
+true, the program goes to the next instruction.
+
+\begin{lstlisting}[language=C, caption={Conditional Example}]
+    // The below assembly is 
+    // equivalent to the snippet
+    // if (i == j) f = g + h; else f = g - h;
+    // in C, if f, g, h, i, j
+    // are stored in x19-x23
+
+    bne x22, x23, Else      // go to Else if i != j
+    add x19, x20, x12       // f  g + h (skip if i!= j)
+    beq x0, x0, Exit        // if 0 == 0, go to Exit
+    Else: sub x19, x20, x21 // f = g - h (skip if i == j)
+    Exit:
+\end{lstlisting}
+
+\begin{lstlisting}[language=C, caption={Loop Example}]
+    // The below assembly is 
+    // equivalent to the snippet
+    // while (save[i] == k)
+    //   i += 1;
+    // in C
+
+    // a0 = i
+    // a1 = k
+    // s1 = base address of 'save'
+
+    // Basic block 1
+    loop: slli t0, a0, 2 // tmp reg t0 = i * 4
+          add t0, t0, s1 // t0 = address save[i]
+          lw t2, 0(t0)   // tmp reg t2 = save[i]
+    // Basic block 2
+          bne t2, a1, exit
+          addi a0, a0, 1
+    // Basic block 3
+          beq x0, x0, loop
+    exit:
+\end{lstlisting}
+
+A \emph{basic block} is a sequence of
+code without a branch or a target,
+except at the beginning or end.
+
+Testing for equality is simple and
+intuitive. We want to test other
+stuff too, like greater than, less than,
+greater than or equal to, or
+less than or equal to. In RISC-V,
+the available instructions are
+\begin{itemize}
+    \item \texttt{beq}: branch equal
+    \item \texttt{bge}: branch greater than or equal
+    \item \texttt{bgeu}: unsigned of the above
+    \item \texttt{blt}: branch less than
+    \item \texttt{bgtu}: unsigned of the above
+    \item \texttt{bne}: branch not equal
+\end{itemize}
+The remaining cases can be constructed
+from the provided instructions.
