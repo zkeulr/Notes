@@ -676,7 +676,41 @@ not guarantee reliability, ordering, or data integrity beyond
 basic error detection on the header. These functions are
 handled by higher-layer protocols such as TCP in the transport layer.
 
-% put LPM here
+Network routing protocols are used to populate the routing tables.
+They calculate the best path from each router to all other routers/
+hosts, unlike STP which calculates the best path from each switch
+to a root switch.
+
+Networking routing protocols come in two flavors: \emph{distributed path}
+computation and \emph{distributed topology} computation.
+
+Distributed path computation is similar to STP in that each router computes paths
+using a distributed algorithm, oblivious of network topology. The distance vector (DV)
+and border gateway (BG) algorithms fall into this category.
+
+Distributed topology computer is when routers use a distributed algorithm to learn the
+entire network graph. Each router runs a local path computation algorithm on the learned
+graph. This category includes link state (LS).
+
+The distance vector algorithm is a distributed version of the Bellman-Ford algorithm that
+calculates the least cost path from each router to all the $n$ routers and hosts.
+Each router maintains a vector of views of its least cost path to all other routers and
+hosts. It shares its vector with all its neighbor routers and updates the vector and
+receiving vectors from its neighbors.
+The most popular distance vector implementation is the \emph{routing information protocol}
+(RIP).
+
+DV does not prevent loops under all scenarios. We mitigate this with
+split horizon, which dictates that if a router gets a vector that states
+the next hop to a destination is itself, to drop the vector. This prevents
+loops involving two routers, but cannot prevent loops of three or more.
+To detect and remove all loops, set the \emph{max infinity counter} to
+some value larger than the largest path cost in the network. When the cost
+to a destination reaches or exceeds infinity, the router detects count-to-infinity.
+On detection, the router removes the destination entry from its routing
+table or sets the next hop for the entry to NULL. This is used alongside
+split horizon, which tries to prevent loops.
+
 \subsection{Transport}
 
 \subsection{Application}
