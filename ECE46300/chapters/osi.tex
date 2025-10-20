@@ -688,10 +688,6 @@ Distributed path computation is similar to STP in that each router computes path
 using a distributed algorithm, oblivious of network topology. The distance vector (DV)
 and border gateway (BG) algorithms fall into this category.
 
-Distributed topology computer is when routers use a distributed algorithm to learn the
-entire network graph. Each router runs a local path computation algorithm on the learned
-graph. This category includes link state (LS).
-
 The distance vector algorithm is a distributed version of the Bellman-Ford algorithm that
 calculates the least cost path from each router to all the $n$ routers and hosts.
 Each router maintains a vector of views of its least cost path to all other routers and
@@ -710,6 +706,61 @@ to a destination reaches or exceeds infinity, the router detects count-to-infini
 On detection, the router removes the destination entry from its routing
 table or sets the next hop for the entry to NULL. This is used alongside
 split horizon, which tries to prevent loops.
+
+Distributed topology computer is when routers use a distributed algorithm to learn the
+entire network graph. Each router runs a local path computation algorithm on the learned
+graph. This category includes link state (LS).
+
+In link state, each router runs a distributed algorithm to learn the global
+network graph. It then runs a local computation to find the shortest paths
+and populate its routing table. The most popular link state implementation is
+Open Shortest Path First (OSPF).
+
+Each router $X$ maintains a view of the global network graph $G$. Initially,
+$G$ is empty. For each neighbor $Y$, $X$ adds link $X-Y$ and link cost
+$\text{cost}(X, Y)$ to $G$. $X$ creates a control packet called a link state
+announcement (LSA) and sends it to all neighbors. The LSA contains the list of
+all neighbors of $X$ and the cost to neighbors, i.e. $(Y, \text{cost}(X, y))$.
+On receiving node $Y$'s LSA $(Z, \text{cost}(Y, Z))$ $X$ updates its graph $G$
+by adding or updating link $Y-Z$ and the corresponding link cost. $X$ then
+broadcasts the received LSA on all ports except the port it arrived on.
+Every time $G$ changes, $X$ reruns the route computation algorithm locally.
+It computes the least cost path from itself to all other nodes by using, for
+example, Dijkstra's algorithm.
+
+LSAs are sent when a router learns of a change to a neighbor, like a neighbor
+or link to neighbor failed, a neighbor was added, or a link cost to neighbor
+changed. LSAs are also sent periodically to correct possible corruption of
+previous LSA data or previous LSA packet drops.
+
+LSA comes with a big problem. Suppose $X$ sent an LSA at time $t$ with neighbors
+$\{W, Z\}$. At time $t + 2$, a new link $X-V$ is added and $X$ sends a new LSA
+$\{W, Z, V\}$. At router $Y$, LSA $\{W, Z, V\}$ arrives before $\{W, Z\}$
+because the new link allowed the LSA to be propagated faster. After $\{W, Z\}$
+arrives, $Y$ will conclude that $X$ only has 2 neighbors. This wasn't an
+issue with STP and DV, because control messages were only exchanged between
+directly connected neighbors.
+
+One way to mitigate this could be to include a timestamp with each LSA
+sent, and for $Y$ to ignore LSAs from $X$ whose "sent" timestamp is older than
+any LSA that $Y$ has already received. This is essentially what routers do.
+Each router $X$ maintains a local sequence number $S_x$ and while generating
+an $LSA$, the router includes the current value of $S_x$ in the LSA before
+broadcasting. With each LSA broadcast $X$ increments $S_x$ by 1. Each
+router also maintains a list of the highest sequence number that it has
+received from each of the other routers. This prevents loops in all scenarios,
+although there can be transient loops. While LS has not converged, loops
+can still be formed. To handle these transient loops each IP packet contains
+an 8-bit \emph{time-to-live} (TTL) field in the header. The sending host
+initializes the TTL with some value. TTL is decremented by one by the
+router at each hop. When TTL reaches 0, the packet is dropped by the
+router. TTL is not a substitute for routing protocols because it does not
+prevent packets from getting in a loop, only reduces the amount of time
+a packet spends in a loop.
+
+The key difference between DV and LS is that DV advertises your paths to
+everyone to your neighbors, while LS advertises your paths to neighbors
+to everyone.
 
 \subsection{Transport}
 
