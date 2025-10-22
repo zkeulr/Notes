@@ -6,6 +6,8 @@ operation are called an \emph{instruction set architecture} (ISA).
 The fundamentals of one flavor of ISA extrapolate to another.
 In this class, we study the fundamental subset of RISC-V that is common to all ISAs.
 
+\subsection{Register Arithmetic}
+
 Recall the example of converting C to assembly.
 \begin{lstlisting}
     f = (g + h) - (i + j);
@@ -315,3 +317,166 @@ the available instructions are
 \end{itemize}
 The remaining cases can be constructed
 from the provided instructions.
+
+\subsection{Procedures}
+Programs more complicated than simple arithmetic need
+support for higher-level programming structures. A
+universal concept in programming is \emph{procedures},
+aka routines, methods, or function calls.
+
+To implement a function call in assembly, we need to be
+able to pass arguments, jump to the function, return from
+the function, put the result somewhere the caller can see
+it, and least obviously, split/fill registers.
+
+Every ISA has a convention for passing parameters to a
+function. Typically, the first $N$ arguments are stored
+in registers. In RISC-V \texttt{x10}-\texttt{x17}
+(alias \texttt{a0}-\texttt{a7}) hold the first 8
+function arguments. That means, before you call any
+function, the code that calls the function puts the
+function arguments in the right order in the registers
+\texttt{x10}-\texttt{x17}.
+
+To get to a function, we need to branch to a labelled address.
+To get back, we need to remember where we came from. Almost
+all ISAs have a special jump-and-link (\texttt{jal}) instruction
+which unconditionally moves to the label and stores the location
+after the jump in a register.
+
+For a complete example of what's needed in RISC-V to call a function,
+see Listing \ref{lst:regargs}.
+\begin{lstlisting}[caption={Arguments in Registers}, label={lst:regargs}]
+    li x10, 5 // 5 is the first argument
+    li a1, 7  // 7 is the second argument (a1 is aliased to x11)
+    // Call foo, put the return address in x1
+    jal x1, foo
+
+    foo:
+        add a0, a0, a1
+        // Return to the caller
+        jalr x0, 0(x1)
+\end{lstlisting}
+
+The temporary registers \texttt{x5}-\texttt{x7} and \texttt{x28}-\texttt{x31},
+aliased as \texttt{t0}-\texttt{t6} don't have to be preserved by the called
+function. However, the saved registers \texttt{x8}-\texttt{x9}, aliased as
+\texttt{s0}-\texttt{s11}, must be preserved by the callee.
+
+A non-leaf function is one that calls other functions. Before it calls
+another function, it must preserve its return address and the arguments
+and temporaries needed after the call on the stack. When the called function
+returns, the calling function must restore the values it had saved to the stack.
+
+\subsection{Stack}
+
+Curious readers may wonder what happens when a function requires more
+than 8 parameters, or, in general, what happens when a program needs
+more registers to store data than are available. All computers have a
+stack data structure to handle copying register value from register to
+memory (spills) and getting the register value back from memory to register
+(fills). The stack pointer register \texttt{sp} points to the memory address
+of the most recently allocated entry of the stack. Pushing moves the stack
+pointer to allocate space, then puts register data on the stack. Popping
+takes data off the stack, puts it in a register, then moves the stack
+pointer to deallocate space.
+
+The stack historically grows down in memory. The stack pointer may start
+at some high address like \texttt{0xffff} and be decreased to put new entries
+on (spilling). Once those entries are moved back into registers (filling), the stack
+pointer increases again. The stack pointer always points to the top of the
+stack.
+
+\subsection{Program Counter}
+The program counter is a fundamental concept. Every computer has
+one. The program counter stores the address of the current instruction in
+the special register \texttt{pc}.
+
+Another special register, \texttt{ra}, holds the return address for
+after a function call completes. When a function is called, the address
+immediately after the current line is pushed into \texttt{ra}. Once the
+function call completes (when the \texttt{jalr} instruction is reached),
+the program counter is set to the value in \texttt{ra} and the program
+resumes execution where it left off. The next time a function call is reached,
+the value in \texttt{ra} is changed to the address of the line right
+after that function call, and so on.
+
+Functions may have local data that also goes on the stack, such as a local array.
+It's useful to know where the frame for each function's data begins.
+Some computers will use the register \texttt{fp} to store this frame pointer.
+
+\subsection{Memory Layout}
+
+The memory in a running program is divided into several regions, each
+serving a specific purpose. The figure below illustrates a typical layout
+in RISC-V systems. The \emph{stack} grows downward from high memory addresses,
+while the \emph{heap} grows upward from low addresses. Between them lies a large
+unused region reserved for future allocations. The \texttt{.text} section
+contains the compiled program instructions, and the \texttt{.data} section
+contains global or static variables.
+
+\begin{center}
+    \begin{tikzpicture}[font=\small]
+        % Memory column
+        \draw[thick] (0,0) rectangle (4,8);
+        \draw[dashed] (0,6) -- (4,6);
+        \draw[dashed] (0,5) -- (4,5);
+        \draw[dashed] (0,3) -- (4,3);
+        \draw[dashed] (0,2) -- (4,2);
+
+        % Labels
+        \node at (2,7.5) {High Addresses};
+        \node at (2,6.5) {Stack (grows down)};
+        \node at (2,5.5) {Heap (grows up)};
+        \node at (2,4) {Unused / Reserved};
+        \node at (2,2.5) {.data Section};
+        \node at (2,1) {.text Section};
+        \node at (2,0.4) {Low Addresses};
+
+        % Arrows showing growth
+        \draw[->, thick] (4.2,6.8) -- (4.2,5.2) node[midway, right]{growth ↓};
+        \draw[->, thick] (4.2,4.8) -- (4.2,6.0) node[midway, right]{growth ↑};
+    \end{tikzpicture}
+\end{center}
+
+\paragraph{The \texttt{.text} Section}
+The \texttt{.text} section of a program holds the compiled machine instructions
+that make up the executable code. This region is typically marked as
+read-only to prevent accidental modification of instructions at runtime.
+
+\paragraph{The \texttt{.data} Section}
+The \texttt{.data} section stores global and static variables that have been
+initialized before the program starts running. Variables declared with
+initial values (like \texttt{int x = 5;}) reside here, while uninitialized
+globals are placed in a separate \texttt{.bss} section.
+
+\subsection{Application Binary Interface}
+
+The Application Binary Interface (ABI) defines how compiled code interacts at
+the binary level. It specifies calling conventions, register usage, stack
+organization, and how data types are represented in memory. The ABI ensures
+that separately compiled modules, such as libraries and user code, can
+work together correctly. In RISC-V, the ABI defines which registers
+hold function arguments and return values, which must be preserved across
+calls, and how the stack frame is structured.
+
+\begin{table}[h]
+    \centering
+    \caption{Register Conventions}
+    \begin{tabular}{|c|c|l|c|}
+        \hline
+        \textbf{Name} & \textbf{Register Number} & \textbf{Usage}                 & \textbf{Preserved on Call?} \\
+        \hline
+        x0            & 0                        & The constant value 0           & n.a.                        \\
+        x1 (ra)       & 1                        & Return address (link register) & yes                         \\
+        x2 (sp)       & 2                        & Stack pointer                  & yes                         \\
+        x3 (gp)       & 3                        & Global pointer                 & yes                         \\
+        x4 (tp)       & 4                        & Thread pointer                 & yes                         \\
+        x5–x7         & 5–7                      & Temporaries                    & no                          \\
+        x8–x9         & 8–9                      & Saved                          & yes                         \\
+        x10–x17       & 10–17                    & Arguments/results              & no                          \\
+        x18–x27       & 18–27                    & Saved                          & yes                         \\
+        x28–x31       & 28–31                    & Temporaries                    & no                          \\
+        \hline
+    \end{tabular}
+\end{table}
