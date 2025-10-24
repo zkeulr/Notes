@@ -838,6 +838,45 @@ The AS provides transit service to all its customer traffic, because that's
 what customers pay for. It does not provide transit service between two
 providers or peers, since these entities are not paying the AS.
 
+eBGP refers to  BGP sessions between gateway (border) routers in
+different ASes, used to learn routes to external destinations.
+iBGP refers to BGP sessions between gateway routers and other
+routers (both gateway and interior) within the same AS, used to
+distribute externally learned routes internally.
+
+IGP, Interior Gateway Protocol, is an intra-domain routing protocol that
+provides internal connectivity.
+
+Basic messages in BGP are
+\begin{itemize}
+    \item Open message: establishes BGP session, relayed on a reliable transport layer like TCP.
+    \item Update message: Advertises new routes or route changes to neighbors and updates
+          neighbors of any old routes that have become inactive.
+    \item Keep-alive message: informs neighbor that BGP session is still active.
+\end{itemize}
+
+Update messages have the format \{Destination IP prefix: Update type | Route attributes\}.
+There are two update types: announcement, which heralds new route or changes to
+existing routes, and withdrawal, which announces the removal of routes which no longer
+exist. Route attributes are used in route selection and advertisement choices. They
+include \texttt{ASPATH}, a vector of ASes a BGP message has traversed, and
+\texttt{LOCAL PREF}, preference value for \texttt{ASPATH}, among others.
+
+In BGP, it's very easy to manipulate route advertisements. Reachability is
+not guaranteed even if a graph is connected. More seriously, there are
+attacks which an AS can perform by manipulating advertisements. An AS can
+advertise an IP prefix that they actually don't have a route to, or
+advertise a more specific IP prefix which, due to longest prefix match,
+all traffic to the sub-prefixes will be redirected. Thus ASes can act as
+black holes causing all traffic to the hijacked prefix to be discarded,
+they can snoop by inspecting traffic to the hijacked prefix, and redirect
+traffic to a hijacked prefix to bogus destinations.
+BGP path advertisements can also be manipulated to show shorter paths
+or more connected ASes. These attacks happen relatively infrequently
+since one needs access to BGP routers to launch most attacks and
+it's easy to detect the culprit. Most BGP mishaps are the result
+of unintentional misconfiguration.
+
 \subsection{Transport}
 
 \subsection{Application}
