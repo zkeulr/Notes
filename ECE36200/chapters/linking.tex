@@ -1,0 +1,27 @@
+\section{Linking}
+
+With a statically linked C program,
+the steps to turn source code into
+machine code are:
+\begin{itemize}
+    \item Compiler turns program into assembly
+    \item Assembler turns assembly into machine language
+    \item Linker includes machine language library routine
+    \item Loader loads complete machine language into memory
+\end{itemize}
+
+The assembler (or compiler) provides information
+for building a complete program from the pieces.
+\begin{itemize}
+    \item Header: describes contents of object module
+    \item Text segment: translated instructions
+    \item Static data segment: data allocated for the life of the program (global vars)
+    \item Relocation info: for contents that depend on absolute location of loaded program
+    \item Symbol table: global definitions and external refs
+    \item Debug info: for associating with source code
+\end{itemize}
+
+Linking object modules, such as the output of an
+assembler, produces an executable image (\texttt{.elf},
+\texttt{*.img}). It merges segments, resolves labels, and
+patches location-dependent and external references.
