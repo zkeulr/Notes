@@ -1,0 +1,103 @@
+\emph{Spanning Tree Protocol}
+
+Luckily, the \emph{Spanning Tree Protocol} (STP) extends MAC learning
+to detect and remove loops from the graph. The task of STP is, given
+a network of switches and end hosts, to create a graph where vertices
+represent switches/hosts and edges represent links, then to remove all
+loops from the graph. The way STP accomplishes this is by, unsurprisingly,
+building a spanning tree, a subgraph that includes all vertices but no
+cycles. In a spanning tree there is exactly one path between vertex pairs,
+which means there will be no loops.
+
+Unfortunately, no single switch has full view of the graph,  so
+we need to build the spanning tree in a distributed manner. In STP,
+switches exchange messages to build the spanning tree. These messages
+are carried in special packets called \emph{control packets}. These
+packets are distinct from normal Ethernet packets and have STP-specific
+info. Control packets in STP are only exchanged between directly connected
+neighbor switches and are never forwarded beyond that. Control packets
+are only used for STP and are not used for MAC learning and forwarding.
+
+STP has three steps:
+\begin{enumerate}
+    \item Pick a root: pick the switch with the smallest MAC address.
+    \item Compute the smallest cost path to the root. For each switch,
+          calculate the smallest cost path to the root. Where there are
+          multiple smallest cost paths to the root, choose the path via
+          neighbor switch with the smaller MAC address.
+    \item Make links not on any smallest cost path "inactive". For link A-B,
+          if neither A nor B uses it on its smallest cost path, then it's "inactive".
+          Switches do not forward any data packets on that link and ignore
+          any received data packets on that link. However, continue to send
+          and receive control packets on "inactive" links to handle failures where
+          they may need to be reactivated.
+\end{enumerate}
+
+Each switch maintains a view $(R, \text{cost}(X, R), X, H)$.
+$R$ is the current root according to $X$. $\text{cost}(X, R)$
+is the cost from $X$ to $R$. $H$ is the next hop neighbor via
+which $X$ reaches $R$.
+
+A control packet from neighbor $X$ to $Y$ carries $X$'s current
+view, $(R, \text{cost}(X, R), X, H)$ where $X$ is proposing $R$
+as root and advertising a cost of $\text{cost}(X, R)$ from $X$
+to $R$ via neighbor switch $H$ (next hop to root from $X$).
+The algorithm converges when no switch view changes on
+receipt of a control packet.
+
+\begin{lstlisting}
+    // propose this switch as root
+    send (X, 0, X, X) to all neighbors
+
+    // on recieve (R, cost(Y, R), Y, H)
+    // from neighbor Y
+    when control packet recieved
+        if advertisement from current next hop to root
+            if R < X
+                view = (R, cost(X, Y) + cost(Y, R), X, Y)
+        else 
+            // also update if same root, same cost, smaller MAC
+            if smaller root or cost path advertised
+                update
+            
+\end{lstlisting}
+
+The protocol must react to failures and link cost changes in
+the network. Switches, including the root, can fail. Links can
+fail or their cost can change.
+Each switch $X$ tracks the status of
+its current next hop $H$ and link
+$X-H$. On detecting failure of $X$ or
+$X-H$, $X$ updates its view to
+$(X, 0, X, X)$.
+Each switch $X$
+periodically sends its view $R, \text{cost}(X, R), X, H)$
+to all its neighbors. This is
+needed for convergence under certain
+failure scenarios and makes STP robust
+to control packet corruption and loss.
+
+The final Spanning Tree Protocol
+operates as follows: Initially,
+each switch proposes itself as the root,
+setting its view to $(X, 0, X, X)$ and
+sending a control packet $(X, 0, X, X)$
+to all neighbors. Upon detecting a failure
+of its next hop ($H$) or the link $X-H$,
+switch $X$ updates its view to $(X, 0, X, X)$
+and advertises this new view to all neighbors.
+Each switch periodically sends its current
+view $(R, \text{cost}(X, R), X, H)$ to all neighbors.
+When receiving a control packet $(R, \text{cost}(Y, R), Y, H)$
+from neighbor $Y$, switch $X$ updates its view according to
+predefined cases (Case 0, 1, and 2). If $X$'s view changes,
+it sends its new view in a control packet to all neighbors.
+Additionally, $X$ checks the next hop of neighbor $Y$ each
+time a control packet is received from $Y$. A link $X-Y$ is
+made "inactive" if and only if the next hop of $X$ is not $Y$
+and the next hop of $Y$ ($H$) is not $X$, at which point $X$
+stops forwarding data packets on that link, removes related
+entries from the forwarding table, and ignores data packets
+received on $X-Y$ for MAC learning and forwarding. The
+algorithm converges when no switch updates its view upon
+receiving a control packet.

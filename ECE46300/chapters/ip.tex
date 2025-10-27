@@ -1,0 +1,314 @@
+\subsection{Internet Protocol}
+
+The \emph{Internet Protocol} (IP) address replaces the MAC
+address for the network layer, IP forwarding replaces MAC
+forwarding, network routing protocols
+(DV, LS, BGP) replace MAC learning
+with STP, and destination discovery
+with DNS replaces ARP.
+
+As the most popular protocol with the
+data link layer is Ethernet, the most
+popular protocol with the network
+layer is \emph{internet protocol}
+(IP).
+
+While the MAC tells the identity
+of the host, the IP address tells
+the location of the host. The MAC
+address of a host does not change
+(in most cases), and so can provide
+host-based services such as allowing
+access to a network service to an
+authorized computer, regardless of
+the location of a computer. IP
+addresses allow reaching distant
+devices. IP address do this by
+constructing a hierarchy so that
+each router only needs to store
+the IP address of the networks
+immediately above and below it
+in the network hierarchy.
+
+STP doesn't work as a routing
+protocol at the network since
+it finds the shortest path to
+the root and not the destinations.
+STP also has higher latency and
+wasted bandwidth. The pros of
+simplicity and quick convergence
+outweigh the cons of higher
+latency and wasted bandwidth
+for small networks, but not for
+large. With network routing
+protocols, each router finds
+the shortest path to each
+destination, and there is no
+root. The pros are better
+latency and better bandwidth
+utilization, but at the cost
+of higher complexity and
+taking longer to converge. The
+pros outweigh the cons for
+large networks.
+
+ARP doesn't work for large networks
+because it requires broadcast
+requests to every host on the
+network. DNS requires dedicated
+infrastructure and extra mechanisms
+for fault tolerance, but doesn't
+require broadcasts, which is
+good for large networks.
+
+IP is really the only protocol for the network layer.
+This is in stark contrast to every other layer, which
+have a proliferation. In this class we'll focus on IPv4
+instead of the newer IPv6. In IPv4,
+IP addresses have 32 bits and are
+represented as \texttt{X.X.X.X} where
+\texttt{X} is an 8-bit decimal, e.g.
+\texttt{192.168.3.29}.
+
+Hosts within a subnet share the same
+subnet address prefix. So perhaps
+devices in the same subnet have IP
+addresses \texttt{X.X.X.92},
+\texttt{X.X.X.23}, and \texttt{X.X.X.01}.
+Any hierarchy can be encoded in the IP
+address; perhaps the first $n_0$ bits
+correspond to a given country, the next
+$n_1$ to an internet provider in that
+country, the next $n_2$ to an organization,
+the next $n_3$ to a location, etc.
+
+We use a subnet mask to extract the
+subnet address from the IP address.
+The subnet mask a 32 bit long series
+of 1s followed by a series of 0s.
+For example, \texttt{255.255.240.0}
+is 20 1s followed by 12 0s. The subnet
+address is the bitwise AND of the
+IP address and subnet mask. For the
+previous example, with an IP address
+of \texttt{192.168.3.29} the subnet
+address would be
+\texttt{192.168.3.29 \& 255.255.240.0 = 192.168.0.0}.
+
+Under classful addressing, IP addresses
+are divided into a set of classes.
+Each class has $n$ bits statically
+allocated for a subnet address and the
+remaining $32-n$ bits are for the
+host identifier. Depending on the
+value of $n$, there are three
+popular classes.
+\begin{itemize}
+    \item A: $n=8$, MSB \texttt{0}, 8 subnet bits, 24 host bits, 128 subnets, $2^24$ hosts.
+    \item B: $n=16$, MSB \texttt{10}, 16 subnet bits, 16 host bits, 16K subnets, $2^16$ hosts.
+    \item C: $n=24$, MSB \texttt{110}, 24 subnet bits, 8 host bits, 2M subnets, $2^8$ hosts.
+\end{itemize}
+The issue with classful IP addressing is that the division of bits between subnet
+and host addresses are not flexible. So to support 129 subnets one should need
+only 8 bits for subnet address, but with classful IP addressing, one will need a B
+class address, which uses 16 bits for the subnet address, wasting 8 bits.
+
+The more widely implemented method is called \emph{Classless Inter-Domain Routing}
+(CIDR). CIDR allows a flexible number of bits to be allocated for the subnet
+address. In CIDR notation, a subnet address is represented as \texttt{X.X.X.X/n}.
+The first \texttt{n} bits are allocated for the subnet address, meaning the subnet can
+support $2^{32-n}$ IP addresses. For example, the subnet address \texttt{128.32.0.0/11}
+can support $2^21$ IP addresses in the range \texttt{128.32.0.0} to \texttt{128.63.255.255}.
+
+Hosts have two options for configuring their IP addresses. They can either do it manually
+and pick whatever IP address they want, or they can implement the \emph{Dynamic Host
+    Configuration Protocol} (DHCP) and have an IP automatically assigned to them. The way
+this works is that DHCP typically runs on the router and maintains a pool of allowed
+IP addresses for a network, and when a host connects, the router assigns it an IP
+address.
+
+There are public IP address, used for routing over the internet, and private IP
+addresses, for communication within a private network. Public IP addresses are
+assigned by the Internet Corporation for Assigned Names and Numbers (ICANN).
+ICANN allocates large IP blocks to regional internet registries, e.g. the middle East,
+Europe, central Asia. Each internet registry allocates address blocks to large \emph{internet
+    service providers} (ISPs) within that region. The ISP allocates addresses to individuals
+and smaller institutions. For instance, ICANN allocates some \texttt{X.0.0.0/8} addresses
+to ARIN, which allocates one /8 address to AT\&T, which allocates
+one /16 address to Purdue, which allocates one /24 address to ECE, which gives your
+computer an IP.
+
+Hosts over the internet need a unique public IP address for correct routing, but
+there are only $2^{32} \approx 4000000000$ unique IPv4 addresses. The number of
+modern devices would exhaust this very quickly if not for private IP addressing.
+
+Private IP addresses can be used for communication only within a private network,
+and packets with private IP addresses as destinations are dropped by public internet
+routers. Hosts in different private networks can have the same private IP address,
+which helps with the problem of IPv4 address exhaustion. The reserved private IP
+address ranges are
+\begin{itemize}
+    \item \texttt{10.0.0.0/8} (\texttt{10.0.0.0} to \texttt{10.255.255.255})
+    \item \texttt{172.16.0.0/12} (\texttt{172.16.0.0} to \texttt{172.31.255.255})
+    \item \texttt{192.168.0.0/16} (\texttt{192.168.0.0} to \texttt{192.168.255.255})
+\end{itemize}
+
+Network Address Translation (NAT)
+enables hosts on private networks to
+communicate with hosts on the Internet.
+A NAT device sits at the boundary of a private network and the
+public Internet (typically implemented inside a gateway router)
+and manages a pool of public IP addresses allocated to the
+private network.
+When a host from the private network wants to send an IP packet
+to a host in public Internet, NAT picks a public IP from the pool and
+re-writes the (private) source IP in the packet with public IP.
+It also stores the private IP to public IP mapping in a table to re-
+translate the (public) destination IP of an incoming reply packet
+from the Internet with the corresponding private IP.
+On its own, this doesn't help with the problem of IP address exhaustion.
+Ideally, NAT should share a small number of public IPs
+between a large number of private hosts. This is done with IP
+masquerading.
+\marginnote{
+    IP masquerading is also called Network Address and Port
+    Translation (NAPT) or Port Address Translation (PAT).
+}
+With IP masquerading, a single public IP is mapped to multiple
+hosts in a private network.
+Hosts mapped to the same public IP are assigned different
+port numbers to distinguish them from one another.
+A port number is 16 bits, meaning one can support $2^16$ hosts
+using a single public IP address.
+
+This comes with a cost. NAT destroys universal end-to-end
+reachability of hosts on the Internet. A host on public
+Internet cannot initiate direct communication to a
+host with a private IP address. Applications that carry IP
+address in the payload of the application data
+(e.g., HTTP) generally do not work across a private-public
+network boundary.
+\marginnote{
+    Some NAT devices inspect the payload of widely used application layer
+    protocols, and if an IP address is detected, they do the translation.
+}
+
+An IP packet, also called an IP datagram, is the fundamental unit of data exchanged at the network layer. Each packet consists of a header and a payload. The header contains all necessary information for routing and delivery, while the payload carries the data from the transport layer (e.g., TCP or UDP segment).
+
+The structure of an IPv4 packet is as follows:
+
+\begin{itemize}
+    \item \textbf{Version (4 bits)}: Specifies the IP version. For IPv4, this value is \texttt{4}.
+    \item \textbf{Header Length (4 bits)}: Specifies the length of the header in 32-bit words. The minimum value is \texttt{5}, corresponding to 20 bytes.
+    \item \textbf{Type of Service (8 bits)}: Indicates the priority and quality of service desired for the packet, such as low delay or high reliability.
+    \item \textbf{Total Length (16 bits)}: The total size of the IP packet in bytes, including both header and payload. The maximum value is \texttt{65535}.
+    \item \textbf{Identification (16 bits)}: A unique identifier assigned to each packet so fragments of the same packet can be reassembled.
+    \item \textbf{Flags (3 bits)}: Controls or identifies fragments. The most important flag is the "More Fragments" bit, which is set if more fragments follow.
+    \item \textbf{Fragment Offset (13 bits)}: Indicates the position of the fragment relative to the start of the original packet.
+    \item \textbf{Time to Live (TTL) (8 bits)}: The maximum number of hops (routers) the packet can traverse before being discarded. Each router decrements the TTL by one; if it reaches zero, the packet is dropped.
+    \item \textbf{Protocol (8 bits)}: Specifies the protocol carried in the payload, such as \texttt{6} for TCP or \texttt{17} for UDP.
+    \item \textbf{Header Checksum (16 bits)}: Used for error detection on the header only. Each router verifies and recomputes it.
+    \item \textbf{Source IP Address (32 bits)}: The IP address of the originating host.
+    \item \textbf{Destination IP Address (32 bits)}: The IP address of the intended recipient.
+    \item \textbf{Options (variable length)}: Optional field used for features such as record route, timestamp, or security.
+    \item \textbf{Padding (variable length)}: Added to ensure the header length is a multiple of 32 bits.
+    \item \textbf{Data (variable length)}: The payload, usually a transport-layer segment such as TCP or UDP data.
+\end{itemize}
+
+A typical IPv4 header without options is 20 bytes long.
+The payload size depends on the Maximum Transmission Unit
+(MTU) of the underlying data link layer. If an IP packet
+is larger than the MTU, it is divided into smaller fragments.
+Each fragment is then reassembled by the destination host
+using the Identification, Flags, and Fragment Offset fields.
+
+IP provides a best-effort delivery service, meaning it does
+not guarantee reliability, ordering, or data integrity beyond
+basic error detection on the header. These functions are
+handled by higher-layer protocols such as TCP in the transport layer.
+
+Network routing protocols are used to populate the routing tables.
+They calculate the best path from each router to all other routers/
+hosts, unlike STP which calculates the best path from each switch
+to a root switch.
+
+Networking routing protocols come in two flavors: \emph{distributed path}
+computation and \emph{distributed topology} computation.
+
+Distributed path computation is similar to STP in that each router computes paths
+using a distributed algorithm, oblivious of network topology. The distance vector (DV)
+and border gateway (BG) algorithms fall into this category.
+
+The distance vector algorithm is a distributed version of the Bellman-Ford algorithm that
+calculates the least cost path from each router to all the $n$ routers and hosts.
+Each router maintains a vector of views of its least cost path to all other routers and
+hosts. It shares its vector with all its neighbor routers and updates the vector and
+receiving vectors from its neighbors.
+The most popular distance vector implementation is the \emph{routing information protocol}
+(RIP).
+
+DV does not prevent loops under all scenarios. We mitigate this with
+split horizon, which dictates that if a router gets a vector that states
+the next hop to a destination is itself, to drop the vector. This prevents
+loops involving two routers, but cannot prevent loops of three or more.
+To detect and remove all loops, set the \emph{max infinity counter} to
+some value larger than the largest path cost in the network. When the cost
+to a destination reaches or exceeds infinity, the router detects count-to-infinity.
+On detection, the router removes the destination entry from its routing
+table or sets the next hop for the entry to NULL. This is used alongside
+split horizon, which tries to prevent loops.
+
+Distributed topology computer is when routers use a distributed algorithm to learn the
+entire network graph. Each router runs a local path computation algorithm on the learned
+graph. This category includes link state (LS).
+
+In link state, each router runs a distributed algorithm to learn the global
+network graph. It then runs a local computation to find the shortest paths
+and populate its routing table. The most popular link state implementation is
+Open Shortest Path First (OSPF).
+
+Each router $X$ maintains a view of the global network graph $G$. Initially,
+$G$ is empty. For each neighbor $Y$, $X$ adds link $X-Y$ and link cost
+$\text{cost}(X, Y)$ to $G$. $X$ creates a control packet called a link state
+announcement (LSA) and sends it to all neighbors. The LSA contains the list of
+all neighbors of $X$ and the cost to neighbors, i.e. $(Y, \text{cost}(X, y))$.
+On receiving node $Y$'s LSA $(Z, \text{cost}(Y, Z))$ $X$ updates its graph $G$
+by adding or updating link $Y-Z$ and the corresponding link cost. $X$ then
+broadcasts the received LSA on all ports except the port it arrived on.
+Every time $G$ changes, $X$ reruns the route computation algorithm locally.
+It computes the least cost path from itself to all other nodes by using, for
+example, Dijkstra's algorithm.
+
+LSAs are sent when a router learns of a change to a neighbor, like a neighbor
+or link to neighbor failed, a neighbor was added, or a link cost to neighbor
+changed. LSAs are also sent periodically to correct possible corruption of
+previous LSA data or previous LSA packet drops.
+
+LSA comes with a big problem. Suppose $X$ sent an LSA at time $t$ with neighbors
+$\{W, Z\}$. At time $t + 2$, a new link $X-V$ is added and $X$ sends a new LSA
+$\{W, Z, V\}$. At router $Y$, LSA $\{W, Z, V\}$ arrives before $\{W, Z\}$
+because the new link allowed the LSA to be propagated faster. After $\{W, Z\}$
+arrives, $Y$ will conclude that $X$ only has 2 neighbors. This wasn't an
+issue with STP and DV, because control messages were only exchanged between
+directly connected neighbors.
+
+One way to mitigate this could be to include a timestamp with each LSA
+sent, and for $Y$ to ignore LSAs from $X$ whose "sent" timestamp is older than
+any LSA that $Y$ has already received. This is essentially what routers do.
+Each router $X$ maintains a local sequence number $S_x$ and while generating
+an $LSA$, the router includes the current value of $S_x$ in the LSA before
+broadcasting. With each LSA broadcast $X$ increments $S_x$ by 1. Each
+router also maintains a list of the highest sequence number that it has
+received from each of the other routers. This prevents loops in all scenarios,
+although there can be transient loops. While LS has not converged, loops
+can still be formed. To handle these transient loops each IP packet contains
+an 8-bit \emph{time-to-live} (TTL) field in the header. The sending host
+initializes the TTL with some value. TTL is decremented by one by the
+router at each hop. When TTL reaches 0, the packet is dropped by the
+router. TTL is not a substitute for routing protocols because it does not
+prevent packets from getting in a loop, only reduces the amount of time
+a packet spends in a loop.
+
+The key difference between DV and LS is that DV advertises your paths to
+everyone to your neighbors, while LS advertises your paths to neighbors
+to everyone.

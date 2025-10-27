@@ -1,0 +1,116 @@
+\subsection{Border Gateway Protocol}
+
+Recall that the internet is a hierarchical network of networks.
+An autonomous system (AS) or domain is a network under a single
+administrative domain. Each AS is assigned a unique identifier.
+
+Intra-domain routing refers to routing within an AS. Examples:
+RIP (distance vector), OSPF (link state).
+
+Inter-domain routing refers to routing between ASes. Example: border gateway
+protocol (BGP).
+
+We can't simply use DV or LS for inter-domain routing because ASes want freedom
+to pick routes based on custom policy. This can't be expressed as a least cost path
+like in DV or LS, but rather depends on the business relationship between
+ASes.
+
+There are three basic kinds of relationships between ASes.
+
+\begin{itemize}
+      \item Customer, e.g. Purdue is AT\&T's customer. The customer pays the provider.
+      \item Provider, e.g. AT\&T is Purdue's provider.
+      \item Peer, e.g. AT\&T and Verizon are peers. Peers don't pay each other.
+            Peers exchange roughly equal levels of traffic.
+\end{itemize}
+
+A customer is multi-homing if it has multiple providers. Provider ASes connect
+customer ASes to the rest of the Internet, and customer ASes
+pay the provider ASes for this service. Peering is needed to connect ASes
+at the top, which have no providers. These ASes are known as Tier 1 ASes and
+include ISPs like AT\&T, Sprint, Verizon. Peering can also be done at lower
+levels for various reasons, such as two top secret institutions not trusting
+a provider and exchanging information directly.
+
+To set up inter-domain routing, destinations are subnets. Nodes are ASes, and
+the internals of each AS are hidden. Physical links between ASes are tagged
+with the corresponding business relationship. Border gateway protocol (BGP) is
+user for routing.
+
+In BGP, each AS advertises to neighbor ASes its best paths to one or more
+subnets. Each AS selects the "best" path(s) from the set of advertised paths
+to a subnet destination.
+
+BGP is inspired by distance vector. It has per-distance route advertisements to
+its neighbors. There is no global learning of network topology. It's iterative
+and uses distributed convergence to final paths. But, there are three key differences.
+
+\begin{itemize}
+      \item While distance vector shares the distance and next hop to a destination,
+            BGP shares the entire path to a destination to enable ASes to apply more
+            complex policies. This makes loop detection trivial.
+      \item BGP does not always select the shortest path.
+      \item For policy reasons, an AS may choose not to advertise a route. Thus
+            reliability is not guaranteed even if the graph is connected.
+\end{itemize}
+
+BGP policy is imposed in how route are selected and advertised. Selection
+is which path to use to send data. It controls whether/how traffic leaves
+the network. Advertisement is which path to advertise to other ASes. It
+controls whether/how traffic enter the network. Traffic flows in the reverse
+direction of the advertisement.
+
+Typical selection policies are, in decreasing order of priority,
+\begin{enumerate}
+      \item Make or save money by preferring a path through the customer,
+            then a path through a peer, then a path through a provider
+      \item Maximize performance by selecting the shortest path
+      \item Minimize use of network bandwidth aka "hot potato" routing
+\end{enumerate}
+
+The typical advertisement policy is Gao-Rexford advertisement policies,
+whose goal is to avoid being transit when there is no monetary gain.
+The customer advertises to providers, peers, and other customers. The
+peer advertises to customers. The provider advertises to costumers.
+The AS provides transit service to all its customer traffic, because that's
+what customers pay for. It does not provide transit service between two
+providers or peers, since these entities are not paying the AS.
+
+eBGP refers to  BGP sessions between gateway (border) routers in
+different ASes, used to learn routes to external destinations.
+iBGP refers to BGP sessions between gateway routers and other
+routers (both gateway and interior) within the same AS, used to
+distribute externally learned routes internally.
+
+IGP, Interior Gateway Protocol, is an intra-domain routing protocol that
+provides internal connectivity.
+
+Basic messages in BGP are
+\begin{itemize}
+      \item Open message: establishes BGP session, relayed on a reliable transport layer like TCP.
+      \item Update message: Advertises new routes or route changes to neighbors and updates
+            neighbors of any old routes that have become inactive.
+      \item Keep-alive message: informs neighbor that BGP session is still active.
+\end{itemize}
+
+Update messages have the format \{Destination IP prefix: Update type | Route attributes\}.
+There are two update types: announcement, which heralds new route or changes to
+existing routes, and withdrawal, which announces the removal of routes which no longer
+exist. Route attributes are used in route selection and advertisement choices. They
+include \texttt{ASPATH}, a vector of ASes a BGP message has traversed, and
+\texttt{LOCAL PREF}, preference value for \texttt{ASPATH}, among others.
+
+In BGP, it's very easy to manipulate route advertisements. Reachability is
+not guaranteed even if a graph is connected. More seriously, there are
+attacks which an AS can perform by manipulating advertisements. An AS can
+advertise an IP prefix that they actually don't have a route to, or
+advertise a more specific IP prefix which, due to longest prefix match,
+all traffic to the sub-prefixes will be redirected. Thus ASes can act as
+black holes causing all traffic to the hijacked prefix to be discarded,
+they can snoop by inspecting traffic to the hijacked prefix, and redirect
+traffic to a hijacked prefix to bogus destinations.
+BGP path advertisements can also be manipulated to show shorter paths
+or more connected ASes. These attacks happen relatively infrequently
+since one needs access to BGP routers to launch most attacks and
+it's easy to detect the culprit. Most BGP mishaps are the result
+of unintentional misconfiguration.
