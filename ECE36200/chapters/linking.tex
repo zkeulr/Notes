@@ -25,3 +25,20 @@ Linking object modules, such as the output of an
 assembler, produces an executable image (\texttt{.elf},
 \texttt{*.img}). It merges segments, resolves labels, and
 patches location-dependent and external references.
+For example, \texttt{printf} is a precompiled module and
+the linker will link it to any calls in code that a
+user compiles.
+
+The loader loads from image file on disk into memory. If a
+Linux user types \texttt{ls}, the loader will read \texttt{ls}'s,
+header to determine segment sizes, create virtual address space,
+copy text and initialized data into memory, set up arguments
+on stack, initialize registers, and jump to a startup routine.
+
+\emph{Dynamic linking} only links/loads a library procedure when
+called. For instance, if a call to \texttt{printf} is in code
+but is never accessed, then the relatively large \texttt{printf}
+library is never used and so the executable size is smaller. The
+downside is that executables take longer to execute, since
+external libraries have to be reached.
+
