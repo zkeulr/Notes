@@ -1,0 +1,73 @@
+\section{Transport Layer}
+
+For the transport layer to be \emph{reliable}, it must be
+correct and performant in a specific sense.
+
+A transport mechanism is “reliable” if and only if it resends
+all dropped or corrupted packets and it attempts to make progress.
+Making progress in this context means if there is data to send,
+the transport layer eventually attempts to send that data.
+Performant means that whatever implementation utilizes the network
+and host bandwidth efficiently.
+
+Reliability is a difficult problem. Consider a naive protocol that
+sends each packet as often and fast as possible till the packet is
+received at the receiver. The sender will not make progress because
+there is no way for the sender to know whether the packet was dropped or received,
+so it will continue sending the same packet at all times. We need
+feedback from the receiver to indicate whether the packet was received.
+
+The naive protocol is updated to send ACK for each received packet.
+The sender keeps resending the same packet until ACK is received.
+This is suboptimal because the source is unnecessarily sending the same
+packet multiple times.
+
+Finally, the protocol is updated so the receiver sends an ACK for
+each received packet. The sender sends a packet and waits for the ACK.
+If an ACK is received back, the sender sends the next packet.
+If no ACK is received in some timeframe the same packet is resent
+because the ACK or sent packet may have been lost. This is still
+suboptimal because the sender has to wait between ACKs, so why not
+keep sending packets while waiting to receive the ACK?
+
+A sender can have at most $w$ unacknowledged packets in flight, where
+$w$ is known as the window. The window size it set such that the sender
+can maximize use of the available bandwidth. The sender sets a timer for each sent
+packet and waits for the ACKs. It sends the next packet in line after
+each received ACK and if it doesn't receive an ACK and the timer has
+expired, it resends the packet. To match packets and ACKs and ensure
+data doesn't get out of order, each packet is tagged with a sequence
+number.
+
+Sequence numbers must be a monotonically increasing value carried in
+each sent packet. It tells the receiver the order of packets within the
+sending packet stream. It can be used by the receiver to figure out
+which packets were received and which were lost. It also helps with
+in-order packet delivery.
+
+The acknowledgement number carries the sequence number of packets
+in the received stream. It tells the sender which packets have
+been received. It can be used by the sender to detect and
+retransmit lost packets.
+
+For individual ACK there are two retransmission strategies, \emph{go-back-$n$}
+which retransmits all packets starting from the smallest
+sequence number for which an ACK was not received, and
+\emph{selective retransmit} which retransmits only those
+packets for which an ACK was not received. The former is
+simpler, while the latter is more efficient.
+
+In selective ACK, each ACK contains the information about all received packets
+thus far, the highest contiguous number plus any additional
+sequence numbers. This is to help with lost ACKs. The loss of
+an ACK does not necessarily require a retransmission, because
+each ACK carries info for all the previous ACKs.
+
+Cumulative ACK contains just the highest contiguous received sequence
+number. This avoids the overhead of selective ACK but keeps most
+of its benefits. The condition to retransmit here is if a timer
+expires or the sender receives duplicate ACKs. Note, however, that
+network delays could result in duplicate ACKs, so receiving a duplicate
+ACK only indicates that packet loss might have occurred. If the
+sender receives multiple duplicate ACKs in a row (typically 3),
+then retransmit.
