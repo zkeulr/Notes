@@ -1,0 +1,27 @@
+\section{Single-cycle Processor}
+
+We have used the term \emph{processor} without definition thus far,
+hoping that the name would convey the idea of a black box performing
+operation on some input and return some output. If we were to formulate
+it more concretely, we might call a processor a digital component
+that performs operations on an external data source, usually memory or
+some other data stream. When implementing a processor
+there is freedom to define the clocks per instruction (CPI) and
+the length of the clock cycle (cycle time), while the ISA and compiler
+determine the number of instructions in a program (instruction count)
+and performance of a program.
+
+We assume that one entire instruction is performed per clock cycle.
+The general instruction pipeline follows and should be internalized,
+as it comes up repeatedly:
+\begin{enumerate}
+    \item Fetch
+    \item Decode operands
+    \item Execute
+    \item Memory
+    \item Writeback
+\end{enumerate}
+
+A useful way to represent steps and identify required datapath elements
+is \emph{register transfer language} (RTL), which is very close to
+assembly.
