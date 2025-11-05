@@ -22,6 +22,37 @@ as it comes up repeatedly:
     \item Writeback
 \end{enumerate}
 
+Fetch instructions fetch the instruction, then updates the PC. The PC is updated
+at the end of every cycle.
+
+ALU instructions make use of the main ALU to perform arithmetic and logic
+operations on data stored in registers. These are R-type instructions.
+
+Load instructions move data from the memory to the register file.
+There are I-type instructions.
+
+Store instructions move data from the register file to the memory. These
+are S-type instructions.
+
+Conditional branch instructions like \texttt{beq} calculate which branch,
+or memory address, to jump to as a result of an operation. They compute
+the branch condition and branch target. These are SB-type instructions.
+
 A useful way to represent steps and identify required datapath elements
 is \emph{register transfer language} (RTL), which is very close to
-assembly.
+assembly and shows the path data takes through the unit
+in Figure \ref{fig:datapath}.
+
+\begin{figure}
+    \includegraphics{images/datapath.png}
+    \caption{Datapath}
+    \label{fig:datapath}
+\end{figure}
+
+For instance, consider the RTL for a general ALU instruction,
+\texttt{R[rd] <- R[rs1] op R[rs2]}. \texttt{op} is an arithmetic
+operation like \texttt{+} or \texttt{-}. This describes that
+\texttt{Ra}, \texttt{Rb}, \texttt{Rw} come from the instruction's
+\texttt{rs1}, \texttt{rs2}, and \texttt{rd} fields. The
+ALU Operation and RegWr in Figure \ref{fig:datapath} control
+logic after decoding the instruction.
