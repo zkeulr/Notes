@@ -114,3 +114,11 @@ can be generated.
 \end{tabular}
 
 The immediate generator takes in the instruction and spits out a 32-bit immediate.
+
+The cycle time for a single-cycle processor must be long
+enough to accommodate the length of the longest instruction,
+which is the one with the longest critical path through the
+datapath, which in this case is \texttt{lw}. This is unfortunate
+because all instructions take as much time as the slowest.
+Real computers have multi-cycle processors to deal with this,
+and the fact that real memory is slower than our idealized memory.
