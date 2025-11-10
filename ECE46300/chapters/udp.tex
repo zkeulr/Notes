@@ -1,0 +1,17 @@
+\subsection{User Datagram Protocol}
+One of the most popular transport layer implementations is
+\emph{User Datagram Protocol}, UDP. UDP is unreliable,
+connectionless, datagram-abstracted transport. Unreliable
+in the sense of lacking an ACK, retransmission mechanism,
+and window sizing. Datagram-abstracted in the sense of
+using packets. Connectionless in the sense of sending
+data without any explicit connection with the receiver.
+
+A UDP header includes the following fields, each 16 bits:
+\begin{itemize}
+    \item Source port.
+    \item Destination port.
+    \item Length, total size of UDP header + payload. Max size is $2^{16} - 1$ - IP header size bytes.
+    \item Checksum, used for error detection. Set to 0s if unused.
+\end{itemize}
+

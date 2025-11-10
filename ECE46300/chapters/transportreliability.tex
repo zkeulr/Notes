@@ -1,5 +1,4 @@
-\section{Transport Layer}
-
+\section{Transport Layer Reliability}
 For the transport layer to be \emph{reliable}, it must be
 correct and performant in a specific sense.
 
@@ -71,3 +70,36 @@ network delays could result in duplicate ACKs, so receiving a duplicate
 ACK only indicates that packet loss might have occurred. If the
 sender receives multiple duplicate ACKs in a row (typically 3),
 then retransmit.
+
+Key design consideration for reliability are
+\begin{itemize}
+    \item What sequence number should the receivers send as ACK to the sender?
+    \item Under what conditions should a sender retransmit a packet?
+    \item What packets should a sender retransmit?
+    \item What is the right window size for a sender at any given time?
+\end{itemize}
+
+Recall that a \emph{window} is the maximum number of unacknowledged
+data the sender can have in flight, which directly affects the
+rate at which the sender can send data.
+The goal of sizing a window is to maximize available network and
+host bandwidth. Senders should send as fast as they can without
+overloading the network or receiver, i.e. such that no queuing
+occurs either in the network or at the receiver.
+
+When sender sends a data packet, assume it takes $t_1$ time to get to
+destination and another $t_2$ time for the ACK to arrive at the sender.
+The \emph{round trip time} (RTT) is $t_1 + t_2$. Let $B$ be the available
+bandwidth on the path from source to destination. Then the window $w$
+should be $B \times RTT$ bits, also known a the \emph{bandwidth delay product}
+(BDP). To maximize bandwidth use the sender should always send
+BDP window of bits.
+
+In practice it is difficult to estimate the right values for
+$B$ and RTT because the available bandwidth depends on how
+much bandwidth other hosts are using. Additionally,
+The RTT is the sum of transmission delays, propagation delays,
+processing delays, and most importantly queuing delays,
+which are non-deterministic. So in theory, the best value of
+a window is $B \times RTT$, but in practice requires
+careful consideration of congestion and flow control.

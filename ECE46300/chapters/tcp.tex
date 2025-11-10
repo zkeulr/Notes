@@ -1,0 +1,39 @@
+\section{Transmission Control Protocol}
+Another popular transport layer protocol implementation is
+\emph{transmission control protocol}, TCP. TCP is reliable,
+bytestream abstracted, and connection-oriented in exactly
+the opposite sense of UDP. Reliable means that TCP implements
+application multiplexing, ACKs and retransmissions, flow control,
+and congestion control. Bytestream is the familiar concept of
+communicating using a byte stream abstraction instead of packets.
+Connection-oriented means a pairwise sender to receiver connection
+is established before sending data and used to maintain connection-specific
+state like initial sequence number, window scaling factor, window size, and more.
+
+A TCP header includes the following
+fields:
+\begin{itemize}
+    \item Source port.
+    \item Destination port.
+    \item Sequence number.
+    \item Acknowledgement.
+    \item HdrLen, length of the TCP header in number of 4-byte words. Minimum value of 5.
+    \item 0.
+    \item Flags.
+    \item Advertised window.
+    \item Checksum. 16 bits for error detection caused by bit corruption.
+    \item Urgent pointer.
+    \item Options.
+\end{itemize}
+
+The checksum for TCP is interested. It's calculated over
+a pseudo IP header, which will be explained shortly,
+the TCP header, and the payload. The pseudo IP header is
+extracted from the IP header and includes the source IP,
+the destination IP, a fixed 8 bit string of 0s, the 8-bit
+protocol field, and the 16-bit TCP packet length. TCP
+connection state is defined using a 5-tuple of source IP,
+destination IP, source port, destination port, and protocol,
+so the purpose of the pseudo IP header is to ensure the
+source and destination IP, plus the protocol fields are not
+corrupted.
