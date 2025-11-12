@@ -1,0 +1,59 @@
+\section{Signed Arithmetic}
+
+Bits in memory don't inherently represent anything.
+What a given value in memory means depends on how
+it is interpreted: signed, unsigned, floating point,
+little-endian, big-endian.
+
+\subsection{Basic Arithmetic}
+
+The most common implementation of signed integers
+is 2's complement, because addition is the same
+for signed and unsigned binary numbers. Given a binary number
+\texttt{\{$b^{31}$ $b^{30}$ ... $b^1$ $b^0$\}}.
+If interpreted as an unsigned int, the value is
+\begin{equation}
+    b^{31} \times 2^{31} + b^{30} \times 2^{30} + \dots + b^{1} \times 2^{1} + b^{0} \times 2^{0}.
+\end{equation}
+The maximum is \texttt{11...11} ($2^{32} - 1$), and the minimum
+is \texttt{00...00} (0).
+If we instead interpret it as a signed integer, the value is
+\begin{equation}
+    -b^{31} \times 2^{31} + b^{30} \times 2^{30} + \dots + b^{1} \times 2^{1} + b^{0} \times 2^{0}.
+\end{equation}
+This means the maximum is \texttt{01...11} ($2^{31} - 1$),
+and the minimum is \texttt{10...00} ($-2^{31}$).
+
+To negate a 2's complement number, invert all bits and
+add 1. To convert an $n$ bit number into a number with more than
+$n$ bits, copy (sign extend) the MSB (the sign bit) into the other bits.
+For example, \texttt{1001} becomes \texttt{11111001}.
+\marginnote{Take a moment to justify to yourself why the negation
+    and extension operations work.}
+
+An ALU is shown in Figure \ref{fig:alu}.
+\begin{figure}
+    \includegraphics{images/alu.png}
+    \caption{ALU}
+    \label{fig:alu}
+\end{figure}
+Its structure reveals that for every number,
+in fact the AND, OR, sum, and difference are
+calculated, and a mux selects the results based
+on the type of operation.
+
+Overflow can occur when two positive numbers are
+added, or two negative numbers are added. Overflow
+can be detected with the XOR of the carry into MSB
+and carry out of MSB.
+\marginnote{No carry out is equivalent to a carry out of 0.}
+
+Negative numbers and zero are required
+for condition branches, e.g. \texttt{beq}
+and \texttt{blt}.
+
+\subsection{Integer Multiplication}
+
+\subsection{Integer Division}
+
+\subsection{Floating Point Arithmetic}
