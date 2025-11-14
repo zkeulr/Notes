@@ -49,8 +49,55 @@ and carry out of MSB.
 \marginnote{No carry out is equivalent to a carry out of 0.}
 
 Negative numbers and zero are required
-for condition branches, e.g. \texttt{beq}
+for conditional branches, e.g. \texttt{beq}
 and \texttt{blt}.
+
+\subsection{Integer Addition}
+
+Recall implementing an adder in hardware with a ripple-carry
+adder, which performs addition the same way that humans do
+with pencil and paper. Starting at the least significant digit position,
+the two corresponding digits are added and a result is obtained.
+A "carry out" may occur if the result requires a higher digit;
+for example, "9 + 5 = 4, carry 1". Binary arithmetic works in the same
+fashion, with fewer digits. In this case, there are only four possible
+operations, 0+0, 0+1, 1+0 and 1+1; the 1+1 case generates a carry.
+Accordingly, all digit positions other than the rightmost one need to
+wait on the possibility of having to add an extra 1 from a carry on the
+digits one position to the right. In practice ripple-carry addition is
+too slow, so a \emph{carry-lookahead adder} (CLA)
+\marginnote{Carry-lookahead adders are also known as fast adders.}
+is used. The improvement in speed comes from the titular
+looking ahead to the carry, wherein the CLA calculates one or more
+carry bits before the sum and so reduces the wait time to calculate
+the result of the larger-value bits of the adder.
+\marginnote{There are many faster adders, including the carry-select adder,
+    Han-Carlson adder, and the Ling Adder, among others.}
+
+A CLA performs two operations in parallel:
+\begin{itemize}
+    \item Calculating for each digit position whether that position is going to propagate a carry if one comes in from the right.
+    \item Combining these calculated values to be able to deduce quickly whether, for each group of digits, that group is going
+          to propagate a carry that comes in from the right.
+\end{itemize}
+Supposing that groups of four digits are chosen. The sequence of events would go like this:
+\begin{itemize}
+    \item All 1-bit adders calculate their results. Simultaneously, the lookahead units perform their calculations.
+    \item Assuming that a carry arises in a particular group, that carry will emerge at the left-hand end of the
+          group within at most five gate delays and start propagating through the group to its left.
+    \item If that carry is going to propagate all the way through the next group, the lookahead unit will already
+          have deduced this. Accordingly, before the carry emerges from the next group, the lookahead unit is immediately
+          (within one gate delay) able to tell the next group to the left that it is going to receive a carry, and at
+          the same time, to tell the next lookahead unit to the left that a carry is on its way.
+\end{itemize}
+The net effect is that the carries start by propagating slowly through each 4-bit group, just as in a ripple-carry system,
+but then move four times as fast, leaping from one lookahead-carry unit to the next. Finally, within each group that
+receives a carry, the carry propagates slowly within the digits in that group.
+
+The more bits in a group, the more complex the lookahead carry logic becomes, and the more time is spent on the "slow roads"
+in each group rather than on the "fast road" between the groups (provided by the lookahead carry logic). On the other hand,
+the fewer bits there are in a group, the more groups have to be traversed to get from one end of a number to the other, and
+the less acceleration is obtained as a result.
 
 \subsection{Integer Multiplication}
 
