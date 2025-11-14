@@ -37,3 +37,22 @@ destination IP, source port, destination port, and protocol,
 so the purpose of the pseudo IP header is to ensure the
 source and destination IP, plus the protocol fields are not
 corrupted.
+
+\subsection{Receive Buffers}
+The TCP receiver allocates a receive buffer to hold incoming bytes until the application reads them.
+The advertised window field in the TCP header tells the sender how much free space remains in that
+buffer and is used for per-connection flow control. TCP uses cumulative ACKs: the acknowledgement
+number reports the highest contiguous byte received and delivered to the application. Segments that
+arrive out of order can be buffered by the receiver, but they do not advance the cumulative ACK until
+the gap is filled; the receiver will commonly send duplicate ACKs (repeating the same acknowledgement
+number) to indicate the missing byte range.
+
+On the sender side, transmitted but unacknowledged bytes are kept in a send buffer. Loss detection
+uses two mechanisms: duplicate ACKs and timers. Receipt of three duplicate ACKs triggers a fast retransmit
+of the missing byte(s) (avoiding the slow timeout path) because repeated ACKs imply a hole in the receiver's
+byte stream; waiting for three helps avoid retransmitting for transient reordering. If no ACKs arrive
+(for example when a single packet or the final packet is lost) a retransmission timeout (RTO) fires and
+the sender retransmits the oldest unacknowledged byte. Most TCP implementations maintain one retransmission
+timer per connection, reset it when new data is ACKed, and compute RTO from measured RTTs using conservative
+estimates to avoid spurious retransmits. With TCP's cumulative-ACK semantics, retransmission typically follows
+a Go-Back-N behavior: the sender restarts transmission from the first unacknowledged byte and proceeds from there.
