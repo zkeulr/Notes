@@ -10,6 +10,8 @@ Connection-oriented means a pairwise sender to receiver connection
 is established before sending data and used to maintain connection-specific
 state like initial sequence number, window scaling factor, window size, and more.
 
+\subsection{TCP Header}
+
 A TCP header includes the following
 fields:
 \begin{itemize}
@@ -56,3 +58,93 @@ the sender retransmits the oldest unacknowledged byte. Most TCP implementations 
 timer per connection, reset it when new data is ACKed, and compute RTO from measured RTTs using conservative
 estimates to avoid spurious retransmits. With TCP's cumulative-ACK semantics, retransmission typically follows
 a Go-Back-N behavior: the sender restarts transmission from the first unacknowledged byte and proceeds from there.
+
+\subsection{TCP Connection}
+
+A TCP connection is identified with a 5-tuple of
+source IP, destination IP, source port, destination port, and
+protocol (which is always TCP). Connection set up is used to
+exchange the \emph{initial sequence number} (ISN), as well
+as exchange the window scaling factor. A receiver needs to
+know the ISN of the sender to figure out which sequence number
+marks the start of the byte stream being received. Each endpoint
+chooses its ISN randomly.
+
+A TCP connection setup is a 3-way handshake. Host A sends a
+synchronize packet (SYN) to B. Host B returns a SYN
+acknowledgement packet (SYN-ACK) to A. Host A sends an ACK
+packet to acknowledge the SYN-ACK.
+
+The reason for this three-way handshale is to establish the
+ISNs.
+\begin{itemize}
+    \item SYN contains sequence number equal to ISN of A, $X$. Its ack field is irrelevant
+    \item SYN-ACK contains sequence number equal to ISN of B, $Y$. Its ack field is $X$.
+    \item ACK has sequence number of $X+1$, ack is $Y+1$.
+\end{itemize}
+
+The special packets SYN and SYN-ACK are distinguished through
+flags in the header. The \texttt{flags} field is nine bits,
+each of which corresponds to a certain TCP flag.
+\begin{tabular}{| c | c |}
+    \hline
+    Bit no. & Flag \\
+    \hline
+    0       & FIN  \\
+    1       & SYN  \\
+    2       & RST  \\
+    3       & PSH  \\
+    4       & ACK  \\
+    5       & URG  \\
+    6       & ECE  \\
+    7       & CWR  \\
+    8       & NS   \\
+    \hline
+\end{tabular}
+\marginnote{The ACK flag bit is always set if the header contains
+    a valid acknowledgement number. All TCP packets, except SYN and
+    RST-REPLY, have an ACK flag bit set.}
+
+TCP by default can do data batching on both send and receive side.
+Batching results in fewer packets sent, but adds delay. Setting the
+PSH flag disables batching.
+
+If the URG flag is set, the urgent data in the TCP packet is delivered
+to an application immediate, bypassing the receive buffer. The urgent
+pointer in the TCP header stores the offset to the last urgent byte in
+the TCP segment, starting from the first byte in the segment.
+
+ECE and CWR are used by congestion control protocols that use explicit
+congestion notification. NS is experimental.
+\marginnote{NS stands for nonce sum, and despite the name is not a
+    headcount of the ultra powerful but instead a cryptographic
+    measure to protect against accidental or malicious concealment
+    of marked packets from the sender.}
+
+When A wants to close the connection, it sends a FIN
+packet. B replies with a FIN-ACK. A replies with an ACK.
+B closes the connection upon receipt of the ACK, otherwise
+it sends the FIN-ACK again. A waits a little longer, seeing
+if there's going to be another FIN-ACK, then times out and closes
+the connection if none was received.
+In the case of the FIN packet, the \texttt{flags} field in the
+header would be \texttt{000010001}.
+
+TCP endpoint can close a connection any time by sending a
+RST packet. There are two kinds:
+\begin{itemize}
+    \item RST-ABORT: Generated when a connection is explicitly aborted by an
+          endpoint e.g., the socket at the endpoint is being killed
+    \item RST-REPLY: Generated on receipt of certain kinds of invalid packets
+          (e.g., data packet for a connection that does not exist anymore)
+\end{itemize}
+
+\begin{figure}
+    \includegraphics{images/tcptimingdiagram.png}
+    \caption{TCP Timing Diagram}
+    \label{fig:tcptimingdiagram}
+\end{figure}
+
+If an endpoint receives a RST-ABORT, it closes the connection
+with no ACK. If an endpoint receives data for a closed
+connection, it generates RST-REPLY.
