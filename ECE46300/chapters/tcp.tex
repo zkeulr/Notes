@@ -148,3 +148,72 @@ RST packet. There are two kinds:
 If an endpoint receives a RST-ABORT, it closes the connection
 with no ACK. If an endpoint receives data for a closed
 connection, it generates RST-REPLY.
+
+\subsection{Flow and Congestion Control}
+
+Senders in TCP maintain a sliding window of size $W$, as seen in
+Figure \ref{fig:slidingwindow}.
+\begin{figure}
+    \includegraphics{images/slidingwindow.png}
+    \caption{Sliding Window}
+    \label{fig:slidingwindow}
+\end{figure}
+The sender can have up to $W$ bytes of unACKed data in flight.
+The left edge of the window represents the beginning of
+in-flight data, which has been sent but not yet ACKed. The window
+slides when some data is ACKed to allow more to be sent.
+$W$ determines the max rate at which the sender can send, the
+rate is approximately $\frac{W}{RTT}$ bytes per second.
+
+The problem of sending data as fast as possible without overloading the
+receiver is \emph{flow control}.
+The advertised window is a field in the TCP header, and the receiver
+sets it to the available receive buffer at the receiver. That is,
+the advertised buffer is set to
+$\text{recv buff size} - ((\text{next expected byte num} - 1) - \text{last byte num read by app})$.
+That is, the receive buffer can drop bytes that have already been read
+by the app.
+
+Every sender uses the advertised window from the receiver to set its own
+window size $W$. Senders maintain a window called RWND. RWND is set to the
+advertised window value. The sender's window size $W$ can be at most RWND,
+meaning the sender can have at most RWND unACKed bytes in flight, and can
+send at most $\frac{RWND}{RTT}$ bytes per second.
+
+On the receiver side, if the buffer is too big then a lot of data may get queued
+at the receiver. If the buffer is too small, then the sender won't be able
+to fully use its bandwidth. The optimal size for the buffer is bandwidth delay
+product.
+
+The advertised window field in the TCP header is only 16 bits long, limiting
+the sender window size to 65,535 bytes. This underuses bandwidth for networks
+with large BDP. Therefore, TCP endpoints also exchange a window scaling factor
+in the SYN packet during connection set up, and RWND is set to the scaling
+factor times the advertised window.
+
+The problem of sending data as fast as possible without overloading the network
+is \emph{congestion control}. The sender maintains a congestion window CWND,
+the maximum number of unACKed bytes a sender can have in flight. The CWND
+is increased upon lack of congestion, and decreased on detecting congestion.
+Congestion is detected by the number of packet losses.
+
+The sender's slider window $W$ is set to the minimum of the CWND and RWND to
+avoid overflowing the receiver buffer or router/switch buffers.
+\marginnote{We talk of CWND in units of maximum segment size, the maximum
+    amount of payload data in a TCP packet. Real implementations maintain CWND
+    in bytes.}
+
+An oversized window is worse than an undersized window, since too many
+packets in the network affects everyone, while a slower sending rate only
+affects the sender. Ergo, the appropriate thing to do is gently increase
+when uncongested, and rapidly decrease when congested. If duplicate ACKs
+are received, then some packets are going through and the window size should
+be decreased aggressively, but less aggressively than in the case of a timeout,
+which means there were certainly several losses.
+
+The balance that modern TCP implementations take is \emph{additive increase,
+    multiplicative decrease}. That is, on the success of the last window of data,
+increase the CWND by 1 MSS. On loss detected by 3 duplicate ACKS, set
+$CWND = \frac{CWND}{2}$. On loss detected by timeout, immediately drop CWND
+to one MSS. The factors aren't importance, but an increase factor of 1 and
+decrease factor of 2 works best in practice.
