@@ -101,6 +101,56 @@ the less acceleration is obtained as a result.
 
 \subsection{Integer Multiplication}
 
+Recall that shifting left means propagating zeros in from the right.
+When shifting right, there is both arithmetic shift (filling the
+left with whatever the value of the MSB is) and logical shift (always
+filling the left in with zeros). Shifting left corresponds to multiplication
+by two, and shifting right corresponds to dividing by two.
+
+Recall the algorithm for multiplying taught in grade school, which
+multiplies each digit in one number by the other number and then
+sums it all together.
+
+The hardware implementation of this grade school multiplication algorithm
+is in Figure \ref{fig:naivemult}.
+\begin{figure}
+    \includegraphics{images/naivemult.png}
+    \caption{Naive Multiplication Hardware}
+    \label{fig:naivemult}
+\end{figure}
+\begin{figure}
+    \includegraphics{images/naivemultflowchart.png}
+    \caption{Naive Multiplication Flowchart}
+    \label{fig:naivemultflowchart}
+\end{figure}
+The case of $13 \times 11$ is show in Figure \ref{fig:naivemultexample}.
+\begin{figure}
+    \includegraphics{images/naivemultexample.png}
+    \caption{Naive Multiplication Example}
+    \label{fig:naivemultexample}
+\end{figure}
+
+This naive implementation can be improved a number of ways. One such
+improvement is shown in Figure \ref{fig:mult2}.
+\begin{figure}
+    \includegraphics{images/mult2.png}
+    \caption{Alternate Multiplication Hardware}
+    \label{fig:mult2}
+\end{figure}
+\begin{figure}
+    \includegraphics{images/mult2flowchart.png}
+    \caption{Alternate Multiplication Flowchart}
+    \label{fig:mult2flowchart}
+\end{figure}
+The case of $13 \times 11$ is show in Figure \ref{fig:naivemultexample}.
+\begin{figure}
+    \includegraphics{images/mult2example.png}
+    \caption{Alternate Multiplication Example}
+    \label{fig:mult2example}
+\end{figure}
+
+There are even more sophisticated and efficient implementations.
+
 \subsection{Integer Division}
 
 \subsection{Floating Point Arithmetic}
