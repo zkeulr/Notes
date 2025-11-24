@@ -153,4 +153,24 @@ There are even more sophisticated and efficient implementations.
 
 \subsection{Integer Division}
 
+Recall the grade-school approach to integer division. There is
+dividend, divisor, and quotient. We represent the algorithm in
+hardware as in Figure \ref{fig:naivediv}.
+\begin{figure}
+    \includegraphics{images/naivediv.png}
+    \caption{Naive Integer Division}
+    \label{fig:naivediv}
+\end{figure}
+Initially, the dividend is in the remainder register. The divisor
+register is repeatedly subtracted from the remainder register, and
+the result is placed back in the remainder register. Then, if the
+remainder is greater than zero, shift the quotient register to the
+left, setting the new rightmost bit to 1. If the remainder is less
+than zero, restore the original value by adding the divisor register
+to the remainder register, and placing the sum in the remainder
+register. Shift the quotient register to the left, setting the new
+least significant bit to 0. In either case, follow up by shifting the
+divisor register right 1 bit. Repeat up to and including the $n+1$
+repetition, then terminate.
+
 \subsection{Floating Point Arithmetic}
