@@ -28,8 +28,8 @@ fields:
     \item Options.
 \end{itemize}
 
-The checksum for TCP is interested. It's calculated over
-a pseudo IP header, which will be explained shortly,
+The checksum for TCP is interesting. It's calculated over
+a pseudo IP header,
 the TCP header, and the payload. The pseudo IP header is
 extracted from the IP header and includes the source IP,
 the destination IP, a fixed 8 bit string of 0s, the 8-bit
@@ -217,3 +217,43 @@ increase the CWND by 1 MSS. On loss detected by 3 duplicate ACKS, set
 $CWND = \frac{CWND}{2}$. On loss detected by timeout, immediately drop CWND
 to one MSS. The factors aren't importance, but an increase factor of 1 and
 decrease factor of 2 works best in practice.
+
+An issue with additive increase is that it ramps up very slowly when there's
+no congestion. For instance, consider an RTT of 100 ms and MSS of 1000 bytes.
+If there is 1 Mbps of available bandwidth, then
+the ideal window size (recall that the ideal window size is BDP) is 12.5 MSS.
+If the bandwidth increases to 1Gbps, then it takes 12500 RTTs to get to the
+new ideal window size of 12500 MSS.
+
+The mitigation for this is to start with a small congestion window and
+increase exponentially, only for as long as CWND is small. After that
+transition back to AIMD. We introduce a slow start threshold \texttt{ssthresh}
+initialized to a large value, and when the CWND outgrows it, switch from
+slow start to additive increase.
+
+To summarize slow start, TCP uses slow start for fast ramp ups when CWND
+is very small, and otherwise uses AIMD. Starting with a CWND of 1 and
+doubling every RTT, TCP leaves slow start when CWND >= \texttt{ssthresh}
+and enters the additive increase phase, where CWND is increased by one
+MSS on success of last window of data. Cut CWND to half on three duplicate ACKs,
+set \texttt{ssthresh} to the new CWND. Cut CWND all the way to 1 MSS on timeout,
+and set \texttt{ssthresh} to the old CWND divided by 2. Never drop CWND below 1 MSS.
+
+Another problem is that congestion avoidance is too slow in
+recovering from an isolated loss of three duplicate ACKs.
+To optimize, we implement fast recovery. The idea behind
+fast recovery is to grant the sender temporary credits
+for each duplicate ACK to keep packets in flight.
+Each duplicate ACK is received because a new packet is arriving
+at the receiver, so the congestion isn't that bad and the loss
+was isolated.
+When three duplicate ACKs are received, TCP:
+\begin{itemize}
+    \item enters fast recovery mode,
+    \item cuts \texttt{ssthresh} to half of CWND, and
+    \item sets CWND to half of CWND plus three (the number of credits for duplicate ACKs received thus far).
+\end{itemize}
+While in fast recovery, TCP increments CWND by one for
+each additional duplicate ACK and exits fast recovery after
+receiving a new ACK. On exit, it sets CWND to \texttt{ssthresh},
+and starts additive increase back up.
