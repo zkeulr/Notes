@@ -257,3 +257,73 @@ While in fast recovery, TCP increments CWND by one for
 each additional duplicate ACK and exits fast recovery after
 receiving a new ACK. On exit, it sets CWND to \texttt{ssthresh},
 and starts additive increase back up.
+
+Assuming RWND >> CWND, throughput of a TCP flow is a function of congestion
+window size and round-trip time. The classical formula for throughput $T$ with
+loss probability $p$ is
+\begin{equation}
+    T \approx \frac{MSS}{RTT} \frac{C}{\sqrt{p}},
+\end{equation}
+where C is a constant. The derivation assumes constant RTT and that the link
+delivers $\frac{1}{p} - 1$ consecutive packets followed by one drop.
+
+Given a bottleneck link bandwidth $B$ and $N$ flows sharing the link,
+if we assume flow $f_i$ demands bandwidth $d_i$, what is flow $f_i$'s
+fair share of bandwidth $b_i$? We answer the problem with \emph{max-min
+    fairness}, where all flows demanding less than fair share $\frac{B}{N}$
+get their demand, and remaining flows divide remaining bandwidth equally.
+In a stable state (no dynamics, all flows infinitely long, no failures, etc.)
+TCP congestion control (AIMD) guarantees max-min fairness.
+
+\subsection{Shortcomings}
+
+TCP is:
+\begin{itemize}
+    \item susceptible to DDoS attacks
+    \item not designed for short flows
+    \item hard to load balance
+    \item biased against long RTTs
+    \item designed for a cooperative environment, making it easy to cheat
+\end{itemize}
+
+A \emph{denial of service} (DoS) attack is an attack where the perpetrator makes a
+resource unavailable to its intended users by exhausting some scare resources,
+such as CPU cycles or network bandwidth. \emph{Distributed denial of service}
+attacks occur when an attacker is spread out and attacks from many endpoints.
+Such attacks include:
+\begin{itemize}
+    \item SYN flood
+    \item LAND attack
+    \item UDP flood
+    \item DNS amplification attack
+\end{itemize}
+DDoS attacks can be countered with firewalls or CAPTCHAs.
+
+The second issue is that TCP is not designed for short flows. Internet traffic
+is a mixture of elephant and mice flows. Elephant flows carry most of the bytes
+(more than 95 percent) but are very few (less than 5 percent). Mice flows carry
+very few bytes, but comprise the vast majority of all flows. Elephant flows care
+about throughput, pushing as many packets per unit time from A to B as possible.
+The latency of the connection is amortized over the duration of the flow. Mice
+flows care about latency. When you send only one or two packets, the amount of
+time it takes a packet to go from A to B matters a lot. The four key
+characteristics of TCP congestion control, the 3-way handshake,
+gradual increase in window size/sending rate, duplicate ACKs as loss signal, and
+decreasing the rate only when loss detected are all designed with elephant flows
+in mind.
+
+The third issue is that it's hard to load balance TCP. It is desirable that
+packets within the same TCP connection take same path, because this avoids
+packet re-ordering so 3 duplicate ACKs are only generated on packet loss
+and hence TCP only slows down when there is actual congestion/loss. However,
+assume there are three paths from source to destination. It would be wonderful
+to use all three and multiply the throughput, but TCP isn't designed for this.
+\marginnote{Multipath TCP is an extension of TCP that allows a single TCP
+    stream to take multiple paths, but it's a lot more complex.}
+
+The fourth issue is that flows get throughput inversely proportional to RTTs.
+Flows with long RTTs will achieve lower throughput.
+
+The fifth and final issue is that it's very easy to cheat in TCP. For example,
+a cheating client could increase CWND by a large amount each ACK. A cheater
+could also break a single connection into many connections to hog more bandwidth.
