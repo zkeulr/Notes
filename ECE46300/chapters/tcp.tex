@@ -275,6 +275,26 @@ get their demand, and remaining flows divide remaining bandwidth equally.
 In a stable state (no dynamics, all flows infinitely long, no failures, etc.)
 TCP congestion control (AIMD) guarantees max-min fairness.
 
+There are other ways to ensure fair scheduling. For instance, packet round
+robin sends one packet per non-empty queue in a round robin manner. Weighted
+round robin sends $w_i$ packets per non-empty queue $i$ in a round robin manner.
+This approach fails with variable packet lengths, because queues can get more
+service with bigger packets. Another method is bit-by-bit round robin, where
+1 bit per non-empty queue is sent in a round robin manner. The clock ticks by 1
+once a bit from all non-empty queues has been transmitted, which is referred to
+as a \emph{round} or \emph{virtual time}. A packet's virtual finish time is
+independent of future packet arrivals. Say there is a router which can send one
+bit per unit real time, and there are two queues with the second initially empty
+and the first with 200 bits. Then the real finish time for the first is 200,
+and the virtual finish time is 200. If a packet arrives in the second queue of 100
+bits, then the real finish time for A becomes 300 but the virtual time is maintained
+by sending two bits from A per unit virtual time. This results in max-min
+fairness regardless of packet sizes, but it isn't practical. The best overall
+algorithm is fair packet queuing (FQ), a packet-based version of bit-by-bit round
+robin. The idea is to determine the virtual finish time of each packet at enqueue
+into a queue according to the bit-by-bit round robin scheme, then send packets
+in order of increasing virtual finish time.
+
 \subsection{Shortcomings}
 
 TCP is:
