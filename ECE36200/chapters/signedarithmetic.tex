@@ -174,3 +174,60 @@ divisor register right 1 bit. Repeat up to and including the $n+1$
 repetition, then terminate.
 
 \subsection{Floating Point Arithmetic}
+
+Until now, our study has been limited to integers. Yet many important
+measurements and representations require extremely large or small
+rational numbers. We are limited to a finite number of significant
+digits, but floating point numbers permit us to store numbers such
+as $6.626028 \times 10^{-34}$ or $6.022 \times 10^{23}$.
+
+The three components needed to represent floating point numbers in
+hardware are:
+\begin{itemize}
+    \item Sign: positive or negative
+    \item Exponent: e.g. $23$ in $2^{23}$
+    \item Mantissa: the significant digits, which are multiplied by the base (2) raised to the exponent to give the actual value of the number. E.g. $1.0142398$ in $1.0142398 \times 2^{23}$
+\end{itemize}
+
+IEEE 754 is the floating point representation standard. Floating points
+are stored as a tuple of sign, exponent, and mantissa. For a float, the
+sign is the first bit, the exponent is the next 8 bits, and the mantissa is
+the last 23 bits. For a double, the sign is the first bit, the exponent is the
+next 11 bits, and the mantissa is the final 52 bits.
+
+Let's have an example. Say we wish to represent $0.6$ as a float. The
+sign is 0 for positive. The exponent is calculated by taking the number
+\marginnote{A $0$ sign bit represents positive numbers because $-1^{0} = 1$.}
+you would have in scientific notation (in this case $-1$), and adding
+a bias that depends on if the number is stored as a float or double.
+\marginnote{The bias is added so comparing two floating point numbers is
+    like comparing two unsigned integers.}
+The bias for a float is 127 (and the bias for a double is 1023). Therefore,
+the exponent field is $-1 + 127 = 126 = 01111110_{2}$.
+To calculate the mantissa, we repeatedly multiply the fractional part
+by 2 and record the integer part. For instance,
+\begin{tabular}{| c | c | c |}
+    Multiply       & Result & Bit \\
+    $0.6 \times 2$ & 1.2    & 1   \\
+    $0.2 \times 2$ & 0.4    & 0   \\
+    $0.4 \times 2$ & 0.8    & 0   \\
+    $0.8 \times 2$ & 1.6    & 1   \\
+    $0.6 \times 2$ & 1.2    & 1   \\
+    ...            & ...    & ...
+\end{tabular}
+We only store the digits after the leading 1. In this case, those are
+$0011...$. If the mantissa for a different number was $000010101...$,
+then we would store only $0101...$. Regardless, our total floating
+point representation of 0.6 is $0_{\text{sign}}01111110_{\text{exponent}}0011..._{\text{mantissa}}$.
+
+There are exceptions to this representation.
+\begin{tabular}{| c | c | c | c |}
+    Num.   & S   & E   & M     \\
+    0      & 0   & 0   & 0     \\
+    +inf   & 0   & max & 0     \\
+    -inf 1 & max & 0           \\
+    NaN    & X   & max & not 0
+\end{tabular}
+
+Floating point arithmetic is relatively expensive compared to integer arithmetic,
+and comes with loss of precision and floating-point errors.
