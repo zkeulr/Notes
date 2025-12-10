@@ -35,3 +35,30 @@ The syntax of a URL is \texttt{protocol://hostname[:port]/path/resource}.
     \item Resource: desired resource, can also execute program
 \end{itemize}
 For instance, \texttt{htttps://engineering.purdue.edu/~vshriva/index.html}.
+
+HTTP/1.1 suffers from application-layer head-of-line (HOL) blocking, where a single TCP
+connection processes HTTP requests sequentially. While multiple parallel TCP connections
+can be opened (one per object) to mitigate this issue, this approach is not scalable as
+each connection consumes host resources.
+HTTP/2 addresses application-layer HOL blocking by enabling object multiplexing within a
+single TCP stream. Each packet carries an object identifier, allowing the receiver to
+distinguish and reconstruct multiple objects concurrently. Key features include:
+\begin{itemize}
+    \item \textbf{Prioritization}: HTTP requests can be tagged with priority values ranging from 1 to 255,
+          where higher numbers indicate higher priority. Responses are weighted accordingly; for example, if
+          request 1 has priority 2 and request 2 has priority 1, then 2 packets from request 1 are sent followed by 1 packet from request 2.
+    \item \textbf{Dependency specification}: Requests can declare dependencies on other requests,
+          ensuring that dependent responses are delivered in the correct order. Prioritization only applies between independent requests.
+\end{itemize}
+Despite HTTP/2's improvements, TCP HOL blocking remains problematic. TCP operates at the
+transport layer and has no notion of HTTP objects, treating all data as a byte stream.
+When a packet belonging to one object is lost, TCP's in-order delivery requirement blocks
+packets from other objects until the lost packet is retransmitted and received. Modifying TCP
+to address this issue is impractical given its widespread use across many applications.
+QUIC (Quick UDP Internet Connections) addresses TCP HOL blocking by using UDP as the transport
+layer while implementing custom reliability, flow control, and congestion control at the
+application layer. This provides per-object reliability, preventing one object's packet loss
+from blocking others. Designed and implemented by Google in 2012 and enabled by default in Google Chrome,
+QUIC aims to replace TCP for web communication. HTTP/3 is the HTTP mapping over QUIC. While QUIC
+re-implements many TCP functionalities on top of UDP, its architecture is more flexible and extensible,
+offering additional benefits beyond solving TCP HOL blocking.
