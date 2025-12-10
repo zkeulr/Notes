@@ -206,6 +206,7 @@ The bias for a float is 127 (and the bias for a double is 1023). Therefore,
 the exponent field is $-1 + 127 = 126 = 01111110_{2}$.
 To calculate the mantissa, we repeatedly multiply the fractional part
 by 2 and record the integer part. For instance,
+
 \begin{tabular}{| c | c | c |}
     Multiply       & Result & Bit \\
     $0.6 \times 2$ & 1.2    & 1   \\
@@ -215,6 +216,7 @@ by 2 and record the integer part. For instance,
     $0.6 \times 2$ & 1.2    & 1   \\
     ...            & ...    & ...
 \end{tabular}
+
 We only store the digits after the leading 1. In this case, those are
 $0011...$. If the mantissa for a different number was $000010101...$,
 then we would store only $0101...$. Regardless, our total floating
