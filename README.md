@@ -1,6 +1,6 @@
 # Purdue Lecture Notes
 
-This repository contains lecture notes for several classes at Purdue University. The notes are available as both LaTeX and PDF documents.
+Lecture notes for several classes on Purdue University's ECE track.
 
 ## Courses
 
@@ -25,7 +25,3 @@ This repository contains lecture notes for several classes at Purdue University.
 ## Contributing
 
 If you have notes for a course that's not currently included, feel free to make a pull request!
-
-## License
-
-These notes are free to use and share under the MIT License. See [`LICENSE`](LICENSE) for details.
