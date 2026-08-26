@@ -1,0 +1,52 @@
+\subsection{Phases of a Compiler}
+
+The phases are:
+\begin{itemize}
+    \item scanner
+    \item parser 
+    \item semantic actions
+    \item optimizer
+    \item code generator
+\end{itemize}
+
+The compiler starts by seeing only text,
+\texttt{'i' 'f' ' ' '(' ...}. The \emph{scanner}
+phase converts raw text to a series of tokens, 
+one for each "word" in the program, 
+\texttt{if ( ID(a) OP(<) LIT(4) ) ...}.
+
+The \emph{parser} then takes this string of 
+tokens and coverts it to a \emph{parse tree} or 
+\emph{abstract syntax tree} which captures the 
+structure of the code, "this is an if-then, 
+in the first case follow this code path...". 
+
+Syntax tells what symbols, in what order, 
+are legal in a language. Semantics 
+is the meaning. The phrase "gorilla yip 
+huffly huffly" is legal syntax in 
+English, but has no semantic meaning. 
+Semantic actions are taken by compiler 
+based on the semantics of program statements,
+including building a \emph{symbol table} and
+generating \emph{intermediate representations}.
+
+Symbol tables associate each identifier or 
+symbol (variables, constants, 
+procedures, functions, etc.) in a program's 
+code with the necessary information for its 
+functioning. This may include type and scope of a variable,
+return type for a function, etc. 
+
+Intermediate representation is a
+low level representation of the program that 
+is not machine specific (and therefore does 
+not reference registers), such as 
+three-address code. 
+
+The \emph{optimizer} transforms code to make 
+it more efficient. There are many optimizations 
+to make, especially for code produced by students. 
+
+The \emph{code generator} generates assembly from 
+the intermediate represention. 
