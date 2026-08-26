@@ -7,3 +7,26 @@ and implement some \emph{algorithm} to find the numerical
 solution to the model. \emph{Solvers} assist us in
 implementing the algorithm when it's infeasible to do by hand. 
 
+\begin{figure}
+    \begin{tikzpicture}[
+        box/.style={
+            draw,
+            rectangle,
+            minimum width=2.5cm,
+            minimum height=1cm,
+            align=center
+        },
+        >=stealth
+        ]
+
+        \node[box] (problem) {Problem};
+        \node[box, right=1.5cm of problem] (model) {Model};
+        \node[box, right=1.5cm of model] (algorithm) {Algorithm};
+        \node[box, right=1.5cm of algorithm] (solver) {Solver};
+
+        \draw[<->] (problem) -- (model);
+        \draw[<->] (model) -- (algorithm);
+        \draw[<->] (algorithm) -- (solver);
+    \end{tikzpicture}
+\end{figure}
+
