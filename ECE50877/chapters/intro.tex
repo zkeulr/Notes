@@ -1,0 +1,85 @@
+\subsection{Basis of Cryptography}
+
+Consider the archetypical case in 
+cryptography.
+Alice wants to send a message to Bob,
+and wants the contents to remain 
+secret from Vincent. Alice encrypts 
+her message with a secret key $s$.
+
+An encryption scheme (Gen, Enc, Dec) 
+is a triple of algorithms where
+\begin{itemize}
+    \item Key generation Gen($1^n$)
+    outputs a secret key $k$ of length 
+    $n$ (also called the security parameter).
+    \item Encryption algorithm 
+    $\text{Enc}_k(m) = c$ outputs ciphertext 
+    $c$. 
+    \item Decryption algorithm $\text{Dec}_k(c) = m$
+    outputs plaintext $m$.  
+\end{itemize}
+An encryption algorithm is defined over 
+a message space $M$ and a key space $K$. 
+Requirements:
+\begin{itemize}
+    \item Correctness: $\text{Dec}_k(\text{Enc}_k(m)) = m$.
+    \item Security: definition with respect to adversaries. 
+\end{itemize}
+
+The secret key $k$ should be hidden from the 
+adversary. The encryption and decryption 
+algorithms themselves should be public; this 
+is Kerckhoffs's principle. This is because 
+the secrey keys are easy to hide and replace 
+in case of a breach, not so with algorithms. 
+It is also good to have many eyes on an 
+algorithm to expose security flaws. 
+
+The key space must be large enough 
+such that a brute force attack is 
+infeasible. Consider a Caesar cipher;
+the key space is only 26 long and a
+message so encrypted is quickly bruteforced. 
+
+Shannon's Treatment: messages come 
+from some distribution, let $M$ be 
+a random variable for sampling the 
+messages from the message space $M$. 
+Distribution $M$ is known to the 
+adversary. This captures a priori 
+information about the messages. 
+The ciphertext $c = \text{Enc}_k(m)$
+depends on $m$ chosen according to $M$. 
+$k$ chosen randomly according to $\text{Gen}$. 
+Enc may also use some randomness. Dec is 
+deterministic. These induce a distribution $C$ 
+over the ciphertexts $c$. 
+The adversary only observes $c$. 
+Knowledge about $m$ before observing 
+the output of $C$ is captured by $M$. 
+Knowledge about $m$ after observing the 
+output of $C$ is captured by $M|C$. 
+An encryption scheme (Gen, Enc, Dec) is 
+\emph{Shannon secure} if for every probability 
+distribution for $M$, every message $m \in M$,
+and every ciphertext $c \in C$: 
+$Pr[M=m|C=c] = Pr[M=m]$. 
+
+An alternative defition of secrecy is 
+\emph{Perfect Secrecy}. An encryption
+scheme is perfectly secure for every 
+pair of messages $m_1$ and $m_2 \in M$
+and every ciphertext $c\in C$ if 
+$Pr[\text{Enc}_k(m_1)=c]=Pr[\text{Enc}_k(m_2)=c]$.
+
+Shannon had fingers in many cryptographic pies. 
+Shannon's Theorem says that if 
+(Gen, Enc, Dec) is a perfectly secret 
+encryption scheme with message space $M$ 
+and key space $K$, then $|K| \geq |M|$. 
+This means that for an encryption scheme 
+to be perfectly secret, the keys must 
+be as long as the message. The challenge of 
+modern cryptography is to make something 
+just as good as perfect for practical purposes. 
