@@ -1,0 +1,66 @@
+\subsection{Regular Languages}
+
+Remember the job of the scanner is to identify 
+the "words" in a program. Variable names, 
+keywords, operators. We need to define what those 
+words are, and we do so with regular expressions. 
+Regular expressions allow us to determine what 
+is valid syntax and what is user-typed gibberish
+that happens to be typed in an IDE. 
+
+A langauge is a set of strings, or words, 
+composed of symbols from a finite alphabet. 
+To get from a generic language to a regular 
+language, we need to define a regular set. 
+\begin{itemize}
+    \item The empty set $\empty$ is a regular set. 
+    \item A singleton $S = \{a\}$ is a regular set. 
+    \item A union of two regular sets is a regular set:
+    $S_1 = \{a\}, S_2 = \{b\}, S_3 = S_1 \cup S_2 = \{a,b\}$.
+    \item The concatenation of two regular sets is a regular set:
+    $S_1 = \{a,b\}, S_2 = \{c,d\}, S_3 = S_1 \times S_2 = \{ac,ad,bc,bd\}$.
+    \item The empty string $S = \{""\}$ is a regular set.
+\end{itemize}
+More generally, any finite set of strings is a 
+regular set. 
+
+Kleene star is an operator that generates every 
+possible concatenation of a regular set. E.g.,
+$S = \{a,b\}, S^* = \{"", a, b, aa, ab, ba, bb, aaa, ...\}$.
+
+Now, finally to regular expressions (regexes).
+A regular language is exactly those languages 
+which are defined by regular expressions. 
+Basic regular expression syntax corresponds to 
+operations on regular sets. 
+\begin{itemize}
+    \item A string of characters is a regular set: $r_1 = \text{Hello}$
+    \item The choice operator unions together two 
+    regular sets: $r_3 = r_1 | r_2$. 
+    \item The star operator repeats a regular set 
+    0 or more times: $r_2 = r_1^*$. 
+    \item Can use paraentheses for operator precedence:
+    $r = (\text{Hello}*(\text{world}|\text{class}))$. 
+\end{itemize}
+For convenience, regular expression engines provide a lot of syntax that makes it
+easier to define regular sets (but do not make regular expressions more
+expressive). See any regex cheat sheet. 
+
+A scanner needs to find the words in a language. 
+It checks if a sequence of characters matches 
+some regular expression. It requires a systematic 
+procedure for converting a regular expression
+into code that recognizes when a string matches 
+a regular expression, and a way this is done is 
+with finite automata, represented with transition 
+tables. Recall an automaton is deterministic
+if at each step there is only one possible transition
+to take on a given character. 
+But an automaton can be non-deterministic: at a 
+particular state, there may be
+more than one transition to take on a given 
+character. There may also be $\lambda$-transitions 
+which consume no characters. To run a non-deterministic
+automaton, go through, taking eveyr path, and if 
+any path reaches an accept state then the input is 
+accepted. 
