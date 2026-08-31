@@ -1,7 +1,6 @@
 \documentclass[nobib]{tufte-handout}
 
 \usepackage{amssymb}
-\usepackage{hyperref}
 \usepackage{pgfplots}
 \usepackage[activate={true,nocompatibility},final,tracking=true,kerning=true,spacing=true,factor=1100,stretch=10,shrink=10]{microtype}
 \usepackage{color}
@@ -15,15 +14,11 @@
 \usepackage{booktabs}
 \usepackage{listings}
 \usepackage[edges]{forest}
-\usepackage{caption}
 \usepackage[T1]{fontenc}
 \usepackage{lmodern}
 \usepackage{units}
 \usepackage{fancyvrb}
 \usepackage{multicol}
-\DeclareCaptionFont{white}{\color{white}}
-\DeclareCaptionFormat{listing}{\colorbox{gray}{\parbox{\textwidth}{#1#2#3}}}
-\captionsetup[lstlisting]{format=listing,labelfont=white,textfont=white}
 
 % Set up the images/graphics package
 \usepackage{graphicx}
@@ -83,5 +78,6 @@ The design and construction of compilers and other translators. Topics include c
 \include{chapters/basics}
 \include{chapters/phases}
 \include{chapters/regex}
+\include{chapters/automata}
 
 \end{document}
