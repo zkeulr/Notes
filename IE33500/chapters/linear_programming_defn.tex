@@ -1,0 +1,75 @@
+\subsection{Linear Programming Definition}
+
+The general form of a linear program is given 
+in Equation \ref{eq:genlp}.
+
+\begin{align}
+    &\text{min}_{x} / \text{max}_x &\zeta = c_1x_1 + c_2x_2 + \dots + c_nx_n + c_0 \\
+    &\text{s.t.} &b_1^{\text{L}} \leq a_{1,1} x_1 + a_{1,2}x_2 + \dots + a_{1,n}x_n \leq b_1^{\text{U}} \\
+    &&\vdots \\
+    &&b_m^{\text{L}} \leq a_{m,1}x_1 + a_{m,2}x_2 + \dots + a_{m,n}x_n \leq b_m^{\text{U}} \\
+    &&l_1 \leq x_1 \leq u_1 \\
+    &&\vdots \\
+    &&l_n \leq x_n \leq u_n.
+\end{align}
+\label{eq:genlp}
+
+Definitions for solutions:
+\begin{itemize}
+    \item The variables $x_1, x_2, \dots, x_n$
+        are called \emph{decision variables},
+        and $a$, $b^{\text{L}}$, $b^{\text{U}}$,
+        $c$, $l$, and $u$ are given \emph{parameters}.
+    \item A solution $x = (x_1, x_2, \dots, x_n)$ is a \emph{feasible solution} if it satisfies all
+            constraints. A solution is an \emph{infeasible solution} if it violates
+            any constraint.
+    \item The set of all feasible solutions is called the \emph{feasible region} or
+        \emph{feasible set}.
+    \item $l_i$ and $u_i$ are called the lower bound and upper bound on variable
+        $x_i$, respectively.
+    \item If $l_i$ = $-\infty$ and $u_i = +\infty$, 
+        then $x_i$ is a free or unrestricted variable.
+\end{itemize}
+
+Definitions for constraints:
+\begin{itemize}
+    \item The symbol 's. t.' is short for 'subject to' 
+    or 'such that', which starts
+    the list of constraints.
+    \item $b_j^{\text{L}}$ and $b_j^{\text{U}}$ are called 
+    the lower bound and upper bound on
+    constraint $j$, respectively.
+    \item If $b_j^{\text{L}} = b_j^{\text{U}}$, the constraint is said to be an equality constraint, and
+    can be represented using $=$ sign.
+    \item A constraint can be represented with only one bound. In this case,
+    the other bound is either $b_j^{\text{L}} = -\infty$ or 
+    $b_j^{\text{U}} = +\infty$
+\end{itemize}
+
+Definitions for objectives:
+\begin{itemize}
+    \item The function (1) is the \emph{objective function}.
+    \item $\zeta$ represents the value of the objective 
+    function, called \emph{objective value}. For a given 
+    solution $x = (x_1, x_2, \dots, x_n)$, we use $\zeta(x)$ to
+    denote the objective value of $x$:
+    $\zeta(x) = c_1x_1 + c_2x_2 + \dots + c_nx_n + c_0$
+    \item The symbol $\text{min}$ or $\text{max}$ indicates 
+    that we want to minimize or maximize the objective value $\zeta$. 
+    \item A solution $x^*$ is \emph{optimal} if it is feasible and 
+    $\zeta(x^*) \leq \zeta(x')$ for any other feasible solution $x'$
+    (for minimization).
+    \item The objective value of the optimal solution is called 
+    \emph{optimal value} and is denoted by $\zeta(x^*)$ or $\zeta^*$.
+\end{itemize}
+
+An LP has three possible outcomes:
+\begin{itemize}
+    \item LP is \emph{optimal}, which means that there exists an optimal solution,
+    either uniquely or among infinitely many others.
+    \item LP is \emph{infeasible}, which means that a feasible solution does not
+    exist.
+    \item LP is \emph{unbounded}, which means that the objective value goes to
+    infinity (for maximization). In particular, for any real number $K$,
+    there always exists a feasible solution $x$ such that $\zeta(x) \geq K$.
+\end{itemize}
