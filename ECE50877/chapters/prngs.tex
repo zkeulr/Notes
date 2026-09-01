@@ -1,0 +1,42 @@
+\subsection{Pseudorandom Number Generators}
+
+Cryptography needs a lot of random to be secure. 
+Computers supply a little bit through core temperature, 
+power consumption, mouse movement, and it would be nice 
+to expand those random bits into many more random bits. 
+
+Specifically, given $n$ uniformly random bits 
+$x = x_1|x_2|\dots|x_n$, we want a deterministic
+polynomial-time algorithm $G$ such that $G(x)$
+outputs $l(n)$ bits $y=y_1|y_2|\dots|y_{l(n)}$ 
+with $l(n) > n$ and $y$ looks "as good as" a truly random string. 
+$G: \{0,1\}^n \rightarrow \{0,1\}^{l(n)}$ is called a pseudorandom
+generator (PRG). "As good as" means that the string 
+will pass all statistical tests that a truly random string 
+would pass. You can never generate more information from 
+nothing, so the idea of "as good as" means that no efficient 
+computer can tell $G(x)$ and a truly random string apart. 
+The distributions
+\begin{equation}
+    \left\{x \leftarrow \left\{0,1\right\}^{l(n)}: G(x) \right\}
+\end{equation}
+and
+\begin{equation}
+    \left\{r \leftarrow\{0,1\}^{l(n)}: r\right\}
+\end{equation}
+are "computationally indistinguishable". 
+
+"Computationally indistinguishable" means that no PPT 
+distinguisher algorithm $D$ can tell them apart. 
+
+A deterministic algorithm $G$ is called a pseudorandom
+generator if:
+\begin{itemize}
+    \item $G$ can be computed in polynomial time. 
+    \item $|G(x)| > |x|$
+    \item $\left\{x \leftarrow \{0,1\}^n : G(x) \right\} \approx_c \left\{U_{l(n)}\right\}$
+    where $l(n) = |G(0^n)|$
+\end{itemize}
+$\approx_c$ denotes computational indistinguishability. 
+$U_{l(n)}$ denotes uniform distribution over $\left\{0,1\right\}^{l(n)}$.
+$|G(x) = l(n)|$ is the expansion factor of $G$. 

@@ -1,0 +1,36 @@
+\subsection{Computational Security}
+
+A scheme is $(t, \epsilon)$-secure if any 
+adversary running for time at most $t$ succeeds 
+in breaking the scheme with probability at most 
+$\epsilon$. However, this definition makes 
+no guarantees for after $t$; perhaps the probability
+of an attacker succeeding rises sharply after $t$. 
+
+A private-key encryption scheme with key length 
+$n$ and for an adversary running
+for time $t$, succeeds in breaking the scheme 
+with probability at most $c \frac{t}{2^n}$ (for
+some constant $c$).
+
+A better approach to security is to say a scheme 
+is secure if any \emph{efficient} adversary succeeds in breaking the scheme with at
+most \emph{negligible} probability. 
+
+A function $f$ (from natural numbers to non-negative real numbers) 
+is polynomially bounded (or polynomial) if there is a constant $c$ 
+such that $f(n) < n^c$ for all $n$.
+
+An algorithm $A$ runs in polynomial time if there is a 
+polynomial $p$ s.t. for all inputs
+$x \in \{0, 1\}^*$, $A(x)$ terminates within $p(|x|)$ steps.
+
+An algorithm is efficient if it runs in polynomial time. 
+
+A function $v(n)$ is negligible if for every $c$, there exists some 
+$N$ such that for all $n > N$, $v(n) \leq \frac{1}{n^c}$. 
+
+A scheme is computationally secure if for every 
+probabilistic polynomial-time (PPT) adversary $A$
+carrying out an attack, the probability that $A$ 
+succeeds is negligible. 
