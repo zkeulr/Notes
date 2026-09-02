@@ -73,3 +73,67 @@ An LP has three possible outcomes:
     infinity (for maximization). In particular, for any real number $K$,
     there always exists a feasible solution $x$ such that $\zeta(x) \geq K$.
 \end{itemize}
+
+LPs can be represented in matrix form. The 
+general form corresponding to Equation \ref{eq:genlp}
+is 
+\[
+\begin{aligned}
+\min_{x}\quad & \zeta = c^\top x \\
+\text{s.t.}\quad & b^L \le Ax \le b^U, \\
+& l \le x \le u.
+\end{aligned}
+\]
+
+Here,
+\[
+c =
+\begin{bmatrix}
+c_1\\
+\vdots\\
+c_n
+\end{bmatrix},
+\qquad
+x =
+\begin{bmatrix}
+x_1\\
+\vdots\\
+x_n
+\end{bmatrix},
+\qquad
+A =
+\begin{bmatrix}
+a_{1,1} & \cdots & a_{1,n}\\
+\vdots & \ddots & \vdots\\
+a_{m,1} & \cdots & a_{m,n}
+\end{bmatrix},
+\]
+\[
+b^L =
+\begin{bmatrix}
+b^L_1\\
+\vdots\\
+b^L_m
+\end{bmatrix},
+\qquad
+b^U =
+\begin{bmatrix}
+b^U_1\\
+\vdots\\
+b^U_m
+\end{bmatrix},
+\qquad
+l =
+\begin{bmatrix}
+l_1\\
+\vdots\\
+l_m
+\end{bmatrix},
+\qquad
+u =
+\begin{bmatrix}
+u_1\\
+\vdots\\
+u_m
+\end{bmatrix}.
+\]
