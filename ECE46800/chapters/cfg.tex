@@ -1,0 +1,18 @@
+\subsection{Context-free Grammar}
+
+The structure of a program is recursive:
+If statements nested inside while loops nested inside for loops
+nested inside if statements nested....
+Nesting can be arbitrarily deep. 
+Accounting for this kind of recursive nesting is beyond what
+regular expressions can do and requires context-free 
+grammar (CFG). 
+\begin{itemize}
+    \item Grammar $G = (V_t, V_n, S, P)$
+    \item $V_t$ is the set of terminal symbols
+    \item $Vn$ is the set of variables/non-terminal 
+    symbols
+    \item $S$ is the start symbol
+    \item $P$ = set of production rules
+\end{itemize}
+Programming language syntax is defined with CFGs.

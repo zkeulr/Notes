@@ -1,0 +1,36 @@
+\subsection{Regex Engines}
+
+Using a transition table, it is straightforward 
+to write a program to recognize strings in a regular 
+language. If \texttt{T} is a matrix representing 
+the transition table with state rows and character
+columns, then it might look something like:
+\begin{lstlisting}
+    state = initial_state; //start state of FA
+    while (true) {
+        next_char = getc();
+        if (next_char == EOF) break;
+
+        next_state = T[state][next_char];
+
+        if (next_state == ERROR) break;
+        state = next_state;
+    }
+    if (is_final_state(state))
+        //recognized a valid string
+    else
+        handle_error(next_char);
+\end{lstlisting}
+
+Up until now, we have only considered matching an entire string
+to see if it is in a regular language.
+If we want to match multiple tokens from a file,
+we need to look ahead to see if the next character belongs to the
+current token. If it does, we can continue. 
+If it doesn't, the next character becomes part of 
+the next token. We don't need to care about these 
+details or tie-breaking or anything else when using 
+ANTLR, as it takes care of everything behind the scenes.
+
+After a program is tokenized, we need a parser to 
+determine the structure of the program. 
