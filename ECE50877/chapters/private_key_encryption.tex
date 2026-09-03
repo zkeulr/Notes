@@ -1,0 +1,65 @@
+\subsection{Private Key Encryption}
+
+Recall that for OTPs, $n$ bits of key were required. 
+With PRGs, we can create $n$ bits of "good-enough" 
+random out of fewer than $n$ bits. The secret seed 
+for the PRG takes the place of a key. 
+
+Consider an efficient eavesdropping adversary observing 
+the ciphertext. The encryption scheme is secure if the 
+adversary can guess better than random with negligible $v(n)$
+probability. 
+
+We can define security as having indistinguishable 
+encryptions in the presence of an eavesdropper 
+(EAV-secure) thus: a symmetric encryption scheme
+(Gen, Enc, Dec) is secure if 
+$\forall m_0, m_1:\{\text{Enc}_k(m_0)\} \approx_c \{\text{Enc}_k(m_1)\}$
+for $k \leftarrow^\mathdollar \{0,1\}^n$. 
+
+Consider: 
+\begin{itemize}
+    \item $G$ is a PRG
+    \item $\text{Gen}(1^n): k\leftarrow^\mathdollar \{0,1\}^n$
+    \item $\text{Enc}_k(m) = m \oplus G(k)$
+    \item $\text{Dec}_k(c) = c \oplus G(k)$
+\end{itemize}
+We wish to prove PRG encryption is EAV-secure. 
+We may prove by reduction. We want to show 
+construction $\Pi$ is secure. We want to show 
+that $\Pi$ is secure as long as some underlying 
+problem $X$ is hard. The idea is to show that if 
+you break $\Pi$ then you also solve $X$. By 
+contrapositive, then if $X$ is hard then $\Pi$ 
+is also hard. 
+
+Proofs by reduction follow this template:
+\begin{itemize}
+    \item We want to show a construction $\Pi$ secure 
+    \item We want to show that $\Pi$ is secure as long as some underlying problem $X$ is hard
+    \item An algorithm that "breaks" $\Pi$ can be turned 
+            into an algorithm that "breaks" $X$. 
+    \item Therefore, if breaking $\Pi$ would break 
+    $X$, then $\Pi$ is secure as long as $X$ is hard. 
+    Basically, if breaking $\Pi$ would require an 
+    attacker to break $X$, then breaking $\Pi$ is at 
+    least as hard as breaking $X$
+\end{itemize}
+
+We will study these attack models: 
+\begin{itemize}
+    \item Ciphertext only attack: eavesdropper observes multiple ciphertexts between Alice and Bob, possibly of the same message, and has prior knowledge of the distribution of messages sent (e.g. like letter frequency in the English language).
+    However, ideally an adversary would not be able to tell 
+    if the same message is sent. However, if an algorithm 
+    is deterministic, then the same message produces 
+    the same ciphertext. We will deal with this later
+    \item Known plaintext attack: adversary can see plaintext-ciphertext pairs
+    \item Chosen plaintext attack: adversary picks what messages it can see the encryptions of
+    \item Chosen ciphertext attack: adversary can gather 
+    information by obtaining the decryptions of chosen 
+    ciphertexts.
+\end{itemize}
+
+Model A is stronger than model B, if a cipher secure against 
+A is also secure against B. It is a fact that 
+CTO < KPA < CPA < CCA. 
