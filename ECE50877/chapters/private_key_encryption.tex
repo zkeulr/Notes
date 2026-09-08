@@ -63,3 +63,26 @@ We will study these attack models:
 Model A is stronger than model B, if a cipher secure against 
 A is also secure against B. It is a fact that 
 CTO < KPA < CPA < CCA. 
+
+We want to build a PRG encryption scheme that is CPA-secure. 
+Consider psuedorandom functions, "random-looking" functions. 
+
+A random function $f$ from $n$ bits to $n$ bits is a function 
+selected uniformly at random from all $2^{n2^n}$ functions that 
+map $n$ bits to $n$ bits. 
+
+A psuedorandom function $F$ is indistinguishable from a random 
+uniform function such that every polynomial time distinguisher 
+$D$ that receieves a description of $F$ outputs 1 with "almost" 
+the same probability as when it receieves a description of a 
+random function $f$. 
+
+Let $F$ be a pseudorandom function. 
+\begin{align}
+    \text{Gen}(1^n): k &\leftarrow^\mathdollar \left\{0,1\right\}^n \\
+    \text{Enc}(k,m): \text{Pick} r &\leftarrow^\mathdollar \left\{0,1\right\}^n. \text{Output} (r, m \oplus F_k(r)) \\
+    \text{Dec}(k, (r,c)): \text{Output} c \oplus F_k(r)
+\end{align}
+
+The above construction is a CPA-secure, fixed-length private-key encryption
+scheme for messages of length $n$. 

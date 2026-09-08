@@ -1,0 +1,12 @@
+\subsection{Stream Ciphers}
+
+We have seen thus far how to build EAV-secure and CPA-secure 
+encryptions. However, there are some practical issues, such 
+as that they are only defined for fixed-length inputs/outputs. 
+
+A stream cipher generates output bits on demand. A stream cipher 
+is a pair of deterministic algorithms (\texttt{init}, \texttt{next}).
+\texttt{init} takes input seed $s$ and an initialization vector $IV$ 
+and outputs initial state $st$. \texttt{next} takes current state 
+$st$ and outputs a bit $y$ and updated state $st'$. 
+A stream cipher can be constructed from a pseudorandom function. 
