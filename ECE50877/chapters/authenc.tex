@@ -1,0 +1,37 @@
+\subsection{Authenticated Encryption}
+
+So far we have considered security and 
+integrity seperately. Encryption thus 
+far has not guaranteed integrity, and 
+message authentication codes do not 
+guarantee confidentiality. In fact, 
+in many a scenario, lack of integrity 
+implies lack of confidentiality. 
+
+This leads to the need for 
+\emph{authenticated encryption}, 
+which incorporates a checksum. 
+A simple way to do this is tag 
+the message with a checksum and 
+then encrypt both the message 
+and tag (auth-then-enc). You 
+may also send the MAC for the 
+plaintext with the encrypted message 
+(auth-and-enc). It turns out the 
+only secure method is to encrypt 
+and then compute the MAC for the 
+encrypted message. This method, 
+enc-then-auth, is secure. 
+There are still several vulnerabilities:
+\begin{itemize}
+    \item Re-ordering attack: swap order of messages
+    \item Replay attack: replay a valid ciphertext previously sent
+    \item Message dropping attack: drop some of the messages sent
+    \item Reflection attack: take a 
+    ciphertext from Alice to Bob and 
+    send it back to Alice
+\end{itemize}
+To defeat these vulnerabilities, keep two counters 
+\texttt{ctr}$_{A,B}$, \texttt{ctr}$_{B,C}$ and 
+define a directionality bit $b$. A sends 
+$c = \text{Enc}_k(b_{A,B}|\text{\texttt{ctr}}_{A,B}|m)$.

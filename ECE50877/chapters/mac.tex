@@ -3,3 +3,23 @@
 Encryption ensures confidentiality, 
 but not integrity. A MITM might 
 tamper with the ciphertext. 
+
+A \emph{message authentication code} (MAC) consists 
+of three PPT algorithms (\texttt{Gen}, \texttt{Mac}, \texttt{Verify}),
+such that:
+\begin{itemize}
+    \item \texttt{Gen}$(1^n)$ outputs a key $k$
+    \item \texttt{Mac}$_k(m)$ takes as input a key $k$ and a message $m\in\{0,1\}^*$ and outputs a tag $t$.
+    \item \texttt{Verify}$_k(m,t)$ takes as input a key $k$, a message 
+    $m$, and a tag $t$, and outputs 1 (accept) or 0 (reject)
+\end{itemize}
+
+A MAC allows a recipient to validate that a message 
+was not tampered with and that it was sent by a key holder. We must require
+\begin{itemize}
+    \item Correctness: if MAC comes from the authorized source, it should verify.
+    \item Unforgeability: only authorized source can generate the MAC.
+\end{itemize}
+An attacker can resend previously authenticated message along with its (valid) tag.
+This can be precvented with a nonce like a counter or timestamp.
+
