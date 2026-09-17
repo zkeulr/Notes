@@ -1,0 +1,64 @@
+\section{Hash Functions}
+
+A hash functions $H$ has
+\begin{itemize}
+    \item deterministic mapping from input to output
+    \item input (long) binary strings
+    \item output short fixed-length string (aka message digest)
+\end{itemize}
+
+A good hash function has as few collisions as 
+possible. In data structures we aim to minimize 
+collisions, but in cryptography we must avoid 
+them. Since the range of a hash function is 
+less than the domain (the output string is 
+shorter than the input string), it's 
+impossible to completely avoid collisions, 
+but finding $x_1$, $x_2$ s.t. $H(x_1) = H(x_2)$
+should be computationally infeasible. 
+
+We consider keyed hash functions with the difference 
+that keys are public. 
+\begin{equation}
+    H^s(x) = H(s,x)
+\end{equation}
+A hash function with output length $l(n)$ is a pair 
+of PPT algorithms $(\text{\texttt{Gen}, \texttt{H}})$
+s.t. \texttt{Gen} takes as input a security parameter $1^n$ 
+and outputs a key $s$ and \texttt{H} is a deterministic
+algorithm that takes as input a key $s$ and a string 
+$x \in \left\{0,1\right\}^*$ and outputs a string 
+$H^s(x) \in \{0,1\}^{l(n)}$. 
+
+Collision resistance states that no PPT adversary can find a collision except with
+negligible probability.
+In practice, we use unkeyed hash functions with a fixed 
+output length. Such hash functions are collision resistant 
+for all practical purposes (colliding pairs are unknown and 
+difficult to find). 
+
+For some applications it might make sense to use a weaker notion than collision
+resistance.
+\begin{itemize}
+    \item Preimage resistance: Given $s$ and $y = H^s(x)$ 
+    for a uniform $x$, it is infeasible for a
+        PPT adversary to find a value $x'$ 
+        (equal to $x$ or not) such that $H^s(x') = y$. 
+        In other words, $H^s$ is a one-way function.
+    \item Second-preimage resistance: 
+    Given $s$ and a uniform $x$ it is infeasible 
+    for a PPT adversary to find $x' = x$ such that 
+    $H^s(x') = H^s(x)$.
+\end{itemize}
+
+A collision resistant hash function is also 
+second-preimage resistant.
+
+A second-preimage resistant hash function is also preimage resistant (under certain
+conditions).
+
+Evaluating $H$ with digest length $l$ on 
+$q \approx 1.2 \times 2^{\frac{l}{2}}$ yields a 
+collision with probability $\frac{1}{2}$. 
+For $n$-bit of effective security need digest length of 
+at least $2n$. 
