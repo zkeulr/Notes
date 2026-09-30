@@ -1,0 +1,81 @@
+\section{Theory}
+
+\subsection{Modulus}
+We say $b$ is invertible modulo 
+$N$ if there exists an integer $c$ such that 
+$bc = 1 \mod N$. The multiplicative 
+inverse of $b$ modulo $N$ is unique and 
+usually denoted $b^{-1}$. When $b$ is 
+invertible, we define division as 
+$[a/b \mod N] = [ab^{-1} \mod N]$. 
+
+With integers $b, N$ where $b \geq 1$ 
+and $N > 1$, $b$ is invertible mod $N$ 
+iff $\gcd(b, N) = 1$. 
+
+\subsection{Groups}
+A group is a set of elements $\mathcal{G}$
+with a group operation $\odot$ on two 
+elements, which operates on two elements 
+and returns another element in the group. 
+\begin{equation}
+    \odot: \mathcal{G} \times \mathcal{G} \rightarrow \mathcal{G}
+\end{equation}
+It has the properties of:
+\begin{itemize}
+    \item Closure:
+    \item Identity
+    \item Inverse 
+    \item Associativity
+\end{itemize}
+Abelian groups also have the commutative 
+property. 
+
+$\mathcal{Z}_N = \left\{0, \dots, N - 1\right\}$
+for $N > 1$ is an abelian group with respect 
+to addition modulo $N$. 
+
+The order of a group is the number of 
+elements in that group: for the above example,
+the order is $N$. 
+
+We define $\mathcal{Z}_N^*$ as the set of 
+integers mod $N$ that are relatively prime 
+to $N$: this is an abelian group under 
+multiplication mod $N$. 
+
+Define $\Phi(N) = |\mathcal{Z}_N^*|$ as 
+the order of the group $\mathcal{Z}_N^*$
+($\Phi(N)$ is Euler's totient formula).
+If $N = pq$ with $p$, $q$ distinct primes, 
+then $\Phi(N) = (p-1)(q-1)$.
+
+Given a composite integer $N$, the factoring 
+problem is to find integers $p, q > 1$ s.t.
+$pq=N$. Factoring is a classic hard problem. 
+The smallest prime factor is at most $\sqrt{N}$. 
+Consider the following experiment: choose 
+two uniform $n$-bit integers $x_1$, $x_2$. 
+Set $N = x_1 \times x_2$. Adversary is given 
+$N$ and guesses $x_1'$, $x_2'$. Adversary wins 
+if $N = x_1' \times x_2'$. This is a 
+hard problem if $x_1$, $x_2$ are large primes. 
+This is the basis of RSA. 
+
+Let $\mathcal{G}$ be a finite group 
+of order $m$. Consider the set $<g> = \{g^0, g^1, \dots\}$.
+We saw that $g^m = 1$. Ergo $<g>$ repeats 
+after $i$ terms $<g> = \{g^0, \dots, g^{i - 1}\}$. 
+If there is an element $g \in \mathcal{G}$ with 
+$i = m$, then $<g> = \mathcal{G}$. 
+We call $\mathcal{G}$ a cyclic group and $g$ a 
+generator of $\mathcal{G}$. This means 
+that $\forall h \in \mathcal{G} \exists x \in \{0, \dots, m - 1\}$
+s.t. $h = g^x$. For a cyclic group of 
+order $m$ with generator $g$ we have 
+$\mathcal{G} = <g> = \{g^0, g^1, \dots, g^{m-1}\}$.
+We call $x$ the discrete logarithm of $h$ 
+w.r.t. $g$ and write $x = \log_g h$. 
+For certain groups it's hard to compute 
+the discrete logarithm. This is the basis 
+of Diffie-Hellman problems. 

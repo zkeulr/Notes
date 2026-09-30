@@ -1,0 +1,101 @@
+\section{Practical Constructions}
+
+We have seen private-key schemes constructed from pseudorandom generators,
+functions, and permutations. They can be constructed assuming one-way functions exist.
+This is a core principle in theoretical modern cryptography.
+A one-way function $f : \{0, 1\}^* \rightarrow \{0, 1\}^*$ 
+is easy to compute, but hard to invert.
+The existence of one-way functions is still an open conjecture.
+Assuming one-way functions exist, we can create pseudorandom generators,
+functions, and permutations from them.
+This is of little practical significance currently, since these constructions are far
+less efficient than heuristic methods.
+In practice, we use heuristic constructions instead.
+Heuristic means they cannot be proven secure based on a weaker assumption.
+These constructions have gone through years of public scrutiny and
+cryptoanalysis.
+
+\subsection{Stream Ciphers}
+
+Remember our definition of a stream cipher as a 
+pair of deterministic algorithms 
+(\texttt{Init}, \texttt{Next}):
+\texttt{Init} takes input seed $s$; outputs initial state \texttt{st}.
+\texttt{Next} takes current state \texttt{st} and
+outputs a bit $y$ and updated state \texttt{st'}.
+A stream cipher's output behaves like a PRG (indistinguishable from a uniform
+sequence).
+We can construct a heuristic stream cipher from Linear-Feedback Shift
+Registers (LFSR).
+However, these have a finite number of states and the 
+output periodically repeats. This means that LFSRs are not 
+by themselves secure stream ciphers. 
+To make them secure, we need to add nonlinearity through 
+any of a number of means. 
+
+\subsection{Block Ciphers}
+
+Shannon introduced a paradigm for constructing random-looking permutations.
+Construct permutation $F$ with large block length from smaller random (or
+random-looking) permutations $\{f_i\}$.
+The key for $F$ will describe 16 permutations $f_1, ... , f1_6$ each with block length of
+8 bits (1 byte).
+Given input $x \in \{0, 1\}^{128}$,
+parse as 16 bytes $x_1 ... x_{16}$, then 
+set $F_k(x) = f_1(x_1)|| . . . ||f_{16}(x_{16})$.
+
+We say $\{f_i\}$ introduces confusion into $F$.
+However, $F$ as described is not pseudorandom. 
+If $x$ and $x'$ only differ in first bit, $F_k(x)$ and 
+$F_k(x')$ will only differ in first byte.
+We add a diffusion step to permute (mix) 
+the bits of the output.
+The goal is to spread a local change through the entire block.
+The confusion and diffusion steps are together called a round.
+Rounds are repeated multiple times (also suggested by Shannon).
+
+Substitution-permutation networks (SPN) implement the confusion-diffusion
+paradigm.
+Permutations $\{f_i\}$ are fixed public substitution 
+functions, called an S-box: $f(x) = S(k\oplus x)$.
+An important property of an SPN is that a small change in input must affect
+every bit of the output.
+In SPN, this property translates to a single bit change 
+to input of an S-box changes at least two bits in the 
+output of the S-box, and mixing permutations ensures 
+that bits output by any S-box affect the input to
+multiple S-boxes in the next round. 
+S-boxes must be designed carefully.
+
+Another approach to construct block ciphers: Feistel Networks.
+Each round has a round function $F$ and round key $k$.
+Input to round is divided into two halves $L$ and $R$.
+Output of the round is two values: $(R, L \oplus F_k(R))$.
+To invert, pass output as input to Feistel (with
+keys in reverse order).
+This works regardless of $F$s, they don't even need
+to be invertible.
+Three and four round Feistel can be proven to be secure (assuming F is a
+pseudorandom function).
+
+\subsection{Hash Functions}
+
+Hash functions map larger input sequence to shorter “digest.”
+The main security requirement is collision resistance. 
+We want hash functions that can handle very long inputs.
+It is much easier to construct fixed-length hash functions (compression functions).
+We can extend a fixed-length compression function $h$ into an arbitrary length
+input hash function $H$
+using the Merkle-Damgard Transform.
+We can prove that $H$ is collision resistant if $h$ is collision resistant.
+The Merkle-Damgard transform is used in MD5, SHA-1, and SHA-2.
+We use the Davies-Meyer construction to build compression functions from block 
+ciphers.
+Encrypt the prev compression output from the chain using the message block as
+key, and XOR output.
+Under certain assumptions on the block cipher, the Davies-Meyer construction
+can be shown to be collision resistant, as long as $l$ is sufficiently large.
+
+The newest family, SHA-3, moves away from this construction.
+SHA-3 uses the sponge construction: data is “absorbed” into the sponge, and
+result is “squeezed” out.
