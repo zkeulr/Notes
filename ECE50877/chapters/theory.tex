@@ -78,4 +78,17 @@ We call $x$ the discrete logarithm of $h$
 w.r.t. $g$ and write $x = \log_g h$. 
 For certain groups it's hard to compute 
 the discrete logarithm. This is the basis 
-of Diffie-Hellman problems. 
+of Diffie-Hellman problems, of which are two categories. 
+
+The CDH problem is to compute $DH_g(h1, h2) = g^{(\log_g h_1)(\log_g h_2)}$ 
+from uniform $h_1 = g^{x_1}$ and $h_2 = g^{x_2}$.
+
+The DDH problem is to distinguish $DH_g(h1, h2) = g^{(\log_g h_1)(\log_g h_2)}$ 
+from a uniform group element.
+
+It has been shown that the DDH problem is easy if the group order m has small
+prime factors. A popular option for Diffie-Hellman 
+is to use cyclic group $\mathbb{Z}^*_p$
+for prime $p$ of form
+$p = 2q + 1$ where $q$ is also prime
+(named after Sophie Germain).

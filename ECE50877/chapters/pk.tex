@@ -1,0 +1,44 @@
+\section{Public Key Cryptography}
+
+We explored the use of private-key cryptography to help Alice and Bob
+communicate over an insecure channel.
+Assuming they both hold a shared secret key.
+They can meet up, or use a trusted third party to deliver the key.
+Might work in some cases (e.g. Cold War era “red phone”),
+but what if Alice needs to communicate with many more people? Establishing and
+storing so many private keys will be problematic.
+
+Enter the Diffie-Hellman Key Exchange Protocol.
+In this scheme, they are both capable of 
+generating a shared key based on private secret 
+keys. It goes as follows:
+\begin{itemize}
+    \item Alice and Bob agree on group $\mathbb{G}$ of 
+    order $m$ and generator $g \in \mathbb{G}$
+    (in practice these parameters are standardized).
+    \item Alice computes $k_A = P_B^a = (g^b)^a = g^{ab}$
+    \item Bob computes $k_B = P_A^bb = (g^a)^b = g^{ab}$
+    \item $k_A = k_B$
+\end{itemize}
+The discrete-logarithm problem guarantees that an 
+adversary cannot compute the
+secret values of Alice and Bob $(a, b)$
+from messages communicated $(P_A, P_B)$.
+
+Diffie and Hellman also introduced the notion of public-key cryptography.
+Bob generates a key pair: public key to be disseminated, and secret key to be kept
+private. The public key serves as encryption key, 
+and secret key serves as decryption key.
+
+Public-key encryption is asymmetric. The receiver generates 
+a pair of keys $(pk, sk)$ and the sender uses the public 
+key $pk$ to encrypt, the receiever uses the private 
+key $sk$ to decrypt. 
+
+The channel must be authenticated or a man in the middle 
+may substitute its own public keys and freely decrypt 
+in the middle and re-encrypt going the other way. 
+
+Because the adversary has the public key, they may take 
+any message and encrypt it. Thus any scheme we create should 
+be CPA secure. 
