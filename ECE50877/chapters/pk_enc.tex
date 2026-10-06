@@ -1,0 +1,29 @@
+\section{Public Key Encryption}
+
+One encryption scheme that can be derived from
+DH is El Gamal.
+The El Gamal Encryption Scheme is as follows:
+\begin{itemize}
+    \item \texttt{Gen}: on Group $\mathbb{G}$ of order $q$
+          and generator $g$, choose a uniform $x \in \mathbb{Z}_q$
+          and compute $h = g^x$. Public key is $(\mathbb{G}, q, g, h)$
+          and the private key is $(\mathbb{G}, q, g, x)$.
+    \item \texttt{Enc}: on input public key $pk = (\mathbb{G}, q, g, h)$
+          and message $m \in \mathbb{G}$ choose uniform $y \in \mathbb{Z}_q$
+          and output ciphertext $g^y, h^y\cdot m$.
+    \item \texttt{Dec}: on input private key $sk = (\mathbb{G}, q, g, x)$
+          and ciphertext $(c_1, c_2)$ output $m = \frac{c_2}{c_1^x}$.
+\end{itemize}
+El Gamal encryption is, nicely, multiplicatively homomorphic.
+
+An encryption scheme derived from RSA follows:
+\begin{itemize}
+    \item \texttt{Gen}: run \texttt{GenRSA} to get $(N, e, d)$,
+          public key is $⟨N, e⟩$ and private key is $⟨N, d⟩$
+    \item \texttt{Enc}: on input public key $pk = ⟨N, e⟩$ and message
+          $m \in \mathbb{Z}_N^*$, compute ciphertext $c = [m^e \mod N]$
+    \item \texttt{Dec}: on input private key $sk = ⟨N, d⟩$ and
+          ciphertext $c \in \mathbb{Z}_N^*$ compute the
+          message $m = [c^d \mod N ]$
+\end{itemize}
+
