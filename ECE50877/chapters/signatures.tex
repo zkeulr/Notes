@@ -1,0 +1,57 @@
+\section{Digital Signatures}
+
+Providing privacy is independent from providing integrity. 
+Digital signature schemes are public-key equivalent of MACs 
+in private-key cryptography. A signer uses their private 
+key $sk$ to “sign” a message, and anyone with the singer's 
+public key can verify the integrity of that signature. 
+
+Message authentication codes (MACs) require a shared secret key between parties.
+Digital signatures avoid the need to establish a secret key with every single receiver.
+The sender only computes a single signature that all recipients can verify.
+Digital signatures are publicly verifiable: everyone can check they got the same
+authenticated message.
+Digital signatures are also transferable: signatures can be shown to a third party and
+verified (important for certificates and public key infrastructure as we will see
+later).
+They also provide an important property of non-repudiation:
+if a sender signs a message, they cannot later deny doing that, which is not true for MACs. 
+
+A signature scheme consists of three PPT algorithms: 
+\texttt{Gen}, \texttt{Sign}, \texttt{Verify} such that:
+Key generation algorithm \texttt{Gen} takes as input a security 
+parameter $1^n$ and outputs a pair of keys $(pk, sk)$.
+Signing algorithm \texttt{Sign} takes as input a private key 
+$sk$ and a message $m$ and
+outputs a signature $\sigma = [m^d \mod N]$.
+Verification algorithm \texttt{Verify} takes as input a 
+public key $pk$, a message $m$, and a
+signature $\sigma$. It outputs a bit $b$ either a 1 meaning valid or 0 meaning invalid:
+$b = \text{\texttt{Verify}}_{pk}(m, \sigma)$.
+
+An adversary should not be able to output a forgery 
+even after seeing message/signature pairs. 
+
+Similar to encryption, signature schemes are less efficient than MACs.
+If we need to sign a long message, we can use a 
+hybrid hash-and-sign construction where we generate a hash digest of 
+the message and then sign the hash. 
+
+The RSA signature scheme can be constructed as follows:
+\begin{itemize}
+    \item \texttt{Gen}: on input $1^n$ run \texttt{GenRSA} 
+    to obtain $(N, e, d)$.
+    \item \texttt{Sign}: on input a private key $sk = ⟨N, d⟩$ 
+    and a message $m \in \mathbb{Z}_N^*$, compute signature 
+    $\sigma = [m^d\ mod N]$.
+    \item \texttt{Verify}: on input a public key $pk = ⟨N, e⟩$, 
+    a message $m$, and a signature $\sigma \in \mathbb{Z}_N^*$, 
+    output 1 iff $m = [\sigma^e \mod N]$.
+\end{itemize}
+
+An identification scheme is an interactive protocol that 
+allows one party to prove
+its identity to another.
+We call the parties prover and verifier.
+Verifier has the public key, prover convinces the verifier that it holds the
+corresponding secret key.
