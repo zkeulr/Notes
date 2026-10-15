@@ -1,4 +1,4 @@
-# Purdue Lecture Notes
+# Purdue ECE Lecture Notes
 
 Lecture notes for several classes on Purdue University's ECE track.
 

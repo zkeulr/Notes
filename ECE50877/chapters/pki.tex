@@ -1,0 +1,53 @@
+\section{Public Key Infrastructure}
+
+Public key cryptography is used in many applications:
+\begin{itemize}
+    \item Secure web connections
+    \item Software signing (against malware)
+    \item Secure messaging and email
+    \item Cryptocurrencies and blockchains
+\end{itemize}
+
+How do we know the public key of an entity?
+Through digital certificates!
+
+A digital certificate is a signature binding an entity to a public key
+$\text{cert} = \text{Sign(“Bob's key is $pk_B$”)}$.
+Who will sign this?
+Once a single public key is securely transferred,
+we use it to trust other's keys.
+Specifying such details and other things
+(roles, policies, software, etc) constitute a
+public key infrastructure.
+The simplest PKI consists of a single certificate authority (CA).
+A certificate authority is trusted to issue certificates
+for everyone's public keys. Of course,
+it's ot very practical for everyone to trust the same CA.
+One CA'ss certification process may be insufficient.
+The CA is a single point of failure, but luckily
+we can rely on multiple CAs.
+Bob decides which CAs he wants to issue a certificate.
+Alice, presented with multiple certificates, decides
+which ones she trusts.
+The security is as good as the least-secure CA that Alice trusts.
+Another approach is through certificate chains.
+
+A “root CA” can delegate issuing certificates to other parties.
+Each of these CAs can then issue certs for other parties.
+
+What if someone's private key is leaked who previously got a certificate for their
+public key?
+We need to be able to generate a new private public pair and remove the old
+public key from circulation.
+\begin{itemize}
+    \item Expiration: have certificates expire after a certain date:
+    \item Revocation: have certificates include a serial number, and revoke certificates
+          based on that.
+\end{itemize}
+
+To visit a website securely, each website needs to obtain a host 
+certificate from a CA.
+The certificate includes info such as the domain name, 
+person or organization it
+was issued for, issue date and expiration date of the 
+certificate, and the public key.
