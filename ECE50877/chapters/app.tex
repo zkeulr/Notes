@@ -1,0 +1,54 @@
+\section{System and Network Security Applications}
+
+\subsection{Multi-Factor Authentication}
+
+Multi-Factor Authentication (MFA) is a familiar (and evocative)
+term for Purdue students. 
+
+We require authentication to log into a computer resource (network, device,
+application, etc.).
+User provides a piece of evidence (factor) for their identity: e.g., a password.
+Multi-factor (two-factor) authentication requires two or more pieces of such evidence,
+based on the premise that an attacker is unlikely to obtain both. 
+
+Factors can include physical objects (security token via a USB stick, card),
+something the user knows (password, PIN), something the user is (biometrics such
+as finger print or typing patterns), or location (within a network).
+
+An algorithm is used to create a new
+sequence of characters valid for a
+single login session.
+The generated sequence of characters
+is essentially a one-time pad (OTP).
+
+A secret key is shared between the client and server.
+Each passcode should be used only once,
+some variable to generate a different
+OTP each time user wants to log in.
+\begin{itemize}
+    \item HOTP: HMAC-based one-time pass: variable is a counter.
+    \item TOTP: Time-based one-time pass: variable is the current time.
+\end{itemize}
+TOTP is superior in almost every respect and is widely 
+used in industry. 
+
+\subsection{Universal Second Factor}
+
+Shared secret may be transmitted in plaintext between the client and server.
+Shared secret may be stored in plaintext on server.
+Passcode vulnerable to MITM attack.
+Passcode has to be entered manually, prone to error.
+Battery operated.
+Universal 2nd Factor (U2F) is an open standard that addresses these issues.
+
+U2F device and client (e.g.,
+web browser) are controlled
+by the user, and relying party
+is controlled by the server
+(doing authentication).
+U2F is based on a
+challenge-response protocol.
+U2F device holds a public key
+pair, and signs a challenge
+sent by the server during
+authentication.
