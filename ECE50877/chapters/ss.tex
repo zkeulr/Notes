@@ -1,0 +1,53 @@
+\section{Secret Sharing}
+
+Consider: $s$ is the signature for a peace treaty.
+We need three parties -- a general, a
+judge, and the president -- to all agree
+to sign.
+Have each party receive shares
+$s_1$, $s_2$, $s_3$ of the secret $s$.
+Having one or two of the shares is not
+enough to get $s$
+If all three parties come together, they
+can obtain $s$.
+
+We have a trusted secret broker compute 
+$s_1$ and $s_2$ randomly, and choose 
+$s_3$ s.t. $s_1 \oplus s_2 \oplus s_3 = s$. 
+Out of 3 shares, you need 3 to recover the secret.
+This can be generalized to $n$-out-of-$n$ secret 
+sharing. 
+
+In 1979, Adi Shamir introduced a
+$t$-out-of-$n$ secret sharing scheme where
+any $t$ shares (but no fewer) could 
+reconstruct the shared secret. 
+Shamir reasoned that $t$ points 
+are required to specify a $t - 1$-degree 
+polynomial. However, with $t-1$ points, 
+there are infinitely many polynomials 
+which fit the points. If the secret is, 
+for instance, the coefficients of the 
+polynomial, or the value of the $y$ 
+intercept. For the latter, it suffices 
+to sample the polynomial at random 
+points to generate each of the secret 
+shares. 
+
+One $t$ shares are obtained, we can 
+use Lagrange interpolation to 
+recover the polynomial. 
+Any subset of up to $t - 1$ shares does not leak 
+any information about the secret.
+This scheme is perfectly secure and 
+very flexible! For instance, 
+One can increase $n$ and add new shares 
+without affecting other shares.
+Existing shares can be removed without 
+affecting other shares.
+It is possible to replace all shares 
+(or even change $t$) without changing the secret
+and without revealing any information on the 
+secret by selecting a new polynomial
+$\hat{P}(x)$ and a new set of shares.
+Some parties can be given more than one share.

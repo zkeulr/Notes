@@ -1,0 +1,41 @@
+\section{Threshold}
+
+\subsection{Threshold Encryption}
+
+The secret key scheme
+proposed previously has two issues, namely:
+\begin{itemize}
+    \item The dealer knows the secret key
+    \item The secret key must be assembled to be used
+\end{itemize}
+
+We construct a $t$-out-of-$n$ threshold
+cryptosystem for $n$ parties $P_1, ..., P_n$
+consisting of three algorithms.
+\begin{itemize}
+    \item Distributed key generation: A protocol between parties for generating a public
+          $pk$ key such that party $P_i$ obtains a private share $s_i$ of the private key $sk$
+          corresponding to public key $pk$ (algorithm depends on $t$).
+    \item Encryption: An algorithm that takes as input plaintext message $m$, public key $pk$,
+          and outputs ciphertext $c$ of $m$ under public key $pk$.
+    \item Decryption: A protocol between any $t$ parties $P_{i_1} ,\dots , P_{i_t}$ that on input $c$, private
+          shares $s_{i_1} ,/dots , s_{i_t}$ , outputs plaintext $m$.
+\end{itemize}
+For this scheme, the private key $sk$ remains secret at all times 
+unless $t$ or more parties cheat, and no trusted dealer is 
+required. Threshold El Gamal Encryption meets this scheme. 
+Additionally, Threshold El Gamal Encryption is multaplicatively 
+homomorphic, 
+
+\subsection{Multi-party Computation}
+
+Say we have two secret values $x$ and $y$ which are 
+secret shared using Shamir's secret sharing scheme. 
+We want to compute $z = x + y$ without revealing either 
+value. Each party can compute $z_i = x_i + y_i$ and $t$ 
+of these shares are sufficient to compute $z$, without 
+revealing information about $x$ or $y$ (because only 
+$z_i$ is shared with other parties and not $x_i$ or $y_i$).
+
+Interestingly, while addition can be performed locally, 
+multiplication requires communication. 
