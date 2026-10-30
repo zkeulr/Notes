@@ -38,4 +38,15 @@ revealing information about $x$ or $y$ (because only
 $z_i$ is shared with other parties and not $x_i$ or $y_i$).
 
 Interestingly, while addition can be performed locally, 
-multiplication requires communication. 
+multiplication requires communication. Since the degree 
+of the polynomial becomes $t - 1 + t - 1 = 2t - 2$ and 
+thus we need $2t - 1$ shares to reconstruct the 
+polynomial obtained by multiplying $x$ and $y$. Since 
+we previously specified that no more than $t - 1$ parties 
+would collaborate, we cannot perform multiplication
+without breaking the assumptions. However, parties 
+may engage in a polynomial degree reduction protocol 
+to reduce $z$ to degree $t-1$, which can then be 
+recovered. It's pretty common behavior for one 
+operation to be feasible and another to require collaboration, 
+hence fully homomorphic encryption is a difficult problem. 
