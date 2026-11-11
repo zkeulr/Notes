@@ -1,0 +1,19 @@
+\section{Goldreich-Micali-Wigderson Protocol}
+
+The Goldreich-Micali-Wigderson (GMW) protocol
+is a protocol for Secure Multi-Party Computation
+and zero-knowledge proofs that allows multiple
+parties to jointly evaluate any Boolean circuit
+without revealing their private inputs.
+
+Consider a boolean circuit. Each wire's Boolean value 
+is XOR shared between Alice and Bob. 
+Each party maintains a local copy of the circuit 
+and places its shares on the wires. 
+Gate output is also in XOR-shared format.
+Working out the boolean math we find that 
+in order to calculate an AND gate, for instance, 
+we need to calculate $x_0 \cap y_1$ and $y_0 \cap x_1$. 
+Thus we need oblivious transfer for AND gates (XOR
+gates are free). Having efficient OT constructions 
+is critical to build efficient MPC protocols.
