@@ -1,0 +1,47 @@
+\section{Privacy}
+
+Anonymization (removing name, address, etc) is a typical
+approach for private release. However, there are only
+so many bits of anonimity before an individual is uniquely
+identified. Something as simple as zip code, favorite
+song, and age is enough to uniquely identify almost
+anyone.
+
+If stats are calculated over a small group of people,
+it's easy to make inferences that identify those
+people. One solution is $k$-anonimity, where each
+individual's data is indistinguishable from at least
+$k - 1$ other individuals' data.
+
+Consider a curator who collects a sensitive bit $x_i$ from a
+population of $n$ individuals.
+To preserve privacy and allow the curator to accurately
+infer aggregate statistics, each individual reports
+\begin{equation}
+    y =
+    \begin{cases}
+        x_i     & \text{with probability } \frac{1}{2} + \gamma \\
+        1 - x_i & \text{with probability } \frac{1}{2} - \gamma
+    \end{cases}
+\end{equation}
+for some fixed $\gamma \in [0, \frac{1}{2}]$.
+This allows the curator to accurately estimate the mean
+while still preserving privacy.
+
+Differential Privacy is another approach, which requires
+the chance that the released result will be $C$ is nearly
+the same, whether or not you submit your information.
+
+\begin{itemize}
+    \item DP is closed under-post processing
+    \item For a DP algorithm $M$, any function of the output of $M$
+          is also differentially private
+    \item DP algorithms can be composed. For other privacy mechanisms,
+          releasing two algorithms that are individually
+          private may completely break privacy.
+    \item For DP, level of privacy degrades linearly with the number of times the private
+          data is used
+\end{itemize}
+
+Noising the released data with the Laplace Distribution can also 
+achieve differential privacy. 
